@@ -1,7 +1,7 @@
 # Configs
 ## Dataset loading
 feature_dir = "../../0-dataset/feature_DOS"
-label_dir = "../../0-dataset/labels_adsorption_energy"
+label_dir = "../../0-dataset/label_adsorption_energy"
 
 
 ## Substrate and adsorbate selection
@@ -48,9 +48,9 @@ if __name__ == "__main__":
     print(f"{dataFetcher.numFeature} samples loaded.")
     
     ## append molecule DOS
-    dataFetcher.append_molecule(molecule_dos_dir=os.path.join(feature_dir, "molecule-dos"))  
+    dataFetcher.append_molecule(molecule_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
     
-    ###DEBUG: not working after appedning molecule DOS
+    ###DEBUG: not working after appending molecule DOS
     # dataFetcher.scale_feature(mode="normalization")
     
     ## Load label
