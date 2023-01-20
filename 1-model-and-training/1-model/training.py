@@ -23,7 +23,7 @@ import tensorflow as tf
 import numpy as np
 
 from lib.dataset import Dataset
-from lib.model_multi_channel import cnn_for_dos
+from lib.model import cnn_for_dos
 from lib.record_runtime_info import record_system_info, record_python_package_ver
 
 
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     print(f"{dataFetcher.numFeature} samples loaded.")
     
     ## append molecule DOS
-    dataFetcher.append_molecule(molecule_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
+    dataFetcher.append_adsorbate(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
     
     ###DEBUG: not working after appending molecule DOS
     # dataFetcher.scale_feature(mode="normalization")
@@ -90,9 +90,9 @@ if __name__ == "__main__":
     # Callbacks
     ## Save best model
     model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, monitor="val_loss", save_best_only=True)
-    ## Early stop
+    ## Early Stop
     early_stop_callback = tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=30)
-    ## Reduce learning rate
+    ## Learning Rate Schedule
     reduce_lr_callback = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss", patience=10, factor=0.5, min_lr=0.000000001)
 
     # Training model

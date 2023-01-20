@@ -11,11 +11,12 @@ def cnn_for_dos(input_shape, drop_out_rate):
             shape (int): length of each branch
         
         Notes:
-            expecting (None, 4000, 1) input
+            expecting (None, 4000, channels) input
             
         """
-        # Reshape (4000, ) to (4000, 1)
-        branch_input = tf.keras.layers.Reshape(target_shape=(shape, 1, 1))(branch_input)
+
+        # Reshape (None, 4000, 6) to (None, 4000, 1, 6)
+        branch_input = tf.keras.layers.Reshape(target_shape=(4000, 1, 6))(branch_input)
         
         # 1st Conv layer
         conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(branch_input) 
@@ -38,7 +39,7 @@ def cnn_for_dos(input_shape, drop_out_rate):
         conv_output = tf.keras.layers.Dropout(drop_out_rate)(conv_3)
 
 
-        ## Flatten and dense 
+        ## Flatten and dense
         conv_flat = tf.keras.layers.Flatten()(conv_output)
 
         # Branch output
@@ -47,7 +48,6 @@ def cnn_for_dos(input_shape, drop_out_rate):
         branch_output = tf.keras.layers.Dense(1)(branch_output)
         
         return branch_output
-
 
     # Master input layer
     master_input = tf.keras.Input(shape=input_shape, name="master_input")
@@ -65,7 +65,7 @@ def cnn_for_dos(input_shape, drop_out_rate):
     branch_output_8 = branch((master_input[:, :, 8]), shape=branch_shape, drop_out_rate=drop_out_rate)
 
 
-    # Concatenate branch outputs 
+    # Concatenate branch outputs
     concat_output = tf.keras.layers.Concatenate(axis=-1)([branch_output_0, branch_output_1, branch_output_2, branch_output_3, branch_output_4, branch_output_5, branch_output_6, branch_output_7, branch_output_8])
 
 
