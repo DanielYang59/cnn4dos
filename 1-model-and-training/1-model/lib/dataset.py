@@ -94,7 +94,7 @@ class Dataset:
         """Load labels based on names of feature files.
 
         Args:
-            label_dir (str): label csv files directory
+            label_dir (str): label csv files directory.
 
         """
         # Check args
@@ -124,23 +124,31 @@ class Dataset:
         self.label = labels
 
 
-    def append_molecule(self, molecule_dos_dir, dos_name="dos_up_molecule.npy"):
+    def append_adsorbate(self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"):
+        """Append adsorbate DOS to metal DOS.
+
+        Args:
+            adsorbate_dos_dir (str): adsorbate DOS directory.
+            dos_name (str, optional): name of adsorbate DOS. Defaults to "dos_up_adsorbate.npy".
+            
+        """
         # Check args
-        assert os.path.isdir(molecule_dos_dir)
+        assert os.path.isdir(adsorbate_dos_dir)
         
-       # Loop through dataset and append molecule DOS
+       # Loop through dataset and append adsorbate DOS
         for key, arr in self.feature.items():
-            # Get molecule name
+            # Get adsorbate name
             mol_name = key.split(":")[1]
-            # Load molecule DOS
-            mol_dos_arr = np.load(os.path.join(molecule_dos_dir, mol_name, dos_name))
+            # Load adsorbate DOS
+            mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, dos_name))
             
             # Append to original DOS
-            arr = np.expand_dims(arr, axis=0)  # reshape original DOS to (1, 4000, 9)
+            arr = np.expand_dims(arr, axis=0)  # reshape original DOS from (4000, 9) to (1, 4000, 9)
             arr = np.concatenate([arr, mol_dos_arr])
             
-             
-            # Update 
+            # Swap (6, 4000, 9) to (4000, 9, 6)
             arr = np.swapaxes(arr, 0, 1)
-            arr = np.swapaxes(arr, 1, 2) 
-            self.feature[key] = arr # swap (6, 4000, 9) to (4000, 9, 6)
+            arr = np.swapaxes(arr, 1, 2)
+            
+            # Update feature dict
+            self.feature[key] = arr
