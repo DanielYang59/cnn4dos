@@ -49,12 +49,13 @@ if __name__ == "__main__":
 
     ## Load feature
     dataFetcher.load_feature(feature_dir, substrates, adsorbates, dos_filename="dos_up.npy", 
-                             states={"is"}, )  # initial state only predictive model
-    print(f"{dataFetcher.numFeature} samples loaded.")
+                             states={"is"}, # initial state only predictive model
+                             )  
+    print(f"A total of {dataFetcher.numFeature} samples loaded.")
     
     ## append molecule DOS
     if append_adsorbate_dos:
-        dataFetcher.append_adsorbate(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
+        dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
     
     ###DEBUG: not working after appending molecule DOS: need fix
     # dataFetcher.scale_feature(mode="normalization")
@@ -70,12 +71,12 @@ if __name__ == "__main__":
     dataset = dataset.batch(batch_size)
 
     ## Train-validation split
-    train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio)
+    train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True, seed=0)
 
 
     # Load model
     model = cnn_for_dos(
-        input_shape=(4000, 9, 6),  # (NEDOS, orbital, channels)
+        input_shape=(4000, 9, 6),  # (NEDOS, numOrbital, numChannels)
         drop_out_rate=0.20,
         )
     
@@ -92,14 +93,13 @@ if __name__ == "__main__":
         metrics=[tf.keras.metrics.mean_absolute_error, ],
     )
 
-
     # Callbacks
     ## Save best model
     model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, monitor="val_loss", save_best_only=True)
     ## Early Stop
     early_stop_callback = tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=30)
     ## Learning Rate Schedule
-    reduce_lr_callback = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss", patience=10, factor=0.5, min_lr=0.000000001)
+    reduce_lr_callback = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss", patience=10, factor=0.5, min_lr=1e-8)
 
     # Training model
     model.fit(train_set, validation_data=val_set, 
