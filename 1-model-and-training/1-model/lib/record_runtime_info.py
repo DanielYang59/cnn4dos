@@ -1,4 +1,8 @@
-import platform, socket, re, uuid, json, psutil, logging
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
+import platform, socket, json, psutil, logging
 import subprocess
 
 

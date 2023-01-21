@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+
 model_dir = "../../1-模型和数据集/2-仅初态预测模型/final-model"
 feature_dir = "../../1-模型和数据集/2-仅初态预测模型/final-model/dataset/feature_DOS"
 label_dir = "../../1-模型和数据集/2-仅初态预测模型/final-model/dataset/label_adsorption_energy"

@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
 # Configs
 ## Dataset loading
 feature_dir = "../../0-dataset/feature_DOS"
@@ -50,7 +54,7 @@ if __name__ == "__main__":
     ## append molecule DOS
     dataFetcher.append_adsorbate(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
     
-    ###DEBUG: not working after appending molecule DOS
+    ###DEBUG: not working after appending molecule DOS: need fix
     # dataFetcher.scale_feature(mode="normalization")
     
     ## Load label
