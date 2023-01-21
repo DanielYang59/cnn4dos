@@ -2,6 +2,6 @@ platform: Linux
 platform-release: 4.18.0-372.26.1.el8.nci.x86_64
 platform-version: #1 SMP Mon Sep 19 12:09:59 AEST 2022
 architecture: x86_64
-hostname: gadi-gpu-v100-0035.gadi.nci.org.au
+hostname: gadi-gpu-v100-0047.gadi.nci.org.au
 processor: x86_64
 ram: 377 GB
