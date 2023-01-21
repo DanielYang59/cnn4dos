@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
 # Configs
 ## Dataset loading
 feature_dir = "../../0-dataset/feature_DOS"
@@ -13,6 +17,7 @@ adsorbates = ["1-CO2", "2-COOH", "3-CO", "4-OCH", "11-HER"] # "5-OCH2", "6-OCH3"
 ## Model training configs
 batch_size = 16
 validation_ratio = 0.2
+append_adsorbate_dos = True
 checkpoint_path = "checkpoint"
 
 
@@ -47,10 +52,11 @@ if __name__ == "__main__":
                              states={"is"}, )  # initial state only predictive model
     print(f"{dataFetcher.numFeature} samples loaded.")
     
-    ## Append adsorbate DOS
-    dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
-     
-    ###DEBUG: not working after appending molecule DOS
+    ## append molecule DOS
+    if append_adsorbate_dos:
+        dataFetcher.append_adsorbate(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
+    
+    ###DEBUG: not working after appending molecule DOS: need fix
     # dataFetcher.scale_feature(mode="normalization")
     
     ## Load label

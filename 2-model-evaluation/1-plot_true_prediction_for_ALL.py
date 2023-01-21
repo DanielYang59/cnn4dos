@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-model_dir = "../../1-模型和数据集/2-仅初态预测模型/final-model"
-feature_dir = "../../1-模型和数据集/2-仅初态预测模型/final-model/dataset/feature_DOS"
-label_dir = "../../1-模型和数据集/2-仅初态预测模型/final-model/dataset/label_adsorption_energy"
+
+
+model_dir = "../1-model-and-training/1-model"
+feature_dir = "../0-dataset/feature_DOS"
+label_dir = "../0-dataset/label_adsorption_energy"
 
 
 import os
 import sys
 import numpy as np
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import seaborn as sns

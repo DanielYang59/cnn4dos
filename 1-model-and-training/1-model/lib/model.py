@@ -1,17 +1,20 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
 import tensorflow as tf
 
 
 def cnn_for_dos(input_shape, drop_out_rate):
 
-    def branch(branch_input, shape, drop_out_rate):
+    def branch(branch_input, drop_out_rate):
         """Each branch of the CNN network.
 
         Args:
             branch_input: input of each branch
-            shape (int): length of each branch
         
         Notes:
-            expecting (None, 4000, channels) input
+            expecting (None, 4000, orbitals, channels) input
             
         """
 
