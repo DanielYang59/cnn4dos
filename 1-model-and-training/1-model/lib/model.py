@@ -14,7 +14,7 @@ def cnn_for_dos(input_shape, drop_out_rate):
             branch_input: input of each branch
         
         Notes:
-            expecting (None, 4000, orbitals, channels) input
+            expecting (batch_size, 4000, numOrbitals, numChannels) input
             
         """
 
@@ -56,16 +56,16 @@ def cnn_for_dos(input_shape, drop_out_rate):
     master_input = tf.keras.Input(shape=input_shape, name="master_input")
     
     # Assign input and get output for each branch
-    branch_shape = input_shape[0]
-    branch_output_0 = branch((master_input[:, :, 0]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_1 = branch((master_input[:, :, 1]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_2 = branch((master_input[:, :, 2]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_3 = branch((master_input[:, :, 3]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_4 = branch((master_input[:, :, 4]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_5 = branch((master_input[:, :, 5]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_6 = branch((master_input[:, :, 6]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_7 = branch((master_input[:, :, 7]), shape=branch_shape, drop_out_rate=drop_out_rate)
-    branch_output_8 = branch((master_input[:, :, 8]), shape=branch_shape, drop_out_rate=drop_out_rate)
+    # branch_shape = input_shape[0]
+    branch_output_0 = branch((master_input[:, :, 0]), drop_out_rate=drop_out_rate)
+    branch_output_1 = branch((master_input[:, :, 1]), drop_out_rate=drop_out_rate)
+    branch_output_2 = branch((master_input[:, :, 2]), drop_out_rate=drop_out_rate)
+    branch_output_3 = branch((master_input[:, :, 3]), drop_out_rate=drop_out_rate)
+    branch_output_4 = branch((master_input[:, :, 4]), drop_out_rate=drop_out_rate)
+    branch_output_5 = branch((master_input[:, :, 5]), drop_out_rate=drop_out_rate)
+    branch_output_6 = branch((master_input[:, :, 6]), drop_out_rate=drop_out_rate)
+    branch_output_7 = branch((master_input[:, :, 7]), drop_out_rate=drop_out_rate)
+    branch_output_8 = branch((master_input[:, :, 8]), drop_out_rate=drop_out_rate)
 
 
     # Concatenate branch outputs
