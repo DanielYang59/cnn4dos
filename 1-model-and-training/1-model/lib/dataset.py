@@ -87,7 +87,7 @@ class Dataset:
         for key, arr in self.feature.items():
             if mode == "normalization":
                 # Perform normalize
-                self.feature[key] = normalize(arr, axis=0, norm="max")  
+                self.feature[key] = normalize(arr, axis=0, norm="max")
 
 
     def load_label(self, label_dir):
@@ -124,7 +124,7 @@ class Dataset:
         self.label = labels
 
 
-    def append_adsorbate(self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"):
+    def append_adsorbate_DOS(self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"):
         """Append adsorbate DOS to metal DOS.
 
         Args:
@@ -135,7 +135,7 @@ class Dataset:
         # Check args
         assert os.path.isdir(adsorbate_dos_dir)
         
-       # Loop through dataset and append adsorbate DOS
+        # Loop through dataset and append adsorbate DOS
         for key, arr in self.feature.items():
             # Get adsorbate name
             mol_name = key.split(":")[1]
@@ -152,3 +152,28 @@ class Dataset:
             
             # Update feature dict
             self.feature[key] = arr
+    
+    
+    def add_noise(self, snr):
+        """Add additive Gaussian noise to improve model robustness.
+
+        Args:
+            snr (float): Signal to Noise Ratio
+            
+        Note:
+            experimental function, use with caution
+            
+        """
+        # Check args
+        assert isinstance(snr, float) and snr > 0
+        
+        print("Adding noise is experimental. Use with caution!")
+         
+        # Loop through dataset and add noise
+        for key, arr in self.feature.items():
+            # Calculate noise
+            # Ref: https://stackoverflow.com/questions/64074698/how-to-add-5-gaussian-noise-to-the-signal-data
+            noise = np.random.normal(0, arr.std(), arr.shape) * 0.05
+            
+            # Update feature dict
+            self.feature[key] = arr + noise

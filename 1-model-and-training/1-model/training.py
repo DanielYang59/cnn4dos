@@ -47,9 +47,9 @@ if __name__ == "__main__":
                              states={"is"}, )  # initial state only predictive model
     print(f"{dataFetcher.numFeature} samples loaded.")
     
-    ## append molecule DOS
-    dataFetcher.append_adsorbate(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
-    
+    ## Append adsorbate DOS
+    dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
+     
     ###DEBUG: not working after appending molecule DOS
     # dataFetcher.scale_feature(mode="normalization")
     
