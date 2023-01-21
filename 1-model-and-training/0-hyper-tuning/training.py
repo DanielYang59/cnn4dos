@@ -34,10 +34,10 @@ from lib.record_runtime_info import record_system_info, record_python_package_ve
 
 # Main Loop
 if __name__ == "__main__":
-    # Save Python package version
-    record_python_package_ver()
-    # Save system information
-    record_system_info(logfile="sys_info.log")
+    # # Save Python package version
+    # record_python_package_ver()
+    # # Save system information
+    # record_system_info(logfile="sys_info.log")
     
     
     # Set global random seed
@@ -53,12 +53,14 @@ if __name__ == "__main__":
                              )  
     print(f"A total of {dataFetcher.numFeature} samples loaded.")
     
+    # Normalize DOS
+    dataFetcher.scale_feature(mode="normalization") #DEBUG
+    
+    
     ## append molecule DOS
     if append_adsorbate_dos:
         dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
     
-    ###DEBUG: not working after appending molecule DOS: need fix
-    # dataFetcher.scale_feature(mode="normalization")
     
     ## Load label
     dataFetcher.load_label(label_dir)
@@ -80,16 +82,12 @@ if __name__ == "__main__":
         drop_out_rate=0.20,
         )
     
-    # ## Show model summary
-    # model.summary()
-    # ## Save model figure
-    # tf.keras.utils.plot_model(model, "model.png", show_shapes=True, show_layer_names=True, dpi=300, show_layer_activations=True)
-
 
     # Compile model
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
-        loss=tf.keras.losses.LogCosh(),
+        # optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+        optimizer=tf.keras.optimizers.experimental.RMSprop(learning_rate=0.001),
+        loss=tf.keras.losses.MeanSquaredError(),
         metrics=[tf.keras.metrics.mean_absolute_error, ],
     )
 

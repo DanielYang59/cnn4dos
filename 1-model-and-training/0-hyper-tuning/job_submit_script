@@ -1,10 +1,10 @@
 #!/bin/bash 
-#PBS -N cnn_final
+#PBS -N keras-tuner
 #PBS -l ncpus=24
 #PBS -l ngpus=2
 #PBS -l mem=96GB
 #PBS -l jobfs=1GB
-#PBS -l walltime=11:59:00
+#PBS -l walltime=1:59:00
 #PBS -q gpuvolta
 #PBS -P v88
 #PBS -l storage=gdata/iu57+gdata/v88+gdata/dk92
