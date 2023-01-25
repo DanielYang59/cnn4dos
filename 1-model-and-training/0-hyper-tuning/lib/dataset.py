@@ -56,6 +56,7 @@ class Dataset:
             for i in augmentations:
                 assert isinstance(i, str)
             substrates.extend([f"{i}_aug" for i in substrates])
+            print(f"Augmentation data would be loaded: {augmentations}")
         
         # Update attrib
         self.substrates = substrates

@@ -1,0 +1,20 @@
+##### Config File for CNN Training #####
+
+path:
+  feature_dir: "../../0-dataset/feature_DOS"
+  label_dir: "../../0-dataset/label_adsorption_energy"
+
+
+species:
+  substrates: ["g-C3N4", "nitrogen-graphene", "vacant-graphene"]  # , "C2N", "BN", "BP"
+  adsorbates: ["1-CO2", "2-COOH", "3-CO", "4-OCH", "11-HER"] # "5-OCH2", "6-OCH3", "7-O", "8-OH"
+  append_adsorbate_dos: True
+  load_augmentation: True
+  augmentations: ["0.5", "1.0", "1.5", "2.0", "2.5"] 
+
+
+model_training:
+  preprocessing: "normalization"
+  batch_size: 16
+  validation_ratio: 0.2
+  epochs: 1000

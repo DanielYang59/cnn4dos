@@ -2,33 +2,12 @@
 # -*- coding: utf-8 -*-
 
 
-# Configs
-## Dataset loading
-feature_dir = "../../0-dataset/feature_DOS"
-label_dir = "../../0-dataset/label_adsorption_energy"
-
-
-## Substrate and adsorbate selection
-substrates = ["g-C3N4", "nitrogen-graphene", "vacant-graphene"]  # , "C2N", "BN", "BP"
-adsorbates = ["1-CO2", "2-COOH", "3-CO", "4-OCH", "11-HER"] # "5-OCH2", "6-OCH3", "7-O", "8-OH",
-
-
-## Model training configs
-preprocessing = "normalization"
-batch_size = 16
-validation_ratio = 0.2
-epochs = 1000
-append_adsorbate_dos = True
-load_augmentation = True
-augmentations = ["0.5", "1.0", "1.5", "2.0", "2.5"]
-checkpoint_path = "checkpoint"
-
-
 # Import packages
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import numpy as np
+import yaml
 
 from lib.dataset import Dataset
 from lib.model import cnn_for_dos
@@ -37,6 +16,25 @@ from lib.record_runtime_info import record_system_info, record_python_package_ve
 
 # Main Loop
 if __name__ == "__main__":
+    # Load configs
+    with open("config.yaml") as ymlfile:
+        cfg = yaml.safe_load(ymlfile)
+    ## paths
+    feature_dir = cfg["path"]["feature_dir"]
+    label_dir = cfg["path"]["label_dir"]
+    ## species 
+    substrates = cfg["species"]["substrates"]
+    adsorbates = cfg["species"]["adsorbates"]
+    append_adsorbate_dos = cfg["species"]["append_adsorbate_dos"]
+    load_augmentation = cfg["species"]["load_augmentation"]
+    augmentations = cfg["species"]["augmentations"]
+    ## model training
+    preprocessing = cfg["model_training"]["preprocessing"]
+    batch_size = cfg["model_training"]["batch_size"]
+    validation_ratio = cfg["model_training"]["validation_ratio"]
+    epochs = cfg["model_training"]["epochs"]
+    
+    
     # # Save Python package version
     # record_python_package_ver()
     # # Save system information
@@ -100,7 +98,7 @@ if __name__ == "__main__":
 
     # Callbacks
     ## Save best model
-    model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, monitor="val_loss", save_best_only=True)
+    model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath="checkpoint", monitor="val_loss", save_best_only=True)
     ## Early Stop
     early_stop_callback = tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=30)
     ## Learning Rate Schedule
