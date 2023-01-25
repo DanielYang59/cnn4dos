@@ -16,6 +16,16 @@ from lib.record_runtime_info import record_system_info, record_python_package_ve
 
 # Main Loop
 if __name__ == "__main__":
+    # # Save Python package version
+    # record_python_package_ver()
+    # # Save system information
+    # record_system_info(logfile="sys_info.log")
+    
+    # Set global random seed
+    tf.random.set_seed(0)
+    np.random.seed(0)
+    
+    
     # Load configs
     with open("config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
@@ -35,24 +45,12 @@ if __name__ == "__main__":
     epochs = cfg["model_training"]["epochs"]
     
     
-    # # Save Python package version
-    # record_python_package_ver()
-    # # Save system information
-    # record_system_info(logfile="sys_info.log")
-    
-    
-    # Set global random seed
-    tf.random.set_seed(0)
-    np.random.seed(0)
-    
     # Load dataset
     dataFetcher = Dataset()
 
     ## Load feature
-    dataFetcher.load_feature(feature_dir, substrates, adsorbates, dos_filename="dos_up.npy", 
-                             states={"is"}, # load initial state only
-                             load_augment=load_augmentation, augmentations=augmentations,
-                             )  
+    dataFetcher.load_feature(feature_dir, substrates, adsorbates, dos_filename="dos_up.npy", states={"is"},
+                             load_augment=load_augmentation, augmentations=augmentations)  
     print(f"A total of {dataFetcher.numFeature} samples loaded.")
     
     # Normalize DOS
