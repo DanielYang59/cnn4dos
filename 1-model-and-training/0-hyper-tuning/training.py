@@ -66,8 +66,11 @@ if __name__ == "__main__":
     dataFetcher.load_label(label_dir)
 
     ## Combine feature and label
-    feature = dataFetcher.feature.values()
-    label = dataFetcher.label.values()
+    feature = np.array(list(dataFetcher.feature.values()))
+    label = np.array(list(dataFetcher.label.values()))
+    ### Check input shape from data and from user input
+    input_shape = feature[0].shape
+    print(f"Found input data in {input_shape} shape, (NEDOS, numOrbital, numChannels).")
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
     dataset = dataset.batch(batch_size)
@@ -78,7 +81,7 @@ if __name__ == "__main__":
 
     # Load model
     model = cnn_for_dos(
-        input_shape=(4000, 9, 6),  # (NEDOS, numOrbital, numChannels)
+        input_shape=input_shape,  # (NEDOS, numOrbital, numChannels)
         drop_out_rate=0.20,
         )
     
