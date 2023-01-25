@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 
-import csv
 import os
 import numpy as np
 import pandas as pd
@@ -24,7 +23,7 @@ class Dataset:
         pass
     
     
-    def load_feature(self, path, substrates, adsorbates, dos_filename, keysep=":", states={"is", "fs"}):
+    def load_feature(self, path, substrates, adsorbates, dos_filename, keysep=":", states=("is", "fs"), load_augment=False, augmentations=None):
         """Load DOS dataset feature from given list of dirs.
 
         Args:
@@ -33,7 +32,10 @@ class Dataset:
             adsorbates (list): list of adsorbates to load
             filename (str): name of the DOS file under each dir
             keysep (str): separator for dir and project name in dataset dict
-
+            states (tuple): list of states, "is" for initial state, "fs" for final state
+            load_augment (bool): load augmentation data or not, augmented substrate should end with "_aug"
+            augmentations (list): list of augmentation distances
+            
         Notes:
             1. DOS array in (NEDOS, orbital) shape
             2. feature dict key is "{substrate}{keysep}{adsorbate}{keysep}is/fs" (is for initial state, fs for final state)
@@ -44,6 +46,18 @@ class Dataset:
         assert isinstance(substrates, list)
         assert isinstance(adsorbates, list)
         assert isinstance(dos_filename, str) and dos_filename.endswith(".npy")
+        for state in states:
+            assert state in {"is", "fs"}
+        assert isinstance(load_augment, bool)
+            
+        # Append augmentation to substrates if required
+        if load_augment:
+            assert isinstance(augmentations, list)
+            for i in augmentations:
+                assert isinstance(i, str)
+            substrates.extend([f"{i}_aug" for i in substrates])
+        
+        # Update attrib
         self.substrates = substrates
         self.adsorbates = adsorbates
         
@@ -54,13 +68,18 @@ class Dataset:
             for ads in adsorbates:
                 for state in states:
                     
-                    # Compile path 
+                    # Compile path
                     directory = os.path.join(path, sub, f"{ads}_{state}")
                     assert os.path.isdir(directory)
                     
                     # Loop through all directories to load DOS
                     for folder in os.listdir(directory):
                         if os.path.isdir(os.path.join(directory, folder)) and os.path.exists(os.path.join(directory, folder, dos_filename)):
+                            # Do augmentation distance check for augmented data
+                            if sub.endswith("_aug") and folder.split("_")[-1] not in augmentations:
+                                continue
+                            
+
                             # Compile dict key as "{substrate}{keysep}{adsorbate}{keysep}{state}"
                             key = f"{sub}{keysep}{ads}{keysep}{state}{keysep}{folder}"
 
@@ -158,7 +177,7 @@ class Dataset:
             self.feature[key] = arr
     
     
-    def add_noise(self, snr):
+    def add_Gaussian_noise(self, snr):
         """Add additive Gaussian noise to improve model robustness.
 
         Args:
@@ -166,6 +185,7 @@ class Dataset:
             
         Note:
             experimental function, use with caution
+            DEBUG: add noise by orbital
             
         """
         # Check args
