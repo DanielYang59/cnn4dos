@@ -23,7 +23,7 @@ class Dataset:
         pass
     
     
-    def load_feature(self, path, substrates, adsorbates, dos_filename, keysep=":", states=("is", "fs"), load_augment=False, augmentations=None):
+    def load_feature(self, path, substrates, adsorbates, states=("is", "fs"), spin="up", load_augment=False, augmentations=None, keysep=":"):
         """Load DOS dataset feature from given list of dirs.
 
         Args:
@@ -33,21 +33,23 @@ class Dataset:
             filename (str): name of the DOS file under each dir
             keysep (str): separator for dir and project name in dataset dict
             states (tuple): list of states, "is" for initial state, "fs" for final state
+            spin (str): load spin "up" or "down" DOS, or "both"
             load_augment (bool): load augmentation data or not, augmented substrate should end with "_aug"
             augmentations (list): list of augmentation distances
             
         Notes:
             1. DOS array in (NEDOS, orbital) shape
             2. feature dict key is "{substrate}{keysep}{adsorbate}{keysep}is/fs" (is for initial state, fs for final state)
+            3. Spin up DOS should be named "dos_up.npy", down "dos_down.npy"
 
         """
         # Check args
         assert os.path.isdir(path)
         assert isinstance(substrates, list)
         assert isinstance(adsorbates, list)
-        assert isinstance(dos_filename, str) and dos_filename.endswith(".npy")
         for state in states:
             assert state in {"is", "fs"}
+        assert spin in {"up", "down", "both"}
         assert isinstance(load_augment, bool)
             
         # Append augmentation to substrates if required
@@ -75,7 +77,7 @@ class Dataset:
                     
                     # Loop through all directories to load DOS
                     for folder in os.listdir(directory):
-                        if os.path.isdir(os.path.join(directory, folder)) and os.path.exists(os.path.join(directory, folder, dos_filename)):
+                        if os.path.isdir(os.path.join(directory, folder)) and (os.path.exists(os.path.join(directory, folder, "dos_up.npy")) or os.path.exists(os.path.join(directory, folder, "dos_down.npy"))):
                             # Do augmentation distance check for augmented data
                             if sub.endswith("_aug") and folder.split("_")[-1] not in augmentations:
                                 continue
@@ -85,10 +87,21 @@ class Dataset:
                             key = f"{sub}{keysep}{ads}{keysep}{state}{keysep}{folder}"
 
                             # Parse data as numpy array into dict
-                            arr = np.load(os.path.join(directory, folder, dos_filename))
+                            ## Load spin up
+                            if spin == "up":
+                                arr = np.load(os.path.join(directory, folder, "dos_up.npy"))
+                            elif spin == "down":
+                                arr = np.load(os.path.join(directory, folder, "dos_down.npy"))
+                            else:  # load both spin-up and down
+                                arr_up = np.load(os.path.join(directory, folder, "dos_up.npy"))  # (NEDOS, numOrbital)
+                                arr_down = np.load(os.path.join(directory, folder, "dos_down.npy")) # (NEDOS, numOrbital)
+                                arr = np.stack([arr_up, arr_down], axis=2)  # (NEDOS, numOrbital, 2)
+                                
+                            # Update dict value
                             feature_data[key] = arr  # shape (4000, 9)
                     
         
+        # Update attrib
         self.feature = feature_data
         self.numFeature = len(feature_data)
         self.featureKeySep = keysep
@@ -176,29 +189,3 @@ class Dataset:
             
             # Update feature dict
             self.feature[key] = arr
-    
-    
-    def add_Gaussian_noise(self, snr):
-        """Add additive Gaussian noise to improve model robustness.
-
-        Args:
-            snr (float): Signal to Noise Ratio
-            
-        Note:
-            experimental function, use with caution
-            DEBUG: add noise by orbital
-            
-        """
-        # Check args
-        assert isinstance(snr, float) and snr > 0
-        
-        print("Adding noise is experimental. Use with caution!")
-         
-        # Loop through dataset and add noise
-        for key, arr in self.feature.items():
-            # Calculate noise
-            # Ref: https://stackoverflow.com/questions/64074698/how-to-add-5-gaussian-noise-to-the-signal-data
-            noise = np.random.normal(0, arr.std(), arr.shape) * 0.05
-            
-            # Update feature dict
-            self.feature[key] = arr + noise

@@ -38,18 +38,20 @@ if __name__ == "__main__":
     append_adsorbate_dos = cfg["species"]["append_adsorbate_dos"]
     load_augmentation = cfg["species"]["load_augmentation"]
     augmentations = cfg["species"]["augmentations"]
+    spin = cfg["species"]["spin"] 
     ## model training
     preprocessing = cfg["model_training"]["preprocessing"]
     batch_size = cfg["model_training"]["batch_size"]
     validation_ratio = cfg["model_training"]["validation_ratio"]
     epochs = cfg["model_training"]["epochs"]
     
-    
+     
     # Load dataset
     dataFetcher = Dataset()
 
     ## Load feature
-    dataFetcher.load_feature(feature_dir, substrates, adsorbates, dos_filename="dos_up.npy", states={"is"},
+    dataFetcher.load_feature(feature_dir, substrates, adsorbates, 
+                             states={"is", }, spin=spin,
                              load_augment=load_augmentation, augmentations=augmentations)  
     print(f"A total of {dataFetcher.numFeature} samples loaded.")
     
