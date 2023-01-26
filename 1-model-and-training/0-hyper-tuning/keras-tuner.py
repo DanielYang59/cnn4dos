@@ -2,31 +2,13 @@
 # -*- coding: utf-8 -*-
 
 
-# Configs
-## Dataset loading
-feature_dir = "../../0-dataset/feature_DOS"
-label_dir = "../../0-dataset/label_adsorption_energy"
-
-
-## Substrate and adsorbate selection
-substrates = ["g-C3N4", "nitrogen-graphene", "vacant-graphene"]  # , "C2N", "BN", "BP"
-substrates.extend(["aug-g-C3N4", "aug-nitrogen-graphene", "aug-vacant-graphene"])  # data augmentation
-adsorbates = ["1-CO2", "2-COOH", "3-CO", "4-OCH", "11-HER"] # "5-OCH2", "6-OCH3", "7-O", "8-OH",
-
-
-## Model training configs
-batch_size = 16
-validation_ratio = 0.2
-append_adsorbate_dos = True
-checkpoint_path = "checkpoint"
-
-
 # Import packages
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import keras_tuner
 import tensorflow as tf
 import numpy as np
+import yaml
 
 from lib.dataset import Dataset
 from lib.hp_model import hp_model
@@ -34,23 +16,38 @@ from lib.hp_model import hp_model
 
 # Main Loop
 if __name__ == "__main__":
-
     # Set global random seed
     tf.random.set_seed(0)
     np.random.seed(0)
+    
+    # Load configs
+    with open("config.yaml") as ymlfile:
+        cfg = yaml.safe_load(ymlfile)
+    ## paths
+    feature_dir = cfg["path"]["feature_dir"]
+    label_dir = cfg["path"]["label_dir"]
+    ## species 
+    substrates = cfg["species"]["substrates"]
+    adsorbates = cfg["species"]["adsorbates"]
+    append_adsorbate_dos = cfg["species"]["append_adsorbate_dos"]
+    load_augmentation = cfg["species"]["load_augmentation"]
+    augmentations = cfg["species"]["augmentations"]
+    spin = cfg["species"]["spin"] 
+    ## model training
+    preprocessing = cfg["model_training"]["preprocessing"]
+    batch_size = cfg["model_training"]["batch_size"]
+    validation_ratio = cfg["model_training"]["validation_ratio"]
+    epochs = cfg["model_training"]["epochs"]
+    
     
     # Load dataset
     dataFetcher = Dataset()
 
     ## Load feature
-    dataFetcher.load_feature(feature_dir, substrates, adsorbates, dos_filename="dos_up.npy", 
-                             states={"is"}, # initial state only predictive model
-                             )  
+    dataFetcher.load_feature(feature_dir, substrates, adsorbates, 
+                             states={"is", }, spin=spin,
+                             load_augment=load_augmentation, augmentations=augmentations) 
     print(f"A total of {dataFetcher.numFeature} samples loaded.")
-    
-    # # Normalize DOS
-    # dataFetcher.scale_feature(mode="normalization") 
-    
     
     ## append molecule DOS
     if append_adsorbate_dos:
@@ -67,10 +64,11 @@ if __name__ == "__main__":
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
     dataset = dataset.batch(batch_size)
 
-    ## Train-validation split
+    # Train-validation split
     train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True, seed=0)
 
 
+    # Hyper Tuning with Keras Tuner
     tuner = keras_tuner.RandomSearch(
     hypermodel=hp_model,
     objective="val_mean_absolute_error",
