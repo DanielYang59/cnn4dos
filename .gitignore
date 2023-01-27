@@ -1,3 +1,5 @@
 0-dataset/feature_DOS/z-*
-.DS_store
+.DS_Store
 __pycache__
+
+z-cluster-visualize
