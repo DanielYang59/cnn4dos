@@ -109,7 +109,7 @@ class Dataset:
                             
                             # Zero out first point along NEDOS axis to remove "ghost state"
                             if remove_ghost:
-                                arr[0] = 0
+                                arr[0] = 0.0
                             
                             # Update dict value
                             feature_data[key] = arr  # shape (NEDOS, numOrbital)
