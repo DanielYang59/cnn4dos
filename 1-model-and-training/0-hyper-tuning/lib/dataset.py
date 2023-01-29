@@ -23,19 +23,21 @@ class Dataset:
         pass
     
     
-    def load_feature(self, path, substrates, adsorbates, states=("is", "fs"), spin="up", load_augment=False, augmentations=None, keysep=":"):
+    def load_feature(self, path, substrates, adsorbates, centre_atoms, states=("is", "fs"), spin="up", load_augment=False, augmentations=None, keysep=":", remove_ghost=False):
         """Load DOS dataset feature from given list of dirs.
 
         Args:
             path (str): path to dataset dir
             substrates (list): list of substrates to load
             adsorbates (list): list of adsorbates to load
+            centre_atoms (dict): centre atom index dict (index starts from 1)
             filename (str): name of the DOS file under each dir
             keysep (str): separator for dir and project name in dataset dict
             states (tuple): list of states, "is" for initial state, "fs" for final state
             spin (str): load spin "up" or "down" DOS, or "both"
             load_augment (bool): load augmentation data or not, augmented substrate should end with "_aug"
             augmentations (list): list of augmentation distances
+            remove_ghost (bool): remove ghost state (first point of NEDOS)
             
         Notes:
             1. DOS array in (NEDOS, orbital) shape
@@ -47,10 +49,14 @@ class Dataset:
         assert os.path.isdir(path)
         assert isinstance(substrates, list)
         assert isinstance(adsorbates, list)
+        assert isinstance(centre_atoms, dict)
+        for index in centre_atoms.values():
+            assert isinstance(index, int) and index >= 1
         for state in states:
             assert state in {"is", "fs"}
         assert spin in {"up", "down", "both"}
         assert isinstance(load_augment, bool)
+        assert isinstance(remove_ghost, bool)
             
         # Append augmentation to substrates if required
         if load_augment:
@@ -68,6 +74,9 @@ class Dataset:
         # Import DOS as numpy array
         feature_data = {}
         for sub in substrates:
+            # Get centre atom index from dict
+            centre_atom_index = centre_atoms[sub]
+            
             for ads in adsorbates:
                 for state in states:
                     
@@ -77,7 +86,7 @@ class Dataset:
                     
                     # Loop through all directories to load DOS
                     for folder in os.listdir(directory):
-                        if os.path.isdir(os.path.join(directory, folder)) and (os.path.exists(os.path.join(directory, folder, "dos_up.npy")) or os.path.exists(os.path.join(directory, folder, "dos_down.npy"))):
+                        if os.path.isdir(os.path.join(directory, folder)) and (os.path.exists(os.path.join(directory, folder, f"dos_up_{centre_atom_index}.npy")) or os.path.exists(os.path.join(directory, folder, f"dos_down_{centre_atom_index}.npy"))):
                             # Do augmentation distance check for augmented data
                             if sub.endswith("_aug") and folder.split("_")[-1] not in augmentations:
                                 continue
@@ -89,16 +98,21 @@ class Dataset:
                             # Parse data as numpy array into dict
                             ## Load spin up
                             if spin == "up":
-                                arr = np.load(os.path.join(directory, folder, "dos_up.npy"))
+                                arr = np.load(os.path.join(directory, folder, f"dos_up_{centre_atom_index}.npy"))
                             elif spin == "down":
-                                arr = np.load(os.path.join(directory, folder, "dos_down.npy"))
+                                arr = np.load(os.path.join(directory, folder, f"dos_down_{centre_atom_index}.npy"))
                             else:  # load both spin-up and down
-                                arr_up = np.load(os.path.join(directory, folder, "dos_up.npy"))  # (NEDOS, numOrbital)
-                                arr_down = np.load(os.path.join(directory, folder, "dos_down.npy")) # (NEDOS, numOrbital)
+                                arr_up = np.load(os.path.join(directory, folder, f"dos_up_{centre_atom_index}.npy"))  # (NEDOS, numOrbital)
+                                arr_down = np.load(os.path.join(directory, folder, f"dos_down_{centre_atom_index}.npy")) # (NEDOS, numOrbital)
                                 arr = np.stack([arr_up, arr_down], axis=2)  # (NEDOS, numOrbital, 2)
-                                
+                            
+                            
+                            # Zero out first point along NEDOS axis to remove "ghost state"
+                            if remove_ghost:
+                                arr[0] = 0.0
+                            
                             # Update dict value
-                            feature_data[key] = arr  # shape (4000, 9)
+                            feature_data[key] = arr  # shape (NEDOS, numOrbital)
                     
         
         # Update attrib

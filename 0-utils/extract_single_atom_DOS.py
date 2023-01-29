@@ -9,7 +9,7 @@ import os
 import numpy as np
 
 
-def fetch_dos(source_dir, atom_index, spin="up", remove_ghost=False):
+def fetch_dos(source_dir, atom_index, spin="up"):
     # Check args
     assert spin in {"up", "down", "both"}
     assert isinstance(atom_index, int) and atom_index >= 1
@@ -33,10 +33,6 @@ def fetch_dos(source_dir, atom_index, spin="up", remove_ghost=False):
         
         # Extract selected atom DOS (spd only)
         target_arr = source_arr[atom_index - 1, :, 1:10]
-        
-        # Zero out first point to remove "ghost state"
-        if remove_ghost:
-            target_arr[0] = 0
         
         # Write new DOS array
         np.save(os.path.join(source_dir, f"dos_down_{atom_index}.npy"), target_arr)

@@ -29,6 +29,7 @@ if __name__ == "__main__":
     ## species 
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
+    centre_atoms = cfg["species"]["centre_atoms"]
     append_adsorbate_dos = cfg["species"]["append_adsorbate_dos"]
     load_augmentation = cfg["species"]["load_augmentation"]
     augmentations = cfg["species"]["augmentations"]
@@ -44,7 +45,7 @@ if __name__ == "__main__":
     dataFetcher = Dataset()
 
     ## Load feature
-    dataFetcher.load_feature(feature_dir, substrates, adsorbates, 
+    dataFetcher.load_feature(feature_dir, substrates, adsorbates, centre_atoms,
                              states={"is", }, spin=spin,
                              load_augment=load_augmentation, augmentations=augmentations) 
     print(f"A total of {dataFetcher.numFeature} samples loaded.")
