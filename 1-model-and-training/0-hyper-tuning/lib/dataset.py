@@ -75,7 +75,7 @@ class Dataset:
         feature_data = {}
         for sub in substrates:
             # Get centre atom index from dict
-            centre_atom_index = centre_atoms[sub]
+            centre_atom_index = centre_atoms[sub.replace("_aug", "")]
             
             for ads in adsorbates:
                 for state in states:
