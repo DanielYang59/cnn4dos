@@ -25,6 +25,7 @@ if __name__ == "__main__":
     ## species 
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
+    centre_atoms = cfg["species"]["centre_atoms"]
     load_augmentation = cfg["species"]["load_augmentation"]
     augmentations = cfg["species"]["augmentations"]
     spin = cfg["species"]["spin"] 
@@ -34,7 +35,7 @@ if __name__ == "__main__":
     dataFetcher = Dataset()
 
     ## Load feature
-    dataFetcher.load_feature(feature_dir, substrates, adsorbates, 
+    dataFetcher.load_feature(feature_dir, substrates, adsorbates, centre_atoms, 
                              states={"is", }, spin=spin,
                              load_augment=load_augmentation, augmentations=augmentations)  
     
