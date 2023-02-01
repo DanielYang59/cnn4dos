@@ -66,6 +66,10 @@ class Dataset:
             substrates.extend([f"{i}_aug" for i in substrates])
             print(f"Augmentation data would be loaded: {augmentations}")
         
+        # Warning user if ghost removal activated
+        if remove_ghost:
+            print("Ghost state removal activated.")
+         
         # Update attrib
         self.substrates = substrates
         self.adsorbates = adsorbates

@@ -33,9 +33,10 @@ if __name__ == "__main__":
     append_adsorbate_dos = cfg["species"]["append_adsorbate_dos"]
     load_augmentation = cfg["species"]["load_augmentation"]
     augmentations = cfg["species"]["augmentations"]
-    spin = cfg["species"]["spin"] 
+    spin = cfg["species"]["spin"]
     ## model training
     preprocessing = cfg["model_training"]["preprocessing"]
+    remove_ghost = cfg["model_training"]["remove_ghost"] 
     batch_size = cfg["model_training"]["batch_size"]
     validation_ratio = cfg["model_training"]["validation_ratio"]
     epochs = cfg["model_training"]["epochs"]
@@ -47,6 +48,7 @@ if __name__ == "__main__":
     ## Load feature
     dataFetcher.load_feature(feature_dir, substrates, adsorbates, centre_atoms,
                              states={"is", }, spin=spin,
+                             remove_ghost=remove_ghost, 
                              load_augment=load_augmentation, augmentations=augmentations) 
     print(f"A total of {dataFetcher.numFeature} samples loaded.")
     
@@ -70,7 +72,7 @@ if __name__ == "__main__":
 
 
     # Hyper Tuning with Keras Tuner
-    tuner = keras_tuner.RandomSearch(
+    tuner = keras_tuner.BayesianOptimization(
     hypermodel=hp_model,
     objective="val_mean_absolute_error",
     max_trials=3,
