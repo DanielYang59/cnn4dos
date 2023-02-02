@@ -40,6 +40,7 @@ if __name__ == "__main__":
     batch_size = cfg["model_training"]["batch_size"]
     validation_ratio = cfg["model_training"]["validation_ratio"]
     epochs = cfg["model_training"]["epochs"]
+    sample_size = cfg["model_training"]["sample_size"]
     
     
     # Load dataset
@@ -49,12 +50,17 @@ if __name__ == "__main__":
     dataFetcher.load_feature(feature_dir, substrates, adsorbates, centre_atoms,
                              states={"is", }, spin=spin,
                              remove_ghost=remove_ghost, 
-                             load_augment=load_augmentation, augmentations=augmentations) 
-    print(f"A total of {dataFetcher.numFeature} samples loaded.")
+                             load_augment=load_augmentation, augmentations=augmentations)
+    if sample_size == "ALL":
+        print(f"A total of {dataFetcher.numFeature} samples loaded.")
+    elif isinstance(sample_size, int) and sample_size >= 1:
+        print(f"A total of {dataFetcher.numFeature} samples found, {sample_size} loaded.")
+    else:
+        raise ValueError('sample_size should be "ALL" or an interger.')
     
-    ## append molecule DOS
+    ## Append molecule DOS
     if append_adsorbate_dos:
-        dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))  
+        dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))
     
     
     ## Load label
@@ -65,6 +71,12 @@ if __name__ == "__main__":
     label = dataFetcher.label.values()
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
+    
+    ## Take a subset if required
+    if sample_size != "ALL":
+        dataset = dataset.shuffle(reshuffle_each_iteration=False)
+        dataset = dataset.take(sample_size)
+    
     dataset = dataset.batch(batch_size)
 
     # Train-validation split
