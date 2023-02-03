@@ -87,9 +87,7 @@ if __name__ == "__main__":
     tuner = keras_tuner.BayesianOptimization(
     hypermodel=hp_model,
     objective="val_mean_absolute_error",
-    max_trials=3,
-    executions_per_trial=2,
-    overwrite=True,
+    max_trials=20,
     directory="hp_search",
     project_name="keras-tuner",
     )
