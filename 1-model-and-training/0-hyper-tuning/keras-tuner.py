@@ -71,27 +71,24 @@ if __name__ == "__main__":
     dataFetcher.load_label(label_dir)
 
     ## Combine feature and label
-    feature = dataFetcher.feature.values()
-    label = dataFetcher.label.values()
+    feature = np.array(list(dataFetcher.feature.values()))
+    label = np.array(list(dataFetcher.label.values()))
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
-    dataset = dataset.shuffle(reshuffle_each_iteration=False)
+    dataset = dataset.shuffle(buffer_size=dataFetcher.numFeature, reshuffle_each_iteration=False)
     
     ## Take a subset if required
     if sample_size != "ALL":
         dataset = dataset.take(sample_size)
     
-    dataset = dataset.batch(batch_size)
-
 
     # Train-validation split
-    numTrainBatches = int((1 - validation_ratio) * (dataFetcher.numFeature / batch_size))  # take by number of "batches", not samples
-    train_set = dataset.take(numTrainBatches)
-    val_set = dataset.skip(numTrainBatches)
+    train_set = dataset.take(dataFetcher.numFeature * (1 - validation_ratio))
+    val_set = dataset.skip(dataFetcher.numFeature * (1 - validation_ratio))
     
-
-    # # Legacy train-validation split # NOT available in TensorFlow 2.9
-    # train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True, seed=0)
+    # Batch and prefetch
+    train_set = train_set.batch(batch_size)
+    train_set.prefetch(tf.data.AUTOTUNE)
     
 
     # Hyper Tuning with Keras Tuner
