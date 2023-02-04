@@ -16,10 +16,9 @@ from lib.hp_model import hp_model
 
 # Main Loop
 if __name__ == "__main__":
-    # DEBUG: check running device
+    # Print GPU info
     print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
     print("Device name: ", tf.test.gpu_device_name())
-    
     
     # Set global random seed
     tf.random.set_seed(0)
@@ -92,7 +91,7 @@ if __name__ == "__main__":
     
 
     # # Legacy train-validation split # NOT available in TensorFlow 2.9
-    # train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True, seed=0)  
+    # train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True, seed=0)
     
 
     # Hyper Tuning with Keras Tuner
