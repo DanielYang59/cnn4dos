@@ -4,18 +4,23 @@
 
 # Import packages
 import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-import keras_tuner
-import tensorflow as tf
 import numpy as np
 import yaml
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+import tensorflow as tf
+import keras_tuner
 
 from lib.dataset import Dataset
 from lib.hp_model import hp_model
 
 
 # Main Loop
-if __name__ == "__main__":    
+if __name__ == "__main__":
+    # DEBUG: check running device
+    print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+    print("Device name: ", tf.test.gpu_device_name())
+    
+    
     # Set global random seed
     tf.random.set_seed(0)
     np.random.seed(0)
@@ -71,17 +76,24 @@ if __name__ == "__main__":
     label = dataFetcher.label.values()
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
+    dataset = dataset.shuffle(reshuffle_each_iteration=False)
     
     ## Take a subset if required
     if sample_size != "ALL":
-        dataset = dataset.shuffle(reshuffle_each_iteration=False)
         dataset = dataset.take(sample_size)
     
     dataset = dataset.batch(batch_size)
 
-    # Train-validation split
-    train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True, seed=0)
 
+    # Train-validation split
+    numTrainBatches = int((1 - validation_ratio) * (dataFetcher.numFeature / batch_size))  # take by number of "batches", not samples
+    train_set = dataset.take(numTrainBatches)
+    val_set = dataset.skip(numTrainBatches)
+    
+
+    # # Legacy train-validation split # NOT available in TensorFlow 2.9
+    # train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True, seed=0)  
+    
 
     # Hyper Tuning with Keras Tuner
     tuner = keras_tuner.Hyperband(
