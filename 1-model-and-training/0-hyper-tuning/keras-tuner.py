@@ -15,7 +15,7 @@ from lib.hp_model import hp_model
 
 
 # Main Loop
-if __name__ == "__main__":
+if __name__ == "__main__":    
     # Set global random seed
     tf.random.set_seed(0)
     np.random.seed(0)
@@ -84,12 +84,10 @@ if __name__ == "__main__":
 
 
     # Hyper Tuning with Keras Tuner
-    tuner = keras_tuner.BayesianOptimization(
+    tuner = keras_tuner.Hyperband(
     hypermodel=hp_model,
     objective="val_mean_absolute_error",
-    max_trials=20,
     directory="hp_search",
-    project_name="keras-tuner",
     )
     print(tuner.search_space_summary())
     
