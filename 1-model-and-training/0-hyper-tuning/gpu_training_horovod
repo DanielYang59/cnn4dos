@@ -28,11 +28,13 @@ done
 module use /g/data/dk92/apps/Modules/modulefiles
 module load NCI-ai-ml/22.08
 
-# Print nodeID for gpustat connection
-echo "Node ID: `uniq $PBS_NODEFILE`" > tunerlog
-
-
 # Run Horovod
 horovod.ini.sh
 horovodrun -np ${PBS_NGPUS} --gloo -H ${host_flag} -p 1212 \
-	python3 keras-tuner.py >> tunerlog 2>&1
+	python3 keras-tuner.py > tunerlog 2>&1
+
+
+# GPU monitoring
+# Ref: https://opus.nci.org.au/display/DAE/Gpustat+-+Multinode+GPU+monitoring
+# module load gpustat/1.0
+# gpustat-run <job_no>.gadi-pbs
