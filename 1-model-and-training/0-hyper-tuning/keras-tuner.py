@@ -75,35 +75,39 @@ if __name__ == "__main__":
     label = np.array(list(dataFetcher.label.values()))
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
-    dataset = dataset.shuffle(buffer_size=dataFetcher.numFeature, reshuffle_each_iteration=False)
-    
+   
     ## Take a subset if required
     if sample_size != "ALL":
+        dataset = dataset.shuffle(buffer_size=dataFetcher.numFeature, reshuffle_each_iteration=False)
         dataset = dataset.take(sample_size)
     
-
     # Train-validation split
-    train_set = dataset.take(dataFetcher.numFeature * (1 - validation_ratio))
-    val_set = dataset.skip(dataFetcher.numFeature * (1 - validation_ratio))
-    
+    train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True)
+
     # Batch and prefetch
-    train_set = train_set.batch(batch_size)
-    train_set.prefetch(tf.data.AUTOTUNE)
+    train_set = train_set.batch(batch_size=batch_size) 
+    train_set = train_set.prefetch(tf.data.AUTOTUNE)
     
+    val_set = val_set.batch(batch_size)
+    val_set = val_set.prefetch(tf.data.AUTOTUNE)
+
 
     # Hyper Tuning with Keras Tuner
-    tuner = keras_tuner.Hyperband(
-    hypermodel=hp_model,
-    objective="val_mean_absolute_error",
-    directory="hp_search",
-    )
-    print(tuner.search_space_summary())
+    tuner = keras_tuner.RandomSearch(
+        hypermodel=hp_model,
+        max_trials=10,
+        # executions_per_trial=2,
+        overwrite=True,
+        objective="mean_absolute_error",
+        directory="hp_search",
+        )
+    print("search space: ", tuner.search_space_summary())
     
     
-    tuner.search(train_set, validation_data=val_set, epochs=300, 
+    tuner.search(train_set, validation_data=val_set, 
+                 epochs=300,
                  verbose=2,
                  callbacks=[tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=25),
-                            
                             ],
                  )
     

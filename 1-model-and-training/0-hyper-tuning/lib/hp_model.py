@@ -91,8 +91,8 @@ def hp_model(hp, input_shape=(4000, 9, 6), drop_out_rate=0.2):
     
     # Compile model
     model.compile(
-        # optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
-        optimizer=tf.keras.optimizers.experimental.RMSprop(learning_rate=hp_learning_rate),
+        optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=hp_learning_rate),
+        # optimizer=tf.keras.optimizers.experimental.RMSprop(learning_rate=hp_learning_rate),
         loss=tf.keras.losses.MeanSquaredError(),
         metrics=[tf.keras.metrics.mean_absolute_error, ],
     )
