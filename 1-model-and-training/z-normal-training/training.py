@@ -6,19 +6,19 @@
 import os
 import numpy as np
 import yaml
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+# os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
 
 from lib.dataset import Dataset
-from lib.hp_model import hp_model
+from lib.model import cnn_for_dos
 
 
 # Main Loop
 if __name__ == "__main__":
-    # Print GPU info
-    print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
-    print("Device name: ", tf.test.gpu_device_name())
+    # # Print GPU info
+    # print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+    # print("Device name: ", tf.test.gpu_device_name())
     
     # Set global random seed
     tf.random.set_seed(0)
@@ -75,15 +75,17 @@ if __name__ == "__main__":
     label = np.array(list(dataFetcher.label.values()))
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
+    dataset = dataset.shuffle(buffer_size=dataFetcher.numFeature, reshuffle_each_iteration=False)
    
     ## Take a subset if required
     if sample_size != "ALL":
-        dataset = dataset.shuffle(buffer_size=dataFetcher.numFeature, reshuffle_each_iteration=False)
         dataset = dataset.take(sample_size)
     
     # Train-validation split
-    train_set, val_set = tf.keras.utils.split_dataset(dataset, right_size=validation_ratio, shuffle=True)
-
+    train_size = int(dataFetcher.numFeature * (1 - validation_ratio))
+    train_set = dataset.take(train_size)
+    val_set = dataset.skip(train_size)
+    
     # Batch and prefetch
     train_set = train_set.batch(batch_size=batch_size) 
     train_set = train_set.prefetch(tf.data.AUTOTUNE)
@@ -92,24 +94,34 @@ if __name__ == "__main__":
     val_set = val_set.prefetch(tf.data.AUTOTUNE)
 
 
-    # Hyper Tuning with Keras Tuner
-    tuner = keras_tuner.RandomSearch(
-        hypermodel=hp_model,
-        max_trials=10,
-        # executions_per_trial=2,
-        overwrite=True,
-        objective="mean_absolute_error",
-        directory="hp_search",
+    # Load model
+    model = cnn_for_dos(
+        input_shape=(4000, 9, 6),  # (NEDOS, numOrbital, numChannels)
+        drop_out_rate=0.25,
         )
-    print("search space: ", tuner.search_space_summary())
     
+     # Compile model
+    model.compile(
+        optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=0.0015),
+        # optimizer=tf.keras.optimizers.experimental.RMSprop(learning_rate=0.001),
+        loss=tf.keras.losses.MeanSquaredError(),
+        metrics=[tf.keras.metrics.mean_absolute_error, ],
+    )
     
-    tuner.search(train_set, validation_data=val_set, 
-                 epochs=300,
-                 verbose=2,
-                 callbacks=[tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=25),
-                            ],
-                 )
-    
-    print(tuner.results_summary())
+    # Callbacks
+    ## Save best model
+    model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(filepath="checkpoint", monitor="val_loss", save_best_only=True)
+    ## Early Stop
+    early_stop_callback = tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=50)
+    ## Learning Rate Schedule
+    reduce_lr_callback = tf.keras.callbacks.ReduceLROnPlateau(monitor="val_loss", patience=10, factor=0.5, min_lr=1e-6)
+
+    # Training model
+    model.fit(train_set, validation_data=val_set, epochs=epochs,
+              verbose=2, 
+              callbacks=[reduce_lr_callback,
+                         early_stop_callback, 
+                         # model_checkpoint_callback,
+                         ],
+              )
     

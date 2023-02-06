@@ -2,5 +2,7 @@
 .DS_Store
 __pycache__
 
+1-model-and-training/1-hyper-tune/hp_search
+
 z-cluster-visualize
 0-utils/collect-energy.py
