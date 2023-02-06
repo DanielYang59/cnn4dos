@@ -99,7 +99,7 @@ if __name__ == "__main__":
         hypermodel=hp_model,
         max_epochs=100,
         factor=3,
-        # overwrite=True,
+        overwrite=True,
         objective="val_mean_absolute_error",
         directory="hp_search",
         )

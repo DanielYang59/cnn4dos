@@ -6,8 +6,8 @@ import tensorflow as tf
 import keras_tuner
 
 
-def hp_model(hp, input_shape=(4000, 9, 6), drop_out_rate=0.2):
-
+def hp_model(hp, input_shape=(4000, 9, 6)):
+    
     def branch(branch_input, drop_out_rate):
         """Each branch of the CNN network.
 
@@ -52,21 +52,41 @@ def hp_model(hp, input_shape=(4000, 9, 6), drop_out_rate=0.2):
         branch_output = tf.keras.layers.Dense(1)(branch_output)
         
         return branch_output
-
+    
+    
+    ############################## Hyper Tuning ##########################
+    hp_learning_rate = hp.Float("learning_rate", min_value=1e-4, max_value=1e-2, sampling="log")
+    hp_drop_out_rate = hp.Float("drop_out_rate", min_value=0.0, max_value=0.9)
+    
+    # Master Layer
+    hp_master_dense_units = hp.Choice("hp_master_dense_units", [4, 8, 16, 32, 64, 128, 256])
+    hp_master_activation_function = hp.Choice("hp_master_act_func", ["linear", "relu"])
+    
+    
+    # Branch 
+    
+    
+    
+    
+    
+    ############################## Hyper Tuning Ends #####################
+    
+    
+    
     # Master input layer
     master_input = tf.keras.Input(shape=input_shape, name="master_input")
     
     # Assign input and get output for each branch
     # branch_shape = input_shape[0]
-    branch_output_0 = branch((master_input[:, :, 0]), drop_out_rate=drop_out_rate)
-    branch_output_1 = branch((master_input[:, :, 1]), drop_out_rate=drop_out_rate)
-    branch_output_2 = branch((master_input[:, :, 2]), drop_out_rate=drop_out_rate)
-    branch_output_3 = branch((master_input[:, :, 3]), drop_out_rate=drop_out_rate)
-    branch_output_4 = branch((master_input[:, :, 4]), drop_out_rate=drop_out_rate)
-    branch_output_5 = branch((master_input[:, :, 5]), drop_out_rate=drop_out_rate)
-    branch_output_6 = branch((master_input[:, :, 6]), drop_out_rate=drop_out_rate)
-    branch_output_7 = branch((master_input[:, :, 7]), drop_out_rate=drop_out_rate)
-    branch_output_8 = branch((master_input[:, :, 8]), drop_out_rate=drop_out_rate)
+    branch_output_0 = branch((master_input[:, :, 0]), drop_out_rate=hp_drop_out_rate)
+    branch_output_1 = branch((master_input[:, :, 1]), drop_out_rate=hp_drop_out_rate)
+    branch_output_2 = branch((master_input[:, :, 2]), drop_out_rate=hp_drop_out_rate)
+    branch_output_3 = branch((master_input[:, :, 3]), drop_out_rate=hp_drop_out_rate)
+    branch_output_4 = branch((master_input[:, :, 4]), drop_out_rate=hp_drop_out_rate)
+    branch_output_5 = branch((master_input[:, :, 5]), drop_out_rate=hp_drop_out_rate)
+    branch_output_6 = branch((master_input[:, :, 6]), drop_out_rate=hp_drop_out_rate)
+    branch_output_7 = branch((master_input[:, :, 7]), drop_out_rate=hp_drop_out_rate)
+    branch_output_8 = branch((master_input[:, :, 8]), drop_out_rate=hp_drop_out_rate)
 
 
     # Concatenate branch outputs
@@ -75,18 +95,16 @@ def hp_model(hp, input_shape=(4000, 9, 6), drop_out_rate=0.2):
 
     # Master output layer
     master_flat = tf.keras.layers.Flatten()(concat_output) 
-    master_output = tf.keras.layers.Dense(32)(master_flat)
-    master_output = tf.keras.layers.Dense(16)(master_output) 
+    master_output = tf.keras.layers.Dense(hp_master_dense_units, activation=hp_master_activation_function)(master_flat)
+    master_output = tf.keras.layers.Dense(hp_master_dense_units/2, activation=hp_master_activation_function)(master_output) 
     master_output = tf.keras.layers.Dense(1)(master_output)
+
 
     # Assemble model
     model = tf.keras.Model(inputs=master_input,
                            outputs=master_output,
-                           name="CNN4DOS",
+                           name="CNN4DOS_hypermodel",
                            )
-    
-    # Compile hyper learning rate
-    hp_learning_rate = hp.Float("lr", min_value=1e-4, max_value=1e-2, sampling="log")
     
     
     # Compile model
