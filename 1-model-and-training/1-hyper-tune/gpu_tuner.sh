@@ -4,7 +4,7 @@
 #PBS -l ngpus=1
 #PBS -l mem=96GB
 #PBS -l jobfs=1GB
-#PBS -l walltime=1:00:00
+#PBS -l walltime=12:00:00
 #PBS -q gpuvolta
 #PBS -P iu57
 #PBS -l storage=gdata/iu57+gdata/v88+gdata/dk92
