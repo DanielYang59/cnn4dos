@@ -8,10 +8,15 @@ labels.npy
 features.npy
 
 
-# Ignore folders still working on 
+# Ignore supportive information in dataset
+0-dataset/feature_DOS/z-*
+
+
+# Ignore hyper tuning 
 1-model-and-training/1-hyper-tune/hp_search  # still tuning hp search
 1-model-and-training/z-normal-training/tblogs  # still trying TB
 
 # Ignore unfinished or 
 z-cluster-visualize
+
 0-utils/collect-energy.py
