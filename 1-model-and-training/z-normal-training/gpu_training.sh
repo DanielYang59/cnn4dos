@@ -2,7 +2,7 @@
 #PBS -N test_gputraining
 #PBS -l ncpus=12
 #PBS -l ngpus=1
-#PBS -l mem=64GB
+#PBS -l mem=96GB
 #PBS -l jobfs=1GB
 #PBS -l walltime=0:30:00
 #PBS -q gpuvolta
