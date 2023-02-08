@@ -3,8 +3,8 @@
 #PBS -l ncpus=12
 #PBS -l ngpus=1
 #PBS -l mem=96GB
-#PBS -l jobfs=1GB
-#PBS -l walltime=12:00:00
+#PBS -l jobfs=50GB
+#PBS -l walltime=24:00:00
 #PBS -q gpuvolta
 #PBS -P iu57
 #PBS -l storage=gdata/iu57+gdata/v88+gdata/dk92
@@ -27,3 +27,4 @@ python3 keras-tuner.py > tunerlog 2>&1
 
 # GPU monitoring
 # Ref: https://opus.nci.org.au/display/DAE/Gpustat+-+Multinode+GPU+monitoring
+

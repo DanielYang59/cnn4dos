@@ -10,8 +10,8 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
 
+from hp_model import hp_model
 from lib.dataset import Dataset
-from lib.hp_model import hp_model
 
 
 # Main Loop
@@ -110,17 +110,17 @@ if __name__ == "__main__":
     # Hyper Tuning with Keras Tuner
     tuner = keras_tuner.Hyperband(
         hypermodel=hp_model,
-        max_epochs=200,#DEBUG: how to set this
+        max_epochs=200,
         factor=3,
-        overwrite=True,  # DEBUG
+        overwrite=False,
         objective="val_mean_absolute_error",
         directory="hp_search",
         )
     print("search space: ", tuner.search_space_summary())
     
     
-    tuner.search(train_set, validation_data=val_set, 
-                 epochs=1000,  #DEBUG: how to set this
+    tuner.search(train_set, validation_data=val_set,
+                 epochs=10000,
                  verbose=2,
                  callbacks=[tf.keras.callbacks.EarlyStopping(monitor="val_mean_absolute_error", patience=25),
                             ],
