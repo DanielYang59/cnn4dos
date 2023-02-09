@@ -21,34 +21,30 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
 
         # Reshape (None, 4000, 6) to (None, 4000, 1, 6)
         branch_input = tf.keras.layers.Reshape(target_shape=(4000, 1, 6))(branch_input)
+
+
+        # Dynamic amount of ConV blocks
+        for i in range(hp_branch_numConvBlocks):
+            for j in range(hp_branch_primary_numConvLayers):
+                ## Primary ConV blocks
+                conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_primary_kernel_size, 1), activation="relu", padding="same")(conv_x)
+            
+            
+            ## Ending ConV block
+            conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_ending_kernel_size, 1), (2, 1), activation="relu", padding="same")(conv_x)
+            
+            if hp_branch_include_pooling:
+                conv_x = tf.keras.layers.AveragePooling2D(pool_size=(hp_branch_pool_size, 1), padding="same")(conv_x)
+            
+            conv_x = tf.keras.layers.Dropout(drop_out_rate)(conv_x)
         
-        # 1st Conv layer
-        conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_kernel_size, 1), activation="relu", padding="same")(branch_input) 
-        conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_kernel_size, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Conv2D(numFilters, (8, 1), (2, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Dropout(drop_out_rate)(conv_x)
-
-
-        # 2nd Conv layer
-        conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_kernel_size, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_kernel_size, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Conv2D(numFilters, (8, 1), (2, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Dropout(drop_out_rate)(conv_x)
-
-
-        # 3rd Conv layer
-        conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_kernel_size, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_kernel_size, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Conv2D(numFilters, (8, 1), (2, 1), activation="relu", padding="same")(conv_x)
-        conv_x = tf.keras.layers.Dropout(drop_out_rate)(conv_x)
-
 
         ## Flatten and dense
         conv_flat = tf.keras.layers.Flatten()(conv_x)
 
         # Branch output
-        branch_output = tf.keras.layers.Dense(hp_branch_dense_units, activation="relu")(conv_flat)
-        branch_output = tf.keras.layers.Dense(hp_branch_dense_units/2, activation="relu")(branch_output)
+        branch_output = tf.keras.layers.Dense(hp_branch_dense_units, activation=hp_branch_dense_activation_func)(conv_flat)
+        branch_output = tf.keras.layers.Dense(hp_branch_dense_units/2, activation=hp_branch_dense_activation_func)(branch_output)
         branch_output = tf.keras.layers.Dense(1)(branch_output)
         
         return branch_output
@@ -59,22 +55,39 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
     # hp_learning_rate = hp.Float("learning_rate", min_value=1e-4, max_value=1e-2, sampling="log")
     # hp_drop_out_rate = hp.Float("drop_out_rate", min_value=0.1, max_value=0.5)
     hp_learning_rate = hp.Fixed("hp_learning_rate", value=0.001)
-    hp_drop_out_rate = hp.Fixed("hp_drop_out_rate", value=0.3) 
-    
+    hp_drop_out_rate = hp.Fixed("hp_drop_out_rate", value=0.3)
+     
      
     # Master Layer
-    hp_master_1st_dense_units = hp.Choice("hp_master_1st_dense_units", [64, 128, 256, 512, 1024])
-    hp_master_2nd_dense_units = hp.Choice("hp_master_2nd_dense_units", [64, 128, 256, 512, 1024])
-     
+    hp_master_1st_dense_units = hp.Choice("hp_master_1st_dense_units", [128, 256, 512])
+    hp_master_2nd_dense_units = hp.Choice("hp_master_2nd_dense_units", [256, 512, 1024, 2048])
     hp_master_3rd_dense_layer = hp.Boolean("hp_master_3rd_dense_layer", default=False)
-    # hp_master_activation_function = hp.Choice("hp_master_act_func", ["linear", "relu"])  # relu seems to work better than linear
+    # hp_master_activation_function = hp.Choice("hp_master_act_func", ["tanh", "relu", "sigmoid"])
     hp_master_activation_function = hp.Fixed("hp_master_activation_function", value="relu")  
     
     
     # Branch
-    hp_numFilters = hp.Int("hp_numFilters", min_value=2, max_value=128, sampling="log")
-    hp_branch_kernel_size = hp.Int("hp_branch_kernel_size", min_value=2, max_value=32, step=2) 
+    # hp_branch_dense_activation_func = hp.Choice("hp_branch_dense_activation_func", ["tanh", "relu", "sigmoid"]) 
+    hp_branch_dense_activation_func = hp.Fixed("hp_branch_dense_activation_func", value="tanh")  
+    hp_numFilters = hp.Int("hp_numFilters", min_value=8, max_value=64)
+    # hp_numFilters = hp.Fixed("hp_numFilters", value=12)
+    hp_branch_primary_kernel_size = hp.Int("hp_branch_primary_kernel_size", min_value=2, max_value=32, step=2)
+    # hp_branch_primary_kernel_size = hp.Fixed("hp_branch_primary_kernel_size", value=22)
+    hp_branch_ending_kernel_size = hp.Int("hp_branch_ending_kernel_size", min_value=2, max_value=32, step=2)
+    hp_branch_primary_numConvLayers = hp.Int("hp_branch_primary_numConvLayers", min_value=1, max_value=16)
+    
+    
+    hp_branch_numConvBlocks = hp.Int("hp_branch_numConvBlocks", min_value=1, max_value=16)
+    
+    
+    hp_branch_include_pooling = hp.Boolean("hp_branch_include_pooling", default=False)
+    if hp_branch_include_pooling:
+        hp_branch_pool_size = hp.Int("hp_branch_pool_size", min_value=2, max_value=32, step=2)
+        
+    
     hp_branch_dense_units = hp.Choice("hp_branch_dense_units", [16, 32, 64, 128, 256, 512])
+    
+    
     
     
     ############################## Hyper Tuning Ends #####################
@@ -110,9 +123,6 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
         
     
     master_output = tf.keras.layers.Dense(1)(master_output)
-
-
-
 
 
     # Assemble model
