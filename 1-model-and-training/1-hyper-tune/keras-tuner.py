@@ -110,9 +110,9 @@ if __name__ == "__main__":
     # Hyper Tuning with Keras Tuner
     tuner = keras_tuner.Hyperband(
         hypermodel=hp_model,
-        max_epochs=150,
+        max_epochs=200,
         factor=3,
-        overwrite=False,
+        overwrite=True,
         objective="val_mean_absolute_error",
         directory="hp_search",
         )
