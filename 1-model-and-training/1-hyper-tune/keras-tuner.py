@@ -6,11 +6,11 @@
 import os
 import numpy as np
 import yaml
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+# os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
 
-from hp_model import hp_model
+from lib.hp_model import hp_model
 from lib.dataset import Dataset
 
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     # Hyper Tuning with Keras Tuner
     tuner = keras_tuner.Hyperband(
         hypermodel=hp_model,
-        max_epochs=200,
+        max_epochs=150,
         factor=3,
         overwrite=False,
         objective="val_mean_absolute_error",
