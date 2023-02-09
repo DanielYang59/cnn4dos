@@ -18,7 +18,6 @@ module load NCI-ai-ml/22.11
 
 # Run Keras tuner
 cd $PBS_O_WORKDIR
-export TF_GPU_THREAD_MODE="gpu_private"
 python3 keras-tuner.py > tunerlog 2>&1
 
 
