@@ -1,10 +1,10 @@
 #!/bin/bash 
-#PBS -N tuner-GPU-gadi-env
+#PBS -N z-keras-tuner
 #PBS -l ncpus=12
 #PBS -l ngpus=1
 #PBS -l mem=96GB
 #PBS -l jobfs=50GB
-#PBS -l walltime=24:00:00
+#PBS -l walltime=18:00:00
 #PBS -q gpuvolta
 #PBS -P iu57
 #PBS -l storage=gdata/iu57+gdata/v88+gdata/dk92
