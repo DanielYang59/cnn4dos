@@ -20,7 +20,7 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
         """
 
         # Reshape (None, 4000, 6) to (None, 4000, 1, 6)
-        branch_input = tf.keras.layers.Reshape(target_shape=(4000, 1, 6))(branch_input)
+        conv_x = tf.keras.layers.Reshape(target_shape=(4000, 1, 6))(branch_input)
 
 
         # Dynamic amount of ConV blocks
