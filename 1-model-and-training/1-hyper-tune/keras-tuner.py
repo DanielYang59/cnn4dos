@@ -10,6 +10,7 @@ os.environ['TF_GPU_THREAD_MODE']='gpu_private'
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
+from datetime import datetime
 
 from lib.hp_model import hp_model
 from lib.dataset import Dataset
@@ -113,10 +114,12 @@ if __name__ == "__main__":
         hypermodel=hp_model,
         max_epochs=200,
         factor=3,
-        overwrite=True,
+        overwrite=False,
         objective="val_mean_absolute_error",
         directory="hp_search",
+        project_name=datetime.now().strftime('hpsearch_%H_%M_%d_%m_%Y'),
         )
+    
     print("search space: ", tuner.search_space_summary())
     
     
