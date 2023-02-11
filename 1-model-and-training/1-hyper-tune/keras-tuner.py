@@ -121,7 +121,7 @@ if __name__ == "__main__":
         overwrite=False,
         objective="val_mean_absolute_error",
         directory="hp_search",
-        project_name=datetime.now().strftime('hpsearch_%H_%M_%d_%m_%Y'),
+        project_name=datetime.now().strftime('hpsearch_%H_%d_%m_%Y'),
         )
     
     print("search space: ", tuner.search_space_summary())
