@@ -131,7 +131,7 @@ if __name__ == "__main__":
                  epochs=10000,
                  verbose=2,
                  callbacks=[
-                    tf.keras.callbacks.EarlyStopping(monitor="val_mean_absolute_error", patience=25),
+                    tf.keras.callbacks.EarlyStopping(monitor="val_mean_absolute_error", patience=10),
                     tf.keras.callbacks.ReduceLROnPlateau(monitor="val_mean_absolute_error", patience=10, factor=0.5, min_lr=1e-7),
                             ],
                  )
