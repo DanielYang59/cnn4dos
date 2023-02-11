@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash --login
 #PBS -N z-keras-tuner
 #PBS -l ncpus=12
 #PBS -l ngpus=1
