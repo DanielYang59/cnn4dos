@@ -18,7 +18,7 @@ module load NCI-ai-ml/22.11
 
 # Run Keras tuner
 cd $PBS_O_WORKDIR
-python3 keras-tuner.py > "$(date +"%Y_%m_%d_%H").log" 2>&1
+python3 keras-tuner.py > "tuner_$(date +"%Y_%m_%d_%H_%M").log" 2>&1
 
 
 # Request interactive GPU
