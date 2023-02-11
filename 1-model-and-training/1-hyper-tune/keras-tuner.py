@@ -3,10 +3,10 @@
 
 
 # Import packages
-import os
+import os, sys
 import numpy as np
 import yaml
-os.environ['TF_GPU_THREAD_MODE']='gpu_private'
+os.environ["TF_GPU_THREAD_MODE"] = "gpu_private"
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     
     # Load features(DOS) and labels from cached file to save time
     if os.path.exists("features.npy") and os.path.exists("labels.npy"):
-        print("Warning! features/labels load from cached file. Tags changed after cache generation in config.yaml might not take effect.")
+        print("Warning! features and labels load from cached file. Tags changed after cache generation in config.yaml might not take effect.")
         feature = tf.convert_to_tensor(np.load("features.npy"))
         label = tf.convert_to_tensor(np.load("labels.npy"))
         
@@ -83,10 +83,14 @@ if __name__ == "__main__":
         dataFetcher.load_label(label_dir)
 
         ## Combine feature and label
-        feature = tf.convert_to_tensor(list(dataFetcher.feature.values()))
-        label = tf.convert_to_tensor(list(dataFetcher.label.values()))
+        feature = np.array(list(dataFetcher.feature.values()))
+        label = np.array(list(dataFetcher.label.values()))
         
-        total_sample = dataFetcher.numFeature
+        np.save("features.npy", feature)
+        np.save("labels.npy", label)
+        
+        print("Cache created. Exit...")
+        sys.exit(0)
 
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
