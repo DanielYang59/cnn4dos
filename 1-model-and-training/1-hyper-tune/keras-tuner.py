@@ -12,7 +12,7 @@ import tensorflow as tf
 import keras_tuner
 from datetime import datetime
 
-from lib.hp_model import hp_model
+from hp_model import hp_model
 from lib.dataset import Dataset
 
 
@@ -116,10 +116,11 @@ if __name__ == "__main__":
     # Hyper Tuning with Keras Tuner
     tuner = keras_tuner.Hyperband(
         hypermodel=hp_model,
-        max_epochs=200,
+        objective="val_mean_absolute_error",
+        seed=0, 
+        max_epochs=400,
         factor=3,
         overwrite=False,
-        objective="val_mean_absolute_error",
         directory="hp_search",
         project_name=datetime.now().strftime('hpsearch_%H_%d_%m_%Y'),
         )
