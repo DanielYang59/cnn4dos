@@ -33,11 +33,8 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
             ## Ending ConV block
             conv_x = tf.keras.layers.Conv2D(numFilters, (hp_branch_ending_kernel_size, 1), (2, 1), activation="relu", padding="same")(conv_x)
             
-            if hp_branch_pool_type == "average":
+            if hp_branch_include_pooling:
                 conv_x = tf.keras.layers.AveragePooling2D(pool_size=(hp_branch_pool_size, 1), padding="same")(conv_x)
-            elif hp_branch_pool_type == "max":
-                conv_x = tf.keras.layers.MaxPool2D(pool_size=(hp_branch_pool_size, 1), padding="same")(conv_x)
-                
             
             conv_x = tf.keras.layers.Dropout(drop_out_rate)(conv_x)
         
@@ -64,26 +61,29 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
     # Master Layer
     hp_master_1st_dense_units = hp.Choice("hp_master_1st_dense_units", [128, 256, 512])
     hp_master_2nd_dense_units = hp.Choice("hp_master_2nd_dense_units", [256, 512, 1024, 2048])
-    hp_master_3rd_dense_layer = hp.Boolean("hp_master_3rd_dense_layer", default=True)
+    hp_master_3rd_dense_layer = hp.Boolean("hp_master_3rd_dense_layer", default=False)
     # hp_master_activation_function = hp.Choice("hp_master_act_func", ["tanh", "relu", "sigmoid"])
-    hp_master_activation_function = hp.Fixed("hp_master_activation_function", value="relu")
+    hp_master_activation_function = hp.Fixed("hp_master_activation_function", value="relu")  
     
     
     # Branch
     # hp_branch_dense_activation_func = hp.Choice("hp_branch_dense_activation_func", ["tanh", "relu", "sigmoid"]) 
-    hp_branch_dense_activation_func = hp.Fixed("hp_branch_dense_activation_func", value="tanh")
-    hp_numFilters = hp.Int("hp_numFilters", min_value=8, max_value=32, step=2)
+    hp_branch_dense_activation_func = hp.Fixed("hp_branch_dense_activation_func", value="tanh")  
+    hp_numFilters = hp.Int("hp_numFilters", min_value=8, max_value=64)
     # hp_numFilters = hp.Fixed("hp_numFilters", value=12)
-    hp_branch_primary_kernel_size = hp.Int("hp_branch_primary_kernel_size", min_value=8, max_value=32, step=2)
+    hp_branch_primary_kernel_size = hp.Int("hp_branch_primary_kernel_size", min_value=2, max_value=32, step=2)
     # hp_branch_primary_kernel_size = hp.Fixed("hp_branch_primary_kernel_size", value=22)
     hp_branch_ending_kernel_size = hp.Int("hp_branch_ending_kernel_size", min_value=2, max_value=32, step=2)
-    hp_branch_primary_numConvLayers = hp.Int("hp_branch_primary_numConvLayers", min_value=1, max_value=6)
+    hp_branch_primary_numConvLayers = hp.Int("hp_branch_primary_numConvLayers", min_value=1, max_value=16)
     
     
-    hp_branch_numConvBlocks = hp.Int("hp_branch_numConvBlocks", min_value=1, max_value=4)
+    hp_branch_numConvBlocks = hp.Int("hp_branch_numConvBlocks", min_value=1, max_value=16)
     
-    hp_branch_pool_size = hp.Int("hp_branch_pool_size", min_value=2, max_value=32, step=2)
-    hp_branch_pool_type = hp.Choice("hp_branch_pool_type", ["average", "max"])
+    
+    hp_branch_include_pooling = True
+    
+    if hp_branch_include_pooling:
+        hp_branch_pool_size = hp.Int("hp_branch_pool_size", min_value=2, max_value=32, step=2)
         
     
     hp_branch_dense_units = hp.Choice("hp_branch_dense_units", [16, 32, 64, 128, 256, 512])
@@ -135,7 +135,7 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
     
     # Compile model
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=hp_learning_rate),
+        optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=hp_learning_rate),
         # optimizer=tf.keras.optimizers.experimental.RMSprop(learning_rate=hp_learning_rate),
         loss=tf.keras.losses.MeanSquaredError(),
         metrics=[tf.keras.metrics.mean_absolute_error, ],

@@ -7,7 +7,7 @@ import os, sys
 import numpy as np
 import yaml
 os.environ["TF_GPU_THREAD_MODE"] = "gpu_private"
-# os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
 from datetime import datetime
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     
     # Load features(DOS) and labels from cached file to save time
     if os.path.exists("features.npy") and os.path.exists("labels.npy"):
-        print("Warning! features and labels load from cached file. Tags changed after cache generation in config.yaml might not take effect.")
+        print("Warning! features/labels load from cached file. Tags changed after cache generation in config.yaml might not take effect.")
         feature = tf.convert_to_tensor(np.load("features.npy"))
         label = tf.convert_to_tensor(np.load("labels.npy"))
         
@@ -85,12 +85,13 @@ if __name__ == "__main__":
         ## Combine feature and label
         feature = np.array(list(dataFetcher.feature.values()))
         label = np.array(list(dataFetcher.label.values()))
-        
         np.save("features.npy", feature)
         np.save("labels.npy", label)
         
-        print("Cache created. Exit...")
-        sys.exit(0)
+        print("Cache generated. Exiting...")
+        sys.exit()
+        
+        total_sample = dataFetcher.numFeature
 
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
@@ -116,13 +117,12 @@ if __name__ == "__main__":
     # Hyper Tuning with Keras Tuner
     tuner = keras_tuner.Hyperband(
         hypermodel=hp_model,
-        objective="val_mean_absolute_error",
-        seed=0, 
-        max_epochs=400,
+        max_epochs=200,
         factor=3,
         overwrite=False,
+        objective="val_mean_absolute_error",
         directory="hp_search",
-        project_name=datetime.now().strftime('hpsearch_%H_%d_%m_%Y'),
+        project_name="best_model",
         )
     
     print("search space: ", tuner.search_space_summary())
@@ -132,7 +132,7 @@ if __name__ == "__main__":
                  epochs=10000,
                  verbose=2,
                  callbacks=[
-                    tf.keras.callbacks.EarlyStopping(monitor="val_mean_absolute_error", patience=10),
+                    tf.keras.callbacks.EarlyStopping(monitor="val_mean_absolute_error", patience=25),
                     tf.keras.callbacks.ReduceLROnPlateau(monitor="val_mean_absolute_error", patience=10, factor=0.5, min_lr=1e-7),
                             ],
                  )
