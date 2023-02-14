@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 
-model_dir = "../1-model-and-training/1-model"
+model_dir = "../1-model-and-training/2-best-model"
 feature_dir = "../0-dataset/feature_DOS"
 label_dir = "../0-dataset/label_adsorption_energy"
 
 
-import os
-import sys
+import os, sys
+import yaml
 import numpy as np
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -20,20 +20,23 @@ from matplotlib.patches import PathPatch
 
 sys.path.append(model_dir)
 from lib.dataset import Dataset
-# Import vars from training script
-from training import substrates, adsorbates
 
 
 if __name__ == "__main__":
     # Check args
     assert os.path.isdir(model_dir)
-    assert os.path.isdir(os.path.join(model_dir, "checkpoint"))
-    assert os.path.exists(os.path.join(model_dir, "training.py"))
     assert os.path.isdir(feature_dir)
     assert os.path.isdir(label_dir)
     
+    # Load configs
+    with open("config.yaml") as ymlfile:
+        cfg = yaml.safe_load(ymlfile)
+    substrates = cfg["species"]["substrates"]
+    adsorbates = cfg["species"]["adsorbates"]
+    
+    
     # Import model
-    model = tf.keras.models.load_model(os.path.join(model_dir, "checkpoint"))
+    model = tf.keras.models.load_model(os.path.join(model_dir, "model"))
     
     
     # Import dataset from training.py at model directory
@@ -41,9 +44,13 @@ if __name__ == "__main__":
     dataFetcher = Dataset()
     
     ## Load feature
-    dataFetcher.load_feature(feature_dir, substrates, adsorbates, dos_filename="dos_up.npy", states={"is", })  # initial states only
-    print(f"{dataFetcher.numFeature} samples loaded.")
-    dataFetcher.scale_feature(mode="normalization")
+    dataFetcher.load_feature(feature_dir, substrates, adsorbates, centre_atoms,
+                            states={"is", }, spin=spin,
+                            remove_ghost=remove_ghost, 
+                            load_augment=load_augmentation, augmentations=augmentations)
+    ## Append molecule DOS
+    if append_adsorbate_dos:
+        dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))
     
     ## Load label
     dataFetcher.load_label(label_dir)
@@ -54,6 +61,10 @@ if __name__ == "__main__":
     
     # Make predictions with model
     predictions = model.predict(feature, verbose=0).flatten()
+    
+    
+    
+    
 
     # Change fonts to Helvetica 
     font = {'family' : 'sans-serif',
