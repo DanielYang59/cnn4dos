@@ -81,7 +81,7 @@ if __name__ == "__main__":
             dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))
         
         ## Preprocess feature (DOS)
-        dataFetcher.scale(mode=preprocessing)
+        dataFetcher.scale_feature(mode=preprocessing)
         
         
         # Load label
