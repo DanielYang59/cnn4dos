@@ -2,13 +2,11 @@
 # -*- coding: utf-8 -*-
 
 
-model_dir = "../1-model-and-training/1-model"
-feature_dir = "../0-dataset/feature_DOS"
-label_dir = "../0-dataset/label_adsorption_energy"
+model_dir = "../1-model-and-training/2-best-model"
 
 
-import os
-import sys
+import os, sys
+import yaml
 import numpy as np
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import tensorflow as tf
@@ -19,20 +17,29 @@ from matplotlib.patches import PathPatch
 
 sys.path.append(model_dir)
 from lib.dataset import Dataset
-# Import vars from training script
-from training import substrates, adsorbates
 
 
 if __name__ == "__main__":
-    # Check args
-    assert os.path.isdir(model_dir)
-    assert os.path.isdir(os.path.join(model_dir, "checkpoint"))
-    assert os.path.exists(os.path.join(model_dir, "training.py"))
-    assert os.path.isdir(feature_dir)
-    assert os.path.isdir(label_dir)
+    # Load configs
+    with open("config.yaml") as ymlfile:
+        cfg = yaml.safe_load(ymlfile)
+    ## paths
+    feature_dir = cfg["path"]["feature_dir"]
+    label_dir = cfg["path"]["label_dir"]
+    ## species 
+    substrates = cfg["species"]["substrates"]
+    adsorbates = cfg["species"]["adsorbates"]
+    centre_atoms = cfg["species"]["centre_atoms"]
+    append_adsorbate_dos = cfg["species"]["append_adsorbate_dos"]
+    load_augmentation = cfg["species"]["load_augmentation"]
+    augmentations = cfg["species"]["augmentations"]
+    spin = cfg["species"]["spin"]
+    ## model training
+    preprocessing = cfg["model_training"]["preprocessing"]
+    remove_ghost = cfg["model_training"]["remove_ghost"] 
     
     # Import model
-    model = tf.keras.models.load_model(os.path.join(model_dir, "checkpoint")) 
+    model = tf.keras.models.load_model(os.path.join(model_dir, "model")) 
     
     # Import dataset from training.py at model directory
     ## Load dataset
@@ -42,20 +49,28 @@ if __name__ == "__main__":
     for ads in adsorbates:
         print(f"working on {ads}")
         ## Load feature
-        dataFetcher.load_feature(feature_dir, substrates, [ads, ], dos_filename="dos_up.npy",
-                                states={"is",}, )  # initial states only
-        print(f"{dataFetcher.numFeature} samples loaded.")
-        dataFetcher.scale_feature(mode="normalization")
+        dataFetcher.load_feature(feature_dir, substrates, [ads, ], centre_atoms,
+                            states={"is", }, spin=spin,
+                            remove_ghost=remove_ghost, 
+                            load_augment=load_augmentation, augmentations=augmentations)
+    
+        ## Append molecule DOS
+        if append_adsorbate_dos:
+            dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))
+        
+        ## Preprocess feature
+        dataFetcher.scale_feature(mode=preprocessing)
+        
         
         ## Load label
         dataFetcher.load_label(label_dir)
 
         ## Convert feature and label to array
-        feature = np.array(list(dataFetcher.feature.values()))
+        features = np.array(list(dataFetcher.feature.values()))
         labels = np.array(list(dataFetcher.label.values()))
         
         # Make predictions with model
-        predictions = model.predict(feature, verbose=0).flatten()
+        predictions = model.predict(features, verbose=0).flatten()
         
         # Change fonts to Helvetica 
         font = {'family' : 'sans-serif',
