@@ -148,16 +148,16 @@ class Dataset:
                 assert len(arr.shape) == 3  # expect (NEDOS, numOrbitals, numChannels)
                 scaled_arr = []
                 
-                if channel_index in range(arr.shape[2]):
+                for channel_index in range(arr.shape[2]):
                     if mode == "normalization":
                         channel = normalize(arr[:, :, channel_index], axis=0, norm="max")
                     elif mode == "standardization":
                         raise RuntimeError("Still working on.")
 
-                    # Stack channels
-                    scaled_arr = np.stack(scaled_arr, axis=2)
-                
+                    scaled_arr.append(channel)
+                                    
                 # Update dataset
+                scaled_arr = np.stack(scaled_arr, axis=2)
                 self.feature[key] = scaled_arr
                 
 
