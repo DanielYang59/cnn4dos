@@ -12,12 +12,6 @@ features.npy
 0-dataset/feature_DOS/z-*
 
 
-# Ignore hyper tuning 
-1-model-and-training/1-hyper-tune/hp_search  # still tuning hp search
-1-model-and-training/z-normal-training/tblogs  # still trying TB
-1-model-and-training/1-hyper-tune/saved_searches  # too large
-
-
 # Ignore unfinished or 
 z-cluster-visualize
 0-utils/collect-energy.py
