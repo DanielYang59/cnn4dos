@@ -52,10 +52,10 @@ if __name__ == "__main__":
     # Load features(DOS) and labels from cached file to save time
     if os.path.exists("features.npy") and os.path.exists("labels.npy"):
         print("Warning! features/labels load from cached file. Tags changed after cache generation in config.yaml might not take effect.")
-        feature = tf.convert_to_tensor(np.load("features.npy"))
-        label = tf.convert_to_tensor(np.load("labels.npy"))
+        features = tf.convert_to_tensor(np.load("features.npy"))
+        labels = tf.convert_to_tensor(np.load("labels.npy"))
         
-        total_sample = label.shape[0]
+        total_sample = labels.shape[0]
  
     
     else:
@@ -89,16 +89,16 @@ if __name__ == "__main__":
         dataFetcher.load_label(label_dir)
 
         # Combine feature and label
-        feature = np.array(list(dataFetcher.feature.values()))
-        label = np.array(list(dataFetcher.label.values()))
-        np.save("features.npy", feature)
-        np.save("labels.npy", label)
+        features = np.array(list(dataFetcher.feature.values()))
+        labels = np.array(list(dataFetcher.label.values()))
+        np.save("features.npy", features)
+        np.save("labels.npy", labels)
         
         print("Cache generated. Exiting...")
         sys.exit()
 
 
-    dataset = tf.data.Dataset.from_tensor_slices((feature, label))
+    dataset = tf.data.Dataset.from_tensor_slices((features, labels))
     dataset = dataset.shuffle(buffer_size=total_sample, reshuffle_each_iteration=False)
    
     ## Take a subset if required
