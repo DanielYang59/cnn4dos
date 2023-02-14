@@ -5,7 +5,7 @@
 import os
 import numpy as np
 import pandas as pd
-from skearn.preprocessing import normalize
+from sklearn.preprocessing import normalize
 
 
 class Dataset:
@@ -154,7 +154,6 @@ class Dataset:
                     elif mode == "standardization":
                         raise RuntimeError("Still working on.")
 
-                        
                     # Stack channels
                     scaled_arr = np.stack(scaled_arr, axis=2)
                 
