@@ -5,7 +5,7 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import normalize
+from skearn.preprocessing import normalize
 
 
 class Dataset:
@@ -136,14 +136,31 @@ class Dataset:
             
         """
         # Check args
-        assert mode in {"normalization", "none"}
+        assert mode in {"normalization", "none", "standardization"}
+        
+        # Skip "none" mode
+        if mode != "none":
+            
+            # Loop through dataset and perform scaling
+            for key, arr in self.feature.items():
 
-        # Loop through dataset and perform scaling
-        for key, arr in self.feature.items():
-            if mode == "normalization":
-                # Perform normalize
-                self.feature[key] = normalize(arr, axis=0, norm="max")
+                # Perform scaling for each channel
+                assert len(arr.shape) == 3  # expect (NEDOS, numOrbitals, numChannels)
+                scaled_arr = []
+                
+                if channel_index in range(arr.shape[2]):
+                    if mode == "normalization":
+                        channel = normalize(arr[:, :, channel_index], axis=0, norm="max")
+                    elif mode == "standardization":
+                        raise RuntimeError("Still working on.")
 
+                        
+                    # Stack channels
+                    scaled_arr = np.stack(scaled_arr, axis=2)
+                
+                # Update dataset
+                self.feature[key] = scaled_arr
+                
 
     def load_label(self, label_dir):
         """Load labels based on names of feature files.
