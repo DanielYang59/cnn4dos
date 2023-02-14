@@ -90,8 +90,6 @@ if __name__ == "__main__":
         
         print("Cache generated. Exiting...")
         sys.exit()
-        
-        total_sample = dataFetcher.numFeature
 
 
     dataset = tf.data.Dataset.from_tensor_slices((feature, label))
