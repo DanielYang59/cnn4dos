@@ -59,14 +59,16 @@ if __name__ == "__main__":
  
     
     else:
-        # Load dataset
+        # Initiate dataset loader
         dataFetcher = Dataset()
 
-        ## Load feature
+        # Load feature
         dataFetcher.load_feature(feature_dir, substrates, adsorbates, centre_atoms,
                                 states={"is", }, spin=spin,
                                 remove_ghost=remove_ghost, 
                                 load_augment=load_augmentation, augmentations=augmentations)
+        
+        ## Take subset
         if sample_size == "ALL":
             print(f"A total of {dataFetcher.numFeature} samples loaded.")
         elif isinstance(sample_size, int) and sample_size >= 1:
@@ -78,11 +80,15 @@ if __name__ == "__main__":
         if append_adsorbate_dos:
             dataFetcher.append_adsorbate_DOS(adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS"))
         
+        ## Preprocess feature (DOS)
+         if preprocessing != "none":
+            dataFetcher.scale(mode=preprocessing)
         
-        ## Load label
+        
+        # Load label
         dataFetcher.load_label(label_dir)
 
-        ## Combine feature and label
+        # Combine feature and label
         feature = np.array(list(dataFetcher.feature.values()))
         label = np.array(list(dataFetcher.label.values()))
         np.save("features.npy", feature)
