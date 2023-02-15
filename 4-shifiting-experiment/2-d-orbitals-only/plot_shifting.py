@@ -22,12 +22,14 @@ if __name__ == "__main__":
     # Get max and min for all subplots (to share the same colorbar)
     vmax = max(np.amax(arr) for arr in result_dict.values())
     vmin = min(np.amin(arr) for arr in result_dict.values())
+    print(f"Min shifting is {vmin}, max shifting is {vmax}.")
     
     if vmax > 0 and vmin < 0:
-        vmax = math.ceil(max(abs(vmax), abs(vmin)))  # round to int
+        vmax = max(abs(vmax), abs(vmin))  # symmetry colorbar
         vmin = -vmax
     else:
         raise ValueError("Please manually check value range.")
+    
     
     # Generate subplot for each element
     fig, axs = plt.subplots(len(result_dict), sharex=True, 
@@ -43,7 +45,7 @@ if __name__ == "__main__":
         # ref: https://stackoverflow.com/questions/45841786/creating-a-1d-heat-map-from-a-line-graph
         im = ax.imshow(y, extent=[shift_energy_array[0], shift_energy_array[-1], 0, 1.5], 
                        cmap="viridis",
-                       # vmin=vmin, vmax=vmax,
+                       vmin=vmin, vmax=vmax,
                       )
         
         ax.set_aspect(0.01)  # x/y ratio (decrease to make subplot wider)
