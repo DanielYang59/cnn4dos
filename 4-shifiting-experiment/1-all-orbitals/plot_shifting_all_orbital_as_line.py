@@ -22,7 +22,10 @@ if __name__ == "__main__":
             filename = f
     
     # Get shift value
-    shift_value = float(re.findall("shifting_(\d+\.\d+).npy", filename)[0])
+    try:
+        shift_value = float(re.findall("shifting_(\d+\.\d+)eV.npy", filename)[0])
+    except IndexError:
+        shift_value = float(re.findall("shifting_(\d+)eV.npy", filename)[0]) 
 
     
     # Import shift array

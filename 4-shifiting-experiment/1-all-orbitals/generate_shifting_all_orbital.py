@@ -3,7 +3,7 @@
 
 
 working_dir = "."
-shift_value = 0.1  # positive value: -X eV, X eV
+shift_value = 1  # positive value: -X eV, X eV
 model_path = "../../1-model-and-training/2-best-model/model"
 adsorbate_dos_dir = "../../0-dataset/feature_DOS/adsorbate-DOS"
 normalize_dos = False
@@ -208,4 +208,4 @@ if __name__ == "__main__":
     prediction_arr -= reference_energy
     
     # Save shifting results
-    np.save(f"shifting_{shift_value}.npy", prediction_arr)
+    np.save(f"shifting_{shift_value}eV.npy", prediction_arr)

@@ -4,7 +4,7 @@
 """
 
 orbital_names = ["$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
-optimum_height = {0.1:0.02, 0.5:0.08}
+optimum_height = {0.1:0.02, 0.5:0.08, 1.0:0.16}
 
 
 import os
@@ -21,7 +21,10 @@ if __name__ == "__main__":
             filename = f
     
     # Get shift value
-    shift_value = float(re.findall("shifting_(\d+\.\d+).npy", filename)[0])
+    try:
+        shift_value = float(re.findall("shifting_(\d+\.\d+)eV.npy", filename)[0])
+    except IndexError:
+        shift_value = float(re.findall("shifting_(\d+)eV.npy", filename)[0]) 
     
     # Import shift array in shape (None, orbitals)
     shift_array = np.transpose(np.load(filename))
