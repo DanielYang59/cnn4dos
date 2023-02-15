@@ -15,6 +15,7 @@ model_path = "../1-model-and-training/2-best-model/model"
 adsorbate_dos_dir = "../0-dataset/feature_DOS/adsorbate-DOS"
 normalize_dos = False
 append_molecule = True
+remove_ghost_state = True
 # model_path = "/Users/yang/Library/Mobile Documents/com~apple~CloudDocs/Project-CNN/1-model-and-training/2-best-model/model"
 # adsorbate_dos_dir = "/Users/yang/Library/Mobile Documents/com~apple~CloudDocs/Project-CNN/0-dataset/feature_DOS/adsorbate-DOS"
 
@@ -173,6 +174,11 @@ if __name__ == "__main__":
     source_dos_array = np.load(dos_array_file)
     if source_dos_array.shape[1] > 16:
         raise ValueError(f"Source array has shape {source_dos_array.shape}")
+    ## Remove ghost state if required
+    if remove_ghost_state:
+        print("WARNING! Ghost state will be removed.")
+        source_dos_array[0] = 0.0
+    
     ## Load molecule DOS if required
     if append_molecule:
         print("WARNING! Molecule DOS would be appended.")
@@ -185,7 +191,7 @@ if __name__ == "__main__":
     model = tf.keras.models.load_model(os.path.join(os.path.realpath(os.path.dirname(__file__)), model_path))
     ## Predict original label
     original_label = model.predict(np.expand_dims(combine_metal_and_adsorbate_DOS(source_dos_array, mol_dos_arr), axis=0), verbose=0)[0][0]
-        
+
     
     # Generate occlusion arrays
     occlusion_arrays = generate_occlusion_arrays(source_dos_array, masker_width, masker)
