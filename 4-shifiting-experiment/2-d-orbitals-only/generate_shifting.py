@@ -3,7 +3,7 @@
 
 
 # Configs
-shift_value = 0.1  # positive value: -X eV, X eV
+shift_value = 1  # positive value: -X eV, X eV
 elements = ["4-Ti", "4-V", "4-Cr", "4-Mn", "4-Fe", "4-Co", "4-Ni", "4-Cu"]
 orbital_index = 6  # starts from zero: 0 s, 1 py, 2 pz, 3 px, 4 dxy, 5 dyz, 6 dz2, 7 dxz, 8 dx2-y2
 
