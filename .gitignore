@@ -18,6 +18,11 @@ occlusion_line.png
 perturbation_line.png
 
 
+# Shifting images
+shifting_*eV_heatmap.png
+shifting_*eV_line.png
+
+
 # Unfinished
 z-cluster-visualize
 0-utils/collect-energy.py
