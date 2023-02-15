@@ -9,19 +9,14 @@ __version__ = "1.0.0"
 __maintainer__ = "Haoyu Yang"
 __email__ = "h51.yang@hdr.qut.edu.au"
 
-"""
-TODO:
-2. occlusion when adsorbate DOS appended (don't loop adsorbate DOS)
-
-"""
-
-
 
 # Configs
 model_path = "../1-model-and-training/2-best-model/model"
+adsorbate_dos_dir = "../0-dataset/feature_DOS/adsorbate-DOS"
 normalize_dos = False
 append_molecule = True
-adsorbate_dos_dir = "../0-dataset/feature_DOS/adsorbate-DOS"
+# model_path = "/Users/yang/Library/Mobile Documents/com~apple~CloudDocs/Project-CNN/1-model-and-training/2-best-model/model"
+# adsorbate_dos_dir = "/Users/yang/Library/Mobile Documents/com~apple~CloudDocs/Project-CNN/0-dataset/feature_DOS/adsorbate-DOS"
 
 
 masker_width = 1
@@ -34,7 +29,7 @@ import os, sys
 import numpy as np
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
-from sklearn.preprocessing import normalize
+# from sklearn.preprocessing import normalize
 
 
 def generate_occlusion_arrays(source_dos_array, masker_width, masker):
@@ -50,7 +45,7 @@ def generate_occlusion_arrays(source_dos_array, masker_width, masker):
         
     """
     # Check args
-    assert isinstance(source_dos_array, np.ndarray)
+    assert isinstance(source_dos_array, np.ndarray) and len(source_dos_array.shape) == 2  # expect shape (NEDOS, numOrbitals)
     assert isinstance(masker_width, int) and masker_width >= 1
     assert isinstance(masker, (int, float))
     
@@ -133,14 +128,41 @@ def mask_dos_array(padded_arr, masking_position, masker_width, padding_size, mas
     return result_array
 
 
+def combine_metal_and_adsorbate_DOS(metal_dos, adsorbate_dos):
+    """Combine metal and adsorbate DOS.
+
+    Args:
+        metal_dos (np.ndarray): metal DOS in shape (NEDOS, numOrbitals)
+        adsorbate_dos (np.ndarray): adsorbate DOS in shape (numChannels, NEDOS, numOrbitals) 
+
+    Returns:
+        np.ndarray: combined DOS arrays in shape (NEDOS, numOrbitals, numChannels)
+        
+    """
+    # Check two DOS arrays shape
+    assert len(metal_dos.shape) == 2  # shape in (NEDOS, numOrbitals)
+    assert len(adsorbate_dos.shape) == 3  # shape in (numChannels, NEDOS, numOrbitals)
+    
+    # Append to original DOS
+    metal_dos = np.expand_dims(metal_dos, axis=0)  # reshape original DOS from (4000, 9) to (1, 4000, 9)
+    combined_dos_array = np.concatenate([metal_dos, adsorbate_dos], axis=0)
+    
+    
+    # Swap (6, 4000, 9) to (4000, 9, 6)
+    combined_dos_array = np.swapaxes(combined_dos_array, 0, 1)
+    combined_dos_array = np.swapaxes(combined_dos_array, 1, 2)
+
+    return combined_dos_array
+
+
 if __name__ == "__main__":
     # Check args
     assert os.path.exists(dos_array_file) and dos_array_file.endswith(".npy")
     assert isinstance(masker_width, int) and masker_width >= 1
     assert masker == 0  # occlusion only
-    print(f"Performing occlusion experiments with masker_width {masker_width}, DOS normalized.")
+    print(f"Performing occlusion experiments with masker_width {masker_width}.")
     
-    # Compile path for model and adsorbate DOS
+    # Compile path for model and adsorbate DOS 
     model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), model_path)
     adsorbate_dos_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), adsorbate_dos_dir) 
     assert os.path.isdir(model_path)
@@ -151,43 +173,19 @@ if __name__ == "__main__":
     source_dos_array = np.load(dos_array_file)
     if source_dos_array.shape[1] > 16:
         raise ValueError(f"Source array has shape {source_dos_array.shape}")
-    ## Append molecule DOS
+    ## Load molecule DOS if required
     if append_molecule:
         print("WARNING! Molecule DOS would be appended.")
-        # Get adsorbate name
-        mol_name = os.getcwd().split(os.sep)[-2].split("_")[0]
-        
         # Load adsorbate DOS
+        mol_name = os.getcwd().split(os.sep)[-2].split("_")[0]
         mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, "dos_up_adsorbate.npy"))
-        
-        # Append to original DOS
-        source_dos_array = np.expand_dims(source_dos_array, axis=0)  # reshape original DOS from (4000, 9) to (1, 4000, 9)
-        source_dos_array = np.stack([source_dos_array, mol_dos_arr], axis=2)
-        
-        
-        # Swap (6, 4000, 9) to (4000, 9, 6)
-        source_dos_array = np.swapaxes(source_dos_array, 0, 1)
-        source_dos_array = np.swapaxes(source_dos_array, 1, 2)
-        
-         
-    ## Normalize source DOS array 
-    if normalize_dos:
-        print("WARNING! DOS would be normalized.")
-        scaled_arr = []
-
-        for channel_index in range(source_dos_array.shape[2]):
-            channel = normalize(source_dos_array[:, :, channel_index], axis=0, norm="max")
-            scaled_arr.append(channel)
-                                
-        # Update source array
-        scaled_arr = np.stack(scaled_arr, axis=2)
-
+                
 
     # Import model
     model = tf.keras.models.load_model(os.path.join(os.path.realpath(os.path.dirname(__file__)), model_path))
     ## Predict original label
-    original_label = model.predict(np.expand_dims(source_dos_array, axis=0), verbose=0)[0][0]
-    
+    original_label = model.predict(np.expand_dims(combine_metal_and_adsorbate_DOS(source_dos_array, mol_dos_arr), axis=0), verbose=0)[0][0]
+        
     
     # Generate occlusion arrays
     occlusion_arrays = generate_occlusion_arrays(source_dos_array, masker_width, masker)
@@ -198,12 +196,28 @@ if __name__ == "__main__":
     ## Loop through each orbital and make prediction
     for orbital_index in range(occlusion_arrays.shape[1]):
         col_of_arrays = np.stack(occlusion_arrays[:, orbital_index])
+                
+        # Append molecule DOS if requested
+        if append_molecule:
+            # Reshape (4000, 4000, 9) to (4000, 4000, 9, 1)
+            col_of_arrays = np.expand_dims(col_of_arrays, axis=-1)
+            
+            # Reshape molecule DOS to shape (1, 4000, 9, 5)
+            transposed_mol_dos_arr = np.transpose(np.copy(mol_dos_arr), (1, 2, 0))
+            transposed_mol_dos_arr = mol_dos_arr.reshape(4000, 9, 5)
+            transposed_mol_dos_arr = np.expand_dims(transposed_mol_dos_arr, axis=0)
+            
+            # Append molecule array to each source array
+            col_of_arrays = np.concatenate([col_of_arrays, np.tile(transposed_mol_dos_arr, (col_of_arrays.shape[0], 1, 1, 1))], axis=-1)
+
+        
         # Use model for prediction
         print(f"Making prediction in orbital {orbital_index}")
         predictions = model.predict(col_of_arrays, verbose=0).flatten()
         
         # Subtract original label
         predicted_labels.append(predictions - original_label)
+    
     
     predicted_labels = np.stack(predicted_labels).transpose()  # tranpose (orbital, NEDOS) to (NEDOS, orbital)
     
