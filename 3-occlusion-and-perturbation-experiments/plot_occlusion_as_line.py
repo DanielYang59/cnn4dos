@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Visualize pre-generated occlusion array.
-TODO: y轴单位确认 #DEBUG
+TODO: confirm y-axis units #DEBUG
 """
 
 
 energy_start = -14
 energy_end = 6
 energy_step = 4000
-fermi_source_dir = "/Users/yang/Library/CloudStorage/OneDrive-QueenslandUniversityofTechnology/0-课题/3-DOS神经网络/1-模型和数据集/2-仅初态预测模型/final-model/dataset/fermi_level"
+fermi_source_dir = "../0-dataset/z-supporting-info/fermi_level"
 
 occlusion_dos_name = "occlusion.npy"
 orbital_names = ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
@@ -16,7 +16,7 @@ orbital_names = ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^
 
 import numpy as np
 import pandas as pd
-import os
+import os, sys
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
@@ -114,8 +114,11 @@ def get_fermi(fermi_source_dir):
 
 if __name__ == "__main__":
     # Get fermi level
+    fermi_source_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), fermi_source_dir)
+    assert os.path.isdir(fermi_source_dir)
     e_fermi = get_fermi(fermi_source_dir)
 
+    
     # Check args
     assert os.path.exists(occlusion_dos_name)
     assert isinstance(energy_start, (float, int))
