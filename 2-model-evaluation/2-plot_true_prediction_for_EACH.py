@@ -158,8 +158,8 @@ if __name__ == "__main__":
         g.ax_marg_y.yaxis.set_ticks_position("none") 
         
         # Add MAE text
-        mae = np.absolute(np.subtract(labels, predictions)).mean() * 1E6
-        g.ax_joint.text(-8.5, -10, f"MAE = {'%.2f' % mae} µeV", fontsize=28)
+        mae = np.absolute(np.subtract(labels, predictions)).mean()
+        g.ax_joint.text(-8.5, -10, f"MAE = {'%.2f' % mae} eV", fontsize=28)
         
         plt.tight_layout()
         plt.savefig(f"true_prediction_plot_{ads}.png", dpi=300)
