@@ -9,66 +9,32 @@ __version__ = "1.0.0"
 __maintainer__ = "Haoyu Yang"
 __email__ = "h51.yang@hdr.qut.edu.au"
 
+"""
+TODO:
+2. occlusion when adsorbate DOS appended (don't loop adsorbate DOS)
+
+"""
+
+
 
 # Configs
+model_path = "../1-model-and-training/2-best-model/model"
+normalize_dos = False
+append_molecule = True
+adsorbate_dos_dir = "../0-dataset/feature_DOS/adsorbate-DOS"
+
+
 masker_width = 1
-masker = 0  # 0 for full mask
-
+masker = 0
 dos_array_file = "dos_up.npy"
-model_checkpoint = "/Users/yang/Library/CloudStorage/OneDrive-QueenslandUniversityofTechnology/0-课题/3-DOS神经网络/1-模型和数据集/2-仅初态预测模型/final-model/checkpoint"
-
 output_arr_name = "occlusion.npy"
 
 
-import os
+import os, sys
 import numpy as np
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 from sklearn.preprocessing import normalize
-
-
-def main(dos_array_file, model_checkpoint, masker_width, output_arr_name):
-    # Check args
-    assert os.path.exists(dos_array_file) and dos_array_file.endswith(".npy")
-    assert os.path.isdir(model_checkpoint)
-    assert isinstance(masker_width, int) and masker_width >= 1
-    assert masker == 0  # occlusion only
-    print(f"Performing occlusion experiments with masker_width {masker_width}, DOS normalized.")
-    
-    # Import source DOS array in shape (NEDOS, orbital)
-    source_dos_array = np.load(dos_array_file)
-    if source_dos_array.shape[1] > 16:
-        raise ValueError(f"Source array has shape {source_dos_array.shape}")
-    ## Normalize source DOS array
-    source_dos_array, norms = normalize(source_dos_array, axis=0, norm="max", return_norm=True)
-
-
-    # Import DL model
-    model = tf.keras.models.load_model(model_checkpoint)
-    ## Predict original label
-    original_label = model.predict(np.expand_dims(source_dos_array, axis=0), verbose=0)[0][0]
-    
-    
-    # Generate occlusion arrays
-    occlusion_arrays = generate_occlusion_arrays(source_dos_array, masker_width, masker)
-    
-    
-    # Generate predicted labels
-    predicted_labels = []
-    ## Loop through each orbital and make prediction
-    for orbital_index in range(occlusion_arrays.shape[1]):
-        col_of_arrays = np.stack(occlusion_arrays[:, orbital_index])
-        # Use model for prediction
-        print(f"Making prediction in orbital {orbital_index}")
-        predictions = model.predict(col_of_arrays, verbose=0).flatten()
-        
-        # Subtract original label
-        predicted_labels.append(predictions - original_label)
-    
-    predicted_labels = np.stack(predicted_labels).transpose()  # tranpose (orbital, NEDOS) to (NEDOS, orbital)
-    
-    # Save predicted labels to local file
-    np.save(output_arr_name, predicted_labels)
 
 
 def generate_occlusion_arrays(source_dos_array, masker_width, masker):
@@ -168,4 +134,78 @@ def mask_dos_array(padded_arr, masking_position, masker_width, padding_size, mas
 
 
 if __name__ == "__main__":
-    main(dos_array_file, model_checkpoint, masker_width, output_arr_name)
+    # Check args
+    assert os.path.exists(dos_array_file) and dos_array_file.endswith(".npy")
+    assert isinstance(masker_width, int) and masker_width >= 1
+    assert masker == 0  # occlusion only
+    print(f"Performing occlusion experiments with masker_width {masker_width}, DOS normalized.")
+    
+    # Compile path for model and adsorbate DOS
+    model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), model_path)
+    adsorbate_dos_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), adsorbate_dos_dir) 
+    assert os.path.isdir(model_path)
+    assert os.path.isdir(adsorbate_dos_dir)
+    
+    
+    # Import source DOS array in shape (NEDOS, orbital)
+    source_dos_array = np.load(dos_array_file)
+    if source_dos_array.shape[1] > 16:
+        raise ValueError(f"Source array has shape {source_dos_array.shape}")
+    ## Append molecule DOS
+    if append_molecule:
+        print("WARNING! Molecule DOS would be appended.")
+        # Get adsorbate name
+        mol_name = os.getcwd().split(os.sep)[-2].split("_")[0]
+        
+        # Load adsorbate DOS
+        mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, "dos_up_adsorbate.npy"))
+        
+        # Append to original DOS
+        source_dos_array = np.expand_dims(source_dos_array, axis=0)  # reshape original DOS from (4000, 9) to (1, 4000, 9)
+        source_dos_array = np.stack([source_dos_array, mol_dos_arr], axis=2)
+        
+        
+        # Swap (6, 4000, 9) to (4000, 9, 6)
+        source_dos_array = np.swapaxes(source_dos_array, 0, 1)
+        source_dos_array = np.swapaxes(source_dos_array, 1, 2)
+        
+         
+    ## Normalize source DOS array 
+    if normalize_dos:
+        print("WARNING! DOS would be normalized.")
+        scaled_arr = []
+
+        for channel_index in range(source_dos_array.shape[2]):
+            channel = normalize(source_dos_array[:, :, channel_index], axis=0, norm="max")
+            scaled_arr.append(channel)
+                                
+        # Update source array
+        scaled_arr = np.stack(scaled_arr, axis=2)
+
+
+    # Import model
+    model = tf.keras.models.load_model(os.path.join(os.path.realpath(os.path.dirname(__file__)), model_path))
+    ## Predict original label
+    original_label = model.predict(np.expand_dims(source_dos_array, axis=0), verbose=0)[0][0]
+    
+    
+    # Generate occlusion arrays
+    occlusion_arrays = generate_occlusion_arrays(source_dos_array, masker_width, masker)
+    
+    
+    # Generate predicted labels
+    predicted_labels = []
+    ## Loop through each orbital and make prediction
+    for orbital_index in range(occlusion_arrays.shape[1]):
+        col_of_arrays = np.stack(occlusion_arrays[:, orbital_index])
+        # Use model for prediction
+        print(f"Making prediction in orbital {orbital_index}")
+        predictions = model.predict(col_of_arrays, verbose=0).flatten()
+        
+        # Subtract original label
+        predicted_labels.append(predictions - original_label)
+    
+    predicted_labels = np.stack(predicted_labels).transpose()  # tranpose (orbital, NEDOS) to (NEDOS, orbital)
+    
+    # Save predicted labels to local file
+    np.save(output_arr_name, predicted_labels)
