@@ -16,8 +16,6 @@ adsorbate_dos_dir = "../0-dataset/feature_DOS/adsorbate-DOS"
 normalize_dos = False
 append_molecule = True
 remove_ghost_state = True
-# model_path = "/Users/yang/Library/Mobile Documents/com~apple~CloudDocs/Project-CNN/1-model-and-training/2-best-model/model"
-# adsorbate_dos_dir = "/Users/yang/Library/Mobile Documents/com~apple~CloudDocs/Project-CNN/0-dataset/feature_DOS/adsorbate-DOS"
 
 
 masker_width = 1
@@ -209,8 +207,9 @@ if __name__ == "__main__":
             col_of_arrays = np.expand_dims(col_of_arrays, axis=-1)
             
             # Reshape molecule DOS to shape (1, 4000, 9, 5)
-            transposed_mol_dos_arr = np.transpose(np.copy(mol_dos_arr), (1, 2, 0))
-            transposed_mol_dos_arr = mol_dos_arr.reshape(4000, 9, 5)
+            transposed_mol_dos_arr = np.swapaxes(np.copy(mol_dos_arr), 0, 1)
+            transposed_mol_dos_arr = np.swapaxes(transposed_mol_dos_arr, 1, 2)
+            
             transposed_mol_dos_arr = np.expand_dims(transposed_mol_dos_arr, axis=0)
             
             # Append molecule array to each source array
@@ -220,7 +219,7 @@ if __name__ == "__main__":
         # Use model for prediction
         print(f"Making prediction in orbital {orbital_index}")
         predictions = model.predict(col_of_arrays, verbose=0).flatten()
-        
+         
         # Subtract original label
         predicted_labels.append(predictions - original_label)
     
