@@ -3,7 +3,6 @@
 
 
 import os
-import math
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -48,7 +47,7 @@ if __name__ == "__main__":
                        vmin=vmin, vmax=vmax,
                       )
         
-        ax.set_aspect(0.01)  # x/y ratio (decrease to make subplot wider)
+        ax.set_aspect(0.1)  # x/y ratio (decrease to make subplot wider)
         
         # Set x tick thickness
         ax.xaxis.set_tick_params(width=2)
@@ -72,7 +71,7 @@ if __name__ == "__main__":
     cb.outline.set_visible(False)  # hide border
 
     # Set x ticks and title
-    plt.xticks([-0.1, -0.05, 0, 0.05, 0.1], fontsize=12)
+    plt.xticks([-1, -0.5, 0, 0.5, 1], fontsize=12)
     plt.xlabel("DOS Shift (eV)", fontsize=16)  #DEBUG: confirm x label
     
     
