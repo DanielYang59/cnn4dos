@@ -1,17 +1,23 @@
-# Ignore cache and filesystem related
+# Cache and filesystem related
 .DS_Store
 __pycache__
 
 
-# Ignore labels and features numpy array (too large)
+# Supportive information in DOS calculation
+0-dataset/feature_DOS/z-*
+
+
+# Temperarily cached labels and features numpy array for model training
 labels.npy
 features.npy
 
 
-# Ignore supportive information in dataset
-0-dataset/feature_DOS/z-*
+# Occlusion and perturbation images
+source_DOS.png
+occlusion_line.png
+perturbation_line.png
 
 
-# Ignore unfinished or 
+# Unfinished
 z-cluster-visualize
 0-utils/collect-energy.py
