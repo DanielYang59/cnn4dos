@@ -6,12 +6,27 @@ import pandas as pd
 
 
 def linear_fitting_without_mixing(adsorption_energies, group_x, group_y, descriptor_x, descriptor_y, verbose=True):
+    """Perform individual linear fit for two groups of adsorbates.
+
+    Args:
+        adsorption_energies (dict): dict of adsorption energies
+        group_x (list): group x adsorbates
+        group_y (list): group y adsorbates
+        descriptor_x (str): x-axis adsorbate
+        descriptor_y (str): y-axis adsorbate
+        verbose (bool, optional): print results during fitting. Defaults to True.
+
+    Returns:
+        tuple: (fit results of group_x, fit results of group_y)
+        
+    """
     # Check args
     assert isinstance(adsorption_energies, dict)
     assert isinstance(group_x, list)
     assert isinstance(group_y, list)
     assert isinstance(descriptor_x, str) and descriptor_x in group_x
     assert isinstance(descriptor_y, str) and descriptor_y in group_y
+    assert not list(set(group_x).intersection(group_y))
     
     
     # Add substrate name to row index (prep for stacking)
@@ -53,6 +68,16 @@ def linear_fitting_without_mixing(adsorption_energies, group_x, group_y, descrip
         
     
     return (fitting_results_x, fitting_results_y)
+    
+
+def linear_fitting_with_mixing(adsorption_energies, descriptor_x, descriptor_y, verbose=True):
+    
+    
+    
+    pass
+    
+    
+    
     
     
 # Test area
