@@ -32,22 +32,6 @@ class energyLoader:
             sub: pd.read_csv(os.path.join(path, f"{sub}.csv"), index_col=0).loc[:, adsorbates]  # apply adsorbate filter
             for sub in substrates
         }
-        
-        
-    def stack_diff_substrates(self, add_prefix=True):
-        """Stack adsorption energies from different substrates vertically.
-
-        Args:
-            add_prefix (bool, optional): add substrate to row name as prefix. Defaults to True.
-            
-        """
-        # Add substrate name to row index (prep for stacking)
-        if add_prefix:
-            for key in self.adsorption_energy_dict:
-                self.adsorption_energy_dict[key] = self.adsorption_energy_dict[key].rename(index=lambda x: f'{key}_{str(x)}')
-                
-        # Stack adsorption energy DataFrames
-        self.adsorption_energy_dict = pd.concat(self.adsorption_energy_dict.values())
     
     
     def add_thermal_correction(self, correction_file):
@@ -85,7 +69,26 @@ class energyLoader:
         
         # Update attrib
         self.free_energy_dict = free_energy_dict 
-                
+
+
+def stack_diff_sub_energy_dict(energy_dict, add_prefix=True):
+    """Stack adsorption energies from different substrates vertically.
+
+    Args:
+        add_prefix (bool, optional): add substrate to row name as prefix. Defaults to True.
+        
+    """
+    # Check args
+    assert isinstance(energy_dict, dict)
+    
+    # Add substrate name to row index (prep for stacking)
+    if add_prefix:
+        for key in energy_dict:
+            energy_dict[key] = energy_dict[key].rename(index=lambda x: f'{key}_{str(x)}')
+            
+    # Stack adsorption energy DataFrames
+    return pd.concat(energy_dict.values())
+        
 
 # Test area
 if __name__ == "__main__":
@@ -96,10 +99,6 @@ if __name__ == "__main__":
     # Test adsorption energy loading
     loader = energyLoader()
     loader.load_adsorption_energy(path, substrates, adsorbates)
-    # print(loader.adsorption_energy_dict)
-    
-    # Test stack different substrates
-    # loader.stack_diff_substrates()
     # print(loader.adsorption_energy_dict)
     
     # Test add ZPE corrections
