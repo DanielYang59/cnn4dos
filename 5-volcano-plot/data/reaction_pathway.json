@@ -11,7 +11,7 @@
     "CO2RR_CH4":{
         "comment":"Carbon Dioxide Reduction to Methane (CH4) Reaction Pathway",
         "1":{
-            "reactants":[["*CO2", "PEP"], [1, 8]],
+            "reactants":[["*", "CO2", "PEP"], [1, 1, 8]],
             "products":[["*COOH", "PEP"], [1, 7]]
         }, 
         "2":{
