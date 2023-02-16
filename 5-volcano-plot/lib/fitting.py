@@ -130,7 +130,7 @@ if __name__ == "__main__":
     # Test fitting
     group_x = ["1-CO2", "2-COOH", "3-CO"]
     descriptor_x = "3-CO"
-    group_y = ["4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-HER"]
+    group_y = ["4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     descriptor_y = "8-OH"
     
     # linear_fitting_without_mixing(adsorption_energies, group_x, group_y, descriptor_x, descriptor_y)
