@@ -5,6 +5,17 @@ import pandas as pd
 
 
 def load_adsorption_energy(path, substrates, adsorbates):
+    """Load adsorption energy from csv file.
+
+    Args:
+        path (path): path of adsorption energy storage directory.
+        substrates (list): list of substrates to be loaded
+        adsorbates (list): list of adsorbates to be loaded
+
+    Returns:
+        dict: dict of adsorption energies in pd.DataFrame, key is substrate name
+        
+    """
     # Check args
     assert os.path.isdir(path)
     assert isinstance(substrates, list)
