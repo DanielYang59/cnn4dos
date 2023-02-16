@@ -8,13 +8,28 @@ import sys #DEBUG
 
 class scalingRelations:
     def __init__(self, free_energy_linear_relation, molecule_energy_file, reaction_pathway_file, external_potential):
-        """
+        """Calculate and output free energy scaling relations of each reaction step.
 
         Args:
             free_energy_linear_relation (dict): free energy linear relation dict
             molecule_energy_file (str): path to molecule energy CSV file
             reaction_pathway_file (str): path to reaction pathway JSON file
             external_potential (float, int): external potential in eV
+
+        Notes:
+            1. Convert adsorption (free) energy relations to limiting potential relations:
+                For reaction step: * + CO2_g + 8 * PEP (proton-electron pair: H+ + e-) -> *COOH + 7 * PEP
+                
+                The reaction free energy G = [G(*COOH) + 7 * G(PEP)] - [G(*) + G(CO2_g) + 8 * G(PEP)], 
+                could reduce to G = [G(*COOH) - G(*)] - [G(CO2_g) + G(PEP)], note the energies of last two molecular species (CO2_g and PEP) is constant.
+                
+                For the [G(*COOH) - G(*)] part, we have G(*COOH) = G(COOH) + G(*) + GadsCOOH, where GadsCOOH is the adsorption free energy of COOH.
+                
+                As such, G reduces to G = GadsCOOH + [G(COOH) - G(CO2_g) - G(PEP)].
+                
+                Meanwhile from the free energy relations, we have: any adsorption free energy is a function of adsorption free energies of two descriptor species, in this case CO and OH, which gives GadsCOOH = a * GadsCO + b * GadsOH + c.
+                
+                Final the free energy equation reduces to G = [a * GadsCO + b * GadsOH + c] + [G(COOH) - G(CO2_g) - G(PEP)], meaning the free energy of any reaction step is determined by the adsorption free energies of two descriptors. 
             
         """
         # Check args
@@ -23,7 +38,7 @@ class scalingRelations:
         assert os.path.exists(reaction_pathway_file)
         assert isinstance(external_potential, (float, int))
         
-        # Update attribs
+        # Update attrib
         self.free_energy_linear_relation = free_energy_linear_relation
         self.external_potential = external_potential
         
