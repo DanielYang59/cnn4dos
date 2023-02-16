@@ -1,7 +1,9 @@
 
 
+import csv
 import os
 import pandas as pd
+
 
 class energyLoader:
     def __init__(self) -> None:
@@ -48,31 +50,57 @@ class energyLoader:
         self.adsorption_energy_dict = pd.concat(self.adsorption_energy_dict.values())
     
     
-    def add_corrections(self, correction_file):
+    def add_thermal_correction(self, correction_file):
+        """Add thermal corrections to adsorption energies.
+
+        Args:
+            correction_file (str): path to thermal correction csv file
+            
+        """
         # Check args
         assert os.path.exists(correction_file)
         
-        # Import correction file
-        
-        
+        # Import thermal correction file
+        thermal_correction_dict = {}
+        with open(correction_file) as f:
+            reader = csv.reader(f)
+            next(reader)  # skip header
+            for line in reader:
+                thermal_correction_dict[line[0]] = float(line[1])
 
-    
-    
+        # Apply thermal correction for each substrate
+        free_energy_dict = {}
+        for sub, df in self.adsorption_energy_dict.items():
+            free_energy_df = pd.DataFrame.copy(df)
+            
+            for ads in free_energy_df.columns.values:
+                # Check if all adsorbates have a correction entry
+                if f'*{ads.split("-")[-1]}' not in thermal_correction_dict:
+                    raise ValueError(f"Cannot find thermal correction for {ads.split('-')[-1]}")
+                
+                # Apply correction by column
+                free_energy_df[ads] += thermal_correction_dict[f'*{ads.split("-")[-1]}']
+            
+            free_energy_dict[sub] = free_energy_df
+        
+        # Update attrib
+        self.free_energy_dict = free_energy_dict 
+                
 
 # Test area
 if __name__ == "__main__":
     path = "../../0-dataset/label_adsorption_energy"
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
-    adsorbates = ["1-CO2", "2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-HER"]
+    adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     
     # Test adsorption energy loading
     loader = energyLoader()
     loader.load_adsorption_energy(path, substrates, adsorbates)
-    print(loader.adsorption_energy_dict)
+    # print(loader.adsorption_energy_dict)
     
     # Test stack different substrates
     # loader.stack_diff_substrates()
     # print(loader.adsorption_energy_dict)
     
     # Test add ZPE corrections
-    loader.add_corrections(correction_file="../data/corrections_thermal.csv")
+    loader.add_thermal_correction(correction_file="../data/corrections_thermal.csv")
