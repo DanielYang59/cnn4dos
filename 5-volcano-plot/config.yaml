@@ -2,7 +2,7 @@
 
 path:
   adsorption_energy_path: "../0-dataset/label_adsorption_energy"
-  reaction_pathway_file: "data/reaction_pathway.csv"
+  reaction_pathway_file: "data/reaction_pathway.json"
   thermal_correction_file: "data/corrections_thermal.csv"
   molecule_energy_file: "data/energy_molecule.csv"
 
