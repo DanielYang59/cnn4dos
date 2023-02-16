@@ -48,8 +48,14 @@ class energyLoader:
         self.adsorption_energy_dict = pd.concat(self.adsorption_energy_dict.values())
     
     
-    def add_corrections(self):
-        pass
+    def add_corrections(self, correction_file):
+        # Check args
+        assert os.path.exists(correction_file)
+        
+        # Import correction file
+        
+        
+
     
     
 
@@ -59,8 +65,14 @@ if __name__ == "__main__":
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["1-CO2", "2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-HER"]
     
+    # Test adsorption energy loading
     loader = energyLoader()
     loader.load_adsorption_energy(path, substrates, adsorbates)
     print(loader.adsorption_energy_dict)
-    loader.stack_diff_substrates()
-    print(loader.adsorption_energy_dict)
+    
+    # Test stack different substrates
+    # loader.stack_diff_substrates()
+    # print(loader.adsorption_energy_dict)
+    
+    # Test add ZPE corrections
+    loader.add_corrections(correction_file="../data/corrections_thermal.csv")
