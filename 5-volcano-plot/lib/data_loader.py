@@ -23,7 +23,7 @@ def load_adsorption_energy(path, substrates, adsorbates):
 
     # Load adsorption energy by substrate
     return {
-        sub: pd.read_csv(os.path.join(path, f"{sub}.csv")).loc[:, adsorbates]  # apply adsorbate filter
+        sub: pd.read_csv(os.path.join(path, f"{sub}.csv"), index_col=0).loc[:, adsorbates]  # apply adsorbate filter
         for sub in substrates
     }
     
