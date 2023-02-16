@@ -26,19 +26,30 @@ def linear_fitting_without_mixing(adsorption_energies, group_x, group_y, descrip
     fitting_results_x = {}
     for ads in group_x:
         if ads != descriptor_x:
-            fitting_results_x[f"{descriptor_x}_{ads}"] = stats.linregress(
+            result = stats.linregress(
                 np.array(stacked_adsorption_energy_df[descriptor_x]), 
                 np.array(stacked_adsorption_energy_df[ads])
                 )  # slope, intercept, r_value, p_value, std_err
+            
+            fitting_results_x[f"{descriptor_x}_{ads}"] = result
+            
+            if verbose:
+                print(f"R2 for {descriptor_x} vs {ads} is {result.rvalue}.")
+    
     
     # Perform linear fitting for group y
     fitting_results_y = {}
     for ads in group_y:
         if ads != descriptor_y:
-            fitting_results_y[f"{descriptor_y}_{ads}"] = stats.linregress(
+            result = stats.linregress(
                 np.array(stacked_adsorption_energy_df[descriptor_y]), 
                 np.array(stacked_adsorption_energy_df[ads])
                 )
+            
+            fitting_results_y[f"{descriptor_y}_{ads}"] = result
+            
+            if verbose:
+                print(f"R2 for {descriptor_y} vs {ads} is {result.rvalue}.")
         
     
     return (fitting_results_x, fitting_results_y)
