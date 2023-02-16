@@ -1,6 +1,7 @@
 
 
 import csv
+import json
 import os
 
 
@@ -15,8 +16,7 @@ def calculate_scaling_relations(free_energy_linear_relation, molecule_energy_fil
     molecule_energy_dict = import_molecule_energy(molecule_energy_file)
     
     # Import reaction path
-    import_reaction_pathway(reaction_pathway_file)
-    
+    reaction_pathway_dict = import_reaction_pathway(reaction_pathway_file)
     
     # 
 
@@ -46,13 +46,24 @@ def import_molecule_energy(file):
 
 
 def import_reaction_pathway(file):
+    """Import reaction pathway file.
+
+    Args:
+        file (str): path to reaction pathway file
+
+    Returns:
+        dict: reaction pathway dict
+        
+    """
     # Check args
     assert os.path.exists(file) and file.endswith("json")
     
-    #
+    # Import reaction pathway file
+    with open(file) as f:
+        reaction_pathway_dict = json.load(f)
+        
+    return reaction_pathway_dict 
     
-
-
 
 # Test area
 if __name__ == "__main__":
