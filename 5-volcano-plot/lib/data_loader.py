@@ -4,14 +4,15 @@ import os
 import pandas as pd
 
 
-def load_adsorption_energy(path, substrates):
+def load_adsorption_energy(path, substrates, adsorbates):
     # Check args
     assert os.path.isdir(path)
     assert isinstance(substrates, list)
+    assert isinstance(adsorbates, list)
 
     # Load adsorption energy by substrate
     return {
-        sub: pd.read_csv(os.path.join(path, f"{sub}.csv"))
+        sub: pd.read_csv(os.path.join(path, f"{sub}.csv")).loc[:, adsorbates]  # apply adsorbate filter
         for sub in substrates
     }
     
