@@ -14,14 +14,26 @@ def calculate_scaling_relations(free_energy_linear_relation, molecule_energy_fil
     # Import molecule energy
     molecule_energy_dict = import_molecule_energy(molecule_energy_file)
     
-    
     # Import reaction path
+    import_reaction_pathway(reaction_pathway_file)
     
     
     # 
 
 
 def import_molecule_energy(file):
+    """Import molecule energy from csv file.
+
+    Args:
+        file (str): path to molecule energy file
+
+    Returns:
+        dict: dict of molecule-energy pairs
+        
+    """
+    # Check args
+    assert os.path.exists(file) and file.endswith(".csv")
+    
     # Import molecule energy csv file
     molecule_energy_dict = {}
     with open(file) as f:
@@ -31,7 +43,16 @@ def import_molecule_energy(file):
             molecule_energy_dict[line[0]] = float(line[1])
     
     return molecule_energy_dict
-        
+
+
+def import_reaction_pathway(file):
+    # Check args
+    assert os.path.exists(file) and file.endswith("json")
+    
+    #
+    
+
+
 
 # Test area
 if __name__ == "__main__":
