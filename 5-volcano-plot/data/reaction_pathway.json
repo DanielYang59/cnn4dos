@@ -3,44 +3,44 @@
     "HER": {
         "comment":"Hydrogen Reduction Reaction Pathway",
         "1":{
-            "reactants":[["PEP"], [1]],
-            "products":[["H2_g"], [1]]
+            "reactants":{"PEP":1},
+            "products":{"H2_g":1}
         }
     },
 
     "CO2RR_CH4":{
         "comment":"Carbon Dioxide Reduction to Methane (CH4) Reaction Pathway",
         "1":{
-            "reactants":[["*", "CO2", "PEP"], [1, 1, 8]],
-            "products":[["*COOH", "PEP"], [1, 7]]
+            "reactants":{"*":1, "CO2":1, "PEP":8},
+            "products":{"*COOH":1, "PEP":7}
         }, 
         "2":{
-            "reactants":[["*COOH", "PEP"], [1, 7]],
-            "products":[["*CO", "PEP", "H2O_l"], [1, 6, 1]]
+            "reactants":{"*COOH":1, "PEP":7},
+            "products":{"*CO":1, "PEP":6, "H2O_l":1}
         }, 
         "3":{
-            "reactants":[["*CO", "PEP", "H2O_l"], [1, 6, 1]],
-            "products":[["*OCH", "PEP", "H2O_l"], [1, 5, 1]]
+            "reactants":{"*CO":1, "PEP":6, "H2O_l":1},
+            "products":{"*OCH":1, "PEP":5, "H2O_l":1}
         }, 
         "4":{
-            "reactants":[["*OCH", "PEP", "H2O_l"], [1, 5, 1]],
-            "products":[["*OCH2", "PEP", "H2O_l"], [1, 4, 1]]
+            "reactants":{"*OCH":1, "PEP":5, "H2O_l":1},
+            "products":{"*OCH2":1, "PEP":4, "H2O_l":1}
         }, 
         "5":{
-            "reactants":[["*OCH2", "PEP", "H2O_l"], [1, 4, 1]],
-            "products":[["*OCH3", "PEP", "H2O_l"], [1, 3, 1]]
+            "reactants":{"*OCH2":1, "PEP":4, "H2O_l":1},
+            "products":{"*OCH3":1, "PEP":3, "H2O_l":1}
         }, 
         "6":{
-            "reactants":[["*OCH3", "PEP", "H2O_l"], [1, 3, 1]],
-            "products":[["*O", "PEP", "H2O_l", "CH4_g"], [1, 2, 1, 1]]
+            "reactants":{"*OCH3":1, "PEP":3, "H2O_l":1},
+            "products":{"*O":1, "PEP":2, "H2O_l":1, "CH4_g":1}
         }, 
         "7":{
-            "reactants":[["*O", "PEP", "H2O_l", "CH4_g"], [1, 2, 1, 1]],
-            "products":[["*OH", "PEP", "H2O_l", "CH4_g"], [1, 1, 1, 1]]
+            "reactants":{"*O":1, "PEP":2, "H2O_l":1, "CH4_g":1},
+            "products":{"*OH":1, "PEP":1, "H2O_l":1, "CH4_g":1}
         },
         "8":{
-            "reactants":[["*OH", "PEP", "H2O_l", "CH4_g"], [1, 1, 1, 1]],
-            "products":[["*", "2H2O_l", "CH4_g"], [1, 2, 1]]
+            "reactants":{"*OH":1, "PEP":1, "H2O_l":1, "CH4_g":1},
+            "products":{"*":1, "H2O_l":2, "CH4_g":1}
         }
     }
 }
