@@ -1,13 +1,12 @@
 """Ref: QUT Notebook Page 69. """
 
 
-import os
-import sys
 import yaml
-import matplotlib.pyplot as plt
 
 from lib.energy_loader import energyLoader, stack_diff_sub_energy_dict
-from lib.fitting import linear_fitting_without_mixing, linear_fitting_with_mixing
+from lib.fitting import linear_fitting_with_mixing
+from lib.calculate_scaling_relations import calculate_scaling_relations
+from lib.plot_volcano import volcanoPlotter
 
 
 if __name__ == "__main__":
@@ -17,6 +16,7 @@ if __name__ == "__main__":
     adsorption_energy_path = cfg["path"]["adsorption_energy_path"]
     thermal_correction_file = cfg["path"]["thermal_correction_file"]
     molecule_energy_file = cfg["path"]["molecule_energy_file"]
+    reaction_pathway_file = cfg["path"]["reaction_pathway_file"] 
     
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
@@ -27,10 +27,8 @@ if __name__ == "__main__":
     descriptor_y = cfg["reaction"]["descriptor_y"]
     
     
-    # Initialize adsorption energy loader
-    energy_loader = energyLoader()
-    
     # Load adsorption energies
+    energy_loader = energyLoader()
     energy_loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
 
     # Add thermal corrections to adsorption energies
@@ -38,9 +36,22 @@ if __name__ == "__main__":
     
     
     # Perform linear fitting with automatic mixing
-    free_energies = stack_diff_sub_energy_dict(energy_loader.free_energy_dict)
-    dft_energy_linear_relation = linear_fitting_with_mixing(free_energies, descriptor_x, descriptor_y, verbose=False)
-    print(dft_energy_linear_relation)
+    free_energies = stack_diff_sub_energy_dict(energy_loader.free_energy_dict, add_prefix=True)
+    
+    free_energy_linear_relation = linear_fitting_with_mixing(
+        free_energies, 
+        descriptor_x, descriptor_y, 
+        verbose=False
+        )
+    
+    
+    # Calculate scaling relations
+    scaling_relations = calculate_scaling_relations(
+        free_energy_linear_relation,
+        molecule_energy_file,
+        reaction_pathway_file,
+        )
+    
     
     
     # Generate volcano plot
