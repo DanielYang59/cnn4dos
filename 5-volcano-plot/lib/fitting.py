@@ -99,7 +99,8 @@ def linear_fitting_with_mixing(adsorption_energies, descriptor_x, descriptor_y, 
             best_r2 = max(r2values)
             best_percentage = r2values.index(best_r2)
             
-            print(f"Best R2 for {ads} is {round(best_r2, 4)}, {descriptor_x} {best_percentage} %. Worst R2 for {ads} is {round(min(r2values), 4)}, {descriptor_x} {r2values.index(min(r2values))} %.")
+            if verbose: 
+                print(f"Best R2 for {ads} is {round(best_r2, 4)}, {descriptor_x} {best_percentage} %. Worst R2 for {ads} is {round(min(r2values), 4)}, {descriptor_x} {r2values.index(min(r2values))} %.")
           
 
             # Perform fitting with best descriptor percentage
