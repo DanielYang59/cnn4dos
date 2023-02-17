@@ -2,6 +2,7 @@
 
 import csv
 import json
+import numpy as np
 import os
 import sys #DEBUG
 
@@ -46,7 +47,10 @@ class scalingRelations:
         
         # Import molecule energy
         self.molecule_energy_dict = self.import_molecule_energy(molecule_energy_file)
-       
+
+        # Import non-molecular adsorbate energy
+        self.adsorbate_energy_dict = self.import_molecule_energy(non_molecular_adsorbate_energy_file)
+        
         
         # Import reaction path
         self.reaction_pathway_dict = self.import_reaction_pathway(reaction_pathway_file)
@@ -56,7 +60,77 @@ class scalingRelations:
         self.scaling_relations_dict = {}
         for reaction_name in self.reaction_pathway_dict:
             self.scaling_relations_dict[reaction_name] = self.calculate_relations(reaction_name)
+    
+    
+    def calculate_half_equation(self, equation_part):
+        """Calculate energy term for half of reaction equation.
+
+        Args:
+            equation_part (dict): dict of half reaction euqation
+            external_potential (float, int): applied external potential in eV
+        
+        Notes:
+            1. For half reactions with adsorbed species, for example [*COOH + PEP],
+            it would reduce to GadsCOOH + GPEP (+ G*)(ignored as cancelled out)
+            2. For half reactions without adsorbed species species, for example [* + CO2 + PEP],
+            it would reduce to GCO2 + GPEP (+ G*)(ignored).
+                
+        """
+        # Check args
+        assert isinstance(equation_part, dict)
+        assert isinstance(external_potential, (float, int))
+
+        # Initialize relation equation
+        para_a = 0
+        para_b = 0
+        para_constant = 0
+        
+        # Calculate energy contribution for each term
+        for species, num in equation_part.items():
+            print(species, num) #DEBUG
             
+            # PEP: proton-electron pairs
+            if species == "PEP":
+                # Calculate PEP energy (0.5 * H2 energy), and add in potential correction
+                pep_energy = 0.5 * self.molecule_energy_dict["H2"] - external_potential
+                
+                para_constant += (pep_energy * num)
+            
+            # pristine catalysts surface (ignore)
+            elif species == "*":
+                pass
+            
+            # adsorbed species
+            elif species.startswith("*"):
+                # convert G*CO to [GCO + GadsCO]
+                species = species.lstrip("*")
+                
+                # add adsorbed species free energy
+                if species in self.adsorbate_energy_dict:
+                    para_constant += self.adsorbate_energy_dict[species]
+                elif species in self.molecule_energy_dict:
+                    para_constant += self.molecule_energy_dict[species]
+                else:
+                    raise ValueError(f"Cannot find energy for {species}.")
+                
+                # add scaling relations
+                print("test here") #DEBUG
+               
+              
+            # non-adsorbed species (free molecule or non-molecular adsorbate)
+            else:
+                species = species.split("_")[0]
+                
+                if species in self.adsorbate_energy_dict:
+                    para_constant += self.adsorbate_energy_dict[species]
+                elif species in self.molecule_energy_dict:
+                    para_constant += self.molecule_energy_dict[species]
+                else:
+                    raise ValueError(f"Cannot find energy for {species}.")
+        
+        
+        return np.array([para_a, para_b, para_constant])
+       
             
     def calculate_relations(self, reaction_name):
         """Calculate scaling relation of selected reaction pathway.
@@ -65,93 +139,25 @@ class scalingRelations:
             reaction_name (str): name of reaction to calculate
             
         """
-        
-        
-        def calculate_energy_term(equation_part, external_potential):
-            """Calculate energy term for half of reaction equation.
-
-            Args:
-                equation_part (dict): dict of half reaction euqation
-                external_potential (float, int): applied external potential in eV
-                
-            """
-            # Check args
-            assert isinstance(equation_part, dict)
-            assert isinstance(external_potential, (float, int))
-
-            # Initialize relation equation
-            para_a = 0
-            para_b = 0
-            para_constant = 0
-            
-            # Calculate energy contribution for each term
-            for species, num in equation_part.items():
-                print(species, num) #DEBUG
-                
-                # PEP: proton-electron pairs
-                if species == "PEP":
-                    # Calculate PEP energy (0.5 * H2 energy), and add in potential correction
-                    pep_energy = 0.5 * molecule_energy_dict["H2_g"] - external_potential
-                    
-                    para_constant += (pep_energy * num)
-                
-                # pristine catalysts surface (ignore)
-                elif species == "*":
-                    pass
-                
-                # adsorbed species
-                elif species.startswith("*"):
-                    # convert G*CO to [G* + GCO + GadsCO]
-                    species = species.lstrip("*")
-                    print(f"Here {species}")
-                    
-                    # add non-molecular species free energy
-                    
-                    
-                    # add scaling relations
-                    
-                    
-                    
-                
-                # non-adsorbed species (free molecule or non-molecular adsorbate)
-                else:
-                    pass
-                
-                    
-            
-            
-            return (para_a, para_b, para_constant)
-        
-        
         # Check args
         assert reaction_name in self.reaction_pathway_dict
         
-        
-        # Unpack necessary inputs
-        molecule_energy_dict = self.molecule_energy_dict
-        reaction_pathway_dict = self.reaction_pathway_dict[reaction_name]
-        external_potential = self.external_potential
-        free_energy_linear_relation = self.free_energy_linear_relation
-        
-        
+    
         # Calculate one linear relation for each reaction step
         result_dict = {}
-        for step_index, equation in reaction_pathway_dict.items():
+        for step_index, equation in self.reaction_pathway_dict.items():
             if step_index != "comment":  # skip comment
                 
                 # Get terms for products
-                products_term = calculate_energy_term(equation["products"], external_potential)
+                products_term = self.calculate_half_equation(equation["products"])
                 
                 # Get terms for reactants
-                reactants_term = calculate_energy_term(equation["reactants"], external_potential) 
+                reactants_term = self.calculate_half_equation(equation["reactants"]) 
                 
                 # Calculate difference
                 
                 
                 # Add to linear relation
-                
-         
-                
                 
                 result_dict[int(step_index)] = "test"
         
@@ -240,5 +246,5 @@ if __name__ == "__main__":
     
     
     relation = scalingRelations(free_energy_linear_relation,
-        molecule_energy_file, reaction_pathway_file, external_potential)
+        molecule_energy_file, non_molecular_adsorbate_energy_file, reaction_pathway_file, external_potential)
     
