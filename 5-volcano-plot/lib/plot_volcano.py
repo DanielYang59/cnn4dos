@@ -35,7 +35,9 @@ class volcanoPlotter:
         # Create CO2RR rate-determining step plot
         
         
-        
+        # Generate selectivity mesh
+        # selectivity_mesh = 
+         
         # Create CO2RR vs HER selectivity map
         
         
@@ -96,10 +98,10 @@ class volcanoPlotter:
         assert isinstance(activity_mesh, dict)
         
         # Stack all meshes of different steps to shape (density_x, density_y, numSteps)
-        stacked_mesh = np.stack(activity_mesh.values(), axis=2)
+        stacked_mesh = np.stack(activity_mesh.values(), axis=2)  # DEBUG: check x/y shape
         
         # Get limiting potential mesh
-        limiting_potential_mesh = np.amax(stacked_mesh, axis=2)  # DEBUG: check x/y shape
+        limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
         
         if return_rds:
             rds_mesh = np.argmax(stacked_mesh, axis=2)
@@ -107,7 +109,40 @@ class volcanoPlotter:
 
         else:
             return limiting_potential_mesh
+    
+    
+    def generate_selectivity_mesh(self, primary_activity_mesh, competing_activity_mesh):
+        """Generate selectivity mesh.
+
+        Args:
+            primary_activity_mesh (np.ndarray): array of primary reaction limiting potential mesh
+            competing_activity_mesh (np.ndarray): array of competing reaction limiting potential mesh
+
+        Notes:
+            1. The selectivity mesh is calculated as (primary reaction limiting potential - competing reaction limiting potential). As such LOWER value indicates better selectivity.
         
+        Returns:
+            np.ndarray: selectivity mesh
+            
+        """
+        # Check args
+        assert isinstance(primary_activity_mesh, np.ndarray) and primary_activity_mesh.ndim == 2
+        assert isinstance(competing_activity_mesh, np.ndarray) and competing_activity_mesh.ndim == 2
+        assert primary_activity_mesh.shape == competing_activity_mesh.shape
+        
+        # Generate activity mesh for primary reaction
+        stacked_primary_mesh = np.stack(primary_activity_mesh.values(), axis=2)
+        primary_limiting_potential_mesh = np.amax(stacked_primary_mesh, axis=2)  
+        
+        
+        # Generate activity mesh for competing reaction
+        stacked_competing_mesh = np.stack(primary_activity_mesh.values(), axis=2)
+        competing_limiting_potential_mesh = np.amax(stacked_competing_mesh, axis=2)  
+        
+        
+        # Calculate limiting potential difference
+        return primary_limiting_potential_mesh - competing_limiting_potential_mesh
+         
     
     def plot_limiting_potential(self, mesh, show=True, savename="volcano_limiting_potential.png", dpi=300):
         # Check args
@@ -115,6 +150,9 @@ class volcanoPlotter:
         
         # 
 
+    
+    
+    
      
     
 # Test area
