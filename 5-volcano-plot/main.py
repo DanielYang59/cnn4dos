@@ -16,6 +16,7 @@ if __name__ == "__main__":
     adsorption_energy_path = cfg["path"]["adsorption_energy_path"]
     thermal_correction_file = cfg["path"]["thermal_correction_file"]
     molecule_energy_file = cfg["path"]["molecule_energy_file"]
+    non_molecular_adsorbate_energy_file = cfg["path"]["non_molecular_adsorbate_energy_file"] 
     reaction_pathway_file = cfg["path"]["reaction_pathway_file"] 
     
     substrates = cfg["species"]["substrates"]
@@ -49,6 +50,7 @@ if __name__ == "__main__":
     scaling_relations = calculate_scaling_relations(
         free_energy_linear_relation,
         molecule_energy_file,
+        non_molecular_adsorbate_energy_file,
         reaction_pathway_file,
         )
     

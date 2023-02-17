@@ -5,6 +5,7 @@ path:
   reaction_pathway_file: "data/reaction_pathway.json"
   thermal_correction_file: "data/corrections_thermal.csv"
   molecule_energy_file: "data/energy_molecule.csv"
+  non_molecular_adsorbate_energy_file: "data/energy_adsorbate.csv"
 
 
 species:
