@@ -4,7 +4,6 @@ import csv
 import json
 import numpy as np
 import os
-import sys #DEBUG
 
 
 class scalingRelations:
@@ -74,7 +73,7 @@ class scalingRelations:
             it would reduce to GadsCOOH + GPEP (+ G*)(ignored as cancelled out)
             2. For half reactions without adsorbed species species, for example [* + CO2 + PEP],
             it would reduce to GCO2 + GPEP (+ G*)(ignored).
-                
+        
         """
         # Check args
         assert isinstance(equation_part, dict)
@@ -86,9 +85,7 @@ class scalingRelations:
         para_constant = 0
         
         # Calculate energy contribution for each term
-        for species, num in equation_part.items():
-            print(species, num) #DEBUG
-            
+        for species, num in equation_part.items():            
             # PEP: proton-electron pairs
             if species == "PEP":
                 # Calculate PEP energy (0.5 * H2 energy), and add in potential correction
@@ -96,7 +93,7 @@ class scalingRelations:
                 
                 para_constant += (pep_energy * num)
             
-            # pristine catalysts surface (ignore)
+            # pristine catalysts surface (ignore as cancelled out)
             elif species == "*":
                 pass
             
@@ -113,7 +110,11 @@ class scalingRelations:
                 else:
                     raise ValueError(f"Cannot find energy for {species}.")
                 
-                # add scaling relations
+                # add scaling relation parameters
+                print(free_energy_linear_relation)
+                print(free_energy_linear_relation[species])
+                
+                
                 print("test here") #DEBUG
                
               
@@ -145,7 +146,7 @@ class scalingRelations:
     
         # Calculate one linear relation for each reaction step
         result_dict = {}
-        for step_index, equation in self.reaction_pathway_dict.items():
+        for step_index, equation in self.reaction_pathway_dict[reaction_name].items():
             if step_index != "comment":  # skip comment
                 
                 # Get terms for products
