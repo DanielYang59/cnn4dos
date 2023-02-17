@@ -66,7 +66,6 @@ class scalingRelations:
 
         Args:
             equation_part (dict): dict of half reaction euqation
-            external_potential (float, int): applied external potential in eV
         
         Notes:
             1. For half reactions with adsorbed species, for example [*COOH + PEP],
@@ -77,7 +76,6 @@ class scalingRelations:
         """
         # Check args
         assert isinstance(equation_part, dict)
-        assert isinstance(external_potential, (float, int))
 
         # Initialize relation equation
         paras = np.array([0.0, 0.0, 0.0])
@@ -87,7 +85,7 @@ class scalingRelations:
             # PEP: proton-electron pairs
             if species == "PEP":
                 # Calculate PEP energy (0.5 * H2 energy), and add in potential correction
-                pep_energy = 0.5 * self.molecule_energy_dict["H2"] - external_potential
+                pep_energy = 0.5 * self.molecule_energy_dict["H2"] - self.external_potential
                 
                 paras += [0, 0, pep_energy * num]
             
@@ -112,7 +110,7 @@ class scalingRelations:
                     raise ValueError(f"Cannot find energy for {species}.")
                 
                 # add scaling relation parameters
-                paras += (free_energy_linear_relation[species] * num)
+                paras += (self.free_energy_linear_relation[species] * num)
                 
               
             # non-adsorbed species (free molecule or non-molecular adsorbate)
