@@ -7,7 +7,7 @@ import os
 
 
 class scalingRelations:
-    def __init__(self, free_energy_linear_relation, molecule_energy_file, non_molecular_adsorbate_energy_file, reaction_pathway_file, external_potential):
+    def __init__(self, free_energy_linear_relation, molecule_energy_file, non_molecular_adsorbate_energy_file, reaction_pathway_file, external_potential, verbose=True):
         """Calculate and output free energy scaling relations of each reaction step.
 
         Args:
@@ -16,6 +16,7 @@ class scalingRelations:
             non_molecular_adsorbate_energy_file (str): path to non-molecular adsorbate energy CSV file 
             reaction_pathway_file (str): path to reaction pathway JSON file
             external_potential (float, int): external potential in eV
+            verbose (bool, optional): print results during calculation. Defaults to True.
 
         Notes:
             1. Convert adsorption (free) energy relations to limiting potential relations:
@@ -42,6 +43,7 @@ class scalingRelations:
         # Update attrib
         self.free_energy_linear_relation = free_energy_linear_relation
         self.external_potential = external_potential
+        self.verbose = verbose
         
         
         # Import molecule energy
@@ -152,8 +154,10 @@ class scalingRelations:
                 
                 # Calculate final parameter array
                 final_para = products_term - reactants_term
-    
+
                 result_dict[int(step_index)] = final_para
+                if self.verbose:
+                    print(f"Parameters for step {step_index} ({equation}) of {reaction_name} is {final_para}.")
         
         
         return result_dict
