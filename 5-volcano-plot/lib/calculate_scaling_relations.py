@@ -4,16 +4,16 @@ import csv
 import json
 import numpy as np
 import os
+import pandas as pd
 
 
 class scalingRelations:
-    def __init__(self, free_energy_linear_relation, molecule_energy_file, non_molecular_adsorbate_energy_file, reaction_pathway_file, external_potential, verbose=True):
+    def __init__(self, free_energy_linear_relation, adsorbate_energy_file, reaction_pathway_file, external_potential, verbose=True):
         """Calculate and output free energy scaling relations of each reaction step.
 
         Args:
             free_energy_linear_relation (dict): free energy linear relation dict
-            molecule_energy_file (str): path to molecule energy CSV file
-            non_molecular_adsorbate_energy_file (str): path to non-molecular adsorbate energy CSV file 
+            adsorbate_energy_file (str): path to adsorbate energy CSV file 
             reaction_pathway_file (str): path to reaction pathway JSON file
             external_potential (float, int): external potential in eV
             verbose (bool, optional): print results during calculation. Defaults to True.
@@ -36,7 +36,6 @@ class scalingRelations:
         """
         # Check args
         assert isinstance(free_energy_linear_relation, dict)
-        assert os.path.exists(molecule_energy_file)
         assert os.path.exists(reaction_pathway_file)
         assert isinstance(external_potential, (float, int))
         
@@ -46,11 +45,8 @@ class scalingRelations:
         self.verbose = verbose
         
         
-        # Import molecule energy
-        self.molecule_energy_dict = self.import_molecule_energy(molecule_energy_file)
-
-        # Import non-molecular adsorbate energy
-        self.adsorbate_energy_dict = self.import_molecule_energy(non_molecular_adsorbate_energy_file)
+        # Import adsorbate energy
+        self.adsorbate_energy_dict = self.import_adsorbate_energy(adsorbate_energy_file)
         
         
         # Import reaction path
@@ -87,7 +83,7 @@ class scalingRelations:
             # PEP: proton-electron pairs
             if species == "PEP":
                 # Calculate PEP energy (0.5 * H2 energy), and add in potential correction
-                pep_energy = 0.5 * self.molecule_energy_dict["H2"] - self.external_potential
+                pep_energy = 0.5 * self.adsorbate_energy_dict["H2"] - self.external_potential
                 
                 paras += [0, 0, pep_energy * num]
             
@@ -106,8 +102,6 @@ class scalingRelations:
                 # add adsorbed species free energy
                 if species in self.adsorbate_energy_dict:
                     paras += [0, 0, self.adsorbate_energy_dict[species] * num]
-                elif species in self.molecule_energy_dict:
-                    paras += [0, 0, self.molecule_energy_dict[species] * num]
                 else:
                     raise ValueError(f"Cannot find energy for {species}.")
                 
@@ -121,8 +115,6 @@ class scalingRelations:
                 
                 if species in self.adsorbate_energy_dict:
                     paras += [0, 0, self.adsorbate_energy_dict[species] * num]
-                elif species in self.molecule_energy_dict:
-                    paras += [0, 0, self.molecule_energy_dict[species] * num]
                 else:
                     raise ValueError(f"Cannot find energy for {species}.")
         
@@ -184,28 +176,23 @@ class scalingRelations:
         return reaction_pathway_dict 
     
     
-    def import_molecule_energy(self, file):
-        """Import molecule energy from csv file.
+    def import_adsorbate_energy(self, file):
+        """Import adsorbate free energy from csv file.
 
         Args:
-            file (str): path to molecule energy file
+            file (str): path to adsorbate energy file
 
         Returns:
-            dict: dict of molecule-energy pairs
+            dict: dict of adsorbate-energy pairs
             
         """
         # Check args
         assert os.path.exists(file) and file.endswith(".csv")
         
-        # Import molecule energy csv file
-        molecule_energy_dict = {}
-        with open(file) as f:
-            reader = csv.reader(f)
-            next(reader)  # skip header
-            for line in reader:
-                molecule_energy_dict[line[0]] = float(line[1])
+        # Import adsorbate energy csv file and pack into dict
+        df = pd.read_csv(file)
         
-        return molecule_energy_dict
+        return dict(zip(df["name"], df["free_energy"].astype(float)))
 
 
 # Test area
@@ -214,8 +201,7 @@ if __name__ == "__main__":
     adsorption_energy_path =  "../../0-dataset/label_adsorption_energy"
     reaction_pathway_file = "../data/reaction_pathway.json"
     thermal_correction_file = "../data/corrections_thermal.csv"
-    molecule_energy_file = "../data/energy_molecule.csv"
-    non_molecular_adsorbate_energy_file = "../data/energy_adsorbate.csv"
+    adsorbate_energy_file = "../data/energy_adsorbate.csv"
     
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
@@ -245,5 +231,5 @@ if __name__ == "__main__":
     
     
     relation = scalingRelations(free_energy_linear_relation,
-        molecule_energy_file, non_molecular_adsorbate_energy_file, reaction_pathway_file, external_potential)
+        adsorbate_energy_file, reaction_pathway_file, external_potential)
     
