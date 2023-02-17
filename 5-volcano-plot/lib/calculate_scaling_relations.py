@@ -80,9 +80,7 @@ class scalingRelations:
         assert isinstance(external_potential, (float, int))
 
         # Initialize relation equation
-        para_a = 0
-        para_b = 0
-        para_constant = 0
+        paras = np.array([0.0, 0.0, 0.0])
         
         # Calculate energy contribution for each term
         for species, num in equation_part.items():            
@@ -91,11 +89,13 @@ class scalingRelations:
                 # Calculate PEP energy (0.5 * H2 energy), and add in potential correction
                 pep_energy = 0.5 * self.molecule_energy_dict["H2"] - external_potential
                 
-                para_constant += (pep_energy * num)
+                paras += [0, 0, pep_energy * num]
+            
             
             # pristine catalysts surface (ignore as cancelled out)
             elif species == "*":
                 pass
+            
             
             # adsorbed species
             elif species.startswith("*"):
@@ -104,33 +104,29 @@ class scalingRelations:
                 
                 # add adsorbed species free energy
                 if species in self.adsorbate_energy_dict:
-                    para_constant += self.adsorbate_energy_dict[species]
+                    paras += [0, 0, self.adsorbate_energy_dict[species] * num]
                 elif species in self.molecule_energy_dict:
-                    para_constant += self.molecule_energy_dict[species]
+                    paras += [0, 0, self.molecule_energy_dict[species] * num]
                 else:
                     raise ValueError(f"Cannot find energy for {species}.")
                 
                 # add scaling relation parameters
-                print(free_energy_linear_relation)
-                print(free_energy_linear_relation[species])
+                paras += (free_energy_linear_relation[species] * num)
                 
-                
-                print("test here") #DEBUG
-               
               
             # non-adsorbed species (free molecule or non-molecular adsorbate)
             else:
                 species = species.split("_")[0]
                 
                 if species in self.adsorbate_energy_dict:
-                    para_constant += self.adsorbate_energy_dict[species]
+                    paras += [0, 0, self.adsorbate_energy_dict[species] * num]
                 elif species in self.molecule_energy_dict:
-                    para_constant += self.molecule_energy_dict[species]
+                    paras += [0, 0, self.molecule_energy_dict[species] * num]
                 else:
                     raise ValueError(f"Cannot find energy for {species}.")
         
         
-        return np.array([para_a, para_b, para_constant])
+        return paras
        
             
     def calculate_relations(self, reaction_name):
@@ -155,12 +151,10 @@ class scalingRelations:
                 # Get terms for reactants
                 reactants_term = self.calculate_half_equation(equation["reactants"]) 
                 
-                # Calculate difference
-                
-                
-                # Add to linear relation
-                
-                result_dict[int(step_index)] = "test"
+                # Calculate final parameter array
+                final_para = products_term - reactants_term
+    
+                result_dict[int(step_index)] = final_para
         
         
         return result_dict
