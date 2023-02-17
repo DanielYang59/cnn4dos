@@ -156,6 +156,7 @@ class scalingRelations:
                 final_para = products_term - reactants_term
 
                 result_dict[int(step_index)] = final_para
+                
                 if self.verbose:
                     print(f"Parameters for step {step_index} ({equation}) of {reaction_name} is {final_para}.")
         
