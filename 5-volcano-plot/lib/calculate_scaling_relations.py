@@ -70,7 +70,7 @@ class scalingRelations:
         
         Notes:
             1. For half reactions with adsorbed species, for example [*COOH + PEP],
-            it would reduce to GadsCOOH + GPEP (+ G*)(ignored as cancelled out)
+            it would reduce to GCOOH + GadsCOOH + GPEP (+ G*)(ignored as cancelled out)
             2. For half reactions without adsorbed species species, for example [* + CO2 + PEP],
             it would reduce to GCO2 + GPEP (+ G*)(ignored).
         
@@ -97,9 +97,10 @@ class scalingRelations:
                 pass
             
             
-            # adsorbed species
+            # adsorbed species 
+            # convert G*CO to [GCO + GadsCO]
             elif species.startswith("*"):
-                # convert G*CO to [GCO + GadsCO]
+                
                 species = species.lstrip("*")
                 
                 # add adsorbed species free energy
