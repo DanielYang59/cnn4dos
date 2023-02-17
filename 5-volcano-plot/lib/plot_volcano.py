@@ -13,31 +13,50 @@ class volcanoPlotter:
         assert isinstance(x_range, tuple)
         assert isinstance(y_range, tuple)
         
+        
         # Update attrib
         self.scaling_relations = scaling_relations
         self.x_range = x_range
         self.y_range = y_range
         
+        
         # Generate activity mesh for CO2RR and HER
-        co2rr_activity_mesh = self.generate_activity_mesh("CO2RR_CH4")
+        co2rr_activity_mesh = self.generate_activity_mesh("CO2RR_CH4", density=(400, 500))
         her_activity_mesh = self.generate_activity_mesh("HER")
         
+        
+        # Generate limiting potential mesh with rate determining step info
+        limiting_potential_mesh, rds_mesh = self.generate_limiting_potential_mesh(co2rr_activity_mesh, return_rds=True)
+
+        
         # Create CO2RR activity plot
-        self.plot_activity(co2rr_activity_mesh, show=True, savename="volcano_co2rr.png")
+        
         
         # Create CO2RR rate-determining step plot
+        
         
         
         # Create CO2RR vs HER selectivity map
         
         
-         
-        
     
-    def generate_activity_mesh(self, reaction_name, density=400):
+    def generate_activity_mesh(self, reaction_name, density=(400, 400)):
+        """Generate 2D numpy mesh from scaling relations.
+
+        Args:
+            reaction_name (str): name of reaction to generate
+            density (tuple, optional): mesh density in (x, y) direction. Defaults to (400, 400).
+
+        Raises:
+            ValueError: _description_
+
+        Returns:
+            _type_: _description_
+        """
         # Check args
         if reaction_name not in self.scaling_relations:
             raise ValueError(f"Cannot find data for reaction {reaction_name}.")
+        assert isinstance(density, tuple) and len(density) == 2
         for i in self.x_range:
             assert isinstance(i, (int, float))
         assert self.x_range[0] < self.x_range[1]
@@ -48,8 +67,8 @@ class volcanoPlotter:
         
         # Generate a 2D mesh
         xx, yy = np.meshgrid(
-            np.linspace(self.x_range[0], self.x_range[1], density),
-            np.linspace(self.y_range[0], self.y_range[1], density),
+            np.linspace(self.x_range[0], self.x_range[1], density[0]),
+            np.linspace(self.y_range[0], self.y_range[1], density[1]),
             )
         
         
@@ -62,27 +81,41 @@ class volcanoPlotter:
         return energy_change_dict
     
     
-    def plot_activity(self, activity_mesh, show=True, savename="volcano_activity.png"):
+    def generate_limiting_potential_mesh(self, activity_mesh, return_rds=True):
+        """Generate limiting potential mesh from dict of activity meshes.
+
+        Args:
+            activity_mesh (dict): source activity meshes, key is reaction step count, value is activity mesh
+            return_rds (bool, optional): return rate determining step mesh. Defaults to True.
+
+        Returns:
+            np.ndarray: limiting potential mesh in shape (density_x, density_y)
+            
+        """
         # Check args
         assert isinstance(activity_mesh, dict)
         
+        # Stack all meshes of different steps to shape (density_x, density_y, numSteps)
+        stacked_mesh = np.stack(activity_mesh.values(), axis=2)
+        
+        # Get limiting potential mesh
+        limiting_potential_mesh = np.amax(stacked_mesh, axis=2)  # DEBUG: check x/y shape
+        
+        if return_rds:
+            rds_mesh = np.argmax(stacked_mesh, axis=2)
+            return limiting_potential_mesh, rds_mesh
+
+        else:
+            return limiting_potential_mesh
+        
+    
+    def plot_limiting_potential(self, mesh, show=True, savename="volcano_limiting_potential.png", dpi=300):
+        # Check args
+        assert isinstance(mesh, np.ndarray) and mesh.ndim == 2
+        
         # 
 
-    
-    
-    
-    def plot_rate_determining_step(self, activity_mesh, show=True, savename="volcano_RDS.png"):
-        pass
      
-
-    
-    # def plot_selectivity(self, reactions, show=True, savename="volcano_selectivity.png"):
-    #     # Check args
-    #     assert isinstance(reactions, list) and len(set(reactions)) == 2
-    #     for name in reactions:
-    #         if name not in self.scaling_relations:
-    #             raise ValueError(f"Cannot find data for reaction {name}.")
-    
     
 # Test area
 if __name__ == "__main__":
