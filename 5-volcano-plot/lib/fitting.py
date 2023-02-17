@@ -152,12 +152,12 @@ def linear_fitting_with_mixing(adsorption_energies, descriptor_x, descriptor_y, 
             para_b = result.slope * (1 - best_percentage) * 0.01
             para_c = result.intercept
             
-            fitting_results[ads] = np.array([para_a, para_b, para_c])
+            fitting_results[ads.split("-")[-1]] = np.array([para_a, para_b, para_c])
         
     
     # Add descriptor relations
-    fitting_results[descriptor_x] = np.array([1, 0, 0])
-    fitting_results[descriptor_y] = np.array([0, 1, 0])
+    fitting_results[descriptor_x.split("-")[-1]] = np.array([1, 0, 0])
+    fitting_results[descriptor_y.split("-")[-1]] = np.array([0, 1, 0])
 
                 
     return fitting_results
