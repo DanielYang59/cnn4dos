@@ -7,40 +7,33 @@ import numpy as np
 
 
 class volcanoPlotter:
-    def __init__(self, scaling_relations, x_range, y_range) -> None:
+    def __init__(self, scaling_relations, x_range, y_range, descriptors) -> None:
         # Check args
         assert isinstance(scaling_relations, dict)
         assert isinstance(x_range, tuple)
         assert isinstance(y_range, tuple)
+        assert isinstance(descriptors, tuple) and len(descriptors) == 2
         
         
         # Update attrib
         self.scaling_relations = scaling_relations
         self.x_range = x_range
         self.y_range = y_range
+        self.descriptors = descriptors
         
         
         # Generate activity mesh for CO2RR and HER
-        co2rr_activity_mesh = self.generate_activity_mesh("CO2RR_CH4", density=(400, 500))
         her_activity_mesh = self.generate_activity_mesh("HER")
         
+    
         
-        # Generate limiting potential mesh with rate determining step info
-        limiting_potential_mesh, rds_mesh = self.generate_limiting_potential_mesh(co2rr_activity_mesh, return_rds=True)
-
-        
-        # Create CO2RR activity plot
-        
-        
-        # Create CO2RR rate-determining step plot
-        
-        
-        # Generate selectivity mesh
-        # selectivity_mesh = 
-         
-        # Create CO2RR vs HER selectivity map
-        
-        
+    def add_original_points(self):
+        pass
+    
+    
+    def add_rds_separator_lines(self):
+        pass
+    
     
     def generate_activity_mesh(self, reaction_name, density=(400, 400)):
         """Generate 2D numpy mesh from scaling relations.
@@ -68,7 +61,7 @@ class volcanoPlotter:
         
         
         # Generate a 2D mesh
-        xx, yy = np.meshgrid(
+        self.xx, self.yy = np.meshgrid(
             np.linspace(self.x_range[0], self.x_range[1], density[0]),
             np.linspace(self.y_range[0], self.y_range[1], density[1]),
             )
@@ -78,7 +71,7 @@ class volcanoPlotter:
         energy_change_dict = {}
         for step_index, paras in self.scaling_relations[reaction_name].items():
             # Calculate value for each point on mesh
-            energy_change_dict[step_index] = xx * paras[0] + yy * paras[1] + paras[2]
+            energy_change_dict[step_index] = self.xx * paras[0] + self.yy * paras[1] + paras[2]
         
         return energy_change_dict
     
@@ -98,7 +91,7 @@ class volcanoPlotter:
         assert isinstance(activity_mesh, dict)
         
         # Stack all meshes of different steps to shape (density_x, density_y, numSteps)
-        stacked_mesh = np.stack(activity_mesh.values(), axis=2)  # DEBUG: check x/y shape
+        stacked_mesh = np.stack(list(activity_mesh.values()), axis=2)
         
         # Get limiting potential mesh
         limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
@@ -131,30 +124,79 @@ class volcanoPlotter:
         assert primary_activity_mesh.shape == competing_activity_mesh.shape
         
         # Generate activity mesh for primary reaction
-        stacked_primary_mesh = np.stack(primary_activity_mesh.values(), axis=2)
+        stacked_primary_mesh = np.stack(list(primary_activity_mesh.values()), axis=2)
         primary_limiting_potential_mesh = np.amax(stacked_primary_mesh, axis=2)  
         
         
         # Generate activity mesh for competing reaction
-        stacked_competing_mesh = np.stack(primary_activity_mesh.values(), axis=2)
+        stacked_competing_mesh = np.stack(list(primary_activity_mesh.values()), axis=2)
         competing_limiting_potential_mesh = np.amax(stacked_competing_mesh, axis=2)  
         
         
         # Calculate limiting potential difference
         return primary_limiting_potential_mesh - competing_limiting_potential_mesh
-         
     
-    def plot_limiting_potential(self, mesh, show=True, savename="volcano_limiting_potential.png", dpi=300):
+    
+    def plot_limiting_potential(self, reaction_name, show=True, savename="volcano_limiting_potential.png", dpi=300):
         # Check args
-        assert isinstance(mesh, np.ndarray) and mesh.ndim == 2
+        if reaction_name not in self.scaling_relations:
+            raise ValueError(f"Cannot find scaling relations for reaction {reaction_name}.")
         
-        # 
+        
+        # Generate limiting potential mesh
+        # DEBUG: check x/y shape
+        activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 400))
+        
+        # Generate limiting potential mesh with rate determining step info
+        limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True)
+        
+        # Set figure format
+        self.set_figure_format(plt)
+        
+        
+        # Create background contour plot
+        contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh, levels=512, cmap="coolwarm_r", 
+                            # extend="max"
+                            )  # create filled contour
+        
+    
+        
+        # Add original data points
+        
+        # Output figure
+        plt.tight_layout()
+        plt.savefig(savename, dpi=dpi)
+        if show:
+            plt.show()
+            
+            
+    def set_figure_format(self, plt):
+        # Change font
+        font = {'family' : 'sans-serif',
+            'sans-serif': 'Helvetica',
+            'weight' : 'normal',
+            'size'   : 18}
+        plt.rc('font', **font)
+        
+        # Create background volcano plot
+        fig = plt.figure(figsize=[16, 12])
 
-    
-    
-    
-     
-    
+        # Set axis range
+        plt.xlim(self.x_range)
+        plt.ylim(self.y_range)
+
+        # Set ticks font size
+        plt.xticks(fontsize=25)
+        plt.yticks(fontsize=25)
+
+        # Add X/Y axis labels
+        # adsorption energy symbol format ref: # DEBUG: confirm adsorption energy symbol format
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1]}}}$ (eV)", fontsize=35)  # y-axis label
+        
+        return plt
+        
+        
 # Test area
 if __name__ == "__main__":
     from calculate_scaling_relations import scalingRelations
@@ -164,8 +206,7 @@ if __name__ == "__main__":
     adsorption_energy_path = "../../0-dataset/label_adsorption_energy"
     reaction_pathway_file = "../data/reaction_pathway.json"
     thermal_correction_file = "../data/corrections_thermal.csv"
-    molecule_energy_file = "../data/energy_molecule.csv"
-    non_molecular_adsorbate_energy_file = "../data/energy_adsorbate.csv"
+    adsorbate_energy_file = "../data/energy_adsorbate.csv"
     
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
@@ -196,8 +237,7 @@ if __name__ == "__main__":
     # Calculate scaling relations
     scaling_relations = scalingRelations(
         free_energy_linear_relation,
-        molecule_energy_file,
-        non_molecular_adsorbate_energy_file,
+        adsorbate_energy_file,
         reaction_pathway_file,
         external_potential,
         verbose=False,
@@ -208,4 +248,7 @@ if __name__ == "__main__":
     plotter = volcanoPlotter(scaling_relations, 
                              x_range = (-5, 2),
                              y_range = (-8, 0),
+                             descriptors=("CO", "OH"),
                              )
+    
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4")
