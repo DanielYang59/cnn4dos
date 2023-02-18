@@ -4,15 +4,17 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 
 class volcanoPlotter:
-    def __init__(self, scaling_relations, x_range, y_range, descriptors) -> None:
+    def __init__(self, scaling_relations, x_range, y_range, descriptors, free_energies, *args, **kwargs) -> None:
         # Check args
         assert isinstance(scaling_relations, dict)
         assert isinstance(x_range, tuple)
         assert isinstance(y_range, tuple)
         assert isinstance(descriptors, tuple) and len(descriptors) == 2
+        assert isinstance(free_energies, dict)
         
         
         # Update attrib
@@ -20,15 +22,66 @@ class volcanoPlotter:
         self.x_range = x_range
         self.y_range = y_range
         self.descriptors = descriptors
-        
+        self.free_energies = free_energies
+        for key, value in kwargs.items():
+            exec(f"self.{key}={value}")
+
         
         # Generate activity mesh for CO2RR and HER
         her_activity_mesh = self.generate_activity_mesh("HER")
-        
     
+    
+    def add_colorbar(self, fig, contour, cblabel, ticks):
+        """Add colorbar to matplotlib figure.
+
+        Args:
+            fig (matplotlib.figure.Figure): _description_
+            contour (matplotlib.contour.QuadContourSet): _description_
+            cblabel (str): label of colorbar
+            ticks (list): list of ticks to display on colorbar
+            
+        """
+        # Create colorbar
+        cbar = fig.colorbar(contour, shrink=0.95, aspect=15, ticks=ticks)  # create colorbar (shrink/aspect for the size of the bar)
         
-    def add_original_points(self):
-        pass
+        # Set colorbar format
+        cbar.set_label(cblabel, fontsize=35)  # add label to the colorbar
+        cbar.ax.tick_params(labelsize=25)  # set tick label size
+        cbar.ax.invert_yaxis()  # put the colorbar upside down
+        cbar.outline.set_visible(False)  # remove border
+
+        return cbar
+        
+        
+    def add_original_points(self, plt, ):
+        # Get x and y list for selected descriptors
+        x_list = []
+        y_list = []
+        name_list = []
+        for df in self.free_energies.values():
+            x_list.extend(list(df[self.descriptors[0]]))
+            y_list.extend(list(df[self.descriptors[1]]))
+            name_list.extend(df.index.values)
+        
+        
+        # Compile marker list
+        assert len(self.markers) == len(self.free_energies)
+        marker_dict = dict(zip(self.free_energies.keys(), self.markers))
+        markers = [marker_dict["_".join(name.split("_")[:2])] for name in name_list]
+        
+        # Add scatters
+        for i, _ in enumerate(x_list):
+            #print(name_list[i])
+            plt.scatter(x_list[i], y_list[i],
+                        marker=markers[i],
+                        facecolors="#6495ED", edgecolors="black",
+                        )
+        
+        
+        # Add labels for selected samples
+        
+        
+        
     
     
     def add_rds_separator_lines(self):
@@ -145,23 +198,37 @@ class volcanoPlotter:
         
         # Generate limiting potential mesh
         # DEBUG: check x/y shape
+        print("Check x/y shape!")
         activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 400))
         
         # Generate limiting potential mesh with rate determining step info
         limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True)
+        
+        
+        # Create background volcano plot
+        fig = plt.figure(figsize=[12, 9])
         
         # Set figure format
         self.set_figure_format(plt)
         
         
         # Create background contour plot
-        contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh, levels=512, cmap="coolwarm_r", 
-                            # extend="max"
-                            )  # create filled contour
+        contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh, 
+                               levels=512, cmap="coolwarm_r", # extend="max"
+                               )
         
-    
+        
+        # Add colorbar
+        cbar = self.add_colorbar(fig, contour,
+                          cblabel="Limiting Potential (V)",
+                          ticks=[3, 4, 5, 6],
+                          )
+        
         
         # Add original data points
+        self.add_original_points(plt,)
+        
+        
         
         # Output figure
         plt.tight_layout()
@@ -178,8 +245,6 @@ class volcanoPlotter:
             'size'   : 18}
         plt.rc('font', **font)
         
-        # Create background volcano plot
-        fig = plt.figure(figsize=[16, 12])
 
         # Set axis range
         plt.xlim(self.x_range)
@@ -191,8 +256,8 @@ class volcanoPlotter:
 
         # Add X/Y axis labels
         # adsorption energy symbol format ref: # DEBUG: confirm adsorption energy symbol format
-        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
-        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1]}}}$ (eV)", fontsize=35)  # y-axis label
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
         
         return plt
         
@@ -214,7 +279,9 @@ if __name__ == "__main__":
     descriptor_x = "3-CO"
     descriptor_y = "8-OH"
     
-    external_potential = 0.17 
+    external_potential = 0.17
+    
+    markers = ["o", "^", "s", "d", "P", "*"]
     
     
     # Load adsorption energies
@@ -223,7 +290,6 @@ if __name__ == "__main__":
     
     # Add thermal corrections to adsorption energies
     energy_loader.add_thermal_correction(correction_file=thermal_correction_file)
-    
     
     # Perform linear fitting with automatic mixing
     free_energies = stack_diff_sub_energy_dict(energy_loader.free_energy_dict, add_prefix=True)
@@ -245,10 +311,12 @@ if __name__ == "__main__":
     
     
     # Generate volcano plot
-    plotter = volcanoPlotter(scaling_relations, 
-                             x_range = (-5, 2),
-                             y_range = (-8, 0),
-                             descriptors=("CO", "OH"),
+    plotter = volcanoPlotter(scaling_relations,
+                             x_range=(-5, 1),
+                             y_range=(-7, 0),
+                             descriptors=("3-CO", "8-OH"),
+                             free_energies=energy_loader.free_energy_dict,
+                             markers=markers, 
                              )
     
     plotter.plot_limiting_potential(reaction_name="CO2RR_CH4")
