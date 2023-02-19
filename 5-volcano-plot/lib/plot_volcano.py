@@ -129,12 +129,13 @@ class volcanoPlotter:
         return energy_change_dict
     
     
-    def generate_limiting_potential_mesh(self, activity_mesh, return_rds=True):
+    def generate_limiting_potential_mesh(self, activity_mesh, return_rds=True, ref_to_min=False):
         """Generate limiting potential mesh from dict of activity meshes.
 
         Args:
             activity_mesh (dict): source activity meshes, key is reaction step count, value is activity mesh
             return_rds (bool, optional): return rate determining step mesh. Defaults to True.
+            ref_to_min (bool, optional): use min limiting potential as reference. Defaults to True. 
 
         Returns:
             np.ndarray: limiting potential mesh in shape (density_x, density_y)
@@ -148,6 +149,9 @@ class volcanoPlotter:
         
         # Get limiting potential mesh
         limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
+        
+        if ref_to_min:
+            limiting_potential_mesh -= limiting_potential_mesh.min()
         
         if return_rds:
             rds_mesh = np.argmax(stacked_mesh, axis=2)
@@ -190,7 +194,7 @@ class volcanoPlotter:
         return primary_limiting_potential_mesh - competing_limiting_potential_mesh
     
     
-    def plot_limiting_potential(self, reaction_name, show=True, savename="volcano_limiting_potential.png", dpi=300):
+    def plot_limiting_potential(self, reaction_name, show=True, savename="volcano_limiting_potential.png", dpi=300, ref_to_min=False):
         # Check args
         if reaction_name not in self.scaling_relations:
             raise ValueError(f"Cannot find scaling relations for reaction {reaction_name}.")
@@ -202,7 +206,7 @@ class volcanoPlotter:
         activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 400))
         
         # Generate limiting potential mesh with rate determining step info
-        limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True)
+        limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True, ref_to_min=ref_to_min)
         
         
         # Create background volcano plot
@@ -214,14 +218,14 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh, 
-                               levels=512, cmap="coolwarm_r", # extend="max"
+                               levels=512, cmap="coolwarm_r", extend="max", 
                                )
         
         
         # Add colorbar
         cbar = self.add_colorbar(fig, contour,
-                          cblabel="Limiting Potential (V)",
-                          ticks=[3, 4, 5, 6],
+                          cblabel="ΔLimiting Potential (V)" if ref_to_min else "Limiting Potential (V)",
+                          ticks=[0, 1, 2],
                           )
         
         
@@ -312,11 +316,12 @@ if __name__ == "__main__":
     
     # Generate volcano plot
     plotter = volcanoPlotter(scaling_relations,
-                             x_range=(-5, 1),
+                             x_range=(-5, 0.5),
                              y_range=(-7, 0),
                              descriptors=("3-CO", "8-OH"),
                              free_energies=energy_loader.free_energy_dict,
                              markers=markers, 
                              )
     
-    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4")
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", ref_to_min=True)
+    
