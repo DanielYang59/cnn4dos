@@ -118,6 +118,7 @@ class volcanoPlotter:
         self.xx, self.yy = np.meshgrid(
             np.linspace(self.x_range[0], self.x_range[1], density[0]),
             np.linspace(self.y_range[0], self.y_range[1], density[1]),
+            indexing="ij",  # outputs are of shape (N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing
             )
         
 
@@ -206,9 +207,7 @@ class volcanoPlotter:
         
         
         # Generate limiting potential mesh
-        # DEBUG: check x/y shape
-        print("Check x/y shape!")
-        activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 400))
+        activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 500))
         
         # Generate limiting potential mesh with rate determining step info
         limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True, ref_to_min=ref_to_min)
