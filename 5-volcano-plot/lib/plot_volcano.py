@@ -137,6 +137,9 @@ class volcanoPlotter:
             return_rds (bool, optional): return rate determining step mesh. Defaults to True.
             ref_to_min (bool, optional): use min limiting potential as reference. Defaults to True. 
 
+        Notes:
+            1. Rate determining step starts from "1".
+        
         Returns:
             np.ndarray: limiting potential mesh in shape (density_x, density_y)
             
@@ -155,6 +158,8 @@ class volcanoPlotter:
         
         if return_rds:
             rds_mesh = np.argmax(stacked_mesh, axis=2)
+            rds_mesh += 1  # offset RDS value (step starts from 1)
+            
             return limiting_potential_mesh, rds_mesh
 
         else:
@@ -218,14 +223,15 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh, 
-                               levels=512, cmap="coolwarm_r", extend="max", 
+                               levels=512, cmap="plasma_r", 
+                               extend="max", 
                                )
         
         
         # Add colorbar
         cbar = self.add_colorbar(fig, contour,
                           cblabel="ΔLimiting Potential (V)" if ref_to_min else "Limiting Potential (V)",
-                          ticks=[0, 1, 2],
+                          ticks=[3, 4, 5],
                           )
         
         
@@ -323,5 +329,5 @@ if __name__ == "__main__":
                              markers=markers, 
                              )
     
-    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", ref_to_min=True)
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", ref_to_min=False)
     
