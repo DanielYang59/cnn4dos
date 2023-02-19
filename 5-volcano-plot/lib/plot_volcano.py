@@ -96,10 +96,11 @@ class volcanoPlotter:
             density (tuple, optional): mesh density in (x, y) direction. Defaults to (400, 400).
 
         Raises:
-            ValueError: _description_
+            ValueError: if can not find selected reaction name
 
         Returns:
-            _type_: _description_
+            dict: dict of scaling relations, where step index is key and scaling relations are values
+            
         """
         # Check args
         if reaction_name not in self.scaling_relations:
@@ -119,14 +120,13 @@ class volcanoPlotter:
             np.linspace(self.y_range[0], self.y_range[1], density[1]),
             )
         
-        
+
         # Calculate energy change for each reaction step
-        energy_change_dict = {}
-        for step_index, paras in self.scaling_relations[reaction_name].items():
+        return  {
+            step_index: self.xx * paras[0] + self.yy * paras[1] + paras[2]
             # Calculate value for each point on mesh
-            energy_change_dict[step_index] = self.xx * paras[0] + self.yy * paras[1] + paras[2]
-        
-        return energy_change_dict
+            for step_index, paras in self.scaling_relations[reaction_name].items()
+            }
     
     
     def generate_limiting_potential_mesh(self, activity_mesh, return_rds=True, ref_to_min=False):
