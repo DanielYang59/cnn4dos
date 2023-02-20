@@ -9,6 +9,16 @@ import pandas as pd
 
 class volcanoPlotter:
     def __init__(self, scaling_relations, x_range, y_range, descriptors, free_energies, *args, **kwargs) -> None:
+        """Volcano plot plotter based on scaling relations.
+
+        Args:
+            scaling_relations (dict): _description_
+            x_range (tuple): _description_
+            y_range (tuple): _description_
+            descriptors (tuple): (descriptor for x-axis, descriptor for y-axis)
+            free_energies (dict): _description_
+            
+        """
         # Check args
         assert isinstance(scaling_relations, dict)
         assert isinstance(x_range, tuple)
@@ -26,10 +36,6 @@ class volcanoPlotter:
         for key, value in kwargs.items():
             exec(f"self.{key}={value}")
 
-        
-        # Generate activity mesh for CO2RR and HER
-        her_activity_mesh = self.generate_activity_mesh("HER")
-    
     
     def add_colorbar(self, fig, contour, cblabel, ticks, hide_border=True, invert=True):
         """Add colorbar to matplotlib figure.
@@ -59,7 +65,14 @@ class volcanoPlotter:
         return cbar
         
         
-    def add_original_points(self, plt, ):
+    def add_markers(self, plt, label_selection="ALL"):
+        """Add original data points to volcano plot.
+
+        Args:
+            plt (module): plt
+            label_selection ((str, list), optional): add labels to selected points or ALL, select by substrate. Defaults to "ALL".
+            
+        """
         # Get x and y list for selected descriptors
         x_list = []
         y_list = []
@@ -85,11 +98,13 @@ class volcanoPlotter:
         
         
         # Add labels for selected samples
+        # for i, label in enumerate(marker_label_list):
+        # plt.annotate(label, (x_data_list[i] - 0.1, y_data_list[i]), # Offset by some value
+        #              ha='center', va='center',
+        #              fontsize=16,
+        #              )
         
         
-        
-    
-    
     def add_rds_separator_lines(self):
         pass
     
@@ -227,6 +242,11 @@ class volcanoPlotter:
         # Set figure format
         self.set_figure_format(plt, fig)
         
+        # Add X/Y axis labels
+        # adsorption energy symbol format ref: # DEBUG: confirm adsorption energy symbol format
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh, 
@@ -239,12 +259,18 @@ class volcanoPlotter:
         cbar = self.add_colorbar(fig, contour,
                           cblabel="ΔLimiting Potential (V)" if ref_to_min else "Limiting Potential (V)",
                           ticks=[3, 4, 5],
-                          hide_border=False, 
+                          hide_border=False,
                           )
         
         
         # Add original data points
-        self.add_original_points(plt,)
+        self.add_markers(plt, 
+                                 # label_selection=
+                                 )
+        
+        
+        # Add RDS steps separator lines
+        self.add_rds_separator_lines()
         
         
         # Output figure
@@ -253,9 +279,72 @@ class volcanoPlotter:
         if show:
             plt.show()
         plt.cla()
-            
+    
+    
+    def plot_rds(self, reaction_name, show=True, savename="volcano_RDS.png", dpi=150):
+        # Check args
+        if reaction_name not in self.scaling_relations:
+            raise ValueError(f"Cannot find scaling relations for reaction {reaction_name}.")
+        
+        
+        # Generate limiting potential mesh
+        activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 500))
+        
+        # Generate limiting potential mesh with rate determining step info
+        _, rds_mesh = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True, ref_to_min=False)
+        
+        
+        # Create background volcano plot
+        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
+        fig = plt.figure(figsize=[12, 9])
+        
+        
+        # Set figure format
+        self.set_figure_format(plt, fig)
+        
+        # Add X/Y axis labels
+        # adsorption energy symbol format ref:
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        
+        
+        # Create background contour plot
+        contour = plt.contourf(self.xx, self.yy, rds_mesh, 
+                            levels=128, cmap="rainbow", 
+                            )
+        
+        
+        # Add colorbar
+        cbar = self.add_colorbar(fig, contour,
+                        cblabel="Rate Determining Step",
+                        ticks=range(1, len(activity_mesh) + 1),
+                        hide_border=False,
+                        )
+        
+        
+        # Add original data points
+        self.add_markers(plt)
+        
+        
+        # Output figure
+        plt.tight_layout()
+        plt.savefig(savename, dpi=dpi)
+        if show:
+            plt.show()
+        plt.cla()
+                    
             
     def set_figure_format(self, plt, fig=None):
+        """Set figure-wide styles.
+
+        Args:
+            plt (module): _
+            fig (matplotlib.figure.Figure, optional): _. Defaults to None.
+
+        Returns:
+            module: plt
+            
+        """        
         # Change font
         font = {'family' : 'sans-serif',
             'sans-serif': 'Helvetica',
@@ -282,11 +371,6 @@ class volcanoPlotter:
         plt.xlim(self.x_range)
         plt.ylim(self.y_range)
       
-        # Add X/Y axis labels
-        # adsorption energy symbol format ref: # DEBUG: confirm adsorption energy symbol format
-        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
-        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
-        
         return plt, fig
         
         
@@ -341,11 +425,14 @@ if __name__ == "__main__":
     # Generate volcano plot
     plotter = volcanoPlotter(scaling_relations,
                              x_range=(-5, 0.5),
-                             y_range=(-7, 0),
+                             y_range=(-6.5, 0),
                              descriptors=("3-CO", "8-OH"),
                              free_energies=energy_loader.free_energy_dict,
                              markers=markers, 
                              )
     
-    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", ref_to_min=False)
+    # plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", ref_to_min=False)
+
+    
+    plotter.plot_rds(reaction_name="CO2RR_CH4")
     
