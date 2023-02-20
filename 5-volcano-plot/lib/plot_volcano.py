@@ -37,14 +37,14 @@ class volcanoPlotter:
             exec(f"self.{key}={value}")
 
     
-    def add_colorbar(self, fig, contour, cblabel, ticks, hide_border=True, invert=True):
+    def add_colorbar(self, fig, contour, cblabel, ticks=None, hide_border=True, invert=True):
         """Add colorbar to matplotlib figure.
 
         Args:
             fig (matplotlib.figure.Figure): _description_
             contour (matplotlib.contour.QuadContourSet): _description_
             cblabel (str): label of colorbar
-            ticks (list): list of ticks to display on colorbar
+            ticks (list): list of ticks to display on colorbar. Defaults to None.
             hide_border (bool, optional): hide colorbar border. Defaults to True.
             invert (bool, optional): invert colorbar. Defaults to True.
             
@@ -109,8 +109,8 @@ class volcanoPlotter:
         pass
     
     
-    def generate_activity_mesh(self, reaction_name, density=(400, 400)):
-        """Generate 2D numpy mesh from scaling relations.
+    def generate_free_energy_mesh(self, reaction_name, density=(400, 400)):
+        """Generate 2D numpy free energy mesh from scaling relations.
 
         Args:
             reaction_name (str): name of reaction to generate
@@ -139,44 +139,49 @@ class volcanoPlotter:
         self.xx, self.yy = np.meshgrid(
             np.linspace(self.x_range[0], self.x_range[1], density[0]),
             np.linspace(self.y_range[0], self.y_range[1], density[1]),
-            indexing="ij",  # outputs are of shape (N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing
+            sparse=False, indexing="ij",  # outputs are of shape (N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing
             )
         
 
-        # Calculate energy change for each reaction step
+        # Calculate free energy for each reaction step
         return  {
             step_index: self.xx * paras[0] + self.yy * paras[1] + paras[2]
-            # Calculate value for each point on mesh
+            # Calculate free energy value for each point on mesh
             for step_index, paras in self.scaling_relations[reaction_name].items()
             }
     
     
-    def generate_limiting_potential_mesh(self, activity_mesh, return_rds=True, ref_to_min=False):
+    def generate_limiting_potential_mesh(self, activity_mesh, return_rds=True):
         """Generate limiting potential mesh from dict of activity meshes.
 
         Args:
             activity_mesh (dict): source activity meshes, key is reaction step count, value is activity mesh
             return_rds (bool, optional): return rate determining step mesh. Defaults to True.
-            ref_to_min (bool, optional): use min limiting potential as reference. Defaults to True. 
 
         Notes:
             1. Rate determining step starts from "1".
         
         Returns:
-            np.ndarray: limiting potential mesh in shape (density_x, density_y)
+            limiting_potential_mesh (np.ndarray): limiting potential mesh
+            rds_mesh: (np.ndarray): when return_rds
             
         """
         # Check args
         assert isinstance(activity_mesh, dict)
         
-        # Stack all meshes of different steps to shape (density_x, density_y, numSteps)
-        stacked_mesh = np.stack(list(activity_mesh.values()), axis=2)
+        # Calculate free energy changes from free energy mesh
+        # DEBUG
+        free_energy_change_dict = {}
+        for step_index in range(1, len(activity_mesh)):
+            free_energy_change_dict[step_index] = np.copy(activity_mesh[step_index + 1]) - np.copy(activity_mesh[step_index])
+            
         
-        # Get limiting potential mesh
+        # Stack all meshes of different steps to shape (density_x, density_y, numSteps)
+        stacked_mesh = np.stack(list(free_energy_change_dict.values()), axis=2)
+        
+        # Get limiting potential mesh (max of free energy change)
         limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
         
-        if ref_to_min:
-            limiting_potential_mesh -= limiting_potential_mesh.min()
         
         if return_rds:
             rds_mesh = np.argmax(stacked_mesh, axis=2)
@@ -211,6 +216,8 @@ class volcanoPlotter:
         stacked_primary_mesh = np.stack(list(primary_activity_mesh.values()), axis=2)
         primary_limiting_potential_mesh = np.amax(stacked_primary_mesh, axis=2)  
         
+        #DEBUG: buggy
+        print("DEBUG")
         
         # Generate activity mesh for competing reaction
         stacked_competing_mesh = np.stack(list(primary_activity_mesh.values()), axis=2)
@@ -221,17 +228,17 @@ class volcanoPlotter:
         return primary_limiting_potential_mesh - competing_limiting_potential_mesh
     
     
-    def plot_limiting_potential(self, reaction_name, show=True, savename="volcano_limiting_potential.png", dpi=300, ref_to_min=False):
+    def plot_limiting_potential(self, reaction_name, show=True, savename="volcano_limiting_potential.png", dpi=300):
         # Check args
         if reaction_name not in self.scaling_relations:
             raise ValueError(f"Cannot find scaling relations for reaction {reaction_name}.")
         
         
         # Generate limiting potential mesh
-        activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 500))
+        activity_mesh = self.generate_free_energy_mesh(reaction_name, density=(400, 400))
         
         # Generate limiting potential mesh with rate determining step info
-        limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True, ref_to_min=ref_to_min)
+        limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True)
         
         
         # Create background volcano plot
@@ -257,8 +264,8 @@ class volcanoPlotter:
         
         # Add colorbar
         cbar = self.add_colorbar(fig, contour,
-                          cblabel="ΔLimiting Potential (V)" if ref_to_min else "Limiting Potential (V)",
-                          ticks=[3, 4, 5],
+                          cblabel="ΔLimiting Potential (V)",
+                          # ticks=[0, 1, 2, 3, 4, 5], #DEBUG
                           hide_border=False,
                           )
         
@@ -288,10 +295,10 @@ class volcanoPlotter:
         
         
         # Generate limiting potential mesh
-        activity_mesh = self.generate_activity_mesh(reaction_name, density=(400, 500))
+        activity_mesh = self.generate_free_energy_mesh(reaction_name, density=(400, 500))
         
         # Generate limiting potential mesh with rate determining step info
-        _, rds_mesh = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True, ref_to_min=False)
+        _, rds_mesh = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True)
         
         
         # Create background volcano plot
@@ -376,6 +383,7 @@ class volcanoPlotter:
         
 # Test area
 if __name__ == "__main__":
+    import sys
     from calculate_scaling_relations import scalingRelations
     from energy_loader import energyLoader, stack_diff_sub_energy_dict
     from fitting import linear_fitting_with_mixing
@@ -385,7 +393,7 @@ if __name__ == "__main__":
     thermal_correction_file = "../data/corrections_thermal.csv"
     adsorbate_energy_file = "../data/energy_adsorbate.csv"
     
-    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
+    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is"] # "C2N_is", "BN_is", "BP_is" #DEBUG
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     descriptor_x = "3-CO"
@@ -393,7 +401,7 @@ if __name__ == "__main__":
     
     external_potential = 0.17
     
-    markers = ["o", "^", "s", "d", "P", "*"]
+    markers = ["o", "^", "s", ]#"d", "P", "*"
     
     
     # Load adsorption energies
@@ -431,8 +439,8 @@ if __name__ == "__main__":
                              markers=markers, 
                              )
     
-    # plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", ref_to_min=False)
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4")
 
     
-    plotter.plot_rds(reaction_name="CO2RR_CH4")
+    # plotter.plot_rds(reaction_name="CO2RR_CH4")
     
