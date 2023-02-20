@@ -31,7 +31,7 @@ class volcanoPlotter:
         her_activity_mesh = self.generate_activity_mesh("HER")
     
     
-    def add_colorbar(self, fig, contour, cblabel, ticks):
+    def add_colorbar(self, fig, contour, cblabel, ticks, hide_border=True, invert=True):
         """Add colorbar to matplotlib figure.
 
         Args:
@@ -39,6 +39,8 @@ class volcanoPlotter:
             contour (matplotlib.contour.QuadContourSet): _description_
             cblabel (str): label of colorbar
             ticks (list): list of ticks to display on colorbar
+            hide_border (bool, optional): hide colorbar border. Defaults to True.
+            invert (bool, optional): invert colorbar. Defaults to True.
             
         """
         # Create colorbar
@@ -46,9 +48,13 @@ class volcanoPlotter:
         
         # Set colorbar format
         cbar.set_label(cblabel, fontsize=35)  # add label to the colorbar
-        cbar.ax.tick_params(labelsize=25)  # set tick label size
-        cbar.ax.invert_yaxis()  # put the colorbar upside down
-        cbar.outline.set_visible(False)  # remove border
+        cbar.ax.tick_params(labelsize=25, length=5, width=2.5)  # set tick label size and tick style
+        if invert:
+            cbar.ax.invert_yaxis()  # put the colorbar upside down
+        if hide_border:
+            cbar.outline.set_visible(False)  # remove border
+        else:
+            cbar.outline.set_linewidth(1.5)  # set border thickness
 
         return cbar
         
@@ -214,10 +220,12 @@ class volcanoPlotter:
         
         
         # Create background volcano plot
+        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
         fig = plt.figure(figsize=[12, 9])
         
+        
         # Set figure format
-        self.set_figure_format(plt)
+        self.set_figure_format(plt, fig)
         
         
         # Create background contour plot
@@ -231,6 +239,7 @@ class volcanoPlotter:
         cbar = self.add_colorbar(fig, contour,
                           cblabel="ΔLimiting Potential (V)" if ref_to_min else "Limiting Potential (V)",
                           ticks=[3, 4, 5],
+                          hide_border=False, 
                           )
         
         
@@ -238,15 +247,15 @@ class volcanoPlotter:
         self.add_original_points(plt,)
         
         
-        
         # Output figure
         plt.tight_layout()
         plt.savefig(savename, dpi=dpi)
         if show:
             plt.show()
+        plt.cla()
             
             
-    def set_figure_format(self, plt):
+    def set_figure_format(self, plt, fig=None):
         # Change font
         font = {'family' : 'sans-serif',
             'sans-serif': 'Helvetica',
@@ -254,21 +263,31 @@ class volcanoPlotter:
             'size'   : 18}
         plt.rc('font', **font)
         
-
-        # Set axis range
-        plt.xlim(self.x_range)
-        plt.ylim(self.y_range)
-
+        
+        # Set border thickness
+        ax = fig.gca()
+        for axis in ['top', 'bottom', 'left', 'right']:
+            ax.spines[axis].set_linewidth(1.75)
+        
+        # Set tick thickness
+        ax.xaxis.set_tick_params(length=5, width=2.5)
+        ax.yaxis.set_tick_params(length=5, width=2.5)
+        
         # Set ticks font size
         plt.xticks(fontsize=25)
         plt.yticks(fontsize=25)
-
+        
+        
+        # Set axis range
+        plt.xlim(self.x_range)
+        plt.ylim(self.y_range)
+      
         # Add X/Y axis labels
         # adsorption energy symbol format ref: # DEBUG: confirm adsorption energy symbol format
         plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
         plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
         
-        return plt
+        return plt, fig
         
         
 # Test area
