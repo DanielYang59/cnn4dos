@@ -21,3 +21,7 @@ reaction:
 
 corrections:
   external_potential: 0.17
+
+
+plot:
+  markers: ["o", "^", "s", "d", "P", "*"]
