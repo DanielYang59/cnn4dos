@@ -1,6 +1,5 @@
 
 
-import csv
 import os
 import pandas as pd
 
@@ -45,12 +44,9 @@ class energyLoader:
         assert os.path.exists(correction_file)
         
         # Import thermal correction file
-        thermal_correction_dict = {}
-        with open(correction_file) as f:
-            reader = csv.reader(f)
-            next(reader)  # skip header
-            for line in reader:
-                thermal_correction_dict[line[0]] = float(line[1])
+        df = pd.read_csv(correction_file)
+        thermal_correction_dict = dict(zip(df["Species"], df["Correction"].astype(float)))
+        
 
         # Apply thermal correction for each substrate
         free_energy_dict = {}
