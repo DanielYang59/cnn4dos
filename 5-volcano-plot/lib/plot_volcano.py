@@ -151,8 +151,8 @@ class volcanoPlotter:
             }
     
     
-    def generate_limiting_potential_mesh(self, activity_mesh, return_rds=True):
-        """Generate limiting potential mesh from dict of activity meshes.
+    def generate_reaction_free_energy_mesh(self, activity_mesh, return_rds=True):
+        """Generate reaction free energy (free energy change) mesh from dict of activity meshes.
 
         Args:
             activity_mesh (dict): source activity meshes, key is reaction step count, value is activity mesh
@@ -162,35 +162,35 @@ class volcanoPlotter:
             1. Rate determining step starts from "1".
         
         Returns:
-            limiting_potential_mesh (np.ndarray): limiting potential mesh
+            limiting_potential_mesh (np.ndarray): reaction free energy (free energy change)
             rds_mesh: (np.ndarray): when return_rds
             
         """
         # Check args
         assert isinstance(activity_mesh, dict)
         
-        # Calculate free energy changes from free energy mesh
+        # Calculate reaction free energies from free energy mesh
         # DEBUG
         free_energy_change_dict = {}
         for step_index in range(1, len(activity_mesh)):
             free_energy_change_dict[step_index] = np.copy(activity_mesh[step_index + 1]) - np.copy(activity_mesh[step_index])
             
         
-        # Stack all meshes of different steps to shape (density_x, density_y, numSteps)
+        # Stack all meshes of different steps into shape (density_x, density_y, numSteps)
         stacked_mesh = np.stack(list(free_energy_change_dict.values()), axis=2)
         
         # Get limiting potential mesh (max of free energy change)
-        limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
+        free_energy_change_mesh = np.amax(stacked_mesh, axis=2)
         
         
         if return_rds:
             rds_mesh = np.argmax(stacked_mesh, axis=2)
-            rds_mesh += 1  # offset RDS value (step starts from 1)
+            rds_mesh += 1  # offset RDS value (step indexes start from 1)
             
-            return limiting_potential_mesh, rds_mesh
+            return free_energy_change_mesh, rds_mesh
 
         else:
-            return limiting_potential_mesh
+            return free_energy_change_mesh
     
     
     def generate_selectivity_mesh(self, primary_activity_mesh, competing_activity_mesh):
@@ -238,7 +238,7 @@ class volcanoPlotter:
         activity_mesh = self.generate_free_energy_mesh(reaction_name, density=(400, 400))
         
         # Generate limiting potential mesh with rate determining step info
-        limiting_potential_mesh, _ = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True)
+        limiting_potential_mesh, _ = self.generate_reaction_free_energy_mesh(activity_mesh, return_rds=True)
         
         
         # Create background volcano plot
@@ -298,7 +298,7 @@ class volcanoPlotter:
         activity_mesh = self.generate_free_energy_mesh(reaction_name, density=(400, 500))
         
         # Generate limiting potential mesh with rate determining step info
-        _, rds_mesh = self.generate_limiting_potential_mesh(activity_mesh, return_rds=True)
+        _, rds_mesh = self.generate_reaction_free_energy_mesh(activity_mesh, return_rds=True)
         
         
         # Create background volcano plot
@@ -393,7 +393,7 @@ if __name__ == "__main__":
     thermal_correction_file = "../data/corrections_thermal.csv"
     adsorbate_energy_file = "../data/energy_adsorbate.csv"
     
-    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is"] # "C2N_is", "BN_is", "BP_is" #DEBUG
+    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"][:3] #  #DEBUG
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     descriptor_x = "3-CO"
@@ -401,7 +401,7 @@ if __name__ == "__main__":
     
     external_potential = 0.17
     
-    markers = ["o", "^", "s", ]#"d", "P", "*"
+    markers = ["o", "^", "s", "d", "P", "*"][:3]
     
     
     # Load adsorption energies
