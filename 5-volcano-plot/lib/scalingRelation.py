@@ -3,51 +3,36 @@
 import os
 import pandas as pd
 from scipy import stats
+import sys
 from utils import stack_adsorption_energy_dict
 
 
 class scalingRelation:
-    def __init__(self, verbose=True, debug=False, debug_dir="debug") -> None:
+    def __init__(self, adsorption_energy_dict, verbose=True, debug=False, debug_dir="debug") -> None:
+        # Check args
+        assert isinstance(adsorption_energy_dict, dict)
         assert isinstance(verbose, bool)
         assert isinstance(debug, bool)
         
+        
+        # Update attributes
         self.verbose = verbose
         self.debug = debug
         self.debug_dir = debug_dir
-    
-  
-    def __calculate_scaling_parameters(self, df, descriptors, mixing_percentages):
-        # Check args
-        assert isinstance(df, pd.DataFrame)
-        assert mixing_percentages == "AUTO" or \
-            (isinstance(mixing_percentages, tuple) and len(mixing_percentages) == 2)
         
         
+        # Stack adsorbate energy dataframe of different substrates
+        self.stacked_adsorption_energy_df = stack_adsorption_energy_dict(adsorption_energy_dict)
         
-        if mixing_percentages == "AUTO":
-            # Test mixing percentage
-            mixing_percentage_test_result = {}
-            for percentage in range(0, 101):
-                mixing_percentage_test_result[percentage] = self.__descriptor_fitting(df, 
-                                                                descriptors=descriptors,
-                                                                percentages=[percentage, 100 - percentage]
-                                                                )
-
-            # Identify best mixing percentage for each adsorbate
-            best_percentage = self.__find_best_mixing_percentage(mixing_percentage_test_result)
-
-            
-            
-        # 
-        else:
-            raise RuntimeError("Not written yet.")
+        
+        # Get list of adsorbates 
+        self.adsorbates = list(self.stacked_adsorption_energy_df.columns.values)
+        
     
-    
-    def __descriptor_fitting(self, stacked_df, descriptors, percentages):
-        """Perform linear fitting with: selected two descriptors and given mixing percentages.
+    def __fit_all_adsorbates(self, descriptors, percentages):
+        """Perform linear fitting for ALL adsorbates with: selected two descriptors and given mixing percentages.
 
         Args:
-            stacked_df (pd.DataFrame): stacked adsorption energy pandas DataFrame
             descriptors (list): [x_axis_descriptor, y_axis_descriptor]
             percentages (list): [x_descriptor_percentage, y_descriptor_percentage]
 
@@ -63,13 +48,17 @@ class scalingRelation:
         
         
         # Compile hybrid descriptor
-        hybrid_descriptor = (stacked_df[descriptors[0]] * percentages[0] + stacked_df[descriptors[1]] * percentages[1]) * 0.01
+        hybrid_descriptor = (self.stacked_adsorption_energy_df[descriptors[0]] * percentages[0] + self.stacked_adsorption_energy_df[descriptors[1]] * percentages[1]) * 0.01
         
         # Perform linear fitting for each adsorbate
         return {
-                ads: stats.linregress(hybrid_descriptor, stacked_df[ads])
-                for ads in stacked_df.columns.values
+                ads: stats.linregress(hybrid_descriptor, self.stacked_adsorption_energy_df[ads])
+                for ads in self.stacked_adsorption_energy_df.columns.values
         }
+    
+    
+    def __fit_selected_adsorbate(self, ):
+        pass
     
     
     def __find_best_mixing_percentage(self, mixing_percentage_test_result):
@@ -86,9 +75,6 @@ class scalingRelation:
         # Check args
         assert isinstance(mixing_percentage_test_result, dict)
 
-        # Get list of adsorbates
-        adsorbates = list(mixing_percentage_test_result[0].keys())
-        
         
         # Create list for each adsorbate
         result_dict = {ads: [] for ads in adsorbates}
@@ -123,19 +109,33 @@ class scalingRelation:
         return best_percentages
 
 
-    def calculate_adsorption_energy_scaling_relations(self, adsorption_energy_dict, descriptors,mixing_percentages="AUTO"):
+    def calculate_adsorption_energy_scaling_relations(self, descriptors, mixing_percentages="AUTO"):
         # Check args
-        assert isinstance(adsorption_energy_dict, dict)        
+        assert mixing_percentages == "AUTO" or \
+            (isinstance(mixing_percentages, tuple) and len(mixing_percentages) == 2)
         
         
-        # Calculate linear scaling relations from adsorption energies with automatic mixing
-        stacked_adsorption_energy_df = stack_adsorption_energy_dict(adsorption_energy_dict)
+        # Automatic mixing percentage fitting
+        if mixing_percentages == "AUTO":
+            # Test mixing percentage
+            mixing_percentage_test_result = {}
+            for percentage in range(0, 101):
+                mixing_percentage_test_result[percentage] = self.__fit_all_adsorbates(
+                    descriptors=descriptors,
+                    percentages=[percentage, 100 - percentage],
+                    )
+
+            # Identify best mixing percentage for each adsorbate
+            mixing_percentages = self.__find_best_mixing_percentage(mixing_percentage_test_result)
+            
+        # Constant mixing percentage fitting
+        else:
+            mixing_percentages = {ads:mixing_percentages[0] for ads in self.adsorbates}
+
         
-        scaling_relations = self.__calculate_scaling_parameters(
-            df=stacked_adsorption_energy_df,
-            descriptors=descriptors,
-            mixing_percentages=mixing_percentages
-            )
+        # Perform linear fitting with the best percentages
+        
+        print(mixing_percentages)
         
     
 # Test area
@@ -153,12 +153,9 @@ if __name__ == "__main__":
     loader.calculate_adsorption_free_energy(correction_file="../data/corrections_thermal.csv")
     
     # 
-    calculator = scalingRelation(verbose=True, debug=True)
+    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_energy, verbose=True, debug=True)
     
-    calculator.calculate_adsorption_energy_scaling_relations(
-        adsorption_energy_dict=loader.adsorption_energy,
-        descriptors=("3-CO", "8-OH"),
-        )
+    calculator.calculate_adsorption_energy_scaling_relations(descriptors=("3-CO", "8-OH"), )
     
     
     
