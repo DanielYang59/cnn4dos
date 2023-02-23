@@ -5,8 +5,15 @@ import pandas as pd
 
 
 class energyLoader:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, debug=False, debug_dir="debug") -> None:
+        """Adsorption energy loading and preprocessing.
+
+        Args:
+            debug (bool, optional): debug mode, save all intermediate data to "debug" dir. Defaults to False.
+        """
+        # Update attrib
+        self.debug = debug
+        self.debug_dir = debug_dir
     
     
     def load_adsorption_energy(self, path, substrates, adsorbates):
@@ -64,7 +71,17 @@ class energyLoader:
             free_energy_dict[sub] = free_energy_df
         
         # Update attrib
-        self.free_energy_dict = free_energy_dict 
+        self.free_energy_dict = free_energy_dict
+        
+        
+        # debug mode: output free energy to file
+        if self.debug:
+            print("debug mode on.")
+            os.makedirs(self.debug_dir, exist_ok=True)
+            for substrate_name, df in free_energy_dict.items():
+                df.to_csv(os.path.join(self.debug_dir, f"free_energy_{substrate_name}.csv"))
+            
+            
 
 
 def stack_diff_sub_energy_dict(energy_dict, add_prefix=True):
@@ -93,7 +110,7 @@ if __name__ == "__main__":
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     
     # Test adsorption energy loading
-    loader = energyLoader()
+    loader = energyLoader(debug=True)
     loader.load_adsorption_energy(path, substrates, adsorbates)
     # print(loader.adsorption_energy_dict)
     
