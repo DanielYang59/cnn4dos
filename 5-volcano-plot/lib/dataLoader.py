@@ -1,23 +1,21 @@
 
 
+import json
 import os
 import pandas as pd
 
 
 class dataLoader:
-    def __init__(self, debug=False, debug_dir="debug") -> None:
-        """Data loader class for volcano plots.
-
-        Args:
-            debug (bool, optional): debug mode, save all intermediate data to "debug" dir. Defaults to False.
-            debug_dir (str, optional): debug data saving dir. Defaults to "debug". 
-            
+    def __init__(self) -> None:
+        """Data loader class for volcano plots, load:
+            1. adsorption energy
+            2. reaction pathway
+            3. thermal correction (ZPE, TS) for adsorption energy
+             
         """
-        # Update attrib
-        self.debug = debug
-        self.debug_dir = debug_dir
+        pass
+
         
-    
     def load_adsorption_energy(self, path, substrates, adsorbates):
         """Load adsorption energy from csv file (without ZPE corrections).
 
@@ -42,11 +40,25 @@ class dataLoader:
         }
     
     
-    
+    def load_reaction_pathway(self, file):
+        """Load reaction pathway json file.
+
+        Args:
+            file (str): path to reaction pathway file
+
+        Returns:
+            dict: reaction pathway dict
             
-
-
+        """
+        # Check args
+        assert os.path.exists(file) and file.endswith("json")
         
+        # Import reaction pathway file
+        with open(file) as f:
+            reaction_pathway_dict = json.load(f)
+            
+        return reaction_pathway_dict 
+    
 
 # Test area
 if __name__ == "__main__":
@@ -58,6 +70,4 @@ if __name__ == "__main__":
     loader = dataLoader(debug=True)
     loader.load_adsorption_energy(path, substrates, adsorbates)
     # print(loader.adsorption_energy_dict)
-    
-    # Test add ZPE corrections
-    loader.add_thermal_correction(correction_file="../data/corrections_thermal.csv")
+
