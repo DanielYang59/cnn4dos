@@ -16,28 +16,31 @@ class dataLoader:
         pass
 
         
-    def add_thermal_correction(self, path, debug=False, debug_dir="debug"):
-        """Add thermal corrections to adsorption energies.
+    def calculate_adsorption_free_energy(self, correction_file, debug=False, debug_dir="debug"):
+        """Calculate adsorption free energy from DFT adsorption energy, by adding thermal corrections to adsorption energies.
 
         Args:
-            path (str): thermal correction csv file path
+            correction_file (str): thermal correction csv file path
             debug (bool, optional): debug mode, save all intermediate data to "debug" dir. Defaults to False.
             debug_dir (str, optional): debug data saving dir. Defaults to "debug". 
         
          Attrib:
-            free_energy (dict): dict of adsorption free energies in pd.DataFrame, key is substrate name 
+            adsorption_free_energy (dict): dict of adsorption free energies in pd.DataFrame, key is substrate name
+            
+        Notes:
+            1. thermal correction (ZPE and entropy) of free adsorbates and clean substrates would be ignored, e.g. GadsCO2 = EadsCO2 + ZPE*CO2 - TS*CO2
             
         """
         # Check args
-        assert os.path.exists(path)
+        assert os.path.exists(correction_file)
         
         # Import thermal correction file
-        df = pd.read_csv(path)
+        df = pd.read_csv(correction_file)
         thermal_correction_dict = dict(zip(df["Species"], df["Correction"].astype(float)))
         
 
         # Apply thermal correction for each substrate
-        free_energy_dict = {}
+        adsorption_free_energy = {}
         for sub, df in self.adsorption_energy.items():
             free_energy_df = pd.DataFrame.copy(df)
             
@@ -49,17 +52,17 @@ class dataLoader:
                 # Apply correction by column
                 free_energy_df[ads] += thermal_correction_dict[f'*{ads.split("-")[-1]}']
             
-            free_energy_dict[sub] = free_energy_df
+            adsorption_free_energy[sub] = free_energy_df
         
         # Update attrib
-        self.free_energy_dict = free_energy_dict
+        self.free_energy_dict = adsorption_free_energy
         
         
         # debug mode: output free energy to file
         if debug:
             print(f"debug mode on. free energy dict would be output to {debug_dir}")
             os.makedirs(debug_dir, exist_ok=True)
-            for substrate_name, df in free_energy_dict.items():
+            for substrate_name, df in adsorption_free_energy.items():
                 df.to_csv(os.path.join(debug_dir, f"free_energy_{substrate_name}.csv"))
 
         
@@ -136,7 +139,7 @@ if __name__ == "__main__":
     # print(loader.adsorption_energy_dict)
     
     # Test adding thermal correction
-    loader.add_thermal_correction(path="../data/corrections_thermal.csv", debug=True)
+    loader.calculate_adsorption_free_energy(correction_file="../data/corrections_thermal.csv", debug=True)
     
     
     # Test loading reaction pathway
