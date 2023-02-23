@@ -16,6 +16,53 @@ class dataLoader:
         pass
 
         
+    def add_thermal_correction(self, correction_file, debug=False, debug_dir="debug"):
+        """Add thermal corrections to adsorption energies.
+
+        Args:
+            correction_file (str): path to thermal correction csv file
+            debug (bool, optional): debug mode, save all intermediate data to "debug" dir. Defaults to False.
+            debug_dir (str, optional): debug data saving dir. Defaults to "debug". 
+        
+         Attrib:
+            free_energy (dict): dict of adsorption free energies in pd.DataFrame, key is substrate name 
+            
+        """
+        # Check args
+        assert os.path.exists(correction_file)
+        
+        # Import thermal correction file
+        df = pd.read_csv(correction_file)
+        thermal_correction_dict = dict(zip(df["Species"], df["Correction"].astype(float)))
+        
+
+        # Apply thermal correction for each substrate
+        free_energy_dict = {}
+        for sub, df in self.adsorption_energy.items():
+            free_energy_df = pd.DataFrame.copy(df)
+            
+            for ads in free_energy_df.columns.values:
+                # Check if all adsorbates have a correction entry
+                if f'*{ads.split("-")[-1]}' not in thermal_correction_dict:
+                    raise ValueError(f"Cannot find thermal correction for {ads.split('-')[-1]}")
+                
+                # Apply correction by column
+                free_energy_df[ads] += thermal_correction_dict[f'*{ads.split("-")[-1]}']
+            
+            free_energy_dict[sub] = free_energy_df
+        
+        # Update attrib
+        self.free_energy_dict = free_energy_dict
+        
+        
+        # debug mode: output free energy to file
+        if debug:
+            print(f"debug mode on. free energy dict would be output to {debug_dir}")
+            os.makedirs(debug_dir, exist_ok=True)
+            for substrate_name, df in free_energy_dict.items():
+                df.to_csv(os.path.join(debug_dir, f"free_energy_{substrate_name}.csv"))
+
+        
     def load_adsorption_energy(self, path, substrates, adsorbates):
         """Load adsorption energy from csv file (without ZPE corrections).
 
@@ -24,8 +71,8 @@ class dataLoader:
             substrates (list): list of substrates to be loaded
             adsorbates (list): list of adsorbates to be loaded
 
-        Returns:
-            dict: dict of adsorption energies in pd.DataFrame, key is substrate name
+        Attrib:
+            adsorption_energy (dict): dict of adsorption energies in pd.DataFrame, key is substrate name
             
         """
         # Check args
@@ -34,7 +81,7 @@ class dataLoader:
         assert isinstance(adsorbates, list)
 
         # Load adsorption energy by substrate
-        self.adsorption_energy_dict = {
+        self.adsorption_energy = {
             sub: pd.read_csv(os.path.join(path, f"{sub}.csv"), index_col=0).loc[:, adsorbates]  # apply adsorbate filter
             for sub in substrates
         }
@@ -46,8 +93,8 @@ class dataLoader:
         Args:
             file (str): path to reaction pathway file
 
-        Returns:
-            dict: reaction pathway dict
+        Attrib:
+            reaction_pathway (dict): reaction pathway dict
             
         """
         # Check args
@@ -55,11 +102,9 @@ class dataLoader:
         
         # Import reaction pathway file
         with open(file) as f:
-            reaction_pathway_dict = json.load(f)
-            
-        return reaction_pathway_dict 
+            self.reaction_pathway = json.load(f)
+                
     
-
 # Test area
 if __name__ == "__main__":
     path = "../../0-dataset/label_adsorption_energy"
