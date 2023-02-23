@@ -16,11 +16,11 @@ class dataLoader:
         pass
 
         
-    def add_thermal_correction(self, correction_file, debug=False, debug_dir="debug"):
+    def add_thermal_correction(self, path, debug=False, debug_dir="debug"):
         """Add thermal corrections to adsorption energies.
 
         Args:
-            correction_file (str): path to thermal correction csv file
+            path (str): thermal correction csv file path
             debug (bool, optional): debug mode, save all intermediate data to "debug" dir. Defaults to False.
             debug_dir (str, optional): debug data saving dir. Defaults to "debug". 
         
@@ -29,10 +29,10 @@ class dataLoader:
             
         """
         # Check args
-        assert os.path.exists(correction_file)
+        assert os.path.exists(path)
         
         # Import thermal correction file
-        df = pd.read_csv(correction_file)
+        df = pd.read_csv(path)
         thermal_correction_dict = dict(zip(df["Species"], df["Correction"].astype(float)))
         
 
@@ -87,6 +87,25 @@ class dataLoader:
         }
     
     
+    def load_adsorbate_free_energy(self, path):
+        """Load adsorbate free energy from csv file.
+
+        Args:
+            file (str): path to adsorbate free energy file
+
+        Attrib:
+            adsorbate_free_energy (dict): dict of adsorbate-energy pairs
+            
+        """
+        # Check args
+        assert os.path.exists(path) and path.endswith(".csv")
+        
+        # Load adsorbate free energy csv file and pack into dict
+        df = pd.read_csv(path)
+        
+        self.adsorbate_free_energy = dict(zip(df["name"], df["free_energy"].astype(float)))
+    
+    
     def load_reaction_pathway(self, file):
         """Load reaction pathway json file.
 
@@ -117,7 +136,7 @@ if __name__ == "__main__":
     # print(loader.adsorption_energy_dict)
     
     # Test adding thermal correction
-    loader.add_thermal_correction(correction_file="../data/corrections_thermal.csv", debug=True)
+    loader.add_thermal_correction(path="../data/corrections_thermal.csv", debug=True)
     
     
     # Test loading reaction pathway
