@@ -385,7 +385,7 @@ class volcanoPlotter:
 if __name__ == "__main__":
     import sys
     from calculate_scaling_relations import scalingRelations
-    from energy_loader import energyLoader, stack_diff_sub_energy_dict
+    from energy_loader import dataLoader, stack_diff_sub_energy_dict
     from fitting import linear_fitting_with_mixing
     
     adsorption_energy_path = "../../0-dataset/label_adsorption_energy"
@@ -405,7 +405,7 @@ if __name__ == "__main__":
     
     
     # Load adsorption energies
-    energy_loader = energyLoader()
+    energy_loader = dataLoader()
     energy_loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
     
     # Add thermal corrections to adsorption energies
@@ -417,7 +417,7 @@ if __name__ == "__main__":
     free_energy_linear_relation = linear_fitting_with_mixing(
         free_energies,
         descriptor_x, descriptor_y, 
-        verbose=False,
+        verbose=True,
         )
     
     # Calculate scaling relations
