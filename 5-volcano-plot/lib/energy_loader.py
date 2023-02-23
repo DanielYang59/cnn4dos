@@ -76,13 +76,11 @@ class energyLoader:
         
         # debug mode: output free energy to file
         if self.debug:
-            print("debug mode on.")
+            print(f"debug mode on. free energy would be output to {self.debug_dir}")
             os.makedirs(self.debug_dir, exist_ok=True)
             for substrate_name, df in free_energy_dict.items():
                 df.to_csv(os.path.join(self.debug_dir, f"free_energy_{substrate_name}.csv"))
             
-            
-
 
 def stack_diff_sub_energy_dict(energy_dict, add_prefix=True):
     """Stack adsorption energies from different substrates vertically.
