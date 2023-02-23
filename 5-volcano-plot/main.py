@@ -4,9 +4,10 @@
 import yaml
 
 from lib.calculate_scaling_relations import scalingRelations
-from lib.energy_loader import energyLoader, stack_diff_sub_energy_dict
+from lib.dataLoader import dataLoader
 from lib.fitting import linear_fitting_with_mixing
 from lib.plot_volcano import volcanoPlotter
+from lib.utils import stack_diff_sub_energy_dict
 
 
 if __name__ == "__main__":
@@ -29,11 +30,11 @@ if __name__ == "__main__":
     external_potential = cfg["corrections"]["external_potential"] 
     
     # Load adsorption energies
-    energy_loader = energyLoader()
+    energy_loader = dataLoader()
     energy_loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
     
     # Add thermal corrections to adsorption energies
-    energy_loader.add_thermal_correction(correction_file=thermal_correction_file)
+    energy_loader.add_thermal_correction(path=thermal_correction_file)
     
     
     # Perform linear fitting with automatic mixing
@@ -44,6 +45,11 @@ if __name__ == "__main__":
         descriptor_x, descriptor_y, 
         verbose=False,
         )
+    
+    
+    # Load reaction pathway
+
+    
     
     
     # Calculate scaling relations
