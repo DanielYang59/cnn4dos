@@ -77,19 +77,19 @@ class scalingRelation:
 
         
         # Create list for each adsorbate
-        result_dict = {ads: [] for ads in adsorbates}
+        result_dict = {ads: [] for ads in self.adsorbates}
     
         # Loop through percentage
         for p, value in mixing_percentage_test_result.items():
             # Unpack result for each adsorbate
-            for ads in adsorbates:
+            for ads in self.adsorbates:
                 r2 = value[ads].rvalue
                 result_dict[ads].append(r2)
         
         
         # Find best percentages for each adsorbate
         best_percentages = {}
-        for ads in adsorbates:
+        for ads in self.adsorbates:
             # find best mixing percentage
             best = max(result_dict[ads])
             best_index = result_dict[ads].index(best)
