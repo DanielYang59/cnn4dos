@@ -111,7 +111,7 @@ class reactionCalculator:
         return products_paras - reactants_paras
 
     
-    def calculate_reaction(self, name):
+    def calculate_reaction_scaling_relations(self, name):
         """Calculate scaling relations for a selected reaction and external potential.
 
         Args:
@@ -136,7 +136,7 @@ class reactionCalculator:
                 reaction_paras[step_index] = self.__calculate_reaction_step(equation)
         
         return reaction_paras
-        
+    
 
 # Test area
 if __name__ == "__main__":
@@ -164,7 +164,7 @@ if __name__ == "__main__":
         external_potential=0.17
         )
     
-    co2rr_para = reaction_calculator.calculate_reaction(name="CO2RR_CH4")
+    co2rr_para = reaction_calculator.calculate_reaction_scaling_relations(name="CO2RR_CH4")
     
     print(co2rr_para)
     
