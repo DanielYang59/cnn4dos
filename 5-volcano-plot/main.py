@@ -7,7 +7,7 @@ from lib.calculate_scaling_relations import scalingRelations
 from lib.dataLoader import dataLoader
 from lib.fitting import linear_fitting_with_mixing
 from lib.plot_volcano import volcanoPlotter
-from lib.utils import stack_diff_sub_energy_dict
+from lib.utils import stack_adsorption_energy_dict
 
 
 if __name__ == "__main__":
@@ -34,11 +34,11 @@ if __name__ == "__main__":
     energy_loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
     
     # Add thermal corrections to adsorption energies
-    energy_loader.add_thermal_correction(path=thermal_correction_file)
+    energy_loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
     
     
     # Perform linear fitting with automatic mixing
-    free_energies = stack_diff_sub_energy_dict(energy_loader.free_energy_dict, add_prefix=True)
+    free_energies = stack_adsorption_energy_dict(energy_loader.free_energy_dict, add_prefix=True)
     
     free_energy_linear_relation = linear_fitting_with_mixing(
         free_energies,
