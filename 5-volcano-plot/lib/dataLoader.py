@@ -40,7 +40,7 @@ class dataLoader:
         
 
         # Apply thermal correction for each substrate
-        adsorption_free_energy = {}
+        self.adsorption_free_energy = {}
         for sub, df in self.adsorption_energy.items():
             free_energy_df = pd.DataFrame.copy(df)
             
@@ -52,17 +52,14 @@ class dataLoader:
                 # Apply correction by column
                 free_energy_df[ads] += thermal_correction_dict[f'*{ads.split("-")[-1]}']
             
-            adsorption_free_energy[sub] = free_energy_df
-        
-        # Update attrib
-        self.free_energy_dict = adsorption_free_energy
+            self.adsorption_free_energy[sub] = free_energy_df
         
         
         # debug mode: output free energy to file
         if debug:
             print(f"debug mode on. free energy dict would be output to {debug_dir}")
             os.makedirs(debug_dir, exist_ok=True)
-            for substrate_name, df in adsorption_free_energy.items():
+            for substrate_name, df in self.adsorption_free_energy.items():
                 df.to_csv(os.path.join(debug_dir, f"free_energy_{substrate_name}.csv"))
 
         
