@@ -8,7 +8,7 @@ import warnings
 
 
 class scalingRelation:
-    def __init__(self, adsorption_energy_dict, descriptors, mixing_percentages, verbose=True):
+    def __init__(self, adsorption_energy_dict, descriptors, mixing_percentages, verbose=True, remove_ads_prefix=False):
         """Calculate adsorption energy linear scaling relations.
 
         Args:
@@ -18,6 +18,7 @@ class scalingRelation:
             mixing_percentages (str, tuple): "AUTO" for automatic finding of best percentages,  
                 or (x_percentage, y_percentage)
             verbose (bool, optional): verbose. Defaults to True.
+            remove_prefix (bool, optional): remove prefix from adsorbate names. Defaults to False.
             
         """
         # Check args
@@ -31,6 +32,7 @@ class scalingRelation:
         # Update attributes
         self.descriptors = descriptors
         self.verbose = verbose
+        self.remove_ads_prefix = remove_ads_prefix
         
         # Stack adsorbate energy dataframe of different substrates
         self.stacked_adsorption_energy_df = stack_adsorption_energy_dict(adsorption_energy_dict)
@@ -160,12 +162,12 @@ class scalingRelation:
         self.linear_fitting_results = results
 
     
-    def __fitting_results_to_para(self, ):
+    def __fitting_results_to_para(self, remove_prefix=False):
         """Translate linear fitting results to parameter arrays.
         
         Attrib:
             fitting_paras (dict): key is adsorbate name, value is [para_descriptor_x, para_descriptor_y, c]
-        
+            
         """
         self.fitting_paras = {}
         for ads, result in self.linear_fitting_results.items():
@@ -175,6 +177,8 @@ class scalingRelation:
             c = result.intercept
             
             # Update para dict
+            if self.remove_ads_prefix:
+                ads = ads.split("-")[-1]  # remove "X-" from naming of adsorbates "X-CO2"
             self.fitting_paras[ads] = np.array([a, b, c])
             
             # Warn user if R2 score is too low
