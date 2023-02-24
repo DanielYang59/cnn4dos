@@ -143,5 +143,5 @@ if __name__ == "__main__":
     
     
     # Test loading reaction pathway
-    loader.load_reaction_pathway(file="../data/reaction_pathway.json")
-    print(loader.reaction_pathway)
+    reaction_pathway = loader.load_reaction_pathway(file="../data/reaction_pathway.json")
+    print(reaction_pathway)
