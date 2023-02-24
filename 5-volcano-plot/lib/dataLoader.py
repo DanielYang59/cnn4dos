@@ -104,7 +104,7 @@ class dataLoader:
         # Load adsorbate free energy csv file and pack into dict
         df = pd.read_csv(path)
         
-        self.adsorbate_free_energy = dict(zip(df["name"], df["free_energy"].astype(float)))
+        return dict(zip(df["name"], df["free_energy"].astype(float)))
     
     
     def load_reaction_pathway(self, file):
@@ -122,7 +122,9 @@ class dataLoader:
         
         # Import reaction pathway file
         with open(file) as f:
-            self.reaction_pathway = json.load(f)
+            reaction_pathway = json.load(f)
+            
+        return reaction_pathway
                 
     
 # Test area
