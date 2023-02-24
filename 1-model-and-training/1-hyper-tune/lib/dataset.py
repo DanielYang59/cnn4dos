@@ -6,6 +6,7 @@ import os
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import normalize
+import warnings
 
 
 class Dataset:
@@ -68,7 +69,7 @@ class Dataset:
         
         # Warning user if ghost removal activated
         if remove_ghost:
-            print("Ghost state removal activated.")
+            warnings.warn("Ghost state removal activated.")
          
         # Update attrib
         self.substrates = substrates

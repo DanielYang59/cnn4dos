@@ -11,6 +11,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
 from datetime import datetime
+import warnings
 
 from hp_model import hp_model
 from lib.dataset import Dataset
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     
     # Load features(DOS) and labels from cached file to save time
     if os.path.exists("features.npy") and os.path.exists("labels.npy"):
-        print("Warning! features/labels load from cached file. Tags changed after cache generation in config.yaml might not take effect.")
+        warnings.warn("Warning! features/labels load from cached file. Tags changed after cache generation in config.yaml might not take effect.")
         features = tf.convert_to_tensor(np.load("features.npy"))
         labels = tf.convert_to_tensor(np.load("labels.npy"))
         

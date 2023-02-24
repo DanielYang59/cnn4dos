@@ -21,6 +21,7 @@ import os
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import warnings
 
     
 def plot_line(x_coords, arr, savedir):
@@ -70,7 +71,7 @@ if __name__ == "__main__":
     src_dos = np.load(os.path.join(working_dir, src_dos_name))
     
     if remove_ghost:
-        print("WARNING! Ghost state will be removed.")
+        warnings.warn("WARNING! Ghost state will be removed.")
         src_dos[0] = 0.0
     
     # Check DOS array

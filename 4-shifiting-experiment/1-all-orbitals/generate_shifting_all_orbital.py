@@ -19,6 +19,7 @@ import os, sys
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 from sklearn.preprocessing import normalize
+import warnings
 
 
 def shift_dos(shift_array, dos_array, energy_array):
@@ -150,12 +151,12 @@ if __name__ == "__main__":
     dos_array = np.load(os.path.join(working_dir, "dos_up.npy"))
     ## Remove ghost state if required
     if remove_ghost_state:
-        print("WARNING! Ghost state will be removed.")
+        warnings.warn("WARNING! Ghost state will be removed.")
         dos_array[0] = 0.0
         
     ## Load molecule DOS if required
     if append_molecule:
-        print("WARNING! Molecule DOS would be appended.")
+        warnings.warn("WARNING! Molecule DOS would be appended.")
         # Load adsorbate DOS
         mol_name = os.getcwd().split(os.sep)[-2].split("_")[0]
         mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, "dos_up_adsorbate.npy"))
