@@ -2,13 +2,25 @@
 # -*- coding: utf-8 -*-
 
 from dataLoader import dataLoader
+import numpy as np
 
 
 class reactionCalculator:
-    def __init__(self, adsorption_energy_scaling_relation, adsorbate_energy_file, reaction_pathway_file) -> None:
+    def __init__(self, adsorption_energy_scaling_relation, adsorbate_energy_file, reaction_pathway_file, external_potential=0.0):
+        """Calculate scaling relations for reaction.
+
+        Args:
+            adsorption_energy_scaling_relation (dict): adsorption energy scaling relations dict
+            adsorbate_energy_file (str): path to adsorbate energy csv file
+            reaction_pathway_file (str): path to reaction pathway json file
+            external_potential (float, optional): applied external potential. Defaults to 0.0.
+            
+        """
         # Update attrib
         assert isinstance(adsorption_energy_scaling_relation, dict)
         self.adsorption_energy_scaling_relation = adsorption_energy_scaling_relation
+        assert isinstance(external_potential, (int, float))
+        self.external_potential = external_potential
         
         
         loader = dataLoader()
@@ -16,26 +28,116 @@ class reactionCalculator:
         self.adsorbate_energy = loader.load_adsorbate_free_energy(adsorbate_energy_file)
         # Load reaction pathway
         self.reaction_pathway = loader.load_reaction_pathway(reaction_pathway_file)
+        
+        
+    def __calculate_half_reaction(self, half_reaction):
+        """Calculate scaling relation parameters for half reactions.
 
+        Args:
+            half_reaction (dict): half reaction dict in species:num pairs
 
-    def __calculate_half_reaction(self):
-        pass
-    
+        Raises:
+            KeyError: if species entry not found
+
+        Returns:
+            np.ndarray: parameter array in [descriptor_x_para, descriptor_y_para, constant]
+            
+        """
+        # Check args
+        assert isinstance(half_reaction, dict)
+        
+        
+        # Initiate empty array
+        paras = np.array([0.0, 0.0, 0.0])
+        
+        for species, num in half_reaction.items():
+            # Proton-electron pairs (PEP)
+            if species == "PEP":
+                pep_energy = 0.5 * self.adsorbate_energy["H2"] - self.external_potential
+                paras += [0, 0, pep_energy]
+            
+            
+            # Skip clean catalysts
+            elif species == "*":
+                continue
+            
+            
+            # Adsorbed species
+            elif species.startswith("*"):
+                species = species.lstrip("*")
+                
+                # Add free adsorbate energy
+                if species in self.adsorbate_energy:
+                    paras += [0, 0, num * self.adsorbate_energy[species]]
+                else:
+                    raise KeyError(f"Cannot find free energy entry for {species}.")
+            
+
+                # Add scaling relation parameters
+                paras += num * self.adsorption_energy_scaling_relation[species]
+                
+            
+            # non-adsorbate species (free species)
+            else:
+                species = species.split("_")[0]  # remove physical state suffix (_g, _l)
+                
+                if species in self.adsorbate_energy:
+                    paras += [0, 0, num * self.adsorbate_energy[species]]
+                else:
+                    raise KeyError(f"Cannot find free energy entry for {species}.")
+                
+                
+        return paras
+        
+
+    def __calculate_reaction_step(self, equation):
+        """Calculate scaling relation parameters for one reaction step.
+
+        Args:
+            equation (dict): reaction step dict, keys are {"reactions", "products"}
+
+        Returns:
+            np.ndarray: parameter array in [descriptor_x_para, descriptor_y_para, constant]
+            
+        """
+        # Check args
+        assert isinstance(equation, dict) and len(equation) == 2
+        
+        # Calculate half reactions
+        products_paras = self.__calculate_half_reaction(equation["products"])
+        reactants_paras = self.__calculate_half_reaction(equation["reactants"])
+        
+        # Calculate 
+        return products_paras - reactants_paras
+
     
     def calculate_reaction(self, name):
+        """Calculate scaling relations for a selected reaction and external potential.
+
+        Args:
+            name (str): name of reaction to calculate
+
+        Raises:
+            KeyError: if cannot find entry for selected reaction
+
+        Returns:
+            dict: scaling relation parameters for each reaction step
+            
+        """
+        # Check if reaction exists
         if name not in self.reaction_pathway:
             raise KeyError(f"Cannot find data for reaction {name}")
         
         
-        pass
-    
-    
- 
-    
-    
-    
-    
-    
+        # Calculate each reaction step
+        reaction_paras = {}
+        for step_index, equation in self.reaction_pathway[name].items():
+            if step_index != "comment":
+                reaction_paras[step_index] = self.__calculate_reaction_step(equation)
+        
+        return reaction_paras
+        
+
 # Test area
 if __name__ == "__main__":
     # Set args
@@ -52,13 +154,17 @@ if __name__ == "__main__":
     
     # Calculate adsorption energy linear scaling relations
     from scalingRelation import scalingRelation
-    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_percentages="AUTO", verbose=False) 
+    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_percentages="AUTO", verbose=False, remove_ads_prefix=True) 
 
     # Test reaction energy scaling relations calculator
     reaction_calculator = reactionCalculator(
         adsorption_energy_scaling_relation=calculator.fitting_paras,
         adsorbate_energy_file="../data/energy_adsorbate.csv",
-        reaction_pathway_file="../data/reaction_pathway.json"
+        reaction_pathway_file="../data/reaction_pathway.json",
+        external_potential=0.17
         )
     
-    reaction_calculator.calculate_reaction(name="CO2RR_CH4")
+    co2rr_para = reaction_calculator.calculate_reaction(name="CO2RR_CH4")
+    
+    print(co2rr_para)
+    
