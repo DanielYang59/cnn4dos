@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def stack_diff_sub_energy_dict(energy_dict, add_prefix=True):
+def stack_adsorption_energy_dict(energy_dict, add_prefix=True):
     """Stack adsorption energies from different substrates vertically.
 
     Args:
