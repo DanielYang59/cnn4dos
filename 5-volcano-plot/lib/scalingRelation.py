@@ -3,6 +3,7 @@
 import numpy as np
 from scipy import stats
 from utils import stack_adsorption_energy_dict
+import warnings
 
 
 class scalingRelation:
@@ -174,13 +175,17 @@ class scalingRelation:
             
             # Update para dict
             self.fitting_paras[ads] = np.array([a, b, c])
+            
+            # Warn user if R2 score is too low
+            if result.rvalue < 0.75:
+                warnings.warn(f"R2 fitting of adsorbate {ads} is too low at {result.rvalue}.")
 
      
 # Test area
 if __name__ == "__main__":
-    
+    # Set args
     path = "../../0-dataset/label_adsorption_energy"
-    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"][:3]
+    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     
     # Loading adsorption energy
@@ -191,7 +196,6 @@ if __name__ == "__main__":
     loader.calculate_adsorption_free_energy(correction_file="../data/corrections_thermal.csv")
     
     # Test adsorption energy scaling relations calculator
-    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_energy, descriptors=("3-CO", "8-OH"), mixing_percentages="AUTO", verbose=True)
-    
+    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_percentages="AUTO", verbose=True) 
     print(calculator.fitting_paras) 
     
