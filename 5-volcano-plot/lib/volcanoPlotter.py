@@ -16,8 +16,8 @@ class volcanoPlotter:
         self.y_range = y_range
         self.descriptors = descriptors
         self.adsorption_free_energies = adsorption_free_energies
-    
-    
+        
+
     def __generate_free_energy_change_mesh(self, reaction_name, density=(400, 400)):
         # Check for requested reaction name
         if reaction_name not in self.scaling_relations:
@@ -41,7 +41,7 @@ class volcanoPlotter:
             }
     
     
-    def plot_limititing_potential(self, reaction_name):
+    def plot_limiting_potential(self, reaction_name):
         # Generate free energy change mesh for selected reaction
         free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
         
@@ -61,18 +61,14 @@ class volcanoPlotter:
         
         
         # Add colorbar
-        cbar = fig.colorbar(contour, shrink=0.95, aspect=15, ticks=[0, 1,2])
+        cbar = fig.colorbar(contour, shrink=0.95, aspect=15, ticks=[1, 2, 3, 4])
         plt.show()
         
         
-    
-    def plot_rate_determining_step(self):
-        pass
-    
         
 # Test area
 if __name__ == "__main__":
-
+    # Set args
     adsorption_energy_path = "../../0-dataset/label_adsorption_energy"
     reaction_pathway_file = "../data/reaction_pathway.json"
     thermal_correction_file = "../data/corrections_thermal.csv"
@@ -125,7 +121,7 @@ if __name__ == "__main__":
                              # markers=markers, 
                              )
     
-    plotter.plot_limititing_potential(reaction_name="CO2RR_CH4")
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4")
 
     
     # plotter.plot_rds(reaction_name="CO2RR_CH4")
