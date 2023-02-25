@@ -31,12 +31,12 @@ class scalingRelation:
         
         # Update attributes
         self.descriptors = descriptors
-        self.verbose = verbose
-        self.remove_ads_prefix = remove_ads_prefix
+        self._verbose = verbose
+        self._remove_ads_prefix = remove_ads_prefix
         
         # Stack adsorbate energy dataframe of different substrates
-        self.stacked_adsorption_energy_df = stack_adsorption_energy_dict(adsorption_energy_dict)
-        self.adsorbates = list(self.stacked_adsorption_energy_df.columns.values)      
+        self._stacked_adsorption_energy_df = stack_adsorption_energy_dict(adsorption_energy_dict)
+        self.adsorbates = list(self._stacked_adsorption_energy_df.columns.values)      
         
         
         # Automatic mixing percentage fitting
@@ -100,7 +100,7 @@ class scalingRelation:
             
             
             # verbose
-            if self.verbose:
+            if self._verbose:
                 # find worst mixing percentage
                 worst = min(result_dict[ads])
                 worst_index = result_dict[ads].index(worst)
@@ -129,12 +129,12 @@ class scalingRelation:
         
         
         # Compile hybrid descriptor
-        hybrid_descriptor = (self.stacked_adsorption_energy_df[self.descriptors[0]] * percentages[0] + self.stacked_adsorption_energy_df[self.descriptors[1]] * percentages[1]) * 0.01
+        hybrid_descriptor = (self._stacked_adsorption_energy_df[self.descriptors[0]] * percentages[0] + self._stacked_adsorption_energy_df[self.descriptors[1]] * percentages[1]) * 0.01
         
         # Perform linear fitting for each adsorbate
         return {
-                ads: stats.linregress(hybrid_descriptor, self.stacked_adsorption_energy_df[ads])
-                for ads in self.stacked_adsorption_energy_df.columns.values
+                ads: stats.linregress(hybrid_descriptor, self._stacked_adsorption_energy_df[ads])
+                for ads in self._stacked_adsorption_energy_df.columns.values
         }
     
     
@@ -151,13 +151,13 @@ class scalingRelation:
             # Compile hybrid descriptor array
             percentage = self.best_mixing_percentages[ads]
             assert 0 <= percentage <= 100
-            descriptor_x = np.copy(np.array(self.stacked_adsorption_energy_df[self.descriptors[0]]))
-            descriptor_y = np.copy(np.array(self.stacked_adsorption_energy_df[self.descriptors[1]]))
+            descriptor_x = np.copy(np.array(self._stacked_adsorption_energy_df[self.descriptors[0]]))
+            descriptor_y = np.copy(np.array(self._stacked_adsorption_energy_df[self.descriptors[1]]))
             
             hybrid_descriptor_array = (descriptor_x * percentage + descriptor_y * (100 - percentage)) * 0.01
             
             # Perform linear fitting with hybrid descriptor
-            results[ads] = stats.linregress(hybrid_descriptor_array, np.array(self.stacked_adsorption_energy_df[ads]))
+            results[ads] = stats.linregress(hybrid_descriptor_array, np.array(self._stacked_adsorption_energy_df[ads]))
             
         self.linear_fitting_results = results
 
@@ -177,7 +177,7 @@ class scalingRelation:
             c = result.intercept
             
             # Update para dict
-            if self.remove_ads_prefix:
+            if self._remove_ads_prefix:
                 ads = ads.split("-")[-1]  # remove "X-" from naming of adsorbates "X-CO2"
             self.fitting_paras[ads] = np.array([a, b, c])
             
