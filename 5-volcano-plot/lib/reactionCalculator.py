@@ -54,7 +54,7 @@ class reactionCalculator:
             # Proton-electron pairs (PEP)
             if species == "PEP":
                 pep_energy = 0.5 * self.adsorbate_energy["H2"] - self.external_potential
-                paras += [0, 0, pep_energy]
+                paras += [0, 0, num * pep_energy]
             
             
             # Skip clean catalysts
