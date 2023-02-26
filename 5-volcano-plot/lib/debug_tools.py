@@ -102,8 +102,13 @@ class volcanoDebugger:
         
         
         # Calculate mean absolute error (MAE)
+        all_results = {}
         for ads, mae in diff_df.abs().mean().items():
-             print(f"MAE in adsorption free energy of {ads} is {round(mae, 4)} eV.")
+            all_results[ads] = mae
+            print(f"MAE in adsorption free energy of {ads} is {round(mae, 4)} eV.")
+        
+        overall_mae = sum(all_results.values()) / len(all_results)
+        print(f"Overall MAE is {round(overall_mae, 4)} eV.")
             
     
     def calculate_adsorption_free_energy_MAE(self, mixing_percentages="AUTO"):
