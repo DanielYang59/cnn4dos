@@ -112,6 +112,12 @@ class volcanoDebugger:
             
     
     def calculate_adsorption_free_energy_MAE(self, mixing_percentages="AUTO"):
+        """Calculate adsorption free energy MAE predicted by scaling relations.
+
+        Args:
+            mixing_percentages (str, optional): descriptor mixing ratio. Defaults to "AUTO".
+            
+        """
         # Calculate adsorption free energy from DFT adsorption energy (true values)
         true_adsorption_free_energy = stack_adsorption_energy_dict(self.adsorption_free_energy, add_prefix=True)
         
@@ -128,7 +134,6 @@ class volcanoDebugger:
                 
         # Calculate mean absolute error (MAE)
         adsorption_free_energy_MAE = self.__calculate_adsorption_energy_MAE(true_df=true_adsorption_free_energy, predicted_df=predicted_adsorption_free_energy, exclude_descriptors=True)
-        
         
         
     def calculate_limiting_potential_MAE(self,):
