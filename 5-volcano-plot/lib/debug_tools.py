@@ -128,7 +128,18 @@ class volcanoDebugger:
     
     
     def __calculate_limiting_potential(self, method, reaction_name):
-        ########## Nested Function Starts ##########
+        """Calculate limiting potential of selected reaction.
+
+        Args:
+            method (str): "direct" for direct calculation from adsorption energy, 
+                "scaling" for calculation from scaling relations
+            reaction_name (str): name of reaction to calculate
+
+        Returns:
+            limiting_potential (pd.Series): limiting potentials
+            rate_determining_steps (pd.Series): rate determining steps (starts from 1)
+            
+        """
         def __calculate_free_energy_for_half_reaction(equation, stacked_adsorption_free_energy):
             """Directly calculate free energy for half of the reaction (either reactants or products).
 
@@ -304,7 +315,7 @@ class volcanoDebugger:
             
             
             return limiting_potential, rate_determining_steps
-        ########## Nested Function Ends ##########
+
         
         # Check args
         assert method in {"direct", "scaling"}
