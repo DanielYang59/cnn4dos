@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 
 
+import copy
 from dataLoader import dataLoader
 import numpy as np
 import os
 import pandas as pd
 from reactionCalculator import reactionCalculator
 from scalingRelation import scalingRelation
+import sys
 from utils import stack_adsorption_energy_dict
+import warnings
 
 
 class volcanoDebugger:
@@ -39,8 +42,8 @@ class volcanoDebugger:
         self.adsorbate_free_energy = loader.load_adsorbate_free_energy(path=adsorbate_free_energy_file)
         
         # Load reaction pathways
-        self.reaction_pathways = loader.load_reaction_pathway(file=reaction_pathway_file)        
-            
+        self.reaction_pathways = loader.load_reaction_pathway(file=reaction_pathway_file)
+                    
                 
     def __calculate_adsorption_energy_from_scaling_relation(self, fitting_paras):
         """Calculate adsorption (free) energy from scaling relations.
@@ -56,7 +59,7 @@ class volcanoDebugger:
         assert isinstance(fitting_paras, dict)
         
         # Load true adsorption energy
-        true_adsorption_energy = pd.DataFrame.copy(stack_adsorption_energy_dict(self.adsorption_free_energy, add_prefix=False))
+        true_adsorption_energy = pd.DataFrame.copy(stack_adsorption_energy_dict(self.adsorption_free_energy, add_prefix_to_rowname=False))
         
         # Use scaling relations to predict adsorption energy (except for descriptors)
         predicted_adsorption_energy = {}
@@ -120,6 +123,20 @@ class volcanoDebugger:
         
         ########## Nested Function Starts ##########
         def __calculate_free_energy_for_half_reaction(equation, stacked_adsorption_free_energy):
+            """Directly calculate free energy for half of the reaction (either reactants or products).
+
+            Args:
+                equation (dict): half reaction equation
+                stacked_adsorption_free_energy (pd.DataFrame): stacked adsorption free energy DataFrame
+
+            Notes:
+                For half of the reaction, for example *COOH + PEP, the free energy G = G(*COOH) + G(PEP), where the G(*COOH) = G(*) + G(COOH) + Gads(COOH). As a result, the Gads(COOH) term would vary from one sample to the other while other terms is constant. G(*) would cancel out and would be skipped.
+
+            Returns:
+                adsorption_energy_df (pd.DataFrame): the diverse part of half reaction energy (each sample has a different energy)
+                free_energy_constant_part (float): the constant part of half reaction energy (adsorbate energy is constant)
+                
+            """
             # Check args
             assert isinstance(equation, dict)
             assert isinstance(stacked_adsorption_free_energy, pd.DataFrame)
@@ -144,12 +161,11 @@ class volcanoDebugger:
                     free_energy_constant_part += (num * free_species_energy)
                     
                     # Get adsorption energy dataFrame
-                    #print(stacked_adsorption_free_energy)
                     adsorption_energy_df = stacked_adsorption_free_energy[species]
+                    adsorption_energy_df *= num
+                    if num != 1:
+                        warnings.warn("Adsorbed species num is not one. Please make sure it's intended.")
                     
-                    #print(adsorption_energy_df)
-                    
-                
                 
                 # Proton-electron pairs (PEP)
                 elif species == "PEP":
@@ -162,24 +178,30 @@ class volcanoDebugger:
                     energy = self.adsorbate_free_energy[species.split("_")[0]]  # remove physical state suffix (_l, _g)
                     
                     free_energy_constant_part += (num * energy)
+
+            
+            # When no adsorbed species is present
+            if "adsorption_energy_df" not in locals():
+                # Generate an all-zero dataframe
+                names = copy.copy(stacked_adsorption_free_energy.index.values)
+                values = [0 for _ in range(len(names))]
+                
+                adsorption_energy_df = pd.DataFrame({'MyColumn': values}, index=names)
                 
             
-        
+            return adsorption_energy_df, free_energy_constant_part
+                
         
         def calculate_limiting_potential_directly(reaction_pathway):
-            # Stack adsorption free energy
-            print(self.adsorption_free_energy)
-            stacked_adsorption_free_energy = stack_adsorption_energy_dict(self.adsorption_free_energy, add_prefix=False)
+            # Stack adsorption free energy (and remove adsorbate name prefix)
+            stacked_adsorption_free_energy = stack_adsorption_energy_dict(copy.copy(self.adsorption_free_energy), add_prefix_to_rowname=False, remove_prefix_from_colname=True)
             
-            
-            limiting_potential = {}
             
             # Calculate free energy change for each reaction step
+            free_energy_changes = {}
             for step_index, equation in reaction_pathway.items():
                 # Calculate products energy
-                # print(step_index, equation)
-                products_energy = __calculate_free_energy_for_half_reaction(equation["products"], stacked_adsorption_free_energy)
-                
+                product_adsorption_energy, product_constant_energy = __calculate_free_energy_for_half_reaction(equation["products"], stacked_adsorption_free_energy)
                 
                 
                 # Calculate reactants energy
@@ -226,22 +248,23 @@ class volcanoDebugger:
             
         """
         # Calculate adsorption free energy from DFT adsorption energy (true values)
-        true_adsorption_free_energy = stack_adsorption_energy_dict(self.adsorption_free_energy, add_prefix=True)
-        
-        
+        true_adsorption_free_energy = stack_adsorption_energy_dict(self.adsorption_free_energy, add_prefix_to_rowname=True)
+    
+      
         # Calculate linear scaling relations of adsorption free energy (predicted values)
         scaling_relation = scalingRelation(
-            adsorption_energy_dict=self.adsorption_free_energy,
+            adsorption_energy_dict=copy.copy(self.adsorption_free_energy),
             mixing_percentages=mixing_percentages,
             descriptors=self.descriptors,
             verbose=False,
         )
+
         
         predicted_adsorption_free_energy = self.__calculate_adsorption_energy_from_scaling_relation(scaling_relation.fitting_paras)
                 
         # Calculate mean absolute error (MAE)
-        adsorption_free_energy_MAE = self.__calculate_adsorption_energy_MAE(true_df=true_adsorption_free_energy, predicted_df=predicted_adsorption_free_energy, exclude_descriptors=True)
-        
+        self.__calculate_adsorption_energy_MAE(true_df=true_adsorption_free_energy, predicted_df=predicted_adsorption_free_energy, exclude_descriptors=True)
+                
         
     def calculate_limiting_potential_MAE(self, reaction):
         # Calculate limiting potential directly from energy
@@ -284,7 +307,6 @@ if __name__ == "__main__":
     
     # Calculate adsorption free energy
     debugger.output_adsorption_free_energy()
-    
     
     # Calculate adsorption free energy MAE (with scaling relations)
     debugger.calculate_adsorption_free_energy_MAE()
