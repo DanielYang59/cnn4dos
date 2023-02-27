@@ -3,6 +3,7 @@
 
 
 import copy
+import contextlib
 from dataLoader import dataLoader
 import numpy as np
 import os
@@ -38,13 +39,20 @@ class volcanoDebugger:
         self.adsorption_energy = loader.adsorption_energy
         self.adsorption_free_energy = loader.adsorption_free_energy
 
+
         # Load free adsorbate energy
         self.adsorbate_free_energy = loader.load_adsorbate_free_energy(path=adsorbate_free_energy_file)
         
+        
         # Load reaction pathways
         self.reaction_pathways = loader.load_reaction_pathway(file=reaction_pathway_file)
-                    
-                
+        
+        
+        # Calculate scaling relation parameters
+        calculator = scalingRelation(adsorption_energy_dict=copy.copy(self.adsorption_free_energy), descriptors=descriptors, mixing_percentages="AUTO", remove_ads_prefix=True, verbose=True)
+        self.scaling_relations = calculator.fitting_paras
+        
+    
     def __calculate_adsorption_energy_from_scaling_relation(self, fitting_paras):
         """Calculate adsorption (free) energy from scaling relations.
 
@@ -116,7 +124,7 @@ class volcanoDebugger:
             print(f"MAE in adsorption free energy of {ads} is {round(mae, 4)} eV.")
         
         overall_mae = sum(all_results.values()) / len(all_results)
-        print(f"Overall MAE is {round(overall_mae, 4)} eV.")
+        print(f"Overall adsorption energy MAE is {round(overall_mae, 4)} eV.")
     
     
     def __calculate_limiting_potential(self, method, reaction_name):
@@ -192,7 +200,7 @@ class volcanoDebugger:
             
         
         def calculate_limiting_potential_directly(reaction_pathway):
-            """Calculate limiting potential and rate determining step directly from adsorption energy date.
+            """Calculate limiting potential and rate determining step directly from adsorption energy data.
 
             Args:
                 reaction_pathway (dict): reaction pathway dictionary
@@ -249,10 +257,49 @@ class volcanoDebugger:
             return limiting_potential, rate_determining_steps
         
         
-        def calculate_limiting_potential_with_scaling_relation(reaction_pathway):
-            pass
-        
-        
+        def calculate_limiting_potential_from_scaling_relation():
+            """Calculate limiting potential and rate determining step based on scaling relations.
+
+            Returns:
+                limiting_potential (pd.Series): limiting potentials
+                rate_determining_steps (pd.Series): rate determining steps (starts from 1)
+                
+            """
+            # Initialize scaling relation based reaction calculator
+            reaction_calculator = reactionCalculator(
+                adsorption_energy_scaling_relation=self.scaling_relations,
+                adsorbate_energy_file="../data/energy_adsorbate.csv",
+                reaction_pathway_file="../data/reaction_pathway.json",
+                external_potential=self.external_potential,
+            )
+            
+            # Calculate free energy scaling relations
+            free_energy_scaling_relation = reaction_calculator.calculate_reaction_scaling_relations(name=reaction_name)
+                        
+            
+            # Load two descriptors
+            stacked_adsorption_energy = stack_adsorption_energy_dict(self.adsorption_free_energy, add_prefix_to_rowname=False)
+            descriptor_x = pd.Series.copy(stacked_adsorption_energy[self.descriptors[0]])
+            descriptor_y = pd.Series.copy(stacked_adsorption_energy[self.descriptors[1]])
+            
+            
+            # Calculate free energy change from scaling relations
+            free_energy_changes = {}
+            for step_index, paras in free_energy_scaling_relation.items():
+                free_energy_changes[step_index] = descriptor_x * paras[0] + descriptor_y * paras[1] + paras[2]
+            
+            
+            # Pack free energy change dict to DataFrame
+            free_energy_changes = pd.DataFrame(free_energy_changes)
+            
+            
+            # Calculate limiting potential and rate determining steps
+            rate_determining_steps = free_energy_changes.idxmax(axis=1)
+            limiting_potential = free_energy_changes.max(axis=1)
+            
+            
+            return limiting_potential, rate_determining_steps
+
         ########## Nested Function Ends ##########
         
         # Check args
@@ -262,7 +309,8 @@ class volcanoDebugger:
         # Load reaction pathway
         assert reaction_name in self.reaction_pathways
         reaction_pathway = self.reaction_pathways[reaction_name]
-        reaction_pathway.pop("comment")  # remove comment from reaction pathway dict
+        with contextlib.suppress(KeyError):
+            reaction_pathway.pop("comment")  # remove comment from reaction pathway dict
         
         
         # Calculate limiting potential directly from energy
@@ -272,7 +320,7 @@ class volcanoDebugger:
         
         # Calculate limiting potential directly from scaling relations
         else:
-            calculate_limiting_potential_with_scaling_relation(reaction_pathway)
+            calculate_limiting_potential_from_scaling_relation()
         
         
         # Write limiting potentials and calculate MAE
@@ -310,7 +358,7 @@ class volcanoDebugger:
         
         
         # Calculate limiting potential using scaling relations
-        # self.__calculate_limiting_potential(method="scaling", reaction=reaction) #DEBUG
+        self.__calculate_limiting_potential(method="scaling", reaction_name=reaction)
         
     
     def output_adsorption_free_energy(self):
