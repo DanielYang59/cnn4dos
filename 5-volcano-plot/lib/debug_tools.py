@@ -247,6 +247,9 @@ class volcanoDebugger:
             # Pack free energy change dict to DataFrame
             free_energy_changes = pd.DataFrame(free_energy_changes)
             
+            # Write free energy changes to file
+            free_energy_changes.to_csv(os.path.join(self.debug_dir, "free_energy_change_direct.csv"))
+            
             
             # Calculate limiting potential and rate determining steps
             rate_determining_steps = free_energy_changes.idxmax(axis=1)
@@ -290,6 +293,9 @@ class volcanoDebugger:
             
             # Pack free energy change dict to DataFrame
             free_energy_changes = pd.DataFrame(free_energy_changes)
+            
+            # Write free energy changes to file
+            free_energy_changes.to_csv(os.path.join(self.debug_dir, "free_energy_change_scaling.csv"))
             
             
             # Calculate limiting potential and rate determining steps
