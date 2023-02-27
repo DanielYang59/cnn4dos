@@ -133,7 +133,7 @@ class volcanoDebugger:
                 For half of the reaction, for example *COOH + PEP, the free energy G = G(*COOH) + G(PEP), where the G(*COOH) = G(*) + G(COOH) + Gads(COOH). As a result, the Gads(COOH) term would vary from one sample to the other while other terms is constant. G(*) would cancel out and would be skipped.
 
             Returns:
-                adsorption_energy_df (pd.DataFrame): the diverse part of half reaction energy (each sample has a different energy)
+                adsorption_energy_df (pd.Series): the diverse part of half reaction energy (each sample has a different energy)
                 free_energy_constant_part (float): the constant part of half reaction energy (adsorbate energy is constant)
                 
             """
@@ -186,11 +186,10 @@ class volcanoDebugger:
                 names = copy.copy(stacked_adsorption_free_energy.index.values)
                 values = [0 for _ in range(len(names))]
                 
-                adsorption_energy_df = pd.DataFrame({'MyColumn': values}, index=names)
+                adsorption_energy_df = pd.Series(values, index=names)
                 
-            
             return adsorption_energy_df, free_energy_constant_part
-                
+            
         
         def calculate_limiting_potential_directly(reaction_pathway):
             # Stack adsorption free energy (and remove adsorbate name prefix)
@@ -200,15 +199,32 @@ class volcanoDebugger:
             # Calculate free energy change for each reaction step
             free_energy_changes = {}
             for step_index, equation in reaction_pathway.items():
+                # Calculate reactants energy
+                reactant_adsorption_energy, reactant_constant_energy = __calculate_free_energy_for_half_reaction(equation["reactants"], stacked_adsorption_free_energy)
+                
+                
                 # Calculate products energy
                 product_adsorption_energy, product_constant_energy = __calculate_free_energy_for_half_reaction(equation["products"], stacked_adsorption_free_energy)
                 
-                
-                # Calculate reactants energy
+                # Rest pd.Series name
+                reactant_adsorption_energy.name = None
+                product_adsorption_energy.name = None
                 
                 
                 # Calculate free energy change
+                if list(reactant_adsorption_energy.index.values) != list(product_adsorption_energy.index.values):
+                    raise ValueError("Inconsistent product and reactant energies found.")
+                else:
+                    energy_change_df = product_adsorption_energy - reactant_adsorption_energy
                 
+                
+                # Add constant energy (adsorbate energy)
+                energy_change_df += (product_constant_energy - reactant_constant_energy)
+                
+                free_energy_changes[step_index] = energy_change_df
+
+            
+            return free_energy_changes
         
         
         def calculate_limiting_potential_with_scaling_relation(reaction_pathway):
@@ -229,8 +245,8 @@ class volcanoDebugger:
         
         # Calculate limiting potential directly from energy
         if method == "direct":
-            calculate_limiting_potential_directly(reaction_pathway)
-        
+            a = calculate_limiting_potential_directly(reaction_pathway)
+            print(a)
         
         # Calculate limiting potential directly from scaling relations
         else:
