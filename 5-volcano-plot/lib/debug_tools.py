@@ -192,6 +192,19 @@ class volcanoDebugger:
             
         
         def calculate_limiting_potential_directly(reaction_pathway):
+            """Calculate limiting potential and rate determining step directly from adsorption energy date.
+
+            Args:
+                reaction_pathway (dict): reaction pathway dictionary
+
+            Raises:
+                ValueError: if sample names of products and reactants are different 
+
+            Returns:
+                limiting_potential (pd.Series): limiting potentials
+                rate_determining_steps (pd.Series): rate determining steps (starts from 1)
+                
+            """
             # Stack adsorption free energy (and remove adsorbate name prefix)
             stacked_adsorption_free_energy = stack_adsorption_energy_dict(copy.copy(self.adsorption_free_energy), add_prefix_to_rowname=False, remove_prefix_from_colname=True)
             
@@ -206,7 +219,7 @@ class volcanoDebugger:
                 # Calculate products energy
                 product_adsorption_energy, product_constant_energy = __calculate_free_energy_for_half_reaction(equation["products"], stacked_adsorption_free_energy)
                 
-                # Rest pd.Series name
+                # Reset pd.Series column name
                 reactant_adsorption_energy.name = None
                 product_adsorption_energy.name = None
                 
@@ -224,7 +237,16 @@ class volcanoDebugger:
                 free_energy_changes[step_index] = energy_change_df
 
             
-            return free_energy_changes
+            # Pack free energy change dict to DataFrame
+            free_energy_changes = pd.DataFrame(free_energy_changes)
+            
+            
+            # Calculate limiting potential and rate determining steps
+            rate_determining_steps = free_energy_changes.idxmax(axis=1)
+            limiting_potential = free_energy_changes.max(axis=1)
+
+                        
+            return limiting_potential, rate_determining_steps
         
         
         def calculate_limiting_potential_with_scaling_relation(reaction_pathway):
@@ -245,16 +267,16 @@ class volcanoDebugger:
         
         # Calculate limiting potential directly from energy
         if method == "direct":
-            a = calculate_limiting_potential_directly(reaction_pathway)
-            print(a)
+            direct_limiting_potential, direct_rate_determining_steps = calculate_limiting_potential_directly(reaction_pathway)
+        
         
         # Calculate limiting potential directly from scaling relations
         else:
             calculate_limiting_potential_with_scaling_relation(reaction_pathway)
         
         
-        return #DEBUG
-    
+        # Write limiting potentials and calculate MAE
+        
     
     def calculate_adsorption_free_energy_MAE(self, mixing_percentages="AUTO"):
         """Calculate adsorption free energy MAE predicted by scaling relations.
