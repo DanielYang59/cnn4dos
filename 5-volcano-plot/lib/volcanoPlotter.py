@@ -9,13 +9,14 @@ import pandas as pd
 
 
 class volcanoPlotter:
-    def __init__(self, scaling_relations, x_range, y_range, descriptors, adsorption_free_energies, *args, **kwargs):
+    def __init__(self, scaling_relations, x_range, y_range, descriptors, adsorption_free_energies, dpi=300, *args, **kwargs):
         # Update attrib
         self.scaling_relations = scaling_relations
         self.x_range = x_range
         self.y_range = y_range
         self.descriptors = descriptors
         self.adsorption_free_energies = adsorption_free_energies
+        self.dpi = dpi
         
         for key, value in kwargs.items():
             exec(f"self.{key}={value}")
@@ -61,7 +62,6 @@ class volcanoPlotter:
         x_list = []
         y_list = []
         name_list = []
-        print(self.adsorption_free_energies)
         for df in self.adsorption_free_energies.values():  
             x_list.extend(list(df[self.descriptors[0]]))
             y_list.extend(list(df[self.descriptors[1]]))
@@ -73,9 +73,9 @@ class volcanoPlotter:
         marker_dict = dict(zip(self.adsorption_free_energies.keys(), self.markers))
         markers = [marker_dict["_".join(name.split("_")[:2])] for name in name_list]
         
+        
         # Add scatters
         for i, _ in enumerate(x_list):
-            #print(name_list[i])
             plt.scatter(x_list[i], y_list[i],
                         marker=markers[i],
                         facecolors="#6495ED", edgecolors="black",
@@ -83,12 +83,25 @@ class volcanoPlotter:
         
         
         # Add labels for selected samples
-        # for i, label in enumerate(marker_label_list):
-        # plt.annotate(label, (x_data_list[i] - 0.1, y_data_list[i]), # Offset by some value
-        #              ha='center', va='center',
-        #              fontsize=16,
-        #              )
-        
+        for i, name in enumerate(name_list):
+            # Compile label names
+            if label_selection == "ALL":
+                label = name.split("_")[-1].split("-")[-1]         
+            else:
+                substrate_name = "_".join(name.split("_")[:2])
+                
+                if substrate_name in label_selection:
+                    label = name.split("_")[-1].split("-")[-1]  
+                else:
+                    label = ""  # would this lead to positioning conflict? DEBUG
+                    
+            
+            # Add annotate
+            plt.annotate(label, xy=(x_list[i] + 0.12, y_list[i]),
+                         ha="center", va="center",
+                         fontsize=12,
+                         )
+            
 
     def __generate_free_energy_change_mesh(self, reaction_name, density=(400, 400)):
         """Generate 2D free energy change mesh for plotting.
@@ -126,7 +139,7 @@ class volcanoPlotter:
             }
 
 
-    def __set_figure_format(self, plt, fig=None):
+    def __set_figure_style(self, plt, fig=None):
         """Set figure-wide styles.
 
         Args:
@@ -138,16 +151,16 @@ class volcanoPlotter:
             
         """        
         # Change font
-        font = {'family' : 'sans-serif',
-            'sans-serif': 'Helvetica',
-            'weight' : 'normal',
-            'size'   : 18}
-        plt.rc('font', **font)
+        # font = {'family' : 'sans-serif',
+        #     'sans-serif': 'Helvetica',
+        #     'weight' : 'normal',
+        #     'size'   : 18}
+        # plt.rc('font', **font)
         
         
         # Set border thickness
         ax = fig.gca()
-        for axis in ['top', 'bottom', 'left', 'right']:
+        for axis in ["top", "bottom", "left", "right"]:
             ax.spines[axis].set_linewidth(1.75)
         
         # Set tick thickness
@@ -166,7 +179,14 @@ class volcanoPlotter:
         return plt, fig
         
 
-    def plot_limiting_potential(self, reaction_name):
+    def plot_limiting_potential(self, reaction_name, show=False, label_selection="ALL"):
+        """Plot limiting potential volcano of selected reaction.
+
+        Args:
+            reaction_name (str): name of reaction to plot
+            show (bool, optional): show plot after creation. Defaults to False.
+            
+        """
         # Generate free energy change mesh for selected reaction
         free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
         
@@ -177,36 +197,42 @@ class volcanoPlotter:
         limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
         
         
-        # Create background contour plot
+        # Create plt object
         mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
         fig = plt.figure(figsize=[12, 9])
         
+        
+        # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh,
-                               levels=512, cmap="plasma_r",
+                               levels=512, cmap="inferno_r",    
                                extend="max",
                                )
         
         
         # Set figure styles
-        self.__set_figure_format(plt, fig)
+        self.__set_figure_style(plt, fig)
         
         
         # Add colorbar
         cbar = self.__add_colorbar(fig, contour,
-                          cblabel="ΔLimiting Potential (V)",
-                          # ticks=[0, 1, 2, 3, 4, 5], #DEBUG
+                          cblabel="Limiting Potential (V)",
+                          ticks=[1, 2, 3, 4, 5],
                           hide_border=False,
                           )
         
         
         # Add markers
         self.__add_markers(plt, 
-                                 # label_selection=
+                           label_selection=label_selection,
                                  )
         
         
+        # Save/show figure
         plt.tight_layout()
-        plt.show()
+        plt.savefig(f"limiting_potential_{reaction_name}.png", dpi=self.dpi)
+        if show:
+            plt.show()
+        plt.cla()
         
         
 # Test area
@@ -245,7 +271,7 @@ if __name__ == "__main__":
         adsorption_energy_scaling_relation=calculator.fitting_paras,
         adsorbate_energy_file="../data/energy_adsorbate.csv",
         reaction_pathway_file="../data/reaction_pathway.json",
-        external_potential=0.17
+        external_potential=0.17,
         )
     
     
@@ -255,7 +281,7 @@ if __name__ == "__main__":
                          }
     
     
-    # Generate volcano plot
+    # Initialize volcano plotter
     plotter = volcanoPlotter(reaction_scaling_relations,
                              x_range=(-5, 0.5),
                              y_range=(-6.5, 0),
@@ -264,8 +290,16 @@ if __name__ == "__main__":
                              markers=markers,
                              )
     
-    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4")
+    # Generate limiting potential volcano plot
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=True,
+                                    label_selection=["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is",]
+                                    )
 
-    
+
+    # Generate rate determining step plot
     # plotter.plot_rds(reaction_name="CO2RR_CH4")
+    
+    
+    # Generate selectivity volcano plot
+    
     
