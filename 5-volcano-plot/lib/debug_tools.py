@@ -128,7 +128,6 @@ class volcanoDebugger:
     
     
     def __calculate_limiting_potential(self, method, reaction_name):
-        
         ########## Nested Function Starts ##########
         def __calculate_free_energy_for_half_reaction(equation, stacked_adsorption_free_energy):
             """Directly calculate free energy for half of the reaction (either reactants or products).
@@ -252,7 +251,7 @@ class volcanoDebugger:
             # Calculate limiting potential and rate determining steps
             rate_determining_steps = free_energy_changes.idxmax(axis=1)
             limiting_potential = free_energy_changes.max(axis=1)
-
+            
                         
             return limiting_potential, rate_determining_steps
         
@@ -299,7 +298,6 @@ class volcanoDebugger:
             
             
             return limiting_potential, rate_determining_steps
-
         ########## Nested Function Ends ##########
         
         # Check args
@@ -315,15 +313,12 @@ class volcanoDebugger:
         
         # Calculate limiting potential directly from energy
         if method == "direct":
-            direct_limiting_potential, direct_rate_determining_steps = calculate_limiting_potential_directly(reaction_pathway)
+             return calculate_limiting_potential_directly(reaction_pathway)
         
         
         # Calculate limiting potential directly from scaling relations
         else:
-            calculate_limiting_potential_from_scaling_relation()
-        
-        
-        # Write limiting potentials and calculate MAE
+            return calculate_limiting_potential_from_scaling_relation()    
         
     
     def calculate_adsorption_free_energy_MAE(self, mixing_percentages="AUTO"):
@@ -352,13 +347,35 @@ class volcanoDebugger:
         self.__calculate_adsorption_energy_MAE(true_df=true_adsorption_free_energy, predicted_df=predicted_adsorption_free_energy, exclude_descriptors=True)
                 
         
-    def calculate_limiting_potential_MAE(self, reaction):
+    def calculate_limiting_potential_MAE(self, reaction_name):
+        """Calculate limiting potential MAE, comparing direct calculation from adsorption energy and from scaling relations.
+
+        Args:
+            reaction_name (str): name of reaction to calculate
+            
+        """
         # Calculate limiting potential directly from energy
-        self.__calculate_limiting_potential(method="direct", reaction_name=reaction)
+        direct_limiting_potential, direct_rate_determining_steps = self.__calculate_limiting_potential(method="direct", reaction_name=reaction_name)
         
         
         # Calculate limiting potential using scaling relations
-        self.__calculate_limiting_potential(method="scaling", reaction_name=reaction)
+        scaling_limiting_potential, scaling_rate_determining_steps = self.__calculate_limiting_potential(method="scaling", reaction_name=reaction_name)
+        
+        
+        # Calculate limiting potential difference
+        limiting_potential_diff = direct_limiting_potential - scaling_limiting_potential
+       
+        
+        # Write data to file
+        df = pd.concat([direct_limiting_potential, direct_rate_determining_steps, scaling_limiting_potential, scaling_rate_determining_steps, limiting_potential_diff],
+                       keys=["direct_limiting_potential", "direct_RDS", "scaling_limiting_potential", "scaling_RDS", "limiting_potential_diff"],
+                       axis=1)
+        df.to_csv(os.path.join(self.debug_dir, "diff_limiting_potential.csv"))
+        
+        
+        # Calculate limiting potential MAE
+        limiting_potential_mae = limiting_potential_diff.abs().mean()
+        print(f"MAE of limiting potential calculation is {round(limiting_potential_mae, 4)} eV.")
         
     
     def output_adsorption_free_energy(self):
@@ -399,5 +416,5 @@ if __name__ == "__main__":
     
     
     # Calculate limiting potential MAE
-    debugger.calculate_limiting_potential_MAE(reaction="CO2RR_CH4")
+    debugger.calculate_limiting_potential_MAE(reaction_name="CO2RR_CH4")
     
