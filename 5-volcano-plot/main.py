@@ -3,10 +3,10 @@
 
 import yaml
 
-from src.lib.scalingRelation import scalingRelation
 from src.lib.dataLoader import dataLoader
-from src.lib.volcanoPlotter import volcanoPlotter
 from src.lib.reactionCalculator import reactionCalculator
+from src.lib.scalingRelation import scalingRelation
+from src.lib.volcanoPlotter import volcanoPlotter
 
 
 if __name__ == "__main__":
