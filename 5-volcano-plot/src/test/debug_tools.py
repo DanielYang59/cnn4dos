@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
+import sys
+sys.path.insert(0, "../lib")
 import copy
 import contextlib
 from dataLoader import dataLoader
@@ -281,8 +283,8 @@ class volcanoDebugger:
             # Initialize scaling relation based reaction calculator
             reaction_calculator = reactionCalculator(
                 adsorption_energy_scaling_relation=self.scaling_relations,
-                adsorbate_energy_file="../data/energy_adsorbate.csv",
-                reaction_pathway_file="../data/reaction_pathway.json",
+                adsorbate_energy_file="../../data/energy_adsorbate.csv",  #DEBUG
+                reaction_pathway_file="../../data/reaction_pathway.json",  #DEBUG
                 external_potential=self.external_potential,
             )
             
@@ -416,12 +418,12 @@ if __name__ == "__main__":
         descriptors=("3-CO", "8-OH"),
         external_potential=0.17, 
         
-        adsorption_energy_file="../../0-dataset/label_adsorption_energy",
-        thermal_correction_file="../data/corrections_thermal.csv",
-        adsorbate_free_energy_file="../data/energy_adsorbate.csv",
-        reaction_pathway_file="../data/reaction_pathway.json",
+        adsorption_energy_file="../../../0-dataset/label_adsorption_energy",
+        thermal_correction_file="../../data/corrections_thermal.csv",
+        adsorbate_free_energy_file="../../data/energy_adsorbate.csv",
+        reaction_pathway_file="../../data/reaction_pathway.json",
         
-        debug_dir="../debug",
+        debug_dir="debug_results",
         )
     
     
