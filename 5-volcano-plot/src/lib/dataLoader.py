@@ -119,7 +119,7 @@ class dataLoader:
     
 # Test area
 if __name__ == "__main__":
-    path = "../../0-dataset/label_adsorption_energy"
+    path = "../../../0-dataset/label_adsorption_energy"
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     
@@ -129,9 +129,9 @@ if __name__ == "__main__":
     # print(loader.adsorption_energy_dict)
     
     # Test adding thermal correction
-    loader.calculate_adsorption_free_energy(correction_file="../data/corrections_thermal.csv")
+    loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
     
     
     # Test loading reaction pathway
-    reaction_pathway = loader.load_reaction_pathway(file="../data/reaction_pathway.json")
+    reaction_pathway = loader.load_reaction_pathway(file="../../data/reaction_pathway.json")
     print(reaction_pathway)

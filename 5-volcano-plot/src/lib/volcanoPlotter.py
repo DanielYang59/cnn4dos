@@ -238,10 +238,10 @@ class volcanoPlotter:
 # Test area
 if __name__ == "__main__":
     # Set args
-    adsorption_energy_path = "../../0-dataset/label_adsorption_energy"
-    reaction_pathway_file = "../data/reaction_pathway.json"
-    thermal_correction_file = "../data/corrections_thermal.csv"
-    adsorbate_energy_file = "../data/energy_adsorbate.csv"
+    adsorption_energy_path = "../../../0-dataset/label_adsorption_energy"
+    reaction_pathway_file = "../../data/reaction_pathway.json"
+    thermal_correction_file = "../../data/corrections_thermal.csv"
+    adsorbate_energy_file = "../../data/energy_adsorbate.csv"
     
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
@@ -255,22 +255,22 @@ if __name__ == "__main__":
     
     
     # Loading adsorption energy
-    from dataLoader import dataLoader
+    from .dataLoader import dataLoader
     loader = dataLoader()
     loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
     
-    loader.calculate_adsorption_free_energy(correction_file="../data/corrections_thermal.csv")
+    loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
     
     # Calculate adsorption energy linear scaling relations
-    from scalingRelation import scalingRelation
+    from .scalingRelation import scalingRelation
     calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_percentages="AUTO", verbose=False, remove_ads_prefix=True) 
 
     # Calculate reaction energy scaling relations calculator
-    from reactionCalculator import reactionCalculator
+    from .reactionCalculator import reactionCalculator
     reaction_calculator = reactionCalculator(
         adsorption_energy_scaling_relation=calculator.fitting_paras,
-        adsorbate_energy_file="../data/energy_adsorbate.csv",
-        reaction_pathway_file="../data/reaction_pathway.json",
+        adsorbate_energy_file="../../data/energy_adsorbate.csv",
+        reaction_pathway_file="../../data/reaction_pathway.json",
         external_potential=0.17,
         )
     

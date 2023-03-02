@@ -37,7 +37,7 @@ def stack_adsorption_energy_dict(energy_dict, add_prefix_to_rowname=True, remove
 # Test area
 if __name__ == "__main__":
     # Set args
-    path = "../../0-dataset/label_adsorption_energy"
+    path = "../../../0-dataset/label_adsorption_energy"
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     loader.load_adsorption_energy(path, substrates, adsorbates)
     
     # Add thermal correction
-    loader.calculate_adsorption_free_energy(correction_file="../data/corrections_thermal.csv")
+    loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
     
     
     # Test stacking adsorption energy dict
