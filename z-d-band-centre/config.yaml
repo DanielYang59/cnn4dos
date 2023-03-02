@@ -1,0 +1,8 @@
+##### Config File for d-Band Calculations #####
+
+path:
+  fermi_level_dir: "../0-dataset/z-supporting-info/fermi_level"
+
+
+calculation:
+  energy_range: [-14, 6]
