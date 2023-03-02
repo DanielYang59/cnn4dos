@@ -38,7 +38,7 @@ if __name__ == "__main__":
     
     
     # Perform linear fitting with automatic mixing
-    free_energies = stack_adsorption_energy_dict(energy_loader.free_energy_dict, add_prefix=True)
+    free_energies = stack_adsorption_energy_dict(energy_loader.free_energy_dict, add_prefix_to_rowname=True)
     
     free_energy_linear_relation = linear_fitting_with_mixing(
         free_energies,
