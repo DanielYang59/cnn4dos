@@ -28,7 +28,10 @@ if __name__ == "__main__":
     
     external_potential = cfg["corrections"]["external_potential"]
     
+    x_range = cfg["plot"]["x_range"]
+    y_range = cfg["plot"]["y_range"]
     markers = cfg["plot"]["markers"]
+    label_selection = cfg["plot"]["label_selection"]
     
     
     # Loading adsorption energy
@@ -57,8 +60,8 @@ if __name__ == "__main__":
     
     # Initialize volcano plotter
     plotter = volcanoPlotter(reaction_scaling_relations,
-                             x_range=(-5, 0.5),
-                             y_range=(-6.5, 0),
+                             x_range=x_range,
+                             y_range=y_range,
                              descriptors=(descriptor_x, descriptor_y),
                              adsorption_free_energies=loader.adsorption_free_energy,
                              markers=markers,
@@ -66,7 +69,7 @@ if __name__ == "__main__":
     
     # Generate limiting potential volcano plot
     plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=True,
-                                    label_selection=["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is",]s
+                                    label_selection=label_selection,
                                     )
 
 
