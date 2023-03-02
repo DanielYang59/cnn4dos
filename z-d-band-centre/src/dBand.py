@@ -4,7 +4,7 @@
 
 import os
 import numpy as np
-import pandas as pd
+from load_fermi_level import load_fermi_level
 
 
 class dBand:
@@ -13,7 +13,6 @@ class dBand:
         assert os.path.exists(dosFile)
         if fileType not in {"numpy", }:
             raise ValueError(f"DOS file type \"{fileType}\" is currently not supported.")
-        assert os.path.isdir(fermi_level_dir)
         assert isinstance(energy_range, (list, tuple)) and len(energy_range) == 2
         self.energy_range = energy_range       
          
@@ -29,7 +28,7 @@ class dBand:
         
         
         # Load fermi level
-        self.__load_fermi_level(dosFile, fermi_level_dir)
+        self.fermi_level = load_fermi_level(dosFile, fermi_level_dir)
               
         
     def __calculate_band_moment(self, ordinal):
@@ -38,16 +37,16 @@ class dBand:
         Args:
             ordinal (int): ordinal of d-band moment
             
-        Notes:
-            1. ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
-            
         """
-        
         # Check args
         assert isinstance(ordinal, int) and ordinal >= 1
         
         
-        # 
+        # Calculate
+        
+        
+        
+        
         
         
     def __load_dos(self, dosFile, fileType):
@@ -80,40 +79,7 @@ class dBand:
 
         assert isinstance(dos_array, np.ndarray)
         self.dos_array = dos_array
-    
-    
-    def __load_fermi_level(self, dosFile, fermi_level_dir):
-        """Load fermi level based on DOS file path.
-
-        Args:
-            dosFile (str): DOS file path
-            fermi_level_dir (str): fermi level csv files storage directory
-            
-        Attrib:
-            fermi_level (float): fermi level of selected DOS array
-            
-        """
-        # Unpack info from DOS file name
-        ## substrate name
-        substrate = dosFile.split(os.sep)[-4]
         
-        ## state name 
-        state = dosFile.split(os.sep)[-3].split("_")[-1]
-        
-        ## Adsorbate name
-        adsorbate = dosFile.split(os.sep)[-3].split("_")[0]
-        
-        ## metal name
-        metal = dosFile.split(os.sep)[-2]
-        
-        
-        # Load fermi level csv file
-        assert os.path.isdir(fermi_level_dir)
-        fermi_level_df = pd.read_csv(os.path.join(fermi_level_dir, f"{substrate}-{state}.csv"), index_col=0)
-        
-        # Locate desired fermi level
-        self.fermi_level = fermi_level_df.loc[metal, adsorbate]
-    
     
     def __take_d_band(self):
         """Take d-band from DOS array.
@@ -142,10 +108,29 @@ class dBand:
         self.d_band_array = d_band
     
     
-    def calculate_d_band_centre(self):
-        # Calculate d-band centre
+    def calculate_d_band_centre(self, verbose=False):
+        """Calculate d-band centre (reference to fermi level).
+
+        Args:
+            verbose (bool, optional): verbose. Defaults to False.
+
+        Notes:
+            1. The d-band center was calculated as the first moment of the projected d-band density of states on the surface atoms referenced to the Fermi level, and the mean squared d-band width was calculated as the second moment.(J. Chem. Phys. 120 (2004) 10240)".
+            2. ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
+            3. ref: http://theory.cm.utexas.edu/forum/viewtopic.php?t=649
+
+        Returns:
+            np.float64: _description_
+            
+        """
+        # Calculate d-band centre (referenced to fermi level)
         d_band_centre = self.__calculate_band_moment(ordinal=1)
         
+        if verbose:
+            print(f"d-band centre is {d_band_centre}.")
+        
+        
+        return d_band_centre
     
 
 # Test area
@@ -156,4 +141,6 @@ if __name__ == "__main__":
                    fermi_level_dir="../../0-dataset/z-supporting-info/fermi_level",
                    energy_range=[-14, 6],
                    )
+    
+    d_band.calculate_d_band_centre(verbose=True)
      
