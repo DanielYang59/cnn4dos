@@ -4,7 +4,7 @@
 
 import os
 import numpy as np
-from load_fermi_level import load_fermi_level
+from .load_fermi_level import load_fermi_level
 import warnings
 
 
@@ -57,7 +57,11 @@ class dBand:
                                dx=(energy_array[-1] - energy_array[0]) / energy_array.shape[0]
                                ) 
         
-        return numerator / denominator
+        if numerator * denominator != 0:
+            return numerator / denominator
+        
+        else:
+            return "NA"  # metals without d electrons
         
     
     def __calculate_band_centre(self, single_dos_orbital, energy_array):
