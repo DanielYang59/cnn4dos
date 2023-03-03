@@ -31,11 +31,12 @@ def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.pn
     # Create scatter plot
     mpl.rcParams.update(mpl.rcParamsDefault)
     mpl.rcParams["axes.linewidth"] = 2.5
-    for i in range(len(x)):
-        plt.scatter(x[i], y[i], c=colors[i], label=labels[i])
+    plt.scatter(x, y, c="darkblue")
+    # for i in range(len(x)):
+    #     plt.scatter(x[i], y[i], c=colors[i], label=labels[i])
     
     # Set legend
-    plt.legend(set(labels))
+    plt.legend()
     
     
     # Set x/y axis labels
