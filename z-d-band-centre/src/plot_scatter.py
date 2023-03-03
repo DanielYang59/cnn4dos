@@ -6,13 +6,36 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 
-def plot_scatter(x, y, show=False, savename="d-band-Eads.png", dpi=300):
+def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.png", dpi=300):
+    """Plot scatter for d-band centre vs adsorption energy relationship.
+
+    Args:
+        x (list): x coordinates
+        y (list): y coordinates
+        labels (list): 
+        colors ((list, None), optional): list of colors for each point or None for default color. Defaults to None.
+        show (bool, optional): show plot. Defaults to False.
+        savename (str, optional): figure saving name. Defaults to "d-band-Eads.png".
+        dpi (int, optional): dpi. Defaults to 300.
+        
+    """
     # Check args
     assert len(x) == len(y)
     
+    if colors is None:
+        colors = "black"
+    else:
+        assert len(x) == len(colors)
+    
+    
     # Create scatter plot
+    mpl.rcParams.update(mpl.rcParamsDefault)
     mpl.rcParams["axes.linewidth"] = 2.5
-    plt.scatter(x, y, )
+    for i in range(len(x)):
+        plt.scatter(x[i], y[i], c=colors[i], label=labels[i])
+    
+    # Set legend
+    plt.legend(set(labels))
     
     
     # Set x/y axis labels
@@ -32,3 +55,4 @@ def plot_scatter(x, y, show=False, savename="d-band-Eads.png", dpi=300):
     if show:
         plt.show()
     plt.savefig(savename, dpi=dpi)
+    plt.cla()

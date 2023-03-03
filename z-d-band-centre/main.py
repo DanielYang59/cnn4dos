@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
+import os
 import yaml
 
 from src.dBand import dBand
@@ -21,6 +22,8 @@ if __name__ == "__main__":
     
     adsorbates = cfg["species"]["adsorbates"]
     substrates = cfg["species"]["substrates"]
+    color_dict = cfg["species"]["color_dict"]
+    color_dict = dict(zip(substrates, color_dict))
     
     energy_range = cfg["calculation"]["energy_range"]
     
@@ -28,8 +31,11 @@ if __name__ == "__main__":
     # Work on all DOS files
     d_band_centres = []
     adsorption_energies = []
-        
-    for file in list_dos_files(dos_dir, adsorbates, substrates):
+    labels = []
+    colors = []
+    dos_files = list_dos_files(dos_dir, adsorbates, substrates)
+    
+    for file in dos_files:
         # Calculate d-band centre
         calculator = dBand(dosFile=file, fileType="numpy", 
                            fermi_level_dir=fermi_level_dir, 
@@ -37,14 +43,16 @@ if __name__ == "__main__":
         
         d_band_centre = calculator.calculate_d_band_centre(merge_suborbitals=True, verbose=False)
         
-        if d_band_centre != "NA":
+        # Skip samples without d electron
+        if d_band_centre != "NA":  
             d_band_centres.append(d_band_centre)
             # Get adsorption energy
             adsorption_energies.append(load_ads_energy(file, ads_energy_dir=label_dir))
+            
+            labels.append(file.split(os.sep)[-4])
         
-        else:
-            print(f"{file} has no d electron. Skipped.")
+            # Compiles colors based on substrate
+            colors.append(color_dict[file.split(os.sep)[-4]])
         
-    
     # Create scatter plot
-    plot_scatter(x=d_band_centres, y=adsorption_energies, show=True)
+    plot_scatter(x=d_band_centres, y=adsorption_energies, labels=labels, colors=colors, show=True)
