@@ -147,7 +147,7 @@ class dBand:
     
     
     def calculate_d_band_centre(self, merge_suborbitals=True, verbose=False):
-        """Calculate d-band centre (reference to fermi level).
+        """Calculate d-band centre as the 1st order moment (reference to fermi level).
 
         Args:
             merge_suborbitals (bool, optional): sum five d-suborbitals. Defaults to False.
@@ -184,6 +184,42 @@ class dBand:
         
         return d_band_centre
     
+    
+    def calculate_d_band_width(self, merge_suborbitals=True, verbose=False):
+        """Calculate d-band width as the 2nd order moment (reference to fermi level).
+
+        Args:
+            merge_suborbitals (bool, optional): sum five d-suborbitals. Defaults to False.
+            verbose (bool, optional): verbose. Defaults to False.
+
+        Notes:
+            1. The mean squared d-band width was calculated as the second moment.(J. Chem. Phys. 120 (2004) 10240)".
+
+        Returns:
+            np.float64: _description_
+            
+        """
+        # Generate energy array for d-band width calculation
+        energy_array = np.linspace(self.energy_range[0], self.energy_range[1], self.nedos)
+        ## Refer to fermi level
+        energy_array -= self.fermi_level
+        
+        
+        # Merge d-band suborbitals
+        if merge_suborbitals:
+            merged_d_band = np.sum(np.copy(self.d_band_array), axis=1)
+        else:
+            raise ValueError("Not written yet.")
+        
+        
+        # Calculate d-band width (referenced to fermi level)
+        d_band_width = self.__calculate_band_moment(merged_d_band, energy_array, ordinal=2)
+        
+        if verbose:
+            print(f"d-band width is {round(d_band_width, 4)} eV.")
+        
+        
+        return d_band_width
 
 # Test area
 if __name__ == "__main__":
@@ -194,4 +230,6 @@ if __name__ == "__main__":
                    )
     
     d_band_centre = d_band.calculate_d_band_centre(verbose=True)
+    
+    d_band_width = d_band.calculate_d_band_width(verbose=True)
      
