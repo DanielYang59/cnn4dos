@@ -31,10 +31,12 @@ class dBand:
         self.fermi_level = load_fermi_level(dosFile, fermi_level_dir)
               
         
-    def __calculate_band_moment(self, ordinal):
+    def __calculate_band_moment(self, merged_d_band, energy_array, ordinal):
         """Calculate nth-order band moment.
 
         Args:
+            merged_d_band (np.ndarray): merged five orbitals of d-band
+            energy_array (np.ndarray): energy array referred to fermi level
             ordinal (int): ordinal of d-band moment
             
         """
@@ -44,10 +46,33 @@ class dBand:
         
         # Calculate
         
+    
+    def __calculate_band_centre(self, single_dos_orbital, energy_array):
+        """Calculate band centre of a single DOS orbital.
+
+        Args:
+            single_dos_orbital (np.ndarray): merged five orbitals of d-band
+            energy_array (np.ndarray): energy array referred to fermi level
+            
+        Notes:
+            Ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
+            
+        """
+        # Check DOS shape
+        assert single_dos_orbital.ndim == 1
+
         
+        # Calculate band centre
+        numerator = np.trapz(y=(np.copy(single_dos_orbital) * np.copy(energy_array)),
+                             dx=(self.energy_range[1] - self.energy_range[0]) / self.nedos
+                             )
         
+        denominator = np.trapz(y=single_dos_orbital,
+                               dx=(self.energy_range[1] - self.energy_range[0]) / self.nedos
+                               ) 
         
-        
+        return numerator / denominator 
+    
         
     def __load_dos(self, dosFile, fileType):
         """Load DOS file to numpy array, expecting DOS in shape (NEDOS, numOrbitals).
@@ -108,10 +133,11 @@ class dBand:
         self.d_band_array = d_band
     
     
-    def calculate_d_band_centre(self, verbose=False):
+    def calculate_d_band_centre(self, merge_suborbitals=True, verbose=False):
         """Calculate d-band centre (reference to fermi level).
 
         Args:
+            merge_suborbitals (bool, optional): sum five d-suborbitals. Defaults to False.
             verbose (bool, optional): verbose. Defaults to False.
 
         Notes:
@@ -123,14 +149,30 @@ class dBand:
             np.float64: _description_
             
         """
+        # Generate energy array for d-band centre calculation
+        energy_array = np.linspace(self.energy_range[0], self.energy_range[1], self.nedos)
+        ## Refer to fermi level
+        energy_array -= self.fermi_level
+        
+        
+        # Merge d-band suborbitals
+        if merge_suborbitals:
+            merged_d_band = np.sum(np.copy(self.d_band_array), axis=1)
+        
+        
         # Calculate d-band centre (referenced to fermi level)
-        d_band_centre = self.__calculate_band_moment(ordinal=1)
-        
-        if verbose:
-            print(f"d-band centre is {d_band_centre}.")
+        d_band_centre_a = self.__calculate_band_moment(merged_d_band, energy_array, ordinal=1)
+        print(d_band_centre_a)
         
         
-        return d_band_centre
+        d_band_centre_b = self.__calculate_band_centre(merged_d_band, energy_array)
+        print(d_band_centre_b)
+        
+        # if verbose:
+        #     print(f"d-band centre is {d_band_centre_a}.")
+        
+        
+        # return d_band_centre_a
     
 
 # Test area
@@ -143,4 +185,5 @@ if __name__ == "__main__":
                    )
     
     d_band.calculate_d_band_centre(verbose=True)
+    
      
