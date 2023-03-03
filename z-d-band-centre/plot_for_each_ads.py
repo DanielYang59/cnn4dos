@@ -55,4 +55,4 @@ if __name__ == "__main__":
                 colors.append(color_dict[file.split(os.sep)[-4]])
             
         # Create scatter plot
-        plot_scatter(x=d_band_centres, y=adsorption_energies, labels=labels, colors=colors, show=False, savename=f"{ads}.png")
+        plot_scatter(x=d_band_centres, y=adsorption_energies, labels=labels, colors=colors, show=False, savename=os.path.join("data", f"{ads}.png"))
