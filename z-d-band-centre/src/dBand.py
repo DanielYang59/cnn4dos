@@ -72,6 +72,8 @@ class dBand:
             2. Ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
             
         """
+        # Warning
+        warnings.warn("Legacy d-band centre calculation method is deprecated. Please use moment-based method.")
         
         
         # Check DOS shape
