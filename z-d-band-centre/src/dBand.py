@@ -5,6 +5,7 @@
 import os
 import numpy as np
 from load_fermi_level import load_fermi_level
+import warnings
 
 
 class dBand:
@@ -49,11 +50,11 @@ class dBand:
         density = np.copy(single_dos_orbital) ** ordinal
         
         numerator = np.trapz(y=(density * np.copy(energy_array)),
-                             dx=(self.energy_range[1] - self.energy_range[0]) / self.nedos
+                             dx=(energy_array[-1] - energy_array[0]) / energy_array.shape[0]
                              )
         
         denominator = np.trapz(y=density,
-                               dx=(self.energy_range[1] - self.energy_range[0]) / self.nedos
+                               dx=(energy_array[-1] - energy_array[0]) / energy_array.shape[0]
                                ) 
         
         return numerator / denominator
@@ -71,6 +72,8 @@ class dBand:
             2. Ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
             
         """
+        
+        
         # Check DOS shape
         assert single_dos_orbital.ndim == 1
 
@@ -220,6 +223,7 @@ class dBand:
         
         
         return d_band_width
+
 
 # Test area
 if __name__ == "__main__":
