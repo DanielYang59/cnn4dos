@@ -7,7 +7,7 @@ path:
 
 
 species:
-  adsorbates: ["3-CO_is", ]
+  adsorbates: ["1-CO2_is", "2-COOH_is", "3-CO_is", "4-OCH_is", "5-OCH2_is", "6-OCH3_is", "7-O_is", "8-OH_is", "11-H_is"]
   substrates: ["g-C3N4", "nitrogen-graphene", "vacant-graphene", "C2N", "BN", "BP"]
   color_dict: ["black", "red", "blue", "purple", "green", "yellow"]
 

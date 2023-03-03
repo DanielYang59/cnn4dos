@@ -53,7 +53,7 @@ def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.pn
     
     # Show and save figure
     plt.tight_layout()
+    plt.savefig(savename, dpi=dpi)
     if show:
         plt.show()
-    plt.savefig(savename, dpi=dpi)
     plt.cla()
