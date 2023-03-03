@@ -30,21 +30,33 @@ class dBand:
         # Load fermi level
         self.fermi_level = load_fermi_level(dosFile, fermi_level_dir)
               
-        
-    def __calculate_band_moment(self, merged_d_band, energy_array, ordinal):
+    
+    def __calculate_band_moment(self, single_dos_orbital, energy_array, ordinal):
         """Calculate nth-order band moment.
 
         Args:
-            merged_d_band (np.ndarray): merged five orbitals of d-band
+            single_dos_orbital (np.ndarray): merged five orbitals of d-band
             energy_array (np.ndarray): energy array referred to fermi level
             ordinal (int): ordinal of d-band moment
             
         """
         # Check args
         assert isinstance(ordinal, int) and ordinal >= 1
+        assert single_dos_orbital.ndim == 1
         
         
-        # Calculate
+        # Calculate band moment
+        density = np.copy(single_dos_orbital) ** ordinal
+        
+        numerator = np.trapz(y=(density * np.copy(energy_array)),
+                             dx=(self.energy_range[1] - self.energy_range[0]) / self.nedos
+                             )
+        
+        denominator = np.trapz(y=density,
+                               dx=(self.energy_range[1] - self.energy_range[0]) / self.nedos
+                               ) 
+        
+        return numerator / denominator
         
     
     def __calculate_band_centre(self, single_dos_orbital, energy_array):
@@ -55,7 +67,8 @@ class dBand:
             energy_array (np.ndarray): energy array referred to fermi level
             
         Notes:
-            Ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
+            1. This method is deprecated. Use the more general "__calculate_band_moment" method instead whenever possible.
+            2. Ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
             
         """
         # Check DOS shape
@@ -158,32 +171,27 @@ class dBand:
         # Merge d-band suborbitals
         if merge_suborbitals:
             merged_d_band = np.sum(np.copy(self.d_band_array), axis=1)
+        else:
+            raise ValueError("Not written yet.")
         
         
         # Calculate d-band centre (referenced to fermi level)
-        d_band_centre_a = self.__calculate_band_moment(merged_d_band, energy_array, ordinal=1)
-        print(d_band_centre_a)
+        d_band_centre = self.__calculate_band_moment(merged_d_band, energy_array, ordinal=1)
+        
+        if verbose:
+            print(f"d-band centre is {round(d_band_centre, 4)} eV.")
         
         
-        d_band_centre_b = self.__calculate_band_centre(merged_d_band, energy_array)
-        print(d_band_centre_b)
-        
-        # if verbose:
-        #     print(f"d-band centre is {d_band_centre_a}.")
-        
-        
-        # return d_band_centre_a
+        return d_band_centre
     
 
 # Test area
 if __name__ == "__main__":
-    
     example_dos_file = "../../0-dataset/feature_DOS/g-C3N4/3-CO_is/4-Co/dos_up_57.npy"
     d_band = dBand(dosFile=example_dos_file, fileType="numpy",
                    fermi_level_dir="../../0-dataset/z-supporting-info/fermi_level",
                    energy_range=[-14, 6],
                    )
     
-    d_band.calculate_d_band_centre(verbose=True)
-    
+    d_band_centre = d_band.calculate_d_band_centre(verbose=True)
      
