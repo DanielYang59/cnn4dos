@@ -3,7 +3,7 @@
 
 import numpy as np
 from scipy import stats
-from .utils import stack_adsorption_energy_dict
+from utils import stack_adsorption_energy_dict
 import warnings
 
 
@@ -47,6 +47,11 @@ class scalingRelation:
                 mixing_ratio_test_result[ratio] = self.__fit_all_adsorbates_with_given_ratio(
                     ratios=[ratio, 100 - ratio],
                     )
+                
+            
+            # Add mixing ratio test results to attrib
+            self.mixing_ratio_results = mixing_ratio_test_result
+            
 
             # Identify best mixing ratio for each adsorbate
             self.best_mixing_ratios = self.__find_best_mixing_ratio(mixing_ratio_test_result)
@@ -69,7 +74,7 @@ class scalingRelation:
 
         Args:
             mixing_ratio_test_result (dict): mixing ratio test result dict
-
+        
         Returns:
             dict: best mixing ratios for each adsorbate
             
@@ -90,7 +95,7 @@ class scalingRelation:
                 result_dict[ads].append(r2)
         
         
-        # Find best ratios for each adsorbate
+        # Find best ratio for each adsorbate
         best_ratios = {}
         for ads in self.adsorbates:
             # find best mixing ratio
