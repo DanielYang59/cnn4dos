@@ -51,7 +51,7 @@ class volcanoDebugger:
         
         
         # Calculate scaling relation parameters
-        calculator = scalingRelation(adsorption_energy_dict=copy.copy(self.adsorption_free_energy), descriptors=descriptors, mixing_percentages="AUTO", remove_ads_prefix=True, verbose=True)
+        calculator = scalingRelation(adsorption_energy_dict=copy.copy(self.adsorption_free_energy), descriptors=descriptors, mixing_ratios="AUTO", remove_ads_prefix=True, verbose=True)
         self.scaling_relations = calculator.fitting_paras
         
     
@@ -340,11 +340,11 @@ class volcanoDebugger:
             return calculate_limiting_potential_from_scaling_relation()    
         
     
-    def calculate_adsorption_free_energy_MAE(self, mixing_percentages="AUTO"):
+    def calculate_adsorption_free_energy_MAE(self, mixing_ratios="AUTO"):
         """Calculate adsorption free energy MAE predicted by scaling relations.
 
         Args:
-            mixing_percentages (str, optional): descriptor mixing ratio. Defaults to "AUTO".
+            mixing_ratios (str, optional): descriptor mixing ratio. Defaults to "AUTO".
             
         """
         # Calculate adsorption free energy from DFT adsorption energy (true values)
@@ -354,7 +354,7 @@ class volcanoDebugger:
         # Calculate linear scaling relations of adsorption free energy (predicted values)
         scaling_relation = scalingRelation(
             adsorption_energy_dict=copy.copy(self.adsorption_free_energy),
-            mixing_percentages=mixing_percentages,
+            mixing_ratios=mixing_ratios,
             descriptors=self.descriptors,
             verbose=False,
         )
