@@ -43,7 +43,7 @@ if __name__ == "__main__":
     loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
     
     # Calculate adsorption energy linear scaling relations
-    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=(descriptor_x, descriptor_y), mixing_percentages="AUTO", verbose=False, remove_ads_prefix=True) 
+    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=(descriptor_x, descriptor_y), mixing_ratios="AUTO", verbose=False, remove_ads_prefix=True) 
 
     # Calculate reaction energy scaling relations calculator
     reaction_calculator = reactionCalculator(

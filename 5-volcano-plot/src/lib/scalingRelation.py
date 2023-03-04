@@ -8,15 +8,15 @@ import warnings
 
 
 class scalingRelation:
-    def __init__(self, adsorption_energy_dict, descriptors, mixing_percentages, verbose=True, remove_ads_prefix=False):
+    def __init__(self, adsorption_energy_dict, descriptors, mixing_ratios, verbose=True, remove_ads_prefix=False):
         """Calculate adsorption energy linear scaling relations.
 
         Args:
             adsorption_energy_dict (dict): adsorption energy dict, key is substrate, 
                 value is pd.DataFrame for adsorption energies
             descriptors (list): [descriptor_x_axis, descriptor_y_axis]
-            mixing_percentages (str, tuple): "AUTO" for automatic finding of best percentages,  
-                or (x_percentage, y_percentage)
+            mixing_ratios (str, tuple): "AUTO" for automatic finding of best ratios,  
+                or (x_ratio, y_ratio)
             verbose (bool, optional): verbose. Defaults to True.
             remove_prefix (bool, optional): remove prefix from adsorbate names. Defaults to False.
             
@@ -24,8 +24,8 @@ class scalingRelation:
         # Check args
         assert isinstance(adsorption_energy_dict, dict)
         assert len(descriptors) == 2 and (descriptors[0] != descriptors[1])
-        assert mixing_percentages == "AUTO" or \
-            (isinstance(mixing_percentages, tuple) and len(mixing_percentages) == 2)
+        assert mixing_ratios == "AUTO" or \
+            (isinstance(mixing_ratios, tuple) and len(mixing_ratios) == 2)
         assert isinstance(verbose, bool)
         
         
@@ -39,97 +39,97 @@ class scalingRelation:
         self.adsorbates = list(self._stacked_adsorption_energy_df.columns.values)      
         
         
-        # Automatic mixing percentage fitting
-        if mixing_percentages == "AUTO":
-            # Test mixing percentage
-            mixing_percentage_test_result = {}
-            for percentage in range(0, 101):
-                mixing_percentage_test_result[percentage] = self.__fit_all_adsorbates_with_given_percentage(
-                    percentages=[percentage, 100 - percentage],
+        # Automatic mixing ratio fitting
+        if mixing_ratios == "AUTO":
+            # Test mixing ratio
+            mixing_ratio_test_result = {}
+            for ratio in range(0, 101):
+                mixing_ratio_test_result[ratio] = self.__fit_all_adsorbates_with_given_ratio(
+                    ratios=[ratio, 100 - ratio],
                     )
 
-            # Identify best mixing percentage for each adsorbate
-            self.best_mixing_percentages = self.__find_best_mixing_percentage(mixing_percentage_test_result)
+            # Identify best mixing ratio for each adsorbate
+            self.best_mixing_ratios = self.__find_best_mixing_ratio(mixing_ratio_test_result)
             
-        # Constant mixing percentage fitting
+        # Constant mixing ratio fitting
         else:
-            self.best_mixing_percentages = {ads:mixing_percentages[0] for ads in self.adsorbates}
+            self.best_mixing_ratios = {ads:mixing_ratios[0] for ads in self.adsorbates}
 
         
-        # Perform linear fitting with the best percentages
-        self.__fit_with_best_percentages()
+        # Perform linear fitting with the best ratios
+        self.__fit_with_best_ratios()
         
         
         # Translate results into parameters
         self.__fitting_results_to_para()
     
     
-    def __find_best_mixing_percentage(self, mixing_percentage_test_result):
-        """Find best mixing percentages for each adsorbate.
+    def __find_best_mixing_ratio(self, mixing_ratio_test_result):
+        """Find best mixing ratios for each adsorbate.
 
         Args:
-            mixing_percentage_test_result (dict): mixing percentage test result dict
+            mixing_ratio_test_result (dict): mixing ratio test result dict
 
         Returns:
-            dict: best mixing percentages for each adsorbate
+            dict: best mixing ratios for each adsorbate
             
         """
         
         # Check args
-        assert isinstance(mixing_percentage_test_result, dict)
+        assert isinstance(mixing_ratio_test_result, dict)
 
         
         # Create list for each adsorbate
         result_dict = {ads: [] for ads in self.adsorbates}
     
-        # Loop through percentage
-        for p, value in mixing_percentage_test_result.items():
+        # Loop through ratio
+        for p, value in mixing_ratio_test_result.items():
             # Unpack result for each adsorbate
             for ads in self.adsorbates:
                 r2 = value[ads].rvalue
                 result_dict[ads].append(r2)
         
         
-        # Find best percentages for each adsorbate
-        best_percentages = {}
+        # Find best ratios for each adsorbate
+        best_ratios = {}
         for ads in self.adsorbates:
-            # find best mixing percentage
+            # find best mixing ratio
             best = max(result_dict[ads])
             best_index = result_dict[ads].index(best)
-            best_percentages[ads] = best_index
+            best_ratios[ads] = best_index
             
             
             # verbose
             if self._verbose:
-                # find worst mixing percentage
+                # find worst mixing ratio
                 worst = min(result_dict[ads])
                 worst_index = result_dict[ads].index(worst)
                 
                 # print results
-                print(f'Best mixing percentage of "{ads}" is {best_index} % (R2 {round(best, 4)}), worst is {worst_index} % (R2 {round(worst, 4)}).')
+                print(f'Best mixing ratio of "{ads}" is {best_index} % (R2 {round(best, 4)}), worst is {worst_index} % (R2 {round(worst, 4)}).')
 
             
-        return best_percentages
+        return best_ratios
     
     
-    def __fit_all_adsorbates_with_given_percentage(self, percentages):
-        """Perform linear fitting for ALL adsorbates with: selected two descriptors and given mixing percentages.
+    def __fit_all_adsorbates_with_given_ratio(self, ratios):
+        """Perform linear fitting for ALL adsorbates with: selected two descriptors and given mixing ratios.
 
         Args:
-            percentages (list): [x_descriptor_percentage, y_descriptor_percentage]
+            ratios (list): [x_descriptor_ratio, y_descriptor_ratio]
 
         Returns:
             dict: descriptor fitting results, key is adsorbate name, value is linear fitting results
             
         """
         # Check args
-        for p in percentages:
+        for p in ratios:
             assert 0 <= p <= 100
-        assert percentages[0] + percentages[1] == 100
+        assert ratios[0] + ratios[1] == 100
         
         
         # Compile hybrid descriptor
-        hybrid_descriptor = (self._stacked_adsorption_energy_df[self.descriptors[0]] * percentages[0] + self._stacked_adsorption_energy_df[self.descriptors[1]] * percentages[1]) * 0.01
+        hybrid_descriptor = (self._stacked_adsorption_energy_df[self.descriptors[0]] * ratios[0] + self._stacked_adsorption_energy_df[self.descriptors[1]] * ratios[1]) * 0.01
         
         # Perform linear fitting for each adsorbate
         return {
@@ -138,8 +138,8 @@ class scalingRelation:
         }
     
     
-    def __fit_with_best_percentages(self, ):
-        """Do linear fitting for all adsorbates with best percentages found.
+    def __fit_with_best_ratios(self, ):
+        """Do linear fitting for all adsorbates with best ratios found.
 
         Attrib:
             linear_fitting_results (dict): best fitting results, key is adsorbate name, value is linear fitting results
@@ -149,12 +149,12 @@ class scalingRelation:
         results = {}
         for ads in self.adsorbates:            
             # Compile hybrid descriptor array
-            percentage = self.best_mixing_percentages[ads]
-            assert 0 <= percentage <= 100
+            ratio = self.best_mixing_ratios[ads]
+            assert 0 <= ratio <= 100
             descriptor_x = np.copy(np.array(self._stacked_adsorption_energy_df[self.descriptors[0]]))
             descriptor_y = np.copy(np.array(self._stacked_adsorption_energy_df[self.descriptors[1]]))
             
-            hybrid_descriptor_array = (descriptor_x * percentage + descriptor_y * (100 - percentage)) * 0.01
+            hybrid_descriptor_array = (descriptor_x * ratio + descriptor_y * (100 - ratio)) * 0.01
             
             # Perform linear fitting with hybrid descriptor
             results[ads] = stats.linregress(hybrid_descriptor_array, np.array(self._stacked_adsorption_energy_df[ads]))
@@ -172,8 +172,8 @@ class scalingRelation:
         self.fitting_paras = {}
         for ads, result in self.linear_fitting_results.items():
             # Compile three parameters
-            a = result.slope * self.best_mixing_percentages[ads] * 0.01
-            b = result.slope * (100 - self.best_mixing_percentages[ads]) * 0.01 
+            a = result.slope * self.best_mixing_ratios[ads] * 0.01
+            b = result.slope * (100 - self.best_mixing_ratios[ads]) * 0.01 
             c = result.intercept
             
             # Update para dict
@@ -201,6 +201,6 @@ if __name__ == "__main__":
     loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
     
     # Test adsorption energy scaling relations calculator
-    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_percentages="AUTO", verbose=True) 
+    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_ratios="AUTO", verbose=True) 
     print(calculator.fitting_paras) 
     

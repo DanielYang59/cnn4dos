@@ -154,7 +154,7 @@ if __name__ == "__main__":
     
     # Calculate adsorption energy linear scaling relations
     from scalingRelation import scalingRelation
-    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_percentages="AUTO", verbose=False, remove_ads_prefix=True) 
+    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_ratios="AUTO", verbose=False, remove_ads_prefix=True) 
 
     # Test reaction energy scaling relations calculator
     reaction_calculator = reactionCalculator(
