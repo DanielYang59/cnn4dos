@@ -1,9 +1,9 @@
 ##### Config File for d-Band Calculations #####
 
 path:
-  dos_dir: "../0-dataset/feature_DOS"
-  label_dir: "../0-dataset/label_adsorption_energy"
-  fermi_level_dir: "../0-dataset/z-supporting-info/fermi_level"
+  dos_dir: "../../0-dataset/feature_DOS"
+  label_dir: "../../0-dataset/label_adsorption_energy"
+  fermi_level_dir: "../../0-dataset/z-supporting-info/fermi_level"
 
 
 species:
