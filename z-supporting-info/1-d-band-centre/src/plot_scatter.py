@@ -39,13 +39,15 @@ def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.pn
     plt.legend()
     
     
-    # Set x/y axis labels
-    plt.xlabel("d-Band Centre (eV)", fontsize=18)
-    plt.ylabel("Adsorption Energy (eV)", fontsize=16)
+    # # Set x/y axis labels
+    # plt.xlabel("d-Band Centre (eV)", fontsize=18)
+    # plt.ylabel("Adsorption Energy (eV)", fontsize=16)
+    
+    plt.xlim(-15, 5)
     
     # Set x/y tick label sizes
-    plt.xticks(fontsize=14)
-    plt.yticks(fontsize=14)
+    plt.xticks(range(-15, 10, 5),fontsize=18)
+    plt.yticks(fontsize=18)
     
     # Set x/y tick length and thickness
     plt.tick_params("both", length=5, width=2.5, which="major")
