@@ -110,8 +110,11 @@ class scalingRelation:
                 worst = min(result_dict[ads])
                 worst_index = result_dict[ads].index(worst)
                 
-                # print results
+                # print best and worst results
                 print(f'Best mixing ratio of "{ads}" is {best_index} % (R2 {round(best, 4)}), worst is {worst_index} % (R2 {round(worst, 4)}).')
+                
+                # print results at end points
+                print(f"End point results for {ads}: 0 %: {round(result_dict[ads][0], 4)}, 100 %: {round(result_dict[ads][100], 4)}.")
 
             
         return best_ratios
@@ -199,7 +202,7 @@ if __name__ == "__main__":
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     
     # Loading adsorption energy
-    from .dataLoader import dataLoader
+    from dataLoader import dataLoader
     loader = dataLoader()
     loader.load_adsorption_energy(path, substrates, adsorbates)
     
