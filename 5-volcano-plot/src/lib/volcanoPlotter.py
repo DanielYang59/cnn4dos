@@ -123,11 +123,11 @@ class volcanoPlotter:
         
         
         # Generate 2D mesh
+        self.x = np.linspace(self.x_range[0], self.x_range[1], density[0])
+        self.y = np.linspace(self.y_range[0], self.y_range[1], density[1])
         self.xx, self.yy = np.meshgrid(
-            np.linspace(self.x_range[0], self.x_range[1], density[0]),
-            np.linspace(self.y_range[0], self.y_range[1], density[1]),
-            indexing="ij",
-            # outputs are of shape (N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing
+            self.x,
+            self.y,
             )
         
         
@@ -138,6 +138,35 @@ class volcanoPlotter:
             for step_index, paras in self.scaling_relations[reaction_name].items()
             }
 
+    
+    def __generate_limiting_potential_mesh(self, free_energy_change_mesh, show_best=True):
+        """Generate limiting potential mesh from free energy change meshes.
+
+        Args:
+            free_energy_change_mesh (dict): _description_
+
+        Returns:
+            np.ndarray: 2D limiting potential mesh
+            
+        """
+        # Stack all meshes of different steps into shape (density_x, density_y, numSteps)
+        stacked_mesh = np.stack(list(free_energy_change_mesh.values()), axis=2)
+        
+        
+        # Generate limiting potential mesh (max of free energy change)
+        limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
+        
+        
+        # Find x/y coordinates of minima (predicted best limiting potential)
+        if show_best:
+            min_index = np.unravel_index(np.argmin(limiting_potential_mesh), limiting_potential_mesh.shape)
+
+            x_min, y_min = self.x[min_index[1]], self.y[min_index[0]]
+            
+            print(f"Limiting potential of best catalysts is {round(np.min(limiting_potential_mesh), 4)} V, at X {round(x_min, 4)} eV, Y {round(y_min, 4)} eV.")
+        
+        return limiting_potential_mesh
+    
 
     def __set_figure_style(self, plt, fig=None):
         """Set figure-wide styles.
@@ -190,16 +219,19 @@ class volcanoPlotter:
         # Generate free energy change mesh for selected reaction
         free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
         
-        # Stack all meshes of different steps into shape (density_x, density_y, numSteps)
-        stacked_mesh = np.stack(list(free_energy_change_mesh.values()), axis=2)
         
-        # Generate limiting potential mesh (max of free energy change)
-        limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
+        # Generate limiting potential mesh
+        limiting_potential_mesh = self.__generate_limiting_potential_mesh(free_energy_change_mesh)
         
         
         # Create plt object
         mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
         fig = plt.figure(figsize=[12, 9])
+        
+        
+        # Add x/y axis labels
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
         
         
         # Create background contour plot
