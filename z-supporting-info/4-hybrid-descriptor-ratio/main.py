@@ -44,10 +44,15 @@ if __name__ == "__main__":
     
     # Unpack mixing ratio test results to lists
     mixing_ratio_results = {ads: [] for ads in adsorbates}
+    average_result = []
     for ratio in _mixing_ratio_results:
+        average = []
         for ads in adsorbates:
             if ads not in {descriptor_x, descriptor_y}:
                 mixing_ratio_results[ads].append(_mixing_ratio_results[ratio][ads].rvalue)
+                average.append(_mixing_ratio_results[ratio][ads].rvalue)
+        
+        average_result.append(sum(average) / len(average))
     
     
     # Plot mixing ratio test for each adsorbate
@@ -58,3 +63,10 @@ if __name__ == "__main__":
                 y=mixing_ratio_results[ads],
                 savename=f"mixing_{ads}.png",
             )
+
+    plot_mixing_ratio(
+        x=range(0, 101),
+        y=average_result,
+        savename="mixing_average.png",
+    )
+    
