@@ -17,13 +17,11 @@ class dataLoader:
         pass
 
         
-    def calculate_adsorption_free_energy(self, correction_file, debug=False, debug_dir="debug"):
+    def calculate_adsorption_free_energy(self, correction_file):
         """Calculate adsorption free energy from DFT adsorption energy, by adding thermal corrections to adsorption energies.
 
         Args:
             correction_file (str): thermal correction csv file path
-            debug (bool, optional): debug mode, save all intermediate data to "debug" dir. Defaults to False.
-            debug_dir (str, optional): debug data saving dir. Defaults to "debug". 
         
          Attrib:
             adsorption_free_energy (dict): dict of adsorption free energies in pd.DataFrame, key is substrate name
@@ -55,14 +53,6 @@ class dataLoader:
             
             self.adsorption_free_energy[sub] = free_energy_df
         
-        
-        # debug mode: output free energy to file
-        if debug:
-            print(f"debug mode on. free energy dict would be output to {debug_dir}")
-            os.makedirs(debug_dir, exist_ok=True)
-            for substrate_name, df in self.adsorption_free_energy.items():
-                df.to_csv(os.path.join(debug_dir, f"free_energy_{substrate_name}.csv"))
-
         
     def load_adsorption_energy(self, path, substrates, adsorbates):
         """Load adsorption energy from csv file (without ZPE corrections).
@@ -129,7 +119,7 @@ class dataLoader:
     
 # Test area
 if __name__ == "__main__":
-    path = "../../0-dataset/label_adsorption_energy"
+    path = "../../../0-dataset/label_adsorption_energy"
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
     
@@ -139,9 +129,9 @@ if __name__ == "__main__":
     # print(loader.adsorption_energy_dict)
     
     # Test adding thermal correction
-    loader.calculate_adsorption_free_energy(correction_file="../data/corrections_thermal.csv", debug=True)
+    loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
     
     
     # Test loading reaction pathway
-    reaction_pathway = loader.load_reaction_pathway(file="../data/reaction_pathway.json")
+    reaction_pathway = loader.load_reaction_pathway(file="../../data/reaction_pathway.json")
     print(reaction_pathway)

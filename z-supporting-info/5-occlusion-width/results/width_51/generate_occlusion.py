@@ -11,14 +11,14 @@ __email__ = "h51.yang@hdr.qut.edu.au"
 
 
 # Configs
-model_path = "../1-model-and-training/2-best-model/model"
-adsorbate_dos_dir = "../0-dataset/feature_DOS/adsorbate-DOS"
+model_path = "../../../../1-model-and-training/2-best-model/model"
+adsorbate_dos_dir = "../../../../0-dataset/feature_DOS/adsorbate-DOS"
 normalize_dos = False
 append_molecule = True
 remove_ghost_state = True
 
 
-masker_width = 1
+masker_width = 51
 masker = 0
 dos_array_file = "dos_up.npy"
 output_arr_name = "occlusion.npy"
@@ -181,7 +181,7 @@ if __name__ == "__main__":
     if append_molecule:
         warnings.warn("WARNING! Molecule DOS would be appended.")
         # Load adsorbate DOS
-        mol_name = os.getcwd().split(os.sep)[-2].split("_")[0]
+        mol_name = "3-CO"  #DEBUG
         mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, "dos_up_adsorbate.npy"))
                 
 

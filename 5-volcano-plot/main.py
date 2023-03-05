@@ -1,13 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """Ref: QUT Notebook Page 69. """
 
 
 import yaml
 
-from lib.calculate_scaling_relations import scalingRelations
-from lib.dataLoader import dataLoader
-from lib.fitting import linear_fitting_with_mixing
-from lib.plot_volcano import volcanoPlotter
-from lib.utils import stack_adsorption_energy_dict
+from src.lib.dataLoader import dataLoader
+from src.lib.reactionCalculator import reactionCalculator
+from src.lib.scalingRelation import scalingRelation
+from src.lib.volcanoPlotter import volcanoPlotter
 
 
 if __name__ == "__main__":
@@ -27,46 +28,57 @@ if __name__ == "__main__":
     group_y = cfg["reaction"]["group_y"]
     descriptor_y = cfg["reaction"]["descriptor_y"]
     
-    external_potential = cfg["corrections"]["external_potential"] 
+    external_potential = cfg["corrections"]["external_potential"]
     
-    # Load adsorption energies
-    energy_loader = dataLoader()
-    energy_loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
-    
-    # Add thermal corrections to adsorption energies
-    energy_loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
+    x_range = cfg["plot"]["x_range"]
+    y_range = cfg["plot"]["y_range"]
+    markers = cfg["plot"]["markers"]
+    label_selection = cfg["plot"]["label_selection"]
     
     
-    # Perform linear fitting with automatic mixing
-    free_energies = stack_adsorption_energy_dict(energy_loader.free_energy_dict, add_prefix=True)
+    # Loading adsorption energy
+    loader = dataLoader()
+    loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
     
-    free_energy_linear_relation = linear_fitting_with_mixing(
-        free_energies,
-        descriptor_x, descriptor_y, 
-        verbose=False,
+    loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
+    
+    # Calculate adsorption energy linear scaling relations
+    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=(descriptor_x, descriptor_y), mixing_ratios="AUTO", verbose=False, remove_ads_prefix=True) 
+
+    # Calculate reaction energy scaling relations calculator
+    reaction_calculator = reactionCalculator(
+        adsorption_energy_scaling_relation=calculator.fitting_paras,
+        adsorbate_energy_file=adsorbate_energy_file,
+        reaction_pathway_file=reaction_pathway_file,
+        external_potential=external_potential,
         )
     
     
-    # Load reaction pathway
-
+    reaction_scaling_relations = {
+        "CO2RR_CH4":reaction_calculator.calculate_reaction_scaling_relations(name="CO2RR_CH4"),
+        "HER":reaction_calculator.calculate_reaction_scaling_relations(name="HER")
+                         }
     
     
-    
-    # Calculate scaling relations
-    scaling_relations = scalingRelations(
-        free_energy_linear_relation,
-        adsorbate_energy_file,
-        reaction_pathway_file,
-        external_potential,
-        verbose=False,
-        ).scaling_relations_dict
-    
-    
-    # Generate volcano plot
-    plotter = volcanoPlotter(scaling_relations, 
-                             x_range = (-5, 2),
-                             y_range = (-8, 0),
+    # Initialize volcano plotter
+    plotter = volcanoPlotter(reaction_scaling_relations,
+                             x_range=x_range,
+                             y_range=y_range,
+                             descriptors=(descriptor_x, descriptor_y),
+                             adsorption_free_energies=loader.adsorption_free_energy,
+                             markers=markers,
                              )
     
+    # Generate limiting potential volcano plot
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=True,
+                                    label_selection=label_selection,
+                                    )
+
+
+    # Generate rate determining step plot
+    # plotter.plot_rds(reaction_name="CO2RR_CH4")
+    
+    
+    # Generate selectivity volcano plot
     
     
