@@ -6,6 +6,15 @@ import re
 
 
 def format_mol_name(string):
+    """Format names of molecules: apply subscript to numbers.
+
+    Args:
+        string (str): original name
+
+    Returns:
+        str: formatted name
+        
+    """
     pattern = r'\d+'
     numbers = re.findall(pattern, string)
     for num in numbers:
