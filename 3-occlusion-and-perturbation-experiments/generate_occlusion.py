@@ -24,12 +24,11 @@ dos_array_file = "dos_up.npy"
 output_arr_name = "occlusion.npy"
 
 
-import os, sys
+import os
 import numpy as np
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import warnings
-# from sklearn.preprocessing import normalize
 
 
 def generate_occlusion_arrays(source_dos_array, masker_width, masker):
