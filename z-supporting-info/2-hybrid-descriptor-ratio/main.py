@@ -3,6 +3,7 @@
 
 
 import yaml
+import os
 import sys
 sys.path.insert(0, "../../5-volcano-plot/src/lib")
 
@@ -61,12 +62,12 @@ if __name__ == "__main__":
             plot_mixing_ratio(
                 x=range(0, 101),
                 y=mixing_ratio_results[ads],
-                savename=f"mixing_{ads}.png",
+                savename=os.path.join("figures", f"mixing_{ads}.png"),
             )
 
     plot_mixing_ratio(
         x=range(0, 101),
         y=average_result,
-        savename="mixing_average.png",
+        savename=os.path.join("figures", "mixing_average.png"),
     )
     
