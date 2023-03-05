@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""I did not write this module, but took it from somewhere on the Internet. Sadly I cannot remember the original author.  --Haoyu Yang."""
 
 
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import numpy as np
+import matplotlib.font_manager as fm
 
 
 def heatmap(x, y, **kwargs):
@@ -96,10 +98,12 @@ def heatmap(x, y, **kwargs):
         **kwargs_pass_on
     )
 
+    fontprops = fm.FontProperties(fname="/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+    
     ax.set_xticks([v for k,v in x_to_num.items()])
-    ax.set_xticklabels([k for k in x_to_num], rotation=45, horizontalalignment='right')
+    ax.set_xticklabels([k for k in x_to_num], rotation=45, horizontalalignment='right', fontproperties=fontprops)
     ax.set_yticks([v for k,v in y_to_num.items()])
-    ax.set_yticklabels([k for k in y_to_num])
+    ax.set_yticklabels([k for k in y_to_num], fontproperties=fontprops)
 
     ax.grid(False, 'major')
     ax.grid(True, 'minor')
