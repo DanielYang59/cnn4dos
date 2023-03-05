@@ -16,7 +16,7 @@ species:
 
 
 model_training:
-  preprocessing: "normalization"
+  preprocessing: "none"
   remove_ghost: True
   batch_size: 64
   validation_ratio: 0.2
