@@ -165,6 +165,6 @@ if __name__ == "__main__":
     print(f"R2 score is {r2}.")
 
     plt.tight_layout()
-    plt.savefig("true_prediction_plot.png", dpi=300)
+    plt.savefig(os.path.join("figures", "true_prediction_plot.png"), dpi=300)
     plt.show()
     
