@@ -3,18 +3,11 @@
 
 
 # Import packages
-import os, sys
-import numpy as np
-import yaml
-os.environ["TF_GPU_THREAD_MODE"] = "gpu_private"
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-import tensorflow as tf
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import keras_tuner
-from datetime import datetime
-from sklearn.metrics import r2_score
 
 from hp_model import hp_model
-from lib.dataset import Dataset
 
 
 # Main Loop
