@@ -3,6 +3,7 @@
 """Ref: QUT Notebook Page 69. """
 
 
+import os
 import yaml
 
 from src.lib.dataLoader import dataLoader
@@ -72,6 +73,7 @@ if __name__ == "__main__":
     # Generate limiting potential volcano plot
     plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=True,
                                     label_selection=label_selection,
+                                    savename=os.path.join("figures", "limiting_potential_CO2RR_CH4.png"),
                                     )
 
 

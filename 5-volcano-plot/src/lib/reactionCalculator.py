@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from dataLoader import dataLoader
+from .dataLoader import dataLoader
 import numpy as np
 
 

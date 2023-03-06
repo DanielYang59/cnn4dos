@@ -208,7 +208,7 @@ class volcanoPlotter:
         return plt, fig
         
 
-    def plot_limiting_potential(self, reaction_name, show=False, label_selection="ALL"):
+    def plot_limiting_potential(self, reaction_name, show=False, label_selection="ALL", savename="limiting_potential.png"):
         """Plot limiting potential volcano of selected reaction.
 
         Args:
