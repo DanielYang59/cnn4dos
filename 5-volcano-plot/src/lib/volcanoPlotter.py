@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# DEBUG: limiting potential need a negative symbol!!!!!!!!!
  
 
 import matplotlib as mpl
@@ -22,7 +21,7 @@ class volcanoPlotter:
             exec(f"self.{key}={value}")
     
     
-    def __add_colorbar(self, fig, contour, cblabel, ticks=None, hide_border=True, invert=True):
+    def __add_colorbar(self, fig, contour, cblabel, ticks=None, hide_border=True, invert=False):
         """Add colorbar to matplotlib figure.
 
         Args:
@@ -143,7 +142,7 @@ class volcanoPlotter:
         """Generate limiting potential mesh from free energy change meshes.
 
         Args:
-            free_energy_change_mesh (dict): _description_
+            free_energy_change_mesh (dict): free energy mesh in (x, y, numSteps)
 
         Returns:
             np.ndarray: 2D limiting potential mesh
@@ -167,9 +166,9 @@ class volcanoPlotter:
 
             x_min, y_min = self.x[min_index[1]], self.y[min_index[0]]
             
-            print(f"Limiting potential of best catalysts is {round(np.min(limiting_potential_mesh), 4)} V, at X {round(x_min, 4)} eV, Y {round(y_min, 4)} eV.")
+            print(f"Limiting potential of best catalysts is {-round(np.min(limiting_potential_mesh), 4)} V, at X {round(x_min, 4)} eV, Y {round(y_min, 4)} eV.")
         
-        return limiting_potential_mesh, rds_mesh
+        return -limiting_potential_mesh, rds_mesh
     
 
     def __set_figure_style(self, plt, fig=None):
@@ -240,8 +239,8 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh,
-                               levels=512, cmap="inferno_r",    
-                               extend="max",
+                               levels=512, cmap="inferno",    
+                               # extend="min",
                                )
         
         
@@ -252,8 +251,9 @@ class volcanoPlotter:
         # Add colorbar
         cbar = self.__add_colorbar(fig, contour,
                           cblabel="Limiting Potential (V)",
-                          ticks=[1, 2, 3, 4, 5],
+                          ticks=[-1, -2, -3, -4, -5],
                           hide_border=False,
+                          invert=False
                           )
         
         
@@ -300,7 +300,6 @@ class volcanoPlotter:
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, rds_mesh,
                                levels=512, cmap="inferno_r",    
-                               extend="max",
                                )
         
         
@@ -333,9 +332,7 @@ class volcanoPlotter:
             
             
         Notes:
-            1. The selectivity mesh is calculated #DEBUG
-            
-            
+            1. The selectivity mesh is calculated as the (UL_main - UL_competing), where the UL is the limiting potential in eV. This means "more positive value in the volcano plot indicates better selectivity".
             
         """
         # Generate free energy change mesh for main and competing reactions
@@ -364,8 +361,8 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, selectivity_mesh,
-                               levels=512, cmap="inferno_r",    
-                               extend="max",
+                               levels=512, cmap="inferno",    
+                               # extend="min",
                                )
         
         
@@ -376,7 +373,7 @@ class volcanoPlotter:
         # Add colorbar
         cbar = self.__add_colorbar(fig, contour,
                           cblabel="ΔLimiting Potential (V)",
-                          ticks=[1, 2, 3, 4, 5],
+                          ticks=[-2, -1, 0, 1, 2],
                           hide_border=False,
                           )
         

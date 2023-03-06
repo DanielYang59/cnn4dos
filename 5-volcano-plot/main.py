@@ -86,3 +86,9 @@ if __name__ == "__main__":
     plotter.plot_selectivity(reaction_names={"main":"CO2RR_CH4", "comp":"HER"},
                              savename=os.path.join("figures", "selectivity.png"))
     
+    
+    # Plot limiting potential for HER
+    plotter.plot_limiting_potential(reaction_name="HER", 
+                                    savename=os.path.join("figures", "limiting_potential_HER.png"),
+                                    )
+    
