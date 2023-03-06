@@ -251,7 +251,7 @@ class volcanoPlotter:
         # Add colorbar
         cbar = self.__add_colorbar(fig, contour,
                           cblabel="Limiting Potential (V)",
-                          ticks=[-1, -2, -3, -4, -5],
+                          ticks=[-1.1, -2, -3, -4, -5],
                           hide_border=False,
                           invert=False
                           )
