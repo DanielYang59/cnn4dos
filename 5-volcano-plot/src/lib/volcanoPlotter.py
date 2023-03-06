@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+ 
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 
 class volcanoPlotter:
@@ -22,7 +21,7 @@ class volcanoPlotter:
             exec(f"self.{key}={value}")
     
     
-    def __add_colorbar(self, fig, contour, cblabel, ticks=None, hide_border=True, invert=True):
+    def __add_colorbar(self, fig, contour, cblabel, ticks=None, hide_border=True, invert=False):
         """Add colorbar to matplotlib figure.
 
         Args:
@@ -139,11 +138,11 @@ class volcanoPlotter:
             }
 
     
-    def __generate_limiting_potential_mesh(self, free_energy_change_mesh, show_best=True):
+    def __generate_limiting_potential_and_RDS_mesh(self, free_energy_change_mesh, show_best=True):
         """Generate limiting potential mesh from free energy change meshes.
 
         Args:
-            free_energy_change_mesh (dict): _description_
+            free_energy_change_mesh (dict): free energy mesh in (x, y, numSteps)
 
         Returns:
             np.ndarray: 2D limiting potential mesh
@@ -156,6 +155,10 @@ class volcanoPlotter:
         # Generate limiting potential mesh (max of free energy change)
         limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
         
+        # Generate limiting potential mesh (index of max free energy energy)
+        rds_mesh = np.argmax(stacked_mesh, axis=2)
+
+        
         
         # Find x/y coordinates of minima (predicted best limiting potential)
         if show_best:
@@ -163,9 +166,9 @@ class volcanoPlotter:
 
             x_min, y_min = self.x[min_index[1]], self.y[min_index[0]]
             
-            print(f"Limiting potential of best catalysts is {round(np.min(limiting_potential_mesh), 4)} V, at X {round(x_min, 4)} eV, Y {round(y_min, 4)} eV.")
+            print(f"Limiting potential of best catalysts is {-round(np.min(limiting_potential_mesh), 4)} V, at X {round(x_min, 4)} eV, Y {round(y_min, 4)} eV.")
         
-        return limiting_potential_mesh
+        return -limiting_potential_mesh, rds_mesh
     
 
     def __set_figure_style(self, plt, fig=None):
@@ -208,7 +211,7 @@ class volcanoPlotter:
         return plt, fig
         
 
-    def plot_limiting_potential(self, reaction_name, show=False, label_selection="ALL"):
+    def plot_limiting_potential(self, reaction_name, show=False, label_selection="ALL", savename="limiting_potential.png"):
         """Plot limiting potential volcano of selected reaction.
 
         Args:
@@ -221,7 +224,7 @@ class volcanoPlotter:
         
         
         # Generate limiting potential mesh
-        limiting_potential_mesh = self.__generate_limiting_potential_mesh(free_energy_change_mesh)
+        limiting_potential_mesh, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh)
         
         
         # Create plt object
@@ -236,8 +239,8 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh,
-                               levels=512, cmap="inferno_r",    
-                               extend="max",
+                               levels=512, cmap="inferno",    
+                               # extend="min",
                                )
         
         
@@ -248,7 +251,129 @@ class volcanoPlotter:
         # Add colorbar
         cbar = self.__add_colorbar(fig, contour,
                           cblabel="Limiting Potential (V)",
-                          ticks=[1, 2, 3, 4, 5],
+                          ticks=[-1.1, -2, -3, -4, -5],
+                          hide_border=False,
+                          invert=False
+                          )
+        
+        
+        # Add markers
+        self.__add_markers(plt, 
+                           label_selection=label_selection,
+                                 )
+        
+        
+        # Save/show figure
+        plt.tight_layout()
+        plt.savefig(savename, dpi=self.dpi)
+        if show:
+            plt.show()
+        plt.cla()
+        
+        
+    def plot_rds(self, reaction_name, show=False, savename="rds.png"):
+        """Plot rate determining step volcano of selected reaction.
+
+        Args:
+            reaction_name (str): name of reaction to plot
+            show (bool, optional): show plot after creation. Defaults to False.
+            
+        """
+        # Generate free energy change mesh for selected reaction
+        free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
+        
+        
+        # Generate RDS mesh
+        _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, show_best=False)
+        
+        
+        # Create plt object
+        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
+        fig = plt.figure(figsize=[12, 9])
+        
+        
+        # Add x/y axis labels
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        
+        
+        # Create background contour plot
+        contour = plt.contourf(self.xx, self.yy, rds_mesh,
+                               levels=512, cmap="inferno_r",    
+                               )
+        
+        
+        # Set figure styles
+        self.__set_figure_style(plt, fig)
+        
+        
+        # Add colorbar
+        cbar = self.__add_colorbar(fig, contour,
+                          cblabel="Rate Determining Step",
+                          ticks=[1, 2, 3, 4, 5, 6, 7, 8],
+                          hide_border=False,
+                          )
+        
+        
+        # Save/show figure
+        plt.tight_layout()
+        plt.savefig(savename, dpi=self.dpi)
+        if show:
+            plt.show()
+        plt.cla()
+    
+    
+    def plot_selectivity(self, reaction_names, show=False, label_selection="ALL", savename="selectivity.png"):
+        """Plot selectivity volcano of selected reaction.
+
+        Args:
+            reaction_name (dict): {"main": main_reaction_name, "comp": competing_reaction_name}
+            show (bool, optional): show plot after creation. Defaults to False.
+            
+            
+        Notes:
+            1. The selectivity mesh is calculated as the (UL_main - UL_competing), where the UL is the limiting potential in eV. This means "more positive value in the volcano plot indicates better selectivity".
+            
+        """
+        # Generate free energy change mesh for main and competing reactions
+        free_energy_change_mesh_main = self.__generate_free_energy_change_mesh(reaction_names["main"])
+        free_energy_change_mesh_comp = self.__generate_free_energy_change_mesh(reaction_names["comp"])
+        
+        
+        # Generate limiting potential mesh for each reaction
+        lim_potential_mesh_main, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh_main, show_best=False)
+        lim_potential_mesh_comp, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh_comp, show_best=False)
+        
+        
+        # Calculate selectivity mesh 
+        selectivity_mesh = lim_potential_mesh_main - lim_potential_mesh_comp
+        
+        
+        # Create plt object
+        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
+        fig = plt.figure(figsize=[12, 9])
+        
+        
+        # Add x/y axis labels
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        
+        
+        # Create background contour plot
+        contour = plt.contourf(self.xx, self.yy, selectivity_mesh,
+                               levels=512, cmap="inferno",    
+                               # extend="min",
+                               )
+        
+        
+        # Set figure styles
+        self.__set_figure_style(plt, fig)
+        
+        
+        # Add colorbar
+        cbar = self.__add_colorbar(fig, contour,
+                          cblabel="ΔLimiting Potential (V)",
+                          ticks=[-2, -1, 0, 1, 2],
                           hide_border=False,
                           )
         
@@ -261,12 +386,12 @@ class volcanoPlotter:
         
         # Save/show figure
         plt.tight_layout()
-        plt.savefig(f"limiting_potential_{reaction_name}.png", dpi=self.dpi)
+        plt.savefig(savename, dpi=self.dpi)
         if show:
             plt.show()
         plt.cla()
         
-        
+    
 # Test area
 if __name__ == "__main__":
     # Set args

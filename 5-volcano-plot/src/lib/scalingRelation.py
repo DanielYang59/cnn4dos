@@ -3,7 +3,7 @@
 
 import numpy as np
 from scipy import stats
-from utils import stack_adsorption_energy_dict
+from .utils import stack_adsorption_energy_dict
 import warnings
 
 

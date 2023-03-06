@@ -5,6 +5,10 @@
         "1":{
             "reactants":{"PEP":1},
             "products":{"H2_g":1}
+        },
+        "2":{
+            "reactants":{"H2_g":1},
+            "products":{"PEP":1}
         }
     },
 

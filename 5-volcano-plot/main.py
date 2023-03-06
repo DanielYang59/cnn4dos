@@ -3,6 +3,7 @@
 """Ref: QUT Notebook Page 69. """
 
 
+import os
 import yaml
 
 from src.lib.dataLoader import dataLoader
@@ -70,15 +71,24 @@ if __name__ == "__main__":
                              )
     
     # Generate limiting potential volcano plot
-    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=True,
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=False,
                                     label_selection=label_selection,
+                                    savename=os.path.join("figures", "limiting_potential_CO2RR_CH4.png"),
                                     )
 
 
     # Generate rate determining step plot
-    # plotter.plot_rds(reaction_name="CO2RR_CH4")
+    plotter.plot_rds(reaction_name="CO2RR_CH4", 
+                     savename=os.path.join("figures", "RDS_CO2RR_CH4.png"))  
     
     
     # Generate selectivity volcano plot
+    plotter.plot_selectivity(reaction_names={"main":"CO2RR_CH4", "comp":"HER"},
+                             savename=os.path.join("figures", "selectivity.png"))
     
+    
+    # Plot limiting potential for HER
+    plotter.plot_limiting_potential(reaction_name="HER", 
+                                    savename=os.path.join("figures", "limiting_potential_HER.png"),
+                                    )
     

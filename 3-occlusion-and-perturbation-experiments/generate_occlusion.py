@@ -18,7 +18,7 @@ append_molecule = True
 remove_ghost_state = True
 
 
-masker_width = 1
+masker_width = 11
 masker = 0
 dos_array_file = "dos_up.npy"
 output_arr_name = "occlusion.npy"
