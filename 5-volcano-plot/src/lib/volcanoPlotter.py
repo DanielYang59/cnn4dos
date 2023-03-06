@@ -139,7 +139,7 @@ class volcanoPlotter:
             }
 
     
-    def __generate_limiting_potential_mesh(self, free_energy_change_mesh, show_best=True):
+    def __generate_limiting_potential_and_RDS_mesh(self, free_energy_change_mesh, show_best=True):
         """Generate limiting potential mesh from free energy change meshes.
 
         Args:
@@ -156,6 +156,10 @@ class volcanoPlotter:
         # Generate limiting potential mesh (max of free energy change)
         limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
         
+        # Generate limiting potential mesh (index of max free energy energy)
+        rds_mesh = np.argmax(stacked_mesh, axis=2)
+
+        
         
         # Find x/y coordinates of minima (predicted best limiting potential)
         if show_best:
@@ -165,7 +169,7 @@ class volcanoPlotter:
             
             print(f"Limiting potential of best catalysts is {round(np.min(limiting_potential_mesh), 4)} V, at X {round(x_min, 4)} eV, Y {round(y_min, 4)} eV.")
         
-        return limiting_potential_mesh
+        return limiting_potential_mesh, rds_mesh
     
 
     def __set_figure_style(self, plt, fig=None):
@@ -221,7 +225,7 @@ class volcanoPlotter:
         
         
         # Generate limiting potential mesh
-        limiting_potential_mesh = self.__generate_limiting_potential_mesh(free_energy_change_mesh)
+        limiting_potential_mesh, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh)
         
         
         # Create plt object
@@ -261,12 +265,64 @@ class volcanoPlotter:
         
         # Save/show figure
         plt.tight_layout()
-        plt.savefig(f"limiting_potential_{reaction_name}.png", dpi=self.dpi)
+        plt.savefig(savename, dpi=self.dpi)
         if show:
             plt.show()
         plt.cla()
         
         
+    def plot_rds(self, reaction_name, show=False, savename="rds.png"):
+        """Plot rate determining step volcano of selected reaction.
+
+        Args:
+            reaction_name (str): name of reaction to plot
+            show (bool, optional): show plot after creation. Defaults to False.
+            
+        """
+        # Generate free energy change mesh for selected reaction
+        free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
+        
+        
+        # Generate RDS mesh
+        _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, show_best=False)
+        
+        
+        # Create plt object
+        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
+        fig = plt.figure(figsize=[12, 9])
+        
+        
+        # Add x/y axis labels
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        
+        
+        # Create background contour plot
+        contour = plt.contourf(self.xx, self.yy, rds_mesh,
+                               levels=512, cmap="inferno_r",    
+                               extend="max",
+                               )
+        
+        
+        # Set figure styles
+        self.__set_figure_style(plt, fig)
+        
+        
+        # Add colorbar
+        cbar = self.__add_colorbar(fig, contour,
+                          cblabel="Rate Determining Step",
+                          ticks=[1, 2, 3, 4, 5, 6, 7, 8],
+                          hide_border=False,
+                          )
+        
+        
+        # Save/show figure
+        plt.tight_layout()
+        plt.savefig(savename, dpi=self.dpi)
+        if show:
+            plt.show()
+        plt.cla()
+           
 # Test area
 if __name__ == "__main__":
     # Set args

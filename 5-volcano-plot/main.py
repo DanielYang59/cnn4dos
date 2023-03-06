@@ -71,14 +71,15 @@ if __name__ == "__main__":
                              )
     
     # Generate limiting potential volcano plot
-    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=True,
+    plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=False,
                                     label_selection=label_selection,
                                     savename=os.path.join("figures", "limiting_potential_CO2RR_CH4.png"),
                                     )
 
 
     # Generate rate determining step plot
-    # plotter.plot_rds(reaction_name="CO2RR_CH4")
+    plotter.plot_rds(reaction_name="CO2RR_CH4", 
+                     savename=os.path.join("figures", "RDS_CO2RR_CH4.png"))  
     
     
     # Generate selectivity volcano plot
