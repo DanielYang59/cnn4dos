@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+# DEBUG: limiting potential need a negative symbol!!!!!!!!!
+ 
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 
 class volcanoPlotter:
@@ -322,7 +322,79 @@ class volcanoPlotter:
         if show:
             plt.show()
         plt.cla()
-           
+    
+    
+    def plot_selectivity(self, reaction_names, show=False, label_selection="ALL", savename="selectivity.png"):
+        """Plot selectivity volcano of selected reaction.
+
+        Args:
+            reaction_name (dict): {"main": main_reaction_name, "comp": competing_reaction_name}
+            show (bool, optional): show plot after creation. Defaults to False.
+            
+            
+        Notes:
+            1. The selectivity mesh is calculated #DEBUG
+            
+            
+            
+        """
+        # Generate free energy change mesh for main and competing reactions
+        free_energy_change_mesh_main = self.__generate_free_energy_change_mesh(reaction_names["main"])
+        free_energy_change_mesh_comp = self.__generate_free_energy_change_mesh(reaction_names["comp"])
+        
+        
+        # Generate limiting potential mesh for each reaction
+        lim_potential_mesh_main, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh_main, show_best=False)
+        lim_potential_mesh_comp, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh_comp, show_best=False)
+        
+        
+        # Calculate selectivity mesh 
+        selectivity_mesh = lim_potential_mesh_main - lim_potential_mesh_comp
+        
+        
+        # Create plt object
+        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
+        fig = plt.figure(figsize=[12, 9])
+        
+        
+        # Add x/y axis labels
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        
+        
+        # Create background contour plot
+        contour = plt.contourf(self.xx, self.yy, selectivity_mesh,
+                               levels=512, cmap="inferno_r",    
+                               extend="max",
+                               )
+        
+        
+        # Set figure styles
+        self.__set_figure_style(plt, fig)
+        
+        
+        # Add colorbar
+        cbar = self.__add_colorbar(fig, contour,
+                          cblabel="ΔLimiting Potential (V)",
+                          ticks=[1, 2, 3, 4, 5],
+                          hide_border=False,
+                          )
+        
+        
+        # Add markers
+        self.__add_markers(plt, 
+                           label_selection=label_selection,
+                                 )
+        
+        
+        # Save/show figure
+        plt.tight_layout()
+        plt.savefig(savename, dpi=self.dpi)
+        if show:
+            plt.show()
+        plt.cla()
+        
+    
 # Test area
 if __name__ == "__main__":
     # Set args
