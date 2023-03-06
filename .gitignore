@@ -3,28 +3,15 @@
 __pycache__
 
 
-# Supportive information in DOS calculation
-0-dataset/feature_DOS/z-*
-
-
 # Temperarily cached labels and features numpy array for model training
 labels.npy
 features.npy
 
 
 # Occlusion and perturbation images
-source_DOS.png
-occlusion_line.png
 perturbation_line.png
-
-
-# Shifting images
-shifting_*eV_heatmap.png
-shifting_*eV_line.png
 
 
 # Unfinished
 z-cluster-visualize
 0-utils/collect-energy.py
-5-volcano-plot/debug
-z-volcano-plot-old
