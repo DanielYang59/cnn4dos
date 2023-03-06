@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 
+orbital_index = 4
+
+
 import os
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from generate_shifting import orbital_index  # import orbital index from generating script
 
 
 if __name__ == "__main__":
