@@ -20,10 +20,10 @@ centre_atoms = {"g-C3N4":57, "nitrogen-graphene":71, "vacant-graphene":71, "C2N"
 import numpy as np
 energy_array = np.linspace(-14, 6, 4000)
 
-import os, sys
+import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
-from sklearn.preprocessing import normalize
+# from sklearn.preprocessing import normalize
 import warnings
 
 
