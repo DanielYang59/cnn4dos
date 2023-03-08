@@ -239,7 +239,7 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh,
-                               levels=512, cmap="inferno",    
+                               levels=512, cmap="coolwarm",    
                                # extend="min",
                                )
         
@@ -299,7 +299,7 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, rds_mesh,
-                               levels=512, cmap="inferno_r",    
+                               levels=512, cmap="coolwarm",    
                                )
         
         
@@ -361,7 +361,7 @@ class volcanoPlotter:
         
         # Create background contour plot
         contour = plt.contourf(self.xx, self.yy, selectivity_mesh,
-                               levels=512, cmap="inferno",    
+                               levels=512, cmap="coolwarm",    
                                # extend="min",
                                )
         
@@ -451,12 +451,4 @@ if __name__ == "__main__":
     plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=True,
                                     label_selection=["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is",]
                                     )
-
-
-    # Generate rate determining step plot
-    # plotter.plot_rds(reaction_name="CO2RR_CH4")
-    
-    
-    # Generate selectivity volcano plot
-    
     
