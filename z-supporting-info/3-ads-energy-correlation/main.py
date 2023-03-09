@@ -6,9 +6,9 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from lib.create_heatmap import corrplot
-from lib.generate_corr_matrix import generate_corr_matrix
-from lib.format_mol_name import format_mol_name
+from src.create_heatmap import corrplot
+from src.generate_corr_matrix import generate_corr_matrix
+from src.format_mol_name import format_mol_name
 
 
 if __name__ == "__main__":
