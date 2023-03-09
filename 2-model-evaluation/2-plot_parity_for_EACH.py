@@ -162,6 +162,6 @@ if __name__ == "__main__":
         g.ax_joint.text(-8.5, -10, f"MAE = {'%.2f' % mae} eV", fontsize=28)
         
         plt.tight_layout()
-        plt.savefig(os.path.join("figures", f"true_prediction_plot_{ads}.png"), dpi=300)
+        plt.savefig(os.path.join("figures", f"parity_plot_{ads}.png"), dpi=300)
         plt.cla()
     
