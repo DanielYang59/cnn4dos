@@ -10,7 +10,6 @@ os.environ["TF_GPU_THREAD_MODE"] = "gpu_private"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import keras_tuner
-from datetime import datetime
 import warnings
 
 from hp_model import hp_model

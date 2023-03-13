@@ -51,6 +51,8 @@ if __name__ == "__main__":
                             states={"is", }, spin=spin,
                             remove_ghost=remove_ghost, 
                             load_augment=load_augmentation, augmentations=augmentations)
+    print(f"A total of {dataFetcher.numFeature} samples loaded for plotting.")
+    
     
     ## Append molecule DOS
     if append_adsorbate_dos:
