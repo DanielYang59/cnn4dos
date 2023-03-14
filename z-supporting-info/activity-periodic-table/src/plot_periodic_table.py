@@ -5,12 +5,10 @@ I did not write this module, but took it from somewhere on the Internet. Sadly I
 """
 
 
-from bokeh import palettes
 import colorcet
 from bokeh.models import (
     ColumnDataSource,
     LinearColorMapper,
-    # LogColorMapper,
     ColorBar,
     BasicTicker,
 )
@@ -18,19 +16,12 @@ from bokeh.plotting import figure, output_file
 from bokeh.io import show as show_
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge
-from csv import reader
-from matplotlib.colors import Normalize, LogNorm, to_hex
+from matplotlib.colors import Normalize, to_hex
 from matplotlib.cm import (
-    # plasma,
-    # inferno,
-    # magma,
-    # viridis,
-    # cividis,
     turbo,
     ScalarMappable,
     coolwarm_r,
-
-)  
+    )
 from pandas import options
 from typing import List
 import warnings
@@ -38,7 +29,7 @@ import warnings
 
 def plot_periodic_table(
     limiting_potential_dict: dict,
-    show: bool = True,
+    show: bool = False,
     output_filename: str = None,
     width: int = 1050,
     cmap: str = "plasma",
@@ -46,7 +37,6 @@ def plot_periodic_table(
     extended: bool = True,
     periods_remove: List[int] = None,
     groups_remove: List[int] = None,
-    log_scale: bool = False,
     cbar_height: float = None,
     cbar_standoff: int = 12,
     cbar_fontsize: int = 14,
@@ -115,21 +105,6 @@ def plot_periodic_table(
     options.mode.chained_assignment = None
 
     # Assign color palette based on input argument
-    # if cmap == "plasma":
-    #     cmap = plasma
-    #     bokeh_palette = "Plasma256"
-    # elif cmap == "inferno":
-    #     cmap = inferno
-    #     bokeh_palette = "Inferno256"
-    # elif cmap == "magma":
-    #     cmap = magma
-    #     bokeh_palette = "Magma256"
-    # elif cmap == "viridis":
-    #     cmap = viridis
-    #     bokeh_palette = "Viridis256"
-    # elif cmap == "cividis":
-    #     cmap = cividis
-    #     bokeh_palette = "Cividis256"
     if cmap == "turbo":
         cmap = turbo
         bokeh_palette = "Turbo256"
