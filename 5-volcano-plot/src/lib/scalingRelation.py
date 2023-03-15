@@ -111,10 +111,10 @@ class scalingRelation:
                 worst_index = result_dict[ads].index(worst)
                 
                 # print best and worst results
-                print(f'Best mixing ratio of "{ads}" is {best_index} % (R2 {round(best, 4)}), worst is {worst_index} % (R2 {round(worst, 4)}).')
+                print(f'Best mixing ratio of "{ads}" is {best_index} % (R2 {best:.4f}), worst is {worst_index} % (R2 {worst:.4f}).')
                 
                 # print results at end points
-                print(f"End point results for {ads}: 0 %: {round(result_dict[ads][0], 4)}, 100 %: {round(result_dict[ads][100], 4)}.")
+                print(f"End point results for {ads}: 0 %: {result_dict[ads][0]:.4f}, 100 %: {result_dict[ads][100]:.4f}.")
 
             
         return best_ratios

@@ -166,7 +166,7 @@ class volcanoPlotter:
 
             x_min, y_min = self.x[min_index[1]], self.y[min_index[0]]
             
-            print(f"Limiting potential of best catalysts is {-round(np.min(limiting_potential_mesh), 4)} V, at X {round(x_min, 4)} eV, Y {round(y_min, 4)} eV.")
+            print(f"Limiting potential of best catalysts is {-np.min(limiting_potential_mesh):.4f} V, at X {x_min:.4f} eV, Y {y_min:.4f} eV.")
         
         return -limiting_potential_mesh, rds_mesh
     

@@ -123,10 +123,10 @@ class volcanoDebugger:
         all_results = {}
         for ads, mae in diff_df.abs().mean().items():
             all_results[ads] = mae
-            print(f"MAE in adsorption free energy of {ads} is {round(mae, 4)} eV.")
+            print(f"MAE in adsorption free energy of {ads} is {mae:.4f} eV.")
         
         overall_mae = sum(all_results.values()) / len(all_results)
-        print(f"Overall adsorption energy MAE is {round(overall_mae, 4)} eV.")
+        print(f"Overall adsorption energy MAE is {overall_mae:.4f} eV.")
     
     
     def __calculate_limiting_potential(self, method, reaction_name):
@@ -394,7 +394,7 @@ class volcanoDebugger:
         
         # Calculate limiting potential MAE
         limiting_potential_mae = limiting_potential_diff.abs().mean()
-        print(f"MAE of limiting potential calculation is {round(limiting_potential_mae, 4)} eV.")
+        print(f"MAE of limiting potential calculation is {limiting_potential_mae:.4f} eV.")
         
     
     def output_adsorption_free_energy(self):

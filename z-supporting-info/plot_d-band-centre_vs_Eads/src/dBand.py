@@ -188,7 +188,7 @@ class dBand:
         d_band_centre = self.__calculate_band_moment(merged_d_band, energy_array, ordinal=1)
         
         if verbose:
-            print(f"d-band centre is {round(d_band_centre, 4)} eV.")
+            print(f"d-band centre is {d_band_centre:.4f} eV.")
         
         
         return d_band_centre
@@ -225,7 +225,7 @@ class dBand:
         d_band_width = self.__calculate_band_moment(merged_d_band, energy_array, ordinal=2)
         
         if verbose:
-            print(f"d-band width is {round(d_band_width, 4)} eV.")
+            print(f"d-band width is {d_band_width:.4f} eV.")
         
         
         return d_band_width

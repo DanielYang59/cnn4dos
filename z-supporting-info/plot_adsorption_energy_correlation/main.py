@@ -36,5 +36,5 @@ if __name__ == "__main__":
     
     # Show correlation coefficients
     print(corr_matrix)
-    print(f"Min value across entire dataframe is {round(corr_matrix.min().min(), 4)}.")
+    print(f"Min value across entire dataframe is {corr_matrix.min().min():.4f}.")
     
