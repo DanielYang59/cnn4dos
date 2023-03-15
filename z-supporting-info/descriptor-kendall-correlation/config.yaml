@@ -1,4 +1,4 @@
-##### Config File for Limiting Potential Periodic Table #####
+##### Config File for Kendall Correlation Map #####
 
 path:
   limiting_potential_file: "../5-volcano-plot/src/test/debug_results/diff_limiting_potential.csv"
