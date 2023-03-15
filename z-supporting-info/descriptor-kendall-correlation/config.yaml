@@ -1,8 +1,7 @@
-##### Config File for Kendall Correlation Map #####
+##### Config File for Kendall Correlation Map for Descriptors #####
+
 
 path:
-  limiting_potential_file: "../5-volcano-plot/src/test/debug_results/diff_limiting_potential.csv"
-  data_cols: {"name":0, "limiting_potential":1}
-
-
-  
+  adsorption_energy_file: "data/EadsCO.csv"
+  element_descriptor_file: "data/element-descriptors.csv"
+  electronic_descriptor_file: "data/electronic-descriptors.csv"
