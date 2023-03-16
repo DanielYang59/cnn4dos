@@ -431,6 +431,12 @@ class volcanoPlotter:
                                # extend="min",
                                )
         
+        # # Add limitint potential difference == 0 line
+        # contour_line = plt.contour(self.xx, self.yy, selectivity_mesh, levels=[0],
+        #                            color="black", linestyle="-", linewidth=2,
+        #                            )
+        # plt.clabel(contour_line, fmt='%2.1d', colors='k', fontsize=14)  # contour line labels
+        
         
         # Set figure styles
         self.__set_figure_style(plt, fig)

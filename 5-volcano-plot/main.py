@@ -88,6 +88,7 @@ if __name__ == "__main__":
     
     # Generate selectivity volcano plot
     plotter.plot_selectivity(reaction_names={"main":"CO2RR_CH4", "comp":"HER"},
+                             label_selection=label_selection,
                              savename=os.path.join("figures", "selectivity.png"))
     
     
