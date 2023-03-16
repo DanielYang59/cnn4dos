@@ -22,8 +22,11 @@ def plot_correlation(dataset, method, savename, show=True, verbose=False):
     # Calculate correlation map
     assert isinstance(dataset, pd.DataFrame)
     corr_data = dataset.corr(method=method, numeric_only=True)
+    
+    # Print correlation data if required
     if verbose:
-        print(corr_data)
+        print(f"\"Absolute value\" of {method} correlation coefficients:")
+        print(corr_data["Eads"].abs().sort_values(ascending=False))
         
     
     # Generate correlation plot
