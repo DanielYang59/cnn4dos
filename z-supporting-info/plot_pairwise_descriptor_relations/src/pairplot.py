@@ -62,7 +62,7 @@ class PairPlot:
         
         
         # Generate pairwise relation plot
-        with sns.plotting_context(rc={"axes.labelsize":20, "axes.linewidth": 2.5}):
+        with sns.plotting_context(rc={"axes.labelsize":32, "axes.linewidth": 2.5}):
             sns.pairplot(data=self.data,
                          
                          corner=True,
