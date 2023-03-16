@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
-# Import packages
+import keras_tuner
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
-import keras_tuner
 
 from hp_model import hp_model
 

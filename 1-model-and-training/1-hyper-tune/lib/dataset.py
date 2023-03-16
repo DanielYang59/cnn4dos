@@ -28,7 +28,7 @@ class Dataset:
         """Load DOS dataset feature from given list of dirs.
 
         Args:
-            path (str): path to dataset dir
+            path (Path): path to dataset dir
             substrates (list): list of substrates to load
             adsorbates (list): list of adsorbates to load
             centre_atoms (dict): centre atom index dict (index starts from 1)
@@ -47,7 +47,7 @@ class Dataset:
 
         """
         # Check args
-        assert os.path.isdir(path)
+        assert path.is_dir()
         assert isinstance(substrates, list)
         assert isinstance(adsorbates, list)
         assert isinstance(centre_atoms, dict)

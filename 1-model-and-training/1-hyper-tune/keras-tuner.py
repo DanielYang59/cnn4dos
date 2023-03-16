@@ -2,15 +2,16 @@
 # -*- coding: utf-8 -*-
 
 
-# Import packages
-import os, sys
+import keras_tuner
 import numpy as np
-import yaml
+import os
 os.environ["TF_GPU_THREAD_MODE"] = "gpu_private"
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+from pathlib import Path
+import sys
 import tensorflow as tf
-import keras_tuner
 import warnings
+import yaml
 
 from hp_model import hp_model
 from lib.dataset import Dataset
@@ -30,8 +31,8 @@ if __name__ == "__main__":
     with open("config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
     ## paths
-    feature_dir = cfg["path"]["feature_dir"]
-    label_dir = cfg["path"]["label_dir"]
+    feature_dir = Path(cfg["path"]["feature_dir"])
+    label_dir = Path(cfg["path"]["label_dir"])
     ## species 
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]

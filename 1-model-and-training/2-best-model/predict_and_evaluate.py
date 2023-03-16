@@ -2,15 +2,16 @@
 # -*- coding: utf-8 -*-
 
 
-# Import packages
-import os, sys
 import numpy as np
-import yaml
+import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+from sklearn.metrics import r2_score
+import sys
 import tensorflow as tf
 from tensorflow import keras
-from sklearn.metrics import r2_score
 import warnings
+import yaml
+
 from lib.dataset import Dataset
 
 
