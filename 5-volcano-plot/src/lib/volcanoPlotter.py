@@ -73,6 +73,12 @@ class volcanoPlotter:
         markers = [marker_dict["_".join(name.split("_")[:2])] for name in name_list]
         
         
+        # Calculate alpha based on distance to minima
+        self.__calculate_scatter_alpha()
+        
+        
+        
+        
         # Add scatters
         for i, _ in enumerate(x_list):
             plt.scatter(x_list[i], y_list[i],
@@ -100,7 +106,22 @@ class volcanoPlotter:
                          ha="center", va="center",
                          fontsize=12,
                          )
-            
+
+    
+    def __calculate_scatter_alpha(self, ):
+        # Locate the maximum
+        min_index = np.unravel_index(np.argmax(self.limiting_potential_mesh), self.limiting_potential_mesh.shape)
+
+        x_min, y_min = self.x[min_index[1]], self.y[min_index[0]]
+        print(x_min, y_min, "test")
+        
+        # Calculate distance
+        
+        
+        # Calculate alpha (transparency)
+        
+        pass
+    
 
     def __generate_free_energy_change_mesh(self, reaction_name, density=(400, 400)):
         """Generate 2D free energy change mesh for plotting.
@@ -138,11 +159,12 @@ class volcanoPlotter:
             }
 
     
-    def __generate_limiting_potential_and_RDS_mesh(self, free_energy_change_mesh, show_best=True):
+    def __generate_limiting_potential_and_RDS_mesh(self, free_energy_change_mesh, reaction_name, show_best=True):
         """Generate limiting potential mesh from free energy change meshes.
 
         Args:
             free_energy_change_mesh (dict): free energy mesh in (x, y, numSteps)
+            reaction_name (str): reaction name
 
         Returns:
             np.ndarray: 2D limiting potential mesh
@@ -152,23 +174,22 @@ class volcanoPlotter:
         stacked_mesh = np.stack(list(free_energy_change_mesh.values()), axis=2)
         
         
-        # Generate limiting potential mesh (max of free energy change)
-        limiting_potential_mesh = np.amax(stacked_mesh, axis=2)
+        # Generate limiting potential mesh (negate max of free energy change)
+        limiting_potential_mesh = -np.amax(stacked_mesh, axis=2)
         
-        # Generate limiting potential mesh (index of max free energy energy)
-        rds_mesh = np.argmax(stacked_mesh, axis=2)
+        
+        # Generate limiting potential mesh (index of min limiting potential)
+        rds_mesh = np.argmin(stacked_mesh, axis=2)
 
         
+        # Find x/y coordinates of maximum (predicted best limiting potential)
+        max_index = np.unravel_index(np.argmax(limiting_potential_mesh), limiting_potential_mesh.shape)
+        x_coord, y_coord = self.x[max_index[1]], self.y[max_index[0]]
         
-        # Find x/y coordinates of minima (predicted best limiting potential)
         if show_best:
-            min_index = np.unravel_index(np.argmin(limiting_potential_mesh), limiting_potential_mesh.shape)
-
-            x_min, y_min = self.x[min_index[1]], self.y[min_index[0]]
-            
-            print(f"Limiting potential of best catalysts is {-np.min(limiting_potential_mesh):.4f} V, at X {x_min:.4f} eV, Y {y_min:.4f} eV.")
+            print(f"Limiting potential of best {reaction_name} catalysts is {np.max(limiting_potential_mesh):.4f} V, at X {x_coord:.4f} eV, Y {y_coord:.4f} eV.")
         
-        return -limiting_potential_mesh, rds_mesh
+        return limiting_potential_mesh, rds_mesh
     
 
     def __set_figure_style(self, plt, fig=None):
@@ -224,7 +245,7 @@ class volcanoPlotter:
         
         
         # Generate limiting potential mesh
-        limiting_potential_mesh, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh)
+        self.limiting_potential_mesh, _ = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, reaction_name)
         
         
         # Create plt object
@@ -238,7 +259,7 @@ class volcanoPlotter:
         
         
         # Create background contour plot
-        contour = plt.contourf(self.xx, self.yy, limiting_potential_mesh,
+        contour = plt.contourf(self.xx, self.yy, self.limiting_potential_mesh,
                                levels=512, cmap="coolwarm",    
                                # extend="min",
                                )
@@ -284,7 +305,7 @@ class volcanoPlotter:
         
         
         # Generate RDS mesh
-        _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, show_best=False)
+        _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, reaction_name, show_best=False)
         
         
         # Create plt object
