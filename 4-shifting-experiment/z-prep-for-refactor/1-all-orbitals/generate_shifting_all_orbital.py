@@ -16,9 +16,8 @@ energy_array = np.linspace(-14, 6, 4000)
 
 
 import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import tensorflow as tf
-# from sklearn.preprocessing import normalize
 import warnings
 
 

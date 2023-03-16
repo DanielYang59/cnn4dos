@@ -15,11 +15,11 @@ perturbation_dos_name = "perturbation.npy"
 orbital_names = ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
 
 
-import os, sys
-import numpy as np
-import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import numpy as np
+import os
+import pandas as pd
 
     
 def plot_line(arr, energy_array, savedir="."):

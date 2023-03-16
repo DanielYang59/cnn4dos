@@ -16,12 +16,11 @@ dos_array_file = "dos_up.npy"
 output_arr_name = "perturbation.npy"
 
 
-import os
 import copy
 import numpy as np
+import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
-# from sklearn.preprocessing import normalize
 import warnings
 
 

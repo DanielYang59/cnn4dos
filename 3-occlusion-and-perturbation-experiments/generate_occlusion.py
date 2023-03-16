@@ -24,8 +24,8 @@ dos_array_file = "dos_up.npy"
 output_arr_name = "occlusion.npy"
 
 
-import os
 import numpy as np
+import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import warnings

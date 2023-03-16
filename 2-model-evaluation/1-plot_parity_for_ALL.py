@@ -5,16 +5,17 @@
 model_dir = "../1-model-and-training/2-best-model"
 
 
-import os, sys
-import yaml
-import numpy as np
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-import tensorflow as tf
+from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
+import numpy as np
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import seaborn as sns
 import statsmodels.api as sm
 from sklearn.metrics import r2_score
-from matplotlib.patches import PathPatch
+import sys
+import tensorflow as tf
+import yaml
 
 sys.path.append(model_dir)
 from lib.dataset import Dataset
