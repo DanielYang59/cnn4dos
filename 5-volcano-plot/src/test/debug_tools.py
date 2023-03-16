@@ -2,19 +2,19 @@
 # -*- coding: utf-8 -*-
 
 
-import sys
-sys.path.insert(0, "../lib")
 import copy
 import contextlib
-from dataLoader import dataLoader
 import numpy as np
 import os
 import pandas as pd
-from reactionCalculator import reactionCalculator
-from scalingRelation import scalingRelation
 import sys
-from utils import stack_adsorption_energy_dict
 import warnings
+
+sys.path.append("..")
+from lib.dataLoader import dataLoader
+from lib.reactionCalculator import reactionCalculator
+from lib.scalingRelation import scalingRelation
+from lib.utils import stack_adsorption_energy_dict
 
 
 class volcanoDebugger:
@@ -266,7 +266,7 @@ class volcanoDebugger:
             
             # Calculate limiting potential and rate determining steps
             rate_determining_steps = free_energy_changes.idxmax(axis=1)
-            limiting_potential = free_energy_changes.max(axis=1)
+            limiting_potential = -free_energy_changes.max(axis=1)
             
                         
             return limiting_potential, rate_determining_steps
@@ -283,8 +283,8 @@ class volcanoDebugger:
             # Initialize scaling relation based reaction calculator
             reaction_calculator = reactionCalculator(
                 adsorption_energy_scaling_relation=self.scaling_relations,
-                adsorbate_energy_file="../../data/energy_adsorbate.csv",  #DEBUG
-                reaction_pathway_file="../../data/reaction_pathway.json",  #DEBUG
+                adsorbate_energy_file="../../data/energy_adsorbate.csv",  #DEBUG: move arg outside
+                reaction_pathway_file="../../data/reaction_pathway.json",  #DEBUG: move arg outside
                 external_potential=self.external_potential,
             )
             
@@ -313,7 +313,7 @@ class volcanoDebugger:
             
             # Calculate limiting potential and rate determining steps
             rate_determining_steps = free_energy_changes.idxmax(axis=1)
-            limiting_potential = free_energy_changes.max(axis=1)
+            limiting_potential = -free_energy_changes.max(axis=1)
             
             
             return limiting_potential, rate_determining_steps
