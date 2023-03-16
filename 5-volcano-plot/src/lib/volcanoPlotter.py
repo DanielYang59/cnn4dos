@@ -7,6 +7,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
 import numpy as np
+import warnings
 
 
 class volcanoPlotter:
@@ -130,6 +131,39 @@ class volcanoPlotter:
                          alpha=alphas[i],
                          )
 
+    
+    def __add_rds_separator(self, plt):
+        """Add separator lines for each rate determining step area.
+
+        Args:
+            plt (_type_): _description_
+            
+        Note:
+            DEBUG: temporary manual method, need improvement
+            
+        """
+        warnings.warn("RDS separator manually created.")
+        
+        # Add separator lines
+        line_width = 3
+        line_color = "#8F00FF"
+        line_style = (0, (1, 1))
+        
+        plt.plot([-5.00, -3.40, -1.23, -0.96, -2.08], [-5.23, -4.92, -2.43, -1.43, 0], linewidth=line_width, color=line_color, linestyle=line_style, dash_capstyle="round")
+        plt.plot([-3.40, -3.10], [-4.92, -6.50], linewidth=line_width, color=line_color, linestyle=line_style, dash_capstyle="round")
+        plt.plot([-1.23, 0.5], [-2.43, -2.38], linewidth=line_width, color=line_color, linestyle=line_style, dash_capstyle="round")
+        plt.plot([-0.96, 0.5], [-1.43, -0.71], linewidth=line_width, color=line_color, linestyle=line_style, dash_capstyle="round")
+        
+        
+        # Add RDS indexes (starts from 1)
+        font_size = 30
+        
+        plt.text(-4.8, -6.2, "I", fontsize=font_size)
+        plt.text(-4.8, -0.5, "II", fontsize=font_size)
+        plt.text(0, -6.2, "III", fontsize=font_size)
+        plt.text(0.25, -1.7, "V", fontsize=font_size)
+        plt.text(-0.75, -0.4, "VII", fontsize=font_size)
+        
 
     def __generate_free_energy_change_mesh(self, reaction_name, density=(400, 400)):
         """Generate 2D free energy change mesh for plotting.
@@ -290,6 +324,10 @@ class volcanoPlotter:
         self.__add_markers(plt, 
                            label_selection=label_selection,
                                  )
+        
+        
+        # Add RDS separator
+        self.__add_rds_separator(plt)
         
         
         # Save/show figure
