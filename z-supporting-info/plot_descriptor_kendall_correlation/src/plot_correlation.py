@@ -26,7 +26,7 @@ def plot_correlation(dataset, method, savename, show=True, verbose=False):
     # Print correlation data if required
     if verbose:
         print(f"\"Absolute value\" of {method} correlation coefficients:")
-        print(corr_data["Eads"].abs().sort_values(ascending=False))
+        print(corr_data.iloc[:,0].abs().sort_values(ascending=False))
         
     
     # Generate correlation plot
