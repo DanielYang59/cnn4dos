@@ -78,7 +78,7 @@ class Descriptors:
         
         
         # Merge three descriptors
-        self.merged_descriptors = pd.concat([self.adsorption_energy, self.element_descriptor, self.electronic_descriptor], axis=1)
+        self.merged_descriptors = pd.concat([self.adsorption_energy, dup_element_descriptor, self.electronic_descriptor], axis=1)
         
         
         # Remove duplicated metal/substrate columns
@@ -91,5 +91,5 @@ if __name__ == "__main__":
                          element_descriptor_file=Path("../data/element-descriptors.csv"),
                          electronic_descriptor_file=Path("../data/electronic-descriptors.csv"),
                          )
-    # print(loader.merged_descriptors)
+    print(loader.merged_descriptors)
     

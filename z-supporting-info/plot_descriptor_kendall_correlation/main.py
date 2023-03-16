@@ -32,6 +32,10 @@ if __name__ == "__main__":
     # Drop metal/substrate columns for correlation map plotting
     merged_descriptors.drop(labels=["metal", "substrate"], axis=1, inplace=True)
     
+    print(merged_descriptors)
+    
+    
+    
     
     # Plot Kendall correlation map
     os.makedirs("figures", exist_ok=True)
