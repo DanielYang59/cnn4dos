@@ -26,7 +26,7 @@ def plot_activity_periodic_table():
     plot_periodic_table(
     limiting_potential_dict=limiting_potential,
     extended=False,  # show Lu/Lr elements
-    cmap="coolwarm_r",
+    cmap="coolwarm",
     cbar_height=390,  # colorbar height (should reposition to top right)
     alpha=0.80, 
     cbar_location=(0, 162),

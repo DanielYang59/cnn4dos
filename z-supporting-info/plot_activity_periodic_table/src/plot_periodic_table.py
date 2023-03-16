@@ -20,7 +20,7 @@ from matplotlib.colors import Normalize, to_hex
 from matplotlib.cm import (
     turbo,
     ScalarMappable,
-    coolwarm_r,
+    coolwarm,
     )
 from pandas import options
 from typing import List
@@ -108,10 +108,10 @@ def plot_periodic_table(
     if cmap == "turbo":
         cmap = turbo
         bokeh_palette = "Turbo256"
-    elif cmap == "coolwarm_r":
-        cmap = coolwarm_r
+    elif cmap == "coolwarm":
+        cmap = coolwarm
         bokeh_palette = colorcet.coolwarm
-        bokeh_palette.reverse()  # reversed coolwarm colormap
+        # bokeh_palette.reverse()  # reversed coolwarm colormap
     else:
         raise ValueError("Invalid color map.")
 
