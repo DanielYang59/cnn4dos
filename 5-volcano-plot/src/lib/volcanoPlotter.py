@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
  
 
+import math
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 
 
 class volcanoPlotter:
@@ -57,6 +59,25 @@ class volcanoPlotter:
             label_selection ((str, list), optional): add labels to selected points or "ALL", select by substrate. Defaults to "ALL".
             
         """
+
+        def calculate_scatter_alpha(x_list, y_list):
+            # Locate the maximum
+            max_index = np.unravel_index(np.argmax(self.limiting_potential_mesh), self.limiting_potential_mesh.shape)
+            x_coord, y_coord = self.x[max_index[1]], self.y[max_index[0]]
+            
+            
+            # Calculate distance to maximum
+            distances = []
+            for i, _ in enumerate(x_list):
+                distances.append(math.hypot(x_coord - x_list[i], y_coord - y_list[i]))
+            
+            
+            # Scale distance to get alpha values
+            alphas = (distances - np.min(distances)) / (np.max(distances) - np.min(distances))
+            
+            return 1 - alphas  # closer to max, less transparent
+            
+        
         # Get x and y list for selected descriptors
         x_list = []
         y_list = []
@@ -65,6 +86,8 @@ class volcanoPlotter:
             x_list.extend(list(df[self.descriptors[0]]))
             y_list.extend(list(df[self.descriptors[1]]))
             name_list.extend(df.index.values)
+        x_list = np.array(x_list)
+        y_list = np.array(y_list)
         
         
         # Compile marker list
@@ -73,10 +96,8 @@ class volcanoPlotter:
         markers = [marker_dict["_".join(name.split("_")[:2])] for name in name_list]
         
         
-        # Calculate alpha based on distance to minima
-        self.__calculate_scatter_alpha()
-        
-        
+        # Calculate alpha (transparency) based on distance to maximum value
+        alphas = calculate_scatter_alpha(x_list, y_list)
         
         
         # Add scatters
@@ -84,6 +105,7 @@ class volcanoPlotter:
             plt.scatter(x_list[i], y_list[i],
                         marker=markers[i],
                         facecolors="#6495ED", edgecolors="black",
+                        # alpha=alphas[i],
                         )
         
         
@@ -105,23 +127,9 @@ class volcanoPlotter:
             plt.annotate(label, xy=(x_list[i] + 0.12, y_list[i]),
                          ha="center", va="center",
                          fontsize=12,
+                         alpha=alphas[i],
                          )
 
-    
-    def __calculate_scatter_alpha(self, ):
-        # Locate the maximum
-        min_index = np.unravel_index(np.argmax(self.limiting_potential_mesh), self.limiting_potential_mesh.shape)
-
-        x_min, y_min = self.x[min_index[1]], self.y[min_index[0]]
-        print(x_min, y_min, "test")
-        
-        # Calculate distance
-        
-        
-        # Calculate alpha (transparency)
-        
-        pass
-    
 
     def __generate_free_energy_change_mesh(self, reaction_name, density=(400, 400)):
         """Generate 2D free energy change mesh for plotting.
