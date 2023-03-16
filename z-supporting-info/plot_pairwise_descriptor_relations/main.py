@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
+import os
 from pathlib import Path
 import yaml
 from src.descriptors import Descriptors
@@ -17,6 +18,7 @@ if __name__ == "__main__":
     element_descriptor_file = Path(cfg["path"]["element_descriptor_file"])
     electronic_descriptor_file = Path(cfg["path"]["electronic_descriptor_file"])
     descriptors = cfg["plot"]["descriptors"]
+    descriptor_symbol_dict = cfg["plot"]["descriptor_symbol_dict"]
     
     
     # Load and merge descriptor data
@@ -31,5 +33,8 @@ if __name__ == "__main__":
     
     # Generate pairwise relations plot
     plotter = PairPlot(data=merged_descriptors)
-    plotter.plot_pairplot(descriptors, savename=Path("figures/pairplot.png"), show=True)
+    os.makedirs("figures", exist_ok=True)
+    plotter.plot_pairplot(descriptors, descriptor_symbol_dict, savename=Path("figures/pairplot.png"),
+                          show=True, #DEBUG
+                          )
     
