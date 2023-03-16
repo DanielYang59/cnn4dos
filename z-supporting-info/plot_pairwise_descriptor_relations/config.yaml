@@ -11,8 +11,8 @@ plot:
   descriptors: ["Eads", "d_band_centre_up", "lattice_para_γ", "vacuum_level", "Electronegativity-Allen"]  # plot most correlated descriptors
   descriptor_symbol_dict: {
     "Eads":'$\mathregular{E_{ads}}$', 
-    "d_band_centre_up":'$\mathregular{δε_{d\uparrow}}$',  # ref: 10.1073/pnas.1006652108
-    "lattice_para_γ":"γ",
+    "d_band_centre_up":'$\mathregular{\delta\epsilon_{d\uparrow}}$',  # ref: 10.1073/pnas.1006652108
+    "lattice_para_γ":'$\gamma$',
     "vacuum_level":'$\mathregular{E_{VAC}}$',  # ref: 10.1039/C5MH00160A 
-    "Electronegativity-Allen":'$\mathregular{χ_{Allen}}$', 
+    "Electronegativity-Allen":'$\mathregular{\chi_{Allen}}$', 
     }  
