@@ -5,8 +5,8 @@
 import math
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap, BoundaryNorm
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
 
 
 class volcanoPlotter:
@@ -314,6 +314,7 @@ class volcanoPlotter:
         
         # Generate RDS mesh
         _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, reaction_name, show_best=False)
+        rds_mesh += 1  # reaction step index starts from 1
         
         
         # Create plt object
@@ -325,24 +326,22 @@ class volcanoPlotter:
         plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
         plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
         
-        
-        # Create background contour plot
-        contour = plt.contourf(self.xx, self.yy, rds_mesh,
-                               levels=512, cmap="coolwarm",    
-                               )
-        
-        
         # Set figure styles
         self.__set_figure_style(plt, fig)
         
         
-        # Add colorbar
-        cbar = self.__add_colorbar(fig, contour,
-                          cblabel="Rate Determining Step",
-                          ticks=[1, 2, 3, 4, 5, 6, 7, 8],
-                          hide_border=False,
-                          )
+        # Create background contour plot
+        cmap = ListedColormap(["blue", "green", "yellow", "orange", "red", "purple", "brown", "gray"])
         
+        bounds = [1, 2, 3, 4, 5, 6, 7, 8]
+        norm = BoundaryNorm(bounds, cmap.N)
+        
+        contour = plt.contourf(self.xx, self.yy, rds_mesh,
+                               levels=10, cmap=cmap,    
+                               )
+
+        # Add discrete colorbar
+        cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ticks=bounds, boundaries=bounds)
         
         # Save/show figure
         plt.tight_layout()
