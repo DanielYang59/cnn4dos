@@ -8,11 +8,23 @@ import seaborn as sns
 from .heatmap_revised import corrplot  # pip install heatmapz
 
 
-def plot_correlation(dataset, method, savename, show=True):
+def plot_correlation(dataset, method, savename, show=True, verbose=False):
+    """Plot correlation map.
+
+    Args:
+        dataset (pd.DataFrame): dataset to be plotted
+        method (str): method for correlation calculation
+        savename (Path): savename of figure
+        show (bool, optional): show figure during plotting. Defaults to True.
+        verbose (bool, optional): print correlation data. Defaults to False.
+        
+    """
     # Calculate correlation map
     assert isinstance(dataset, pd.DataFrame)
     corr_data = dataset.corr(method=method, numeric_only=True)
-    
+    if verbose:
+        print(corr_data)
+        
     
     # Generate correlation plot
     sns.set(color_codes=True, font_scale=1.2)

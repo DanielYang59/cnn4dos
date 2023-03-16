@@ -35,5 +35,5 @@ if __name__ == "__main__":
     
     # Plot Kendall correlation map
     os.makedirs("figures", exist_ok=True)
-    plot_correlation(merged_descriptors, method="kendall", savename=os.path.join("figures", "kendall_corr.png"), show=False)
+    plot_correlation(merged_descriptors, method="kendall", savename=os.path.join("figures", "kendall_corr.png"), show=False, verbose=True)
     
