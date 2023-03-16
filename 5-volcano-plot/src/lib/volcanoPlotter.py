@@ -133,7 +133,7 @@ class volcanoPlotter:
 
     
     def __add_rds_separator(self, plt):
-        """Add separator lines for each rate determining step area.
+        """Add separator lines and RDS index for each rate determining step area.
 
         Args:
             plt (_type_): _description_
@@ -201,7 +201,7 @@ class volcanoPlotter:
             }
 
     
-    def __generate_limiting_potential_and_RDS_mesh(self, free_energy_change_mesh, reaction_name, show_best=True):
+    def __generate_limiting_potential_and_RDS_mesh(self, free_energy_change_mesh, reaction_name=None, show_best=True):
         """Generate limiting potential mesh from free energy change meshes.
 
         Args:
@@ -351,7 +351,7 @@ class volcanoPlotter:
         
         
         # Generate RDS mesh
-        _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, reaction_name, show_best=False)
+        _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(free_energy_change_mesh, show_best=False)
         rds_mesh += 1  # reaction step index starts from 1
         
         

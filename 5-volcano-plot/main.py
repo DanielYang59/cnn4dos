@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # Calculate adsorption energy linear scaling relations
     calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=(descriptor_x, descriptor_y), mixing_ratios="AUTO", verbose=True, remove_ads_prefix=True) 
 
-    # Print linear fitting parameters of free energy 
+    # Print linear fitting parameters of free energy
     print(calculator.fitting_paras)
     
     
@@ -74,7 +74,7 @@ if __name__ == "__main__":
                              markers=markers,
                              )
     
-    # Generate limiting potential volcano plot
+    # Generate CO2RR limiting potential volcano plot
     plotter.plot_limiting_potential(reaction_name="CO2RR_CH4", show=False,
                                     label_selection=label_selection,
                                     savename=os.path.join("figures", "limiting_potential_CO2RR_CH4.png"),
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     # Generate rate determining step plot
     plotter.plot_rds(reaction_name="CO2RR_CH4", 
-                     savename=os.path.join("figures", "RDS_CO2RR_CH4.png"))  
+                     savename=os.path.join("figures", "RDS_CO2RR_CH4.png"), show=False)  
     
     
     # Generate selectivity volcano plot
