@@ -40,7 +40,6 @@ plot:
       "bandgap_total":'$\mathregular{E_{g}}$',  # DEBUG
       "Bader_charge_metal":'$\mathit{e_{Bader}}$',  # ref: CRC book 95th ed page 1-1 for "elementary charge"  # DEBUG: bader as normal
 
-      "Period_num":"Period",
-      "Group_num":"Group",
-      "is_main_group":"Main Group",
+      "Period_num":"P",
+      "Group_num":"G",
       }  
