@@ -24,7 +24,7 @@ corrections:
 
 
 plot:
-  markers: ["o", "^", "s", "d", "P", "*"]
+  markers: ["o", "^", "s", "D", "P", "*"]
   label_selection: ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is"]
   x_range: [-5, 0.5]
   y_range: [-6.5, 0]
