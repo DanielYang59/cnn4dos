@@ -4,6 +4,8 @@
 
 import math
 import matplotlib as mpl
+from matplotlib.patches import Patch
+from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
 import numpy as np
@@ -76,7 +78,7 @@ class volcanoPlotter:
             # Scale distance to get alpha values
             alphas = (distances - np.min(distances)) / (np.max(distances) - np.min(distances))
             
-            return 1 - alphas  # closer to max, less transparent
+            return 1 - alphas * 0.75  # closer to max, less transparent
             
         
         # Get x and y list for selected descriptors
@@ -106,8 +108,28 @@ class volcanoPlotter:
             plt.scatter(x_list[i], y_list[i],
                         marker=markers[i],
                         facecolors="#6495ED", edgecolors="black",
-                        # alpha=alphas[i],
                         )
+        
+        
+        # Add legend manually
+        ## Ref: https://stackoverflow.com/questions/39500265/how-to-manually-create-a-legend
+        warnings.warn("Legend is manually inserted.")
+        
+        marker_circle = Line2D([], [], color='#1f77b4', marker='o', linestyle='None', markersize=10)
+        marker_triangle = Line2D([], [], color='#1f77b4', marker='^', linestyle='None', markersize=10)
+        marker_square = Line2D([], [], color='#1f77b4', marker='s', linestyle='None', markersize=10)
+        marker_diamond = Line2D([], [], color='#1f77b4', marker='D', linestyle='None', markersize=10)
+        marker_plus = Line2D([], [], color='#1f77b4', marker='P', linestyle='None', markersize=10)
+        marker_star = Line2D([], [], color='#1f77b4', marker='*', linestyle='None', markersize=10)
+        
+        
+        plt.legend(
+            bbox_to_anchor=(0.45, 0.9),
+            framealpha=0.3,  # alpha of background color
+            fontsize=13, 
+            handles=[marker_circle, marker_triangle, marker_square, marker_diamond, marker_plus, marker_star], 
+            labels=[r'g-C$_{3}$N$_{4}$', "nitrogen-doped graphene", "graphene with dual-vacancy", r'C$_{2}$N', "boron nitride ", "black phosphorous"],
+            )
         
         
         # Add labels for selected samples
