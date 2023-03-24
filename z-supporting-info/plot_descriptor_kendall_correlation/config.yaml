@@ -12,8 +12,8 @@ plot:
       "Eads":'$\mathregular{E_{ads}}$',
 
       "atomic_radius":"R",
-      "valence_ele_num":"V",  # DEBUG: no ref
-      "d_ele_num":'$\mathit{e_d}$',  # DEBUG: no ref
+      "valence_ele_num":"V",  # TODO: no ref
+      "d_ele_num":'$\mathit{e_d}$',  # TODO: no ref  #DEBUG: confirm style (Italian or not)
       "relative_atomic_mass":'$\mathregular{A_{r}}$',  # ref: CRC book 95th ed page 2-29
       "electron_affinity":'$\mathregular{E_{ea}}$',  # ref: CRC book 95th ed page 8-5
       "ionization_energy":'$\mathregular{E_{i}}$',  # ref: CRC book 95th ed page 2-4
@@ -37,8 +37,8 @@ plot:
 
       "bandgap_up":'$\mathregular{E_{g\uparrow}}$',  # ref: https://en.wikipedia.org/wiki/Band_gap
       "bandgap_down":'$\mathregular{E_{g\downarrow}}$',
-      "bandgap_total":'$\mathregular{E_{g}}$',  # DEBUG
-      "Bader_charge_metal":'$\mathit{e_{Bader}}$',  # ref: CRC book 95th ed page 1-1 for "elementary charge"  # DEBUG: bader as normal
+      "bandgap_total":'$\mathregular{E_{g}}$',
+      "Bader_charge_metal":'$\mathit{e_{Bader}}$',  # ref: CRC book 95th ed page 1-1 for "elementary charge"  # DEBUG: confirm style (Italian or not)
 
       "Period_num":"P",
       "Group_num":"G",
