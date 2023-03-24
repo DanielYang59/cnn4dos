@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import numpy as np
-import matplotlib.font_manager as fm
 
 
 def heatmap(x, y, **kwargs):
@@ -114,6 +113,7 @@ def heatmap(x, y, **kwargs):
     ax.set_ylim([-0.5, max([v for v in y_to_num.values()]) + 0.5])
     ax.set_facecolor('#F1F1F1')
 
+    plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]  # fix missing subscript
     ax.set_xlabel(kwargs.get('xlabel', ''))
     ax.set_ylabel(kwargs.get('ylabel', ''))
 
