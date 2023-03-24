@@ -1,3 +1,4 @@
+
 1. Refactor "shifting-experiments"
     a. add "all orbital shifting"
     b. optimize shifting algorithm
@@ -11,3 +12,14 @@
 
 4. Check preprocessing of data for occlusion and shifting experiments.
 
+
+5. Replace string manipulation of path with pathlib.
+
+
+6. HER volcano plot not working.
+
+
+7. Kendall correlation map: "eBader" not italian for "Bader"
+
+
+8. Testing area under "volcanoPlotter" is not working (import error)
