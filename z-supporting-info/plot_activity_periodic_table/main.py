@@ -23,6 +23,7 @@ def plot_activity_periodic_table():
     
     
     # Pass limiting potential to plotter
+    os.makedirs("figures", exist_ok=True)
     plot_periodic_table(
     limiting_potential_dict=limiting_potential,
     extended=False,  # show Lu/Lr elements
@@ -30,7 +31,7 @@ def plot_activity_periodic_table():
     cbar_height=390,  # colorbar height (should reposition to top right)
     alpha=0.80, 
     cbar_location=(0, 162),
-    # output_filename=os.path.join("figure", f"pt_{substrate}"),
+    # output_filename=os.path.join("figures", f"pt_{substrate}"),
     show=True, 
     )
 

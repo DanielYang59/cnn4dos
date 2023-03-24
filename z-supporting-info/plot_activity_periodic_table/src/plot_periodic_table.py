@@ -1,27 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+
 """
-I did not write this module, but took it from somewhere on the Internet. Sadly I cannot remember the original author.  --Haoyu Yang.
+This module was taken from: https://github.com/arosen93/ptable_trends, and only minor adjustment was made by myself.  --Haoyu Yang.
 """
 
 
-import colorcet
-from bokeh.models import (
-    ColumnDataSource,
-    LinearColorMapper,
-    ColorBar,
-    BasicTicker,
-)
+from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper 
 from bokeh.plotting import figure, output_file
 from bokeh.io import show as show_
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge
+import colorcet
 from matplotlib.colors import Normalize, to_hex
-from matplotlib.cm import (
-    turbo,
-    ScalarMappable,
-    coolwarm,
-    )
+from matplotlib.cm import coolwarm, ScalarMappable, turbo
 from pandas import options
 from typing import List
 import warnings
@@ -228,16 +221,28 @@ def plot_periodic_table(
     )
     p.text(x=x, y=y, text="atomic_number", text_font_size="11pt", **text_props)
 
+    
+    # Add colorbar
     color_bar = ColorBar(
         color_mapper=color_mapper,
-        ticker=BasicTicker(desired_num_ticks=10),
         border_line_color=None,
-        label_standoff=cbar_standoff,
         location=cbar_location,  # position of the colorbar
         orientation="vertical",
         scale_alpha=alpha,
+        
+        
+        # Label and tick settings
         major_label_text_font_size=f"{cbar_fontsize}pt",
+        label_standoff=cbar_standoff,
+        ticker=BasicTicker(desired_num_ticks=5),
+        
+        
+        # # Title settings 
+        # title="Limiting Potential (eV)", 
+        # title_standoff=12, 
+        # title_text_align="right",
     )
+    
 
     if cbar_height is not None:
         color_bar.height = cbar_height
@@ -245,10 +250,10 @@ def plot_periodic_table(
     p.add_layout(color_bar, "right")
     p.grid.grid_line_color = None
 
+    
+    # Show and output plot
     if output_filename:
         output_file(output_filename)
 
     if show:
         show_(p)
-
-    return p
