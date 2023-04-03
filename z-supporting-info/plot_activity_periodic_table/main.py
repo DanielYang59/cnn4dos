@@ -9,7 +9,7 @@ from src.plot_periodic_table import plot_periodic_table
 
 
 def plot_activity_periodic_table():
-     # Load config
+    # Load config
     with open("config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
     limiting_potential_file = cfg["path"]["limiting_potential_file"]
