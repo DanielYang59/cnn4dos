@@ -23,3 +23,7 @@
 
 
 8. Testing area under "volcanoPlotter" is not working (import error)
+
+
+9. Take fermi level into account in CNN.
+
