@@ -1,0 +1,4 @@
+ERROR: Directory '/g/data/dk92/apps/Modules/modulefiles' not found
+ERROR: Unable to locate a modulefile for 'NCI-data-analysis/2022.06'
+Loading vasp/5.4.4
+  Loading requirement: openmpi/4.1.2

@@ -1,0 +1,24 @@
+#!/bin/bash --login
+#SBATCH --job-name=doping
+#SBATCH --nodes=1
+#SBATCH --ntasks=48
+#SBATCH --mem=36G
+#SBATCH --time=06:00:00
+#SBATCH --partition=work
+#SBATCH --account=pawsey0817
+
+# Temporary solve for job hanging
+# https://support.pawsey.org.au/documentation/display/US/Known+Issues+on+Setonix#KnownIssuesonSetonix-JobsHanging
+# add output of the MPI setup, useful for debugging if required
+export MPICH_ENV_DISPLAY=1
+export MPICH_OFI_VERBOSE=1
+# and start up connections at the beginning. Will add some time to initialisation of code.
+export MPICH_OFI_STARTUP_CONNECT=1
+
+
+python3 ~/bin/MagMomSetter.py
+
+module load vasp/5.4.4
+
+srun vasp_std > vasplog
+

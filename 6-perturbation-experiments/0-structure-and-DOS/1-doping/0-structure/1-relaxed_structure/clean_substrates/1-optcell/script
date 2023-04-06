@@ -1,0 +1,32 @@
+#!/bin/bash
+#PBS -N dope-optcell
+#PBS -l ncpus=48
+#PBS -l mem=96GB
+#PBS -l jobfs=1GB
+#PBS -l walltime=5:59:00
+#PBS -q normal
+#PBS -P v88
+#PBS -l storage=gdata/iu57
+
+cd $PBS_O_WORKDIR
+
+python3 /home/586/hy4937/bin/MagMomSetter.py
+
+#Standard VASP
+#module load vasp/5.4.4
+#mpirun vasp_std > vasplog
+
+#Run other versions of VASP
+module load intel-compiler/2021.1.1
+module load intel-mkl/2021.1.1
+module load fftw3-mkl/2021.1.1
+module load openmpi/4.1.0
+mpirun /home/586/hy4937/bin/vasp_optcell > vasplog
+#mpirun vasp_fixbond >> vasplog
+
+#Remove unnecessary files
+#rm DOSCAR
+#rm EIGENVAL
+rm IBZKPT
+rm PCDAT
+rm XDATCAR
