@@ -6,12 +6,13 @@ Extract PDOS of ALL atoms from vasprun.xml.
 """
 
 
-spin = "up"
+working_dir = "."
+spin = "up"  # DEBUG
 
 
-import os
-import sys
 import numpy as np
+import os
+from pathlib import Path
 
 
 def get_total_atom(poscarfile):
@@ -124,47 +125,14 @@ def dos_extractor(folder, spin):
             np.save(os.path.join(folder, "dos_down.npy"), dos_down)
 
 
-def show_progress_bar(index, total, label):
-    n_bar = 50  # Progress bar width
-    progress = index / total
-    sys.stdout.write('\r')
-    sys.stdout.write(f"[{'=' * int(n_bar * progress):{n_bar}s}] {int(100 * progress)}%  {label}")
-    sys.stdout.flush()
-
-
-def get_folder_list(path):
-    folder_list = []  # a list of subfolders
-    for folder in os.listdir(path):
-        if os.path.isdir(f"{path}/{folder}") and not folder.startswith("."):
-            folder_list.append(folder)
-    folder_list.sort()  # sort subfolder list
-
-    return folder_list
-
-
 if __name__ == "__main__":
-    # Verbose
-    print(f"Extracting all atoms PDOS, spin {spin}.")
-    
-    # Get folder list
-    folder_list = get_folder_list(path=".") 
-    total_folder_num = len(folder_list)
+    # Check core files (POSCAR and vasprun.xml)
+    if os.path.exists(os.path.join(working_dir, "POSCAR")) and os.path.exists(os.path.join(working_dir, "vasprun.xml")):
+        # Get total number of atoms from POSCAR
+        atom_num = get_total_atom(os.path.join(working_dir, "POSCAR"))
 
-    # For each folder
-    for index, folder in enumerate(folder_list):
-        # decide if essential file exists (POSCAR and vasprun.xml)
-        if os.path.exists(os.path.join(folder, "POSCAR")) and os.path.exists(os.path.join(folder, "vasprun.xml")):
-            # Get total number of atoms from POSCAR
-            atom_num = get_total_atom(os.path.join(folder, "POSCAR"))
+        # Run DOS extractor
+        dos_extractor(working_dir, spin=spin)
 
-            # Show progress bar
-            show_progress_bar(index + 1, total_folder_num, f"Extracting {index + 1} out of {total_folder_num}")
-
-            # Run DOS extractor
-            dos_extractor(folder, spin=spin)
-
-        else:
-            print(f"POSCAR or vasprun.xml not found in \"{folder}\"")
-
-    # All jobs done
-    print("\nAll done.")
+    else:
+        print(f"POSCAR or vasprun.xml not found in \"{working_dir}\"")
