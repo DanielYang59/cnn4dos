@@ -4,6 +4,7 @@
 
 import numpy as np
 import os
+from pathlib import Path
 import re
 from scipy.interpolate import interp1d
 import subprocess
@@ -258,11 +259,11 @@ if __name__ == "__main__":
         )
     
     
-    # # Test DOS extraction
-    # analyzer.extract_dos(
-    #                      Path("../../../0-utils/extract_dos_from_vasprunxml.py").resolve(),
-    #                      Path("../../../0-utils/extract_single_atom_DOS.py").resolve()
-    #                      )
+    # Test DOS extraction
+    analyzer.extract_dos(
+                         Path("../../../0-utils/extract_dos_from_vasprunxml.py").resolve(),
+                         Path("../../../0-utils/extract_single_atom_DOS.py").resolve()
+                         )
     
     
     # Test DOS change calculation
