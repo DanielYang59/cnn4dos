@@ -1,18 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-project_dir = "data"
+
+dos_energy_range = (-14, 6, 4000)
+project_data_dir = "data"
+extract_dos_from_vasprun_script = "../../0-utils/extract_dos_from_vasprunxml.py"
+extract_single_atom_dos_script = "../../0-utils/extract_single_atom_DOS.py"
 
 
-
-import os
 from pathlib import Path
+from lib.list_projects import list_projects
+from lib.analyze_dos_perturb import Analyzer
 
 
 # Main
 if __name__ == "__main__":
-    # Read available projects from "data" dict
-    subfolders = [f.path for f in os.scandir(project_dir) if f.is_dir() and not f.startswith(".")]
-    print(subfolders)
+    # Let user choose project to work on
+    project = list_projects(Path(project_data_dir))
     
-
+    
+    # Work on selected project
+    atom_index = int(input("Extract DOS of which atom? (starts from 1)"))
+    analyzer = Analyzer(rootpath=Path(project_data_dir) / project,
+                        atom_index=atom_index,
+                        )
+    
+    
+    # Extract DOS of selected atom
+    analyzer.extract_dos(Path(extract_dos_from_vasprun_script).resolve(),
+                         Path(extract_single_atom_dos_script).resolve(),
+                         verbose=True,
+                         )
+    
+    
+    # Calculate DOS change
+    analyzer.calculate_dos_change(energy_range=dos_energy_range)
+    
