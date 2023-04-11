@@ -33,7 +33,7 @@ class Analyzer:
     
     
     def __calculate_dos_change(self, original_dos_array, original_energy_array, perturbed_dos_array, perturbed_energy_array):
-        """Calculate DOS change.
+        """Calculate DOS change through interpolation.
 
         Args:
             original_dos_array (np.ndarray): _description_
@@ -64,6 +64,7 @@ class Analyzer:
             assert X.ndim == 1 and Ys.ndim == 2
             assert target_X.ndim == 1
             assert X.shape[0] == Ys.shape[0]
+            assert (target_X[0] >= X[0]) and (target_X[-1] <= X[-1])
             
 
             # Interpolate each DOS orbital channel
@@ -80,14 +81,14 @@ class Analyzer:
         assert original_dos_array.shape[1] == perturbed_dos_array.shape[1]
         
         
-        # Create shared X array
+        # Create shared energy (X) array
         x_min = max(original_energy_array[0], perturbed_energy_array[0])
         x_max = min(original_energy_array[-1], perturbed_energy_array[-1])
         step_length = (self.energy_range[1] - self.energy_range[0]) / self.energy_range[2]
-        shared_X = np.arange(x_min, x_max + step_length, step_length)
+        shared_X = np.arange(x_min, x_max, step_length)  # NOTE: did not add step length
         
         
-        # Interpolate Y arrays
+        # Interpolate DOS (Y) arrays
         interpolated_original_array = interpolate_DOS(X=original_energy_array, Ys=original_dos_array, target_X=shared_X)
         interpolated_perturbed_array = interpolate_DOS(X=perturbed_energy_array, Ys=perturbed_dos_array, target_X=shared_X)
         
@@ -164,8 +165,26 @@ class Analyzer:
         
         
         assert dos_array.shape[0] == energy_array.shape[0]
-        return dos_array, energy_array        
+        return dos_array, energy_array
     
+    
+    def __write_dos_change(self, path, energy_array, dos_change_array):
+        """Write DOS change array and energy array to file.
+
+        Args:
+            path (Path): target directory
+            energy_array (np.ndarray): energy array for DOS change
+            dos_change_array (np.ndarray): DOS change array
+            
+        """
+        # Create target directory
+        os.makedirs(path, exist_ok=True)
+
+
+        # Write energy array
+        np.save(path / "energy.npy", energy_array)
+        np.save(path / "dos_change.npy", dos_change_array)
+
     
     def calculate_dos_change(self, energy_range):
         # Check energy_range (roughly)
@@ -191,8 +210,12 @@ class Analyzer:
                     )
                 
                 
-                import sys  #DEBUG
-                sys.exit()
+                # Write results to local file
+                source_path = list(folder.resolve().parts)
+                source_path[-4] = "results"  # NOTE: might use other names
+                output_path = Path(*source_path)
+                
+                self.__write_dos_change(path=output_path, energy_array=dos_change[0], dos_change_array=dos_change[1])
                 
 
     def extract_dos(self, dos_script, single_dos_script, verbose=True):
