@@ -33,7 +33,7 @@ class Analyzer:
         self.atom_index = atom_index
 
 
-    def __calculate_dos_change(self, original_dos_array, original_energy_array, perturbed_dos_array, perturbed_energy_array, save_interpolated=False, save_path=None):
+    def __calculate_dos_change(self, original_dos_array, original_energy_array, perturbed_dos_array, perturbed_energy_array, save_interpolated, save_path):
         """Calculate DOS change through interpolation.
 
         Args:
@@ -102,7 +102,7 @@ class Analyzer:
             os.makedirs(save_path, exist_ok=True)
 
             # Save shared energy array
-            np.save(save_path / "shared_energy.npy", shared_X)
+            np.save(save_path / "energy_for_interpolated.npy", shared_X)
             np.save(save_path / "interpolated_original_DOS.npy", interpolated_original_array)
             np.save(save_path / "interpolated_perturbed_DOS.npy", interpolated_perturbed_array)
 
@@ -196,16 +196,18 @@ class Analyzer:
 
 
         # Write energy array
-        np.save(path / "energy.npy", energy_array)
+        np.save(path / "energy_for_dos_change.npy", energy_array)
         np.save(path / "dos_change.npy", dos_change_array)
 
 
-    def calculate_dos_change(self, energy_range, result_dir_name="results"):
+    def calculate_dos_change(self, energy_range, result_dir_name="results", save_interpolated=False, save_path=None):
         """Calculate DOS energy.
 
         Args:
             energy_range (tuple): energy range in (start, end, step)
             result_dir_name (str, optional): name of output result dir. Defaults to "results".
+            save_interpolated (bool): save interpolated DOS/energy arrays
+            save_path (Path):
 
         """
         # Check energy_range (roughly)
@@ -224,18 +226,19 @@ class Analyzer:
                 perturbed_dos_array, perturbed_energy_array = self.__get_dos(folder)
 
 
-                # Calculate DOS change
-                dos_change = self.__calculate_dos_change(
-                    original_dos_array, original_energy_array,
-                    perturbed_dos_array, perturbed_energy_array,
-                    )
-
-
-                # Write results to local file
+                # Compile output directory name
                 source_path = list(folder.resolve().parts)
                 source_path.pop(-2)
                 source_path[-3] = result_dir_name  # NOTE: might use other names
                 output_path = Path(*source_path)
+
+
+                # Calculate DOS change
+                dos_change = self.__calculate_dos_change(
+                    original_dos_array, original_energy_array,
+                    perturbed_dos_array, perturbed_energy_array,
+                    save_interpolated, output_path
+                    )
 
 
                 self.__write_dos_change(path=output_path, energy_array=dos_change[0], dos_change_array=dos_change[1])
@@ -289,4 +292,6 @@ if __name__ == "__main__":
 
 
     # Test DOS change calculation
-    analyzer.calculate_dos_change(energy_range=(-14, 6, 4000))
+    analyzer.calculate_dos_change(energy_range=(-14, 6, 4000),
+                                  save_interpolated=True,
+                                  )
