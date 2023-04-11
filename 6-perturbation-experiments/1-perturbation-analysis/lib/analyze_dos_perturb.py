@@ -33,7 +33,7 @@ class Analyzer:
         self.atom_index = atom_index
 
 
-    def __calculate_dos_change(self, original_dos_array, original_energy_array, perturbed_dos_array, perturbed_energy_array):
+    def __calculate_dos_change(self, original_dos_array, original_energy_array, perturbed_dos_array, perturbed_energy_array, save_interpolated=False, save_path=None):
         """Calculate DOS change through interpolation.
 
         Args:
@@ -41,6 +41,8 @@ class Analyzer:
             original_energy_array (np.ndarray): _description_
             perturbed_dos_array (np.ndarray): _description_
             perturbed_energy_array (np.ndarray): _description_
+            save_interpolated (bool): save interpolated DOS/energy arrays
+            save_path (Path):
 
         Returns:
             shared_X (np.ndarray): share energy array
@@ -92,6 +94,17 @@ class Analyzer:
         # Interpolate DOS (Y) arrays
         interpolated_original_array = interpolate_DOS(X=original_energy_array, Ys=original_dos_array, target_X=shared_X)
         interpolated_perturbed_array = interpolate_DOS(X=perturbed_energy_array, Ys=perturbed_dos_array, target_X=shared_X)
+
+
+        # Save interpolated DOS arrays
+        if save_interpolated:
+            # Create saving directory
+            os.makedirs(save_path, exist_ok=True)
+
+            # Save shared energy array
+            np.save(save_path / "shared_energy.npy", shared_X)
+            np.save(save_path / "interpolated_original_DOS.npy", interpolated_original_array)
+            np.save(save_path / "interpolated_perturbed_DOS.npy", interpolated_perturbed_array)
 
 
         # Calculate DOS difference
