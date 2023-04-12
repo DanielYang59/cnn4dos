@@ -13,7 +13,7 @@ extract_single_atom_dos_script = "../../0-utils/extract_single_atom_DOS.py"
 from pathlib import Path
 from lib.analyze_dos_perturb import Analyzer
 from lib.list_projects import list_projects
-from lib.plot_dos_change import plot_dos_change
+from lib.plot_dos_change import dosChangePlotter
 
 
 # Main
@@ -43,6 +43,7 @@ if __name__ == "__main__":
 
 
     # Plot DOS change at selected energy range
-    plot_dos_change(project_dir=Path(project_results_dir) / project,
-                    x_range=plot_energy_range
-                    )
+    plotter = dosChangePlotter(
+        project_dir=Path(project_results_dir) / project,
+        energy_range=plot_energy_range
+        )
