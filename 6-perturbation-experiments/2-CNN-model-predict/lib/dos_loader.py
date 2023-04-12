@@ -6,22 +6,63 @@ import numpy as np
 
 
 class dosLoader:
-    def __init__(self, dos_path, dos_filename, append_adsorbate=True) -> None:
-        # Load DOS
+    def __init__(self, dos_path, dos_filename, append_adsorbate=False, adsorbate_dosfile=None, adsorbate_numAtoms=None) -> None:
+        # Load DOS in shape (NEDOS, numChannels)
         assert dos_path.is_dir()
         self.__load_dos(dos_path, dos_filename)
 
 
+        # Append adsorbate DOS if required
+        if not append_adsorbate:
+
+            return self.loaded_dos
+
+        else:
+            return self.__append_adsorbate_dos(adsorbate_dosfile, adsorbate_numAtoms)
+
+
+    def __append_adsorbate_dos(self, adsorbate_dosfile, adsorbate_numAtoms):
+        """Append adsorbate DOS array.
+
+        Args:
+            adsorbate_dosfile (Path): adsorbate DOS numpy file.
+            adsorbate_numAtoms (int): max number of atoms in CNN model.
+
+        Raises:
+            ValueError: if adsorbate_numAtoms greater than current.
+
+        Returns:
+            dict: DOS dict with adsorbate DOS appended.
+
+        """
+        # Load adsorbate DOS file in shape (numAtoms, NEDOS, numChannels)
+        adsorbate_dos = np.load(adsorbate_dosfile)
+
+
+        # Zero-pad adsorbate DOS to numAtoms
+        assert isinstance(adsorbate_numAtoms, int) and adsorbate_numAtoms >= 1
+        if adsorbate_dos.shape[0] < adsorbate_numAtoms:
+            adsorbate_dos = np.pad(adsorbate_dos, ((0, adsorbate_numAtoms - adsorbate_dos.shape[9]), (0, 0), (0, 0)))
+
+
+        elif adsorbate_dos.shape[0] > adsorbate_numAtoms:
+            raise ValueError(f"Current adsorbate DOS numAtoms {adsorbate_dos.shape[0]} greater than desired {adsorbate_numAtoms}.")
+
+
+        # Transform adsorbate shape from (numAtoms, NEDOS, numChannels) to (NEDOS, numChannels, numAtoms)
+        adsorbate_dos = np.transpose(adsorbate_dos, (1, 2, 0))
+
+
         # Append adsorbate DOS
-        if append_adsorbate:
-            pass
+        dos_with_adsorbate_dos = {}
+        for name, dos_array in self.loaded_dos.items():
+            # Expand DOS from (NEDOS, numChannels) to (NEDOS, numChannels, 1)
+            dos_array = np.expand_dims(dos_array, axis=2)
 
+            # Append adsorbate DOS array
+            dos_with_adsorbate_dos[name] = np.concatenate((dos_array, adsorbate_dos), axis=2)
 
-        # return
-
-
-    def __append_adsorbate_dos(self):
-        pass
+        return dos_with_adsorbate_dos
 
 
     def __load_dos(self, dos_path, dos_filename):
@@ -49,7 +90,7 @@ class dosLoader:
         for folder in folders:
             loaded_dos[folder.parts[-1]] = np.load(folder / dos_filename)
 
-        return loaded_dos
+        self.loaded_dos = loaded_dos
 
 
 # Test area
@@ -58,4 +99,7 @@ if __name__ == "__main__":
     loader = dosLoader(
         dos_path=Path("../../1-perturbation-analysis") / "data" / "1-doping" / "1-perturbed",
         dos_filename="dos_up_71.npy",
+        append_adsorbate=True,
+        adsorbate_dosfile=Path("../../../0-dataset/feature_DOS/adsorbate-DOS/1-CO2/dos_up_adsorbate.npy"),
+        adsorbate_numAtoms=5,
         )
