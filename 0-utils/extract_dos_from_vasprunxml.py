@@ -23,11 +23,11 @@ def get_total_atom(poscarfile):
 
     Returns:
         int: total number of atoms
-        
+
     """
     # Check filename
     assert poscarfile.split(os.sep)[-1] in {"POSCAR", "CONTCAR"}
-    
+
     # Import POSCAR or CONTCAR file
     with open(poscarfile) as f:
         poscar_data = f.readlines()
@@ -44,15 +44,15 @@ def dos_extractor(folder, spin):
     Args:
         folder (str): name of folder to work on.
         spin (str): extract spin "up", "down" or "both".
-        
+
     """
-    
+
     def read_ispin_from_vaspxml(vasprunxml_root):
         """Read ISPIN tag value from vasprun.xml.
 
         Returns:
             str: ISPIN tag in value either "1" or "2"
-            
+
         """
         # Get ISPIN value
         index = 0
@@ -71,7 +71,7 @@ def dos_extractor(folder, spin):
     # Check args
     assert spin in {"up", "down", "both"}
     assert os.path.exists(os.path.join(folder, "vasprun.xml"))
-    
+
     # Get vasprun.xml filename
     file = os.path.join(folder, "vasprun.xml")
 

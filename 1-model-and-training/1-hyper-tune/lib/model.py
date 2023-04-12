@@ -12,17 +12,17 @@ def cnn_for_dos(input_shape, drop_out_rate):
 
         Args:
             branch_input: input of each branch
-        
+
         Notes:
             expecting (batch_size, 4000, numOrbitals, numChannels) input
-            
+
         """
 
         # Reshape (None, 4000, 6) to (None, 4000, 1, 6)
         branch_input = tf.keras.layers.Reshape(target_shape=(4000, 1, 6))(branch_input)
-        
+
         # 1st Conv layer
-        conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(branch_input) 
+        conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(branch_input)
         conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(conv_1)
         conv_1 = tf.keras.layers.Conv2D(16, (8, 1), (2, 1), activation="relu", padding="same")(conv_1)
         conv_1 = tf.keras.layers.Dropout(drop_out_rate)(conv_1)
@@ -49,12 +49,12 @@ def cnn_for_dos(input_shape, drop_out_rate):
         branch_output = tf.keras.layers.Dense(64, activation="relu")(conv_flat)
         branch_output = tf.keras.layers.Dense(64, activation="relu")(branch_output)
         branch_output = tf.keras.layers.Dense(1)(branch_output)
-        
+
         return branch_output
 
     # Master input layer
     master_input = tf.keras.Input(shape=input_shape, name="master_input")
-    
+
     # Assign input and get output for each branch
     # branch_shape = input_shape[0]
     branch_output_0 = branch((master_input[:, :, 0]), drop_out_rate=drop_out_rate)
@@ -73,9 +73,9 @@ def cnn_for_dos(input_shape, drop_out_rate):
 
 
     # Master output layer
-    master_flat = tf.keras.layers.Flatten()(concat_output) 
+    master_flat = tf.keras.layers.Flatten()(concat_output)
     master_output = tf.keras.layers.Dense(32)(master_flat)
-    master_output = tf.keras.layers.Dense(16)(master_output) 
+    master_output = tf.keras.layers.Dense(16)(master_output)
     master_output = tf.keras.layers.Dense(1)(master_output)
 
     return tf.keras.Model(inputs=master_input,

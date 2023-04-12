@@ -18,51 +18,51 @@ if __name__ == "__main__":
     result_dict = {}
     for e in elements:
         result_dict[e] = np.load(os.path.join(f"orbital_{orbital_index}", f"{e}.npy"))
-    
-    
+
+
     # Get max and min for all subplots (to share the same colorbar)
     vmax = max(np.amax(arr) for arr in result_dict.values())
     vmin = min(np.amin(arr) for arr in result_dict.values())
     print(f"Min shifting is {vmin}, max shifting is {vmax}.")
-    
+
     if vmax > 0 and vmin < 0:
         vmax = max(abs(vmax), abs(vmin))  # symmetry colorbar
         vmin = -vmax
     else:
         raise ValueError("Please manually check value range.")
-    
-    
+
+
     # Generate subplot for each element
-    fig, axs = plt.subplots(len(result_dict), sharex=True, 
+    fig, axs = plt.subplots(len(result_dict), sharex=True,
                             # figsize=(15, len(result_dict) * 5),
                             )
-    
+
     for index, ax in enumerate(axs.flat):
         # Fetch data
         key = list(result_dict.keys())[index]
         y = np.expand_dims(np.array(result_dict[key]), axis=0)
-        
+
         # Create 1D heatmap
         # ref: https://stackoverflow.com/questions/45841786/creating-a-1d-heat-map-from-a-line-graph
-        im = ax.imshow(y, extent=[shift_energy_array[0], shift_energy_array[-1], 0, 1.5], 
+        im = ax.imshow(y, extent=[shift_energy_array[0], shift_energy_array[-1], 0, 1.5],
                        cmap="viridis",
                        vmin=vmin, vmax=vmax,
                       )
-        
+
         ax.set_aspect(0.1)  # x/y ratio (decrease to make subplot wider)
-        
+
         # Set x tick thickness
         ax.xaxis.set_tick_params(width=2)
-        
+
         # Y axis settings
         ax.set_yticks([])  # Hide y labels
         ax.set_ylabel(key.split("-")[-1], rotation=0, fontsize=16, loc="bottom", labelpad=30) # Set y title
-        
+
         # Hide top/left/right frames
         ax.spines.top.set_visible(False)
-        ax.spines.left.set_visible(False) 
+        ax.spines.left.set_visible(False)
         ax.spines.right.set_visible(False)
-    
+
     # Add colorbar
     # Ref: https://stackoverflow.com/questions/13784201/how-to-have-one-colorbar-for-all-subplots
     cb = fig.colorbar(im, ax=axs.ravel().tolist())
@@ -75,8 +75,8 @@ if __name__ == "__main__":
     # Set x ticks and title
     plt.xticks([-1, -0.5, 0, 0.5, 1], fontsize=12)
     plt.xlabel("DOS Shift (eV)", fontsize=16)  #DEBUG: confirm x label
-    
-    
+
+
     # plt.tight_layout()
     plt.savefig(f"shift_experiment_orbital_{orbital_index}.png", dpi=300)
     plt.show()

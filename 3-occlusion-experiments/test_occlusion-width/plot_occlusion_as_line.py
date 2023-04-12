@@ -21,7 +21,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import warnings
 
-    
+
 def plot_line(arr, energy_array, savedir="."):
     """Plot occlusion array as line.
 
@@ -29,7 +29,7 @@ def plot_line(arr, energy_array, savedir="."):
         arr (np.ndarray): occlusion array to be plotted, expect shape in (NEDOS, orbital)
         energy_array (np.ndarray): x coordinate array (energy)
         savedir (str): directory where generated figure will be stored
-        
+
     """
     # Check args
     assert os.path.isdir(savedir)
@@ -37,24 +37,24 @@ def plot_line(arr, energy_array, savedir="."):
     assert arr.shape[1] == 9
     assert arr.shape[0] == energy_array.shape[0]
     assert len(orbital_names) == 9
-    
+
     # Set frame thickness
     mpl.rcParams["axes.linewidth"] = 2
-    
+
     # Generate subplot for each orbital
     fig, axs = plt.subplots(arr.shape[1], sharex=True, figsize=(10, 15))
-    
+
     # Create line plot for each orbital
     for index, orbital_arr in enumerate(arr.transpose()):
         ax = axs[index]
         # Create line plot
         ax.plot(energy_array, orbital_arr, color="black")
-        
+
         # Adjust x range and ticks
         ax.set_xlim(-10, 5)
         ax.set_xticks(np.arange(-10, 5 + 2.5, 2.5))
         ax.tick_params(axis="both", which="major", labelsize=16, width=2.5, length=5)
-        
+
         # Add orbital name to the right
         ax.yaxis.set_label_position("right")
         ax.set_ylabel(orbital_names[index], rotation=0, fontsize=24, loc="center", labelpad=45)
@@ -65,24 +65,24 @@ def plot_line(arr, energy_array, savedir="."):
     p_max = np.amax(arr[:, 1:4])
     for i in range(1, 4):
         axs[i].set_ylim(p_min * 1.2, p_max * 1.2)
-    
+
     ## d
     d_min = np.amin(arr[:, 4:9])
     d_max = np.amax(arr[:, 4:9])
     for i in range(4, 9):
         axs[i].set_ylim(d_min * 1.2, d_max * 1.2)
-    
-    
+
+
     # Set x/y axis labels
     mpl.rcParams["mathtext.default"] = "regular"  # non Italic as default
     fig.supxlabel("E-E$_f$ (eV)", fontsize=24)
     fig.supylabel("$ΔE_{ads}\ (eV)$", fontsize=24)
-    
+
     # Save figure to file
     plt.tight_layout()
     plt.savefig(os.path.join(savedir, "occlusion_line.png"), dpi=150)
     print(f"Occlusion result plotted as line in {os.getcwd()}.")
-    
+
 
 def get_fermi(fermi_source_dir):
     """Get fermi level based on file name from csv file.
@@ -92,23 +92,23 @@ def get_fermi(fermi_source_dir):
 
     Returns:
         float: fermi level
-        
+
     """
     # Check args
     assert os.path.isdir(fermi_source_dir)
-    
+
     # Compile fermi source file name
     current_dir_pieces = os.getcwd().split(os.sep)
     substrate_name = current_dir_pieces[-3]
     adsorbate_name = current_dir_pieces[-2].split("_")[0]
     state_name = current_dir_pieces[-2].split("_")[1]
     metal_name = current_dir_pieces[-1]
-    
+
     # Import fermi source csv file
     fermi_source_file = os.path.join(fermi_source_dir, f"{substrate_name}-{state_name}.csv")
     assert os.path.exists(fermi_source_file)
     fermi_df = pd.read_csv(fermi_source_file, index_col=0)
-    
+
     # Get fermi level from dataframe
     return float(fermi_df.loc[metal_name][adsorbate_name])
 
@@ -119,19 +119,19 @@ if __name__ == "__main__":
     # assert os.path.isdir(fermi_source_dir)
     e_fermi = -2.1087736 # get_fermi(fermi_source_dir) #DEBUG
     warnings.warn("fermi level is manually input.")
-    
-    
+
+
     # Check args
     assert os.path.exists(occlusion_dos_name)
     assert isinstance(energy_start, (float, int))
     assert isinstance(energy_end, (float, int))
     assert isinstance(energy_step, int)
     assert isinstance(e_fermi, (int, float))
-    
-    
+
+
     # Import occlusion array
     occlusion_array = np.load(occlusion_dos_name)
-    
+
     # Check occlusion array
     if occlusion_array.shape[1] > 16:
         print(f"Caution! Expected occlusion in shape (NEDOS, orbital), found shape ({occlusion_array.shape[0]}, {occlusion_array.shape[1]})")
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     energy_array = np.linspace(energy_start, energy_end, energy_step)
     ## Subtract fermi level
     energy_array -= e_fermi
-    
-    
+
+
     # Plot occlusion array as line
     plot_line(occlusion_array, energy_array)
