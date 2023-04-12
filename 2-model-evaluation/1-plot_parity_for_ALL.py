@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+from pathlib import Path
 import seaborn as sns
 import statsmodels.api as sm
 from sklearn.metrics import r2_score
@@ -26,8 +27,8 @@ if __name__ == "__main__":
     with open("config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
     ## paths
-    feature_dir = cfg["path"]["feature_dir"]
-    label_dir = cfg["path"]["label_dir"]
+    feature_dir = Path(cfg["path"]["feature_dir"])
+    label_dir = Path(cfg["path"]["label_dir"])
     ## species
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
@@ -42,7 +43,7 @@ if __name__ == "__main__":
 
 
     # Import model
-    model = tf.keras.models.load_model(os.path.join(model_dir, "model"))
+    model = tf.keras.models.load_model(Path(model_dir) / "model")
 
     # Load dataset
     dataFetcher = Dataset()
