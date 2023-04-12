@@ -1,10 +1,12 @@
 ##### Config File for Volcano Plot #####
 
 path:
-  perturbation_analysis_dir: "../1-perturbation-analysis"
-  dos_filename: "dos_up_INDEX.npy"
   adsorbate_dosfile: "../../0-dataset/feature_DOS/adsorbate-DOS/3-CO/dos_up_adsorbate.npy"
+  cnn_model_dir: "../../1-model-and-training/2-best-model/model"
+  dos_filename: "dos_up_INDEX.npy"
   label_dir: "data"
+  perturbation_analysis_dir: "../1-perturbation-analysis"
+
 
 species:
   adsorbate_maxAtoms: 5

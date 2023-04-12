@@ -109,7 +109,7 @@ class dosLoader:
         # Parse labels
         labels = dict(zip(label_file["project_name"], label_file["adsorption_energy"]))
 
-        return {float(k): v for k, v in labels.items()}
+        return {str(k): float(v) for k, v in labels.items()}
 
 
 # Test area
