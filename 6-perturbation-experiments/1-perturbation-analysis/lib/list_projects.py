@@ -9,6 +9,7 @@ import os
 def list_projects(working_dir):
     # Read available projects from "data" dict
     subfolders = [f for f in os.listdir(working_dir) if os.path.isdir(os.path.join(working_dir, f)) and not f.startswith(".")]
+
     if subfolders:
         questions = [
                 inquirer.List("project",
@@ -17,7 +18,7 @@ def list_projects(working_dir):
                 carousel=True),
                 ]
         answers = inquirer.prompt(questions)
-        
+
         return answers["project"]
 
     else:
