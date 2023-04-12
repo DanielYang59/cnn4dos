@@ -3,6 +3,7 @@
 
 
 import numpy as np
+import pandas as pd
 
 
 class dosLoader:
@@ -89,18 +90,45 @@ class dosLoader:
         self.loaded_dos = loaded_dos
 
 
-    def load_label(self):
-        pass
+    def load_label(self, label_csvfile, eads_col_name="adsorption_energy"):
+        """Load labels from csv file.
+
+        Args:
+            label_csvfile (Path): label csv file.
+            eads_col_name (str, optional): name of adsorption energy column. Defaults to "adsorption_energy".
+
+        Returns:
+            dict: label dict
+
+        """
+        # Import label csv file
+        assert label_csvfile.exists()
+        label_file = pd.read_csv(label_csvfile)
+
+
+        # Parse labels
+        labels = dict(zip(label_file["project_name"], label_file["adsorption_energy"]))
+
+        return {float(k): v for k, v in labels.items()}
 
 
 # Test area
 if __name__ == "__main__":
+    # Manually set project name
+    project = "1-doping"
+
+
+    # Test loading DOS and append adsorbate DOS
     from pathlib import Path
     loader = dosLoader(
-        dos_path=Path("../../1-perturbation-analysis") / "data" / "1-doping" / "1-perturbed",
+        dos_path=Path("../../1-perturbation-analysis") / "data" / project / "1-perturbed",
         dos_filename="dos_up_71.npy",
         append_adsorbate=True,
         adsorbate_dosfile=Path("../../../0-dataset/feature_DOS/adsorbate-DOS/1-CO2/dos_up_adsorbate.npy"),
         adsorbate_numAtoms=5,
         )
-    print(loader.loaded_dos)
+
+
+    # Test loading labels
+    labels = loader.load_label(label_csvfile=Path(f"../data/{project}.csv"))
+    print(labels)
