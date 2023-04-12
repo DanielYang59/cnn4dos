@@ -95,6 +95,7 @@ class dosChangePlotter:
         # Save plot
         plt.tight_layout()
         plt.savefig(path / "dos_change.png", dpi=100)
+        plt.close()
 
 
 # Test area
