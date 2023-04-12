@@ -1,0 +1,11 @@
+##### Config File for Volcano Plot #####
+
+path:
+  project_data_dir: "data"
+  project_results_dir: "results"
+  extract_dos_from_vasprun_script: "../../0-utils/extract_dos_from_vasprunxml.py"
+  extract_single_atom_dos_script: "../../0-utils/extract_single_atom_DOS.py"
+
+ranges:
+  dos_energy_range: [-14, 6, 4000]
+  plot_energy_range: [-5, 5]

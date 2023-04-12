@@ -204,14 +204,14 @@ class Analyzer:
         """Calculate DOS energy.
 
         Args:
-            energy_range (tuple): energy range in (start, end, step)
+            energy_range (list): energy range in (start, end, step)
             result_dir_name (str, optional): name of output result dir. Defaults to "results".
             save_interpolated (bool): save interpolated DOS/energy arrays
             save_path (Path):
 
         """
         # Check energy_range (roughly)
-        assert len(energy_range) == 3 and isinstance(energy_range, tuple)
+        assert len(energy_range) == 3
         self.energy_range = energy_range
 
 

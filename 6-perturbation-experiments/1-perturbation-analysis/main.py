@@ -2,15 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-dos_energy_range = (-14, 6, 4000)
-plot_energy_range = (-5, 5)
-project_data_dir = "data"
-project_results_dir = "results"
-extract_dos_from_vasprun_script = "../../0-utils/extract_dos_from_vasprunxml.py"
-extract_single_atom_dos_script = "../../0-utils/extract_single_atom_DOS.py"
-
-
 from pathlib import Path
+import yaml
 from lib.analyze_dos_perturb import Analyzer
 from lib.list_projects import list_projects
 from lib.plot_dos_change import dosChangePlotter
@@ -18,6 +11,18 @@ from lib.plot_dos_change import dosChangePlotter
 
 # Main
 if __name__ == "__main__":
+    # Load configs
+    with open("config.yaml") as ymlfile:
+        cfg = yaml.safe_load(ymlfile)
+    project_data_dir = cfg["path"]["project_data_dir"]
+    project_results_dir = cfg["path"]["project_results_dir"]
+    extract_dos_from_vasprun_script = cfg["path"]["extract_dos_from_vasprun_script"]
+    extract_single_atom_dos_script = cfg["path"]["extract_single_atom_dos_script"]
+
+    dos_energy_range = cfg["ranges"]["dos_energy_range"]
+    plot_energy_range = cfg["ranges"]["plot_energy_range"]
+
+
     # Let user choose project to work on
     project = list_projects(Path(project_data_dir))
 
