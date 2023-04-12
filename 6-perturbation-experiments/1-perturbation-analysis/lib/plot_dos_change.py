@@ -8,7 +8,16 @@ import warnings
 
 
 class dosChangePlotter:
-    def __init__(self, project_dir, x_range, energy_file="energy.npy", dos_change_file="dos_change.npy"):
+    def __init__(self, project_dir, energy_range, energy_file="energy_for_dos_change.npy", dos_change_file="dos_change.npy"):
+        """Plot DOS change from interpolated DOS arrays.
+
+        Args:
+            project_dir (Path): directory to scan
+            energy_range (tuple): energy (X) range for final DOS change plot.
+            energy_file (str, optional): name of energy (X) numpy file. Defaults to "energy_for_dos_change.npy".
+            dos_change_file (str, optional): name of DOS change numpy file. Defaults to "dos_change.npy".
+
+        """
         # Check project directory
         assert project_dir.exists()
         self.project_dir = project_dir
@@ -16,6 +25,10 @@ class dosChangePlotter:
         # Update energy and DOS change file names
         self.energy_file = energy_file
         self.dos_change_file = dos_change_file
+
+        # Check energy (X) range
+        assert len(energy_range) == 2 and (energy_range[0] < energy_range[1]) and isinstance(energy_range[0], (float, int)) and isinstance(energy_range[1], (float, int))
+        self.energy_range = energy_range
 
 
         # Get all legal folders
@@ -48,6 +61,12 @@ class dosChangePlotter:
 
 
     def __plot_dos_change(self, path):
+        """Plot DOS change.
+
+        Args:
+            path (Path): working directory.
+
+        """
         # Check path
         assert path.exists()
 
@@ -58,16 +77,24 @@ class dosChangePlotter:
 
 
         # Generate for each DOS channel
-        fig, axes = plt.subplots(nrows=dos_change_array.shape[1])
+        fig, axes = plt.subplots(nrows=dos_change_array.shape[1], figsize=(8, 10), sharex=True)
 
         for index, ax in enumerate(axes):
-            ax.plot(energy_array, dos_change_array[:, ], color="black")
+            ax.plot(energy_array, dos_change_array[:, index], color="black")
 
 
-        plt.show()
+        # Set x range
+        plt.xlim(self.energy_range)
 
-        import sys
-        sys.exit()
+
+        # Add x/y titles
+        fig.supxlabel(r"$E - E_f$ (eV)", fontsize=20)
+        fig.supylabel("$\Delta$DOS", fontsize=20)
+
+
+        # Save plot
+        plt.tight_layout()
+        plt.savefig(path / "dos_change.png", dpi=100)
 
 
 # Test area
@@ -75,5 +102,5 @@ if __name__ == "__main__":
     from pathlib import Path
     plotter = dosChangePlotter(
         project_dir=Path("../results/1-doping"),
-        x_range=(-5, 5)
+        energy_range=(-7.5, 5)
         )
