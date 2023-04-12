@@ -13,12 +13,8 @@ class dosLoader:
 
 
         # Append adsorbate DOS if required
-        if not append_adsorbate:
-
-            return self.loaded_dos
-
-        else:
-            return self.__append_adsorbate_dos(adsorbate_dosfile, adsorbate_numAtoms)
+        if append_adsorbate:
+            self.loaded_dos = self.__append_adsorbate_dos(adsorbate_dosfile, adsorbate_numAtoms)
 
 
     def __append_adsorbate_dos(self, adsorbate_dosfile, adsorbate_numAtoms):
@@ -93,6 +89,10 @@ class dosLoader:
         self.loaded_dos = loaded_dos
 
 
+    def load_label(self):
+        pass
+
+
 # Test area
 if __name__ == "__main__":
     from pathlib import Path
@@ -103,3 +103,4 @@ if __name__ == "__main__":
         adsorbate_dosfile=Path("../../../0-dataset/feature_DOS/adsorbate-DOS/1-CO2/dos_up_adsorbate.npy"),
         adsorbate_numAtoms=5,
         )
+    print(loader.loaded_dos)
