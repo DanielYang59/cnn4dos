@@ -10,3 +10,7 @@ path:
 
 species:
   adsorbate_maxAtoms: 5
+
+
+cnn:
+  show_true_prediction_details: True

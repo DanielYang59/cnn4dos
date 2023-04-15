@@ -26,6 +26,8 @@ if __name__ == "__main__":
 
     adsorbate_maxAtoms = cfg["species"]["adsorbate_maxAtoms"]
 
+    show_true_prediction_details = cfg["cnn"]["show_true_prediction_details"]
+
 
     # User choose project
     project = list_projects(perturbation_analysis_dir / "data")
@@ -66,3 +68,10 @@ if __name__ == "__main__":
         y_true=list(labels.values()),
         y_pred=predictions)
     print(f"Prediction MAE is {mae:.4f} eV.")
+
+
+    # Show True/Prediction values if required
+    if show_true_prediction_details:
+        print("Project   True        Prediction    Error(eV)")
+        for i in range(len(predictions)):
+            print(f"{list(labels.keys())[i]:<8}  {list(labels.values())[i]:<10.4f}  {predictions[i]:<12.4f}  {(list(labels.values())[i] - predictions[i]):.4f}")
