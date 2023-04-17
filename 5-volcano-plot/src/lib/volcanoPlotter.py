@@ -162,7 +162,7 @@ class volcanoPlotter:
             plt (_type_): _description_
 
         Note:
-            DEBUG: temporary manual method, need improvement
+            DEBUG: temporary manual-method, need improvement
 
         """
         warnings.warn("RDS separator manually created.")
@@ -170,7 +170,7 @@ class volcanoPlotter:
         # Add separator lines
         line_width = 3
         line_color = "#8F00FF"
-        line_style = (0, (1, 1))
+        line_style = (0, (1, 1.5))  # (offset, (on_off_seq)) (ref: https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html)
 
         plt.plot([-5.00, -3.40, -1.23, -0.96, -2.08], [-5.23, -4.92, -2.43, -1.43, 0], linewidth=line_width, color=line_color, linestyle=line_style, dash_capstyle="round")
         plt.plot([-3.40, -3.10], [-4.92, -6.50], linewidth=line_width, color=line_color, linestyle=line_style, dash_capstyle="round")
