@@ -444,8 +444,8 @@ class volcanoPlotter:
 
 
         # Add x/y axis labels
-        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
-        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[0].split('-')[-1]} (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[1].split('-')[-1]} (eV)", fontsize=35)  # y-axis label
 
 
         # Create background contour plot
