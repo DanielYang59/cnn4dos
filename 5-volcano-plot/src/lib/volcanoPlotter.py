@@ -313,13 +313,13 @@ class volcanoPlotter:
 
 
         # Create plt object
-        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams
+        mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams to default
         fig = plt.figure(figsize=[12, 9])
 
 
         # Add x/y axis labels
-        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
-        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[0].split('-')[-1]} (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[1].split('-')[-1]} (eV)", fontsize=35)  # y-axis label
 
 
         # Create background contour plot
