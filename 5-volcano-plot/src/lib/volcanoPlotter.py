@@ -122,14 +122,15 @@ class volcanoPlotter:
         marker_plus = Line2D([], [], color='#1f77b4', marker='P', linestyle='None', markersize=10)
         marker_star = Line2D([], [], color='#1f77b4', marker='*', linestyle='None', markersize=10)
 
-
         plt.legend(
             bbox_to_anchor=(0.45, 0.9),
             framealpha=0.3,  # alpha of background color
             fontsize=13,
             handles=[marker_circle, marker_triangle, marker_square, marker_diamond, marker_plus, marker_star],
             labels=[r'g-C$_{3}$N$_{4}$', "nitrogen-doped graphene", "graphene with dual-vacancy", r'C$_{2}$N', "boron nitride ", "black phosphorous"],
-            )
+            )\
+            .get_frame().set_boxstyle('Round', pad=0.2, rounding_size=2)  # use round cornered (ref: https://stackoverflow.com/questions/62972429/how-to-change-legend-edges-from-round-to-sharp-corners)
+
 
 
         # Add labels for selected samples
