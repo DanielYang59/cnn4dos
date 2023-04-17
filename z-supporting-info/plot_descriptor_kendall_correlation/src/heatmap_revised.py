@@ -53,13 +53,13 @@ def heatmap(x, y, **kwargs):
 
     size_scale = kwargs.get('size_scale', 500)
 
-    if 'x_order' in kwargs: 
+    if 'x_order' in kwargs:
         x_names = [t for t in kwargs['x_order']]
     else:
         x_names = [t for t in sorted(set([v for v in x]))]
     x_to_num = {p[1]:p[0] for p in enumerate(x_names)}
 
-    if 'y_order' in kwargs: 
+    if 'y_order' in kwargs:
         y_names = [t for t in kwargs['y_order']]
     else:
         y_names = [t for t in sorted(set([v for v in y]))]
@@ -132,14 +132,14 @@ def heatmap(x, y, **kwargs):
         ax.set_facecolor('white') # Make background white
         ax.set_xticks([]) # Remove horizontal ticks
         ax.set_yticks(np.linspace(min(bar_y), max(bar_y), 3)) # Show vertical ticks for min, middle and max
-        ax.yaxis.tick_right() # Show vertical ticks on the right 
+        ax.yaxis.tick_right() # Show vertical ticks on the right
 
 
 def corrplot(data, size_scale=500, marker='s'):
     corr = pd.melt(data.reset_index(), id_vars='index').replace(np.nan, 0)
     corr.columns = ['x', 'y', 'value']
     heatmap(
-        corr['x'], corr['y'], color=corr['value'], 
+        corr['x'], corr['y'], color=corr['value'],
         color_range=[-1, 1],
         #palette=sns.color_palette("coolwarm", 256),
         palette=sns.color_palette("plasma_r", 256),

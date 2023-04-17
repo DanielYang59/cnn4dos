@@ -41,7 +41,7 @@ def heatmap(x, y, **kwargs):
         n_colors = len(palette)
     else:
         n_colors = 256 # Use 256 colors for the diverging color palette
-        palette = sns.color_palette("Blues", n_colors) 
+        palette = sns.color_palette("Blues", n_colors)
 
     if 'color_range' in kwargs:
         color_min, color_max = kwargs['color_range']
@@ -60,13 +60,13 @@ def heatmap(x, y, **kwargs):
 
     size_scale = kwargs.get('size_scale', 500)
 
-    if 'x_order' in kwargs: 
+    if 'x_order' in kwargs:
         x_names = [t for t in kwargs['x_order']]
     else:
         x_names = [t for t in sorted(set([v for v in x]))]
     x_to_num = {p[1]:p[0] for p in enumerate(x_names)}
 
-    if 'y_order' in kwargs: 
+    if 'y_order' in kwargs:
         y_names = [t for t in kwargs['y_order']]
     else:
         y_names = [t for t in sorted(set([v for v in y]))]
@@ -98,7 +98,7 @@ def heatmap(x, y, **kwargs):
         c=marker_color,
         **kwargs_pass_on
     )
-    
+
     ax.set_xticks([v for k,v in x_to_num.items()])
     ax.set_xticklabels([k for k in x_to_num], rotation=45, horizontalalignment='right')
     ax.set_yticks([v for k,v in y_to_num.items()])
@@ -142,7 +142,7 @@ def heatmap(x, y, **kwargs):
         ax.set_facecolor('white') # Make background white
         ax.set_xticks([]) # Remove horizontal ticks
         ax.set_yticks(np.linspace(min(bar_y), max(bar_y), 3)) # Show vertical ticks for min, middle and max
-        ax.yaxis.tick_right() # Show vertical ticks on the right 
+        ax.yaxis.tick_right() # Show vertical ticks on the right
 
 
 def corrplot(data, size_scale=500, marker='s'):

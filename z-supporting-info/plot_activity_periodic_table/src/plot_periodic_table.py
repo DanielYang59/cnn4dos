@@ -7,7 +7,7 @@ This module was taken from: https://github.com/arosen93/ptable_trends, and only 
 """
 
 
-from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper 
+from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper
 from bokeh.plotting import figure, output_file
 from bokeh.io import show as show_
 from bokeh.sampledata.periodic_table import elements
@@ -125,7 +125,7 @@ def plot_periodic_table(
     # Unpack limiting potential dict
     data_elements = [i.split("-")[-1] for i in limiting_potential_dict.keys()]
     data = list(limiting_potential_dict.values())
-    
+
 
     period_label.append("blank")
     period_label.append("La")
@@ -221,7 +221,7 @@ def plot_periodic_table(
     )
     p.text(x=x, y=y, text="atomic_number", text_font_size="11pt", **text_props)
 
-    
+
     # Add colorbar
     color_bar = ColorBar(
         color_mapper=color_mapper,
@@ -229,20 +229,20 @@ def plot_periodic_table(
         location=cbar_location,  # position of the colorbar
         orientation="vertical",
         scale_alpha=alpha,
-        
-        
+
+
         # Label and tick settings
         major_label_text_font_size=f"{cbar_fontsize}pt",
         label_standoff=cbar_standoff,
         ticker=BasicTicker(desired_num_ticks=5),
-        
-        
-        # # Title settings 
-        # title="Limiting Potential (eV)", 
-        # title_standoff=12, 
+
+
+        # # Title settings
+        # title="Limiting Potential (eV)",
+        # title_standoff=12,
         # title_text_align="right",
     )
-    
+
 
     if cbar_height is not None:
         color_bar.height = cbar_height
@@ -250,7 +250,7 @@ def plot_periodic_table(
     p.add_layout(color_bar, "right")
     p.grid.grid_line_color = None
 
-    
+
     # Show and output plot
     if output_filename:
         output_file(output_filename)

@@ -17,18 +17,18 @@ def plot_correlation(dataset, method, savename, show=True, verbose=False):
         savename (Path): savename of figure
         show (bool, optional): show figure during plotting. Defaults to True.
         verbose (bool, optional): print correlation data. Defaults to False.
-        
+
     """
     # Calculate correlation map
     assert isinstance(dataset, pd.DataFrame)
     corr_data = dataset.corr(method=method, numeric_only=True)
-    
+
     # Print correlation data if required
     if verbose:
         print(f"\"Absolute value\" of {method} correlation coefficients:")
         print(corr_data.iloc[:,0].abs().sort_values(ascending=False))
-        
-    
+
+
     # Generate correlation plot
     sns.set(color_codes=True, font_scale=1.2)
     plt.figure(figsize=(8, 8))

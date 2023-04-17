@@ -21,28 +21,28 @@ if __name__ == "__main__":
 
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
-    
-    descriptor_x = cfg["reaction"]["descriptor_x"] 
+
+    descriptor_x = cfg["reaction"]["descriptor_x"]
     descriptor_y = cfg["reaction"]["descriptor_y"]
-    
-    
+
+
     # Loading adsorption energy
     loader = dataLoader()
     loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
-    
+
     loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
-    
+
     # Calculate adsorption energy linear scaling relations
     calculator = scalingRelation(
-        adsorption_energy_dict=loader.adsorption_free_energy, 
-        descriptors=(descriptor_x, descriptor_y), mixing_ratios="AUTO", 
+        adsorption_energy_dict=loader.adsorption_free_energy,
+        descriptors=(descriptor_x, descriptor_y), mixing_ratios="AUTO",
         verbose=True, remove_ads_prefix=True)
-    
-    
+
+
     # Get mixing ratio test results
     _mixing_ratio_results = calculator.mixing_ratio_results
-    
-    
+
+
     # Unpack mixing ratio test results to lists
     mixing_ratio_results = {ads: [] for ads in adsorbates}
     average_result = []
@@ -52,10 +52,10 @@ if __name__ == "__main__":
             if ads not in {descriptor_x, descriptor_y}:
                 mixing_ratio_results[ads].append(_mixing_ratio_results[ratio][ads].rvalue)
                 average.append(_mixing_ratio_results[ratio][ads].rvalue)
-        
+
         average_result.append(sum(average) / len(average))
-    
-    
+
+
     # Plot mixing ratio test for each adsorbate
     for ads in adsorbates:
         if ads not in {descriptor_x, descriptor_y}:
@@ -70,4 +70,3 @@ if __name__ == "__main__":
         y=average_result,
         savename=os.path.join("figures", "mixing_average.png"),
     )
-    

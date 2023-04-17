@@ -20,20 +20,20 @@ def load_limiting_potential(path, substrate, name_col=0, potential_col=1):
 
     Returns:
         dict: {name:limiting_potential} pairs
-        
+
     """
     # Check args
     assert os.path.exists(path)
-    
+
     # Load limiting potential csv file
     df = pd.read_csv(path)
-    
+
     # Get catalyst names and limiting potentials
     names = []
     potentials = []
     for _, row in df.iterrows():
         name = row[name_col]
-        
+
         if name.split("_")[0] == substrate:  # name comes in "g-C3N4_is_4-Co" format
             names.append(name.split("_")[-1])
             potentials.append(float(row[potential_col]))
@@ -43,7 +43,7 @@ def load_limiting_potential(path, substrate, name_col=0, potential_col=1):
         raise ValueError(f"No match found for substrate {substrate}.")
     else:
         return dict(zip(names, potentials))
-    
+
 
 # Test area
 if __name__ == "__main__":

@@ -15,25 +15,25 @@ def load_ads_energy(dosFile, ads_energy_dir):
 
     Returns:
         float: adsorption energy
-        
+
     """
     # Check args
     assert os.path.exists(dosFile)
     assert os.path.isdir(ads_energy_dir)
-    
-    
+
+
     # Unpack DOS file name
     substrate = dosFile.split(os.sep)[-4]
     adsorbate = dosFile.split(os.sep)[-3].split("_")[0]
     state = dosFile.split(os.sep)[-3].split("_")[-1]
     metal = dosFile.split(os.sep)[-2]
-    
-    
+
+
     # Get adsorption energy DataFrame
     df = pd.read_csv(os.path.join(ads_energy_dir, f"{substrate}_{state}.csv"), index_col=0)
-    
+
     return df.loc[metal, adsorbate]
-    
+
 
 # Test area
 if __name__ == "__main__":

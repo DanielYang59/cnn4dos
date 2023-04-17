@@ -13,7 +13,7 @@ def format_mol_name(string):
 
     Returns:
         str: formatted name
-        
+
     """
     pattern = r'\d+'
     numbers = re.findall(pattern, string)

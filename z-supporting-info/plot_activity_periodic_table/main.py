@@ -15,13 +15,13 @@ def plot_activity_periodic_table():
     limiting_potential_file = cfg["path"]["limiting_potential_file"]
     data_cols = cfg["path"]["data_cols"]
     substrate = cfg["species"]["substrate"]
-    
-    
+
+
     # Load limiting potential for selected substrate
-    limiting_potential = load_limiting_potential(limiting_potential_file, substrate=substrate, 
+    limiting_potential = load_limiting_potential(limiting_potential_file, substrate=substrate,
                             name_col=data_cols["name"], potential_col=data_cols["limiting_potential"])
-    
-    
+
+
     # Pass limiting potential to plotter
     os.makedirs("figures", exist_ok=True)
     plot_periodic_table(
@@ -29,10 +29,10 @@ def plot_activity_periodic_table():
     extended=False,  # show Lu/Lr elements
     cmap="coolwarm",
     cbar_height=390,  # colorbar height (should reposition to top right)
-    alpha=0.80, 
+    alpha=0.80,
     cbar_location=(0, 162),
     # output_filename=os.path.join("figures", f"pt_{substrate}"),
-    show=True, 
+    show=True,
     )
 
 
