@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pandas as pd
+from pathlib import Path
 
 
 def plot_line(arr, energy_array, savedir="."):
@@ -58,6 +59,7 @@ def plot_line(arr, energy_array, savedir="."):
         ax.yaxis.set_label_position("right")
         ax.set_ylabel(orbital_names[index], rotation=0, fontsize=24, loc="center", labelpad=45)
 
+
     # Use same y range for each orbital (3 ps, 5 ds)
     ## p
     p_min = np.amin(arr[:, 1:4])
@@ -73,13 +75,13 @@ def plot_line(arr, energy_array, savedir="."):
 
 
     # Set x/y axis labels
-    mpl.rcParams["mathtext.default"] = "regular"  # non Italic as default
-    fig.supxlabel("E-E$_f$ (eV)", fontsize=24)
-    fig.supylabel("$ΔE_{ads}\ (eV)$", fontsize=24)
+    mpl.rcParams["mathtext.default"] = "regular"  # non-Italic as default
+    fig.supxlabel('$\mathit{E}\ -\ \mathit{E}_f$ (eV)', fontsize=24)
+    fig.supylabel('$\Delta\mathit{E}_{ads}$ (eV)', fontsize=24)
 
     # Save figure to file
     plt.tight_layout()
-    plt.savefig(os.path.join(savedir, "occlusion_line.png"), dpi=150)
+    plt.savefig(os.path.join(savedir, "occlusion_line.png"), dpi=300)
     print(f"Occlusion result plotted as line in {os.getcwd()}.")
 
 
