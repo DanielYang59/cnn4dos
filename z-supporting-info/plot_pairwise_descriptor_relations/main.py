@@ -36,5 +36,5 @@ if __name__ == "__main__":
     os.makedirs("figures", exist_ok=True)
     plotter.plot_pairplot(descriptors, descriptor_symbol_dict,
                           savename=Path("figures/pairplot.png"),
-                          show=True,
+                          show=True
                           )
