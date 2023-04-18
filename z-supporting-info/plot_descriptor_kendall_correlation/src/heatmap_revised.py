@@ -8,6 +8,22 @@ import pandas as pd
 import seaborn as sns
 
 
+def corrplot(data, size_scale=500, marker='s'):
+    corr = pd.melt(data.reset_index(), id_vars='index').replace(np.nan, 0)
+    corr.columns = ['x', 'y', 'value']
+    heatmap(
+        corr['x'], corr['y'], color=corr['value'],
+        color_range=[-1, 1],
+        #palette=sns.color_palette("coolwarm", 256),
+        palette=sns.color_palette("plasma_r", 256),
+        size=corr['value'].abs(), size_range=[0, 1],
+        marker=marker,
+        x_order=data.columns,
+        y_order=data.columns[::-1],
+        size_scale=size_scale,
+    )
+
+
 def heatmap(x, y, **kwargs):
     # Map value to color
     def value_to_color(val):
@@ -120,37 +136,21 @@ def heatmap(x, y, **kwargs):
 
     # Add colorbar on the right side of the plot
     if color_min < color_max:
-        ax = plt.subplot(plot_grid[:, -1]) # Use the rightmost column of the plot
-        col_x = [0] * len(palette) # Fixed x coordinate for the bars
-        bar_y = np.linspace(color_min, color_max, n_colors) # y coordinates for each of the n_colors bars
+        ax = plt.subplot(plot_grid[:, -1])  # Use the rightmost column of the plot
+        col_x = [0] * len(palette)  # Fixed x coordinate for the bar
+        bar_y = np.linspace(color_min, color_max, n_colors)  # y coordinates for each of the n_colors bars
 
         bar_height = bar_y[1] - bar_y[0]
         ax.barh(
             y=bar_y,
-            width=[5] * len(palette), # Make bars 5 units wide
-            left=col_x, # Make bars start at 0
+            width=[5] * len(palette),  # Make bar 5 units wide
+            left=col_x,  # Make bar start at 0
             height=bar_height,
             color=palette,
             linewidth=0,
         )
-        ax.set_xlim(1, 2) # Bars are going from 0 to 5, so lets crop the plot somewhere in the middle
-        ax.set_facecolor('white') # Make background white
-        ax.set_xticks([]) # Remove horizontal ticks
-        ax.set_yticks(np.linspace(min(bar_y), max(bar_y), 3)) # Show vertical ticks for min, middle and max
-        ax.yaxis.tick_right() # Show vertical ticks on the right
-
-
-def corrplot(data, size_scale=500, marker='s'):
-    corr = pd.melt(data.reset_index(), id_vars='index').replace(np.nan, 0)
-    corr.columns = ['x', 'y', 'value']
-    heatmap(
-        corr['x'], corr['y'], color=corr['value'],
-        color_range=[-1, 1],
-        #palette=sns.color_palette("coolwarm", 256),
-        palette=sns.color_palette("plasma_r", 256),
-        size=corr['value'].abs(), size_range=[0, 1],
-        marker=marker,
-        x_order=data.columns,
-        y_order=data.columns[::-1],
-        size_scale=size_scale,
-    )
+        ax.set_xlim(1, 2)  # Bar going from 0 to 5, so crop the plot somewhere in the middle
+        ax.set_facecolor('white')  # Make background white
+        ax.set_xticks([])  # Remove horizontal ticks
+        ax.set_yticks(np.linspace(min(bar_y), max(bar_y), 3))  # Show vertical ticks for min, middle and max
+        ax.yaxis.tick_right()  # Show vertical ticks on the right
