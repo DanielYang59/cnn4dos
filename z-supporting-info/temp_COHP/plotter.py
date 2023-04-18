@@ -5,12 +5,12 @@
 """
 
 
-fermi_level = -2.06264337 # DEBUG
+fermi_level = -2.06264337  # DEBUG
 
 
-import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 
@@ -33,7 +33,7 @@ if  __name__ == "__main__":
 
 
     # Generate plot
-    mpl.rcParams['axes.linewidth'] = 2.5
+    mpl.rcParams["axes.linewidth"] = 2.5
     fig, axs = plt.subplots(nrows=2, ncols=2, sharex=True, figsize=(12, 6))
 
     for i in range(4):
@@ -45,13 +45,13 @@ if  __name__ == "__main__":
 
 
     # Set x/y axis labels
-    fig.supxlabel(r'E $-$ E$_{\mathrm{f}}$ (eV)', fontsize=20)
-    axs[0, 0].set_ylabel(r'$\Delta$E$_{\mathrm{ads}}$', fontsize=20)
+    fig.supxlabel('$E\ -\ E_\mathrm{f}$ (eV)', fontsize=20)
+    axs[0, 0].set_ylabel('$\Delta\mathit{E}_{\mathrm{ads}}$', fontsize=20)
     axs[1, 0].set_ylabel('-COHP', fontsize=20)
     for i, ax in enumerate(axs.flatten()):
         ax.tick_params(axis='both', which='major', width=2, length=5)
 
 
-    # plt.tight_layout()
+    plt.tight_layout()
     plt.savefig("occ_vs_cohp.png", dpi=300)
     plt.show()
