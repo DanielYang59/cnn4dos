@@ -15,13 +15,11 @@ TO-DO list:
 4. HER volcano plot not working.
 
 
-5. Kendall correlation map: "eBader" not italian for "Bader"
+5. Testing area under "volcanoPlotter" is not working (import error)
 
 
-6. Testing area under "volcanoPlotter" is not working (import error)
+6. (Take fermi level into account in CNN.)
 
 
-7. (Take fermi level into account in CNN.)
-
-
-8. Limiting potential periodic table export image directly.
+7. Limiting potential periodic table export image directly.
+    Add title to the right of colorbar.
