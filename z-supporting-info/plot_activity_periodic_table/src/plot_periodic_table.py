@@ -222,6 +222,10 @@ def plot_periodic_table(
     p.text(x=x, y=y, text="atomic_number", text_font_size="11pt", **text_props)
 
 
+    # Hide grid lines
+    p.grid.grid_line_color = None
+
+
     # Add colorbar
     color_bar = ColorBar(
         color_mapper=color_mapper,
@@ -230,25 +234,19 @@ def plot_periodic_table(
         orientation="vertical",
         scale_alpha=alpha,
 
-
         # Label and tick settings
         major_label_text_font_size=f"{cbar_fontsize}pt",
         label_standoff=cbar_standoff,
-        ticker=BasicTicker(desired_num_ticks=5),
+        ticker=BasicTicker(desired_num_ticks=5)
+        )
 
 
-        # # Title settings
-        # title="Limiting Potential (eV)",
-        # title_standoff=12,
-        # title_text_align="right",
-    )
-
-
+    ## Set colorbar height
     if cbar_height is not None:
         color_bar.height = cbar_height
 
+
     p.add_layout(color_bar, "right")
-    p.grid.grid_line_color = None
 
 
     # Show and output plot
