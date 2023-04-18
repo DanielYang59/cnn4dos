@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
-orbital_index = 4
+orbital_index = 7
 
 
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -66,15 +65,14 @@ if __name__ == "__main__":
     # Add colorbar
     # Ref: https://stackoverflow.com/questions/13784201/how-to-have-one-colorbar-for-all-subplots
     cb = fig.colorbar(im, ax=axs.ravel().tolist())
-    cb.set_label("$ΔE_{ads}\ (eV)$", fontsize=16)
+    cb.set_label('$\Delta\mathit{E}_{\mathrm{ads}}$', fontsize=16)
     cb.ax.tick_params(labelsize=10, width=2)  # set ticks
     # cb.set_ticks([-20, -10, 0, 10, 20])
-    mpl.rcParams["mathtext.default"] = "regular"
     cb.outline.set_visible(False)  # hide border
 
     # Set x ticks and title
     plt.xticks([-1, -0.5, 0, 0.5, 1], fontsize=12)
-    plt.xlabel("DOS Shift (eV)", fontsize=16)  #DEBUG: confirm x label
+    plt.xlabel("DOS Shift (eV)", fontsize=16)
 
 
     # plt.tight_layout()
