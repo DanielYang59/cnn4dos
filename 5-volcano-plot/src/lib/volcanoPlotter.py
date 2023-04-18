@@ -496,7 +496,7 @@ if __name__ == "__main__":
     adsorbate_energy_file = "../../data/energy_adsorbate.csv"
 
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
-    adsorbates = ["2-COOH", "3-CO", "4-OCH", "5-OCH2", "6-OCH3", "7-O", "8-OH", "11-H"]
+    adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     descriptor_x = "3-CO"
     descriptor_y = "8-OH"
