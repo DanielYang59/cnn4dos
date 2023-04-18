@@ -8,7 +8,7 @@ from src.load_limiting_potential import load_limiting_potential
 from src.plot_periodic_table import plot_periodic_table
 
 
-def plot_activity_periodic_table():
+def main():
     # Load config
     with open("config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
@@ -26,15 +26,15 @@ def plot_activity_periodic_table():
     os.makedirs("figures", exist_ok=True)
     plot_periodic_table(
     limiting_potential_dict=limiting_potential,
-    extended=False,  # show Lu/Lr elements
+    extended=False,  # hide Lu/Lr elements
     cmap="coolwarm",
     cbar_height=390,  # colorbar height (should reposition to top right)
     alpha=0.80,
     cbar_location=(0, 162),
     # output_filename=os.path.join("figures", f"pt_{substrate}"),
-    show=True,
+    show=True
     )
 
 
 if __name__ == "__main__":
-   plot_activity_periodic_table()
+   main()
