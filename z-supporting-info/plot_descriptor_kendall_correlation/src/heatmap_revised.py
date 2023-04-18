@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
-import numpy as np
 
 
 def heatmap(x, y, **kwargs):
@@ -91,25 +95,26 @@ def heatmap(x, y, **kwargs):
         **kwargs_pass_on
     )
 
-    ax.set_xticks([v for k,v in x_to_num.items()])
-    ax.set_xticklabels([k for k in x_to_num], rotation=45, horizontalalignment='right')
+    # ax.set_xticks([v for k,v in x_to_num.items()])
+    # ax.set_xticklabels([k for k in x_to_num], rotation=45, horizontalalignment='right')
     ax.set_yticks([v for k,v in y_to_num.items()])
     ax.set_yticklabels([k for k in y_to_num])
 
     ax.grid(False, 'major')
     ax.grid(True, 'minor')
-    ax.set_xticks([t + 0.5 for t in ax.get_xticks()], minor=True)
+    # ax.set_xticks([t + 0.5 for t in ax.get_xticks()], minor=True)
     ax.set_yticks([t + 0.5 for t in ax.get_yticks()], minor=True)
 
-    ax.set_xlim([-0.5, max([v for v in x_to_num.values()]) + 0.5])
+    # ax.set_xlim([-0.5, max([v for v in x_to_num.values()]) + 0.5])
     ax.set_ylim([-0.5, max([v for v in y_to_num.values()]) + 0.5])
     ax.set_facecolor('#F1F1F1')
 
-    ax.set_xlabel(kwargs.get('xlabel', ''))
+    # ax.set_xlabel(kwargs.get('xlabel', ''))
     ax.set_ylabel(kwargs.get('ylabel', ''))
 
     # set tick label font style and size
-    plt.xticks(fontsize=12)
+    # plt.xticks(fontsize=12)
+    plt.xticks([])  # hide x labels
     plt.yticks(fontsize=14)
 
 
