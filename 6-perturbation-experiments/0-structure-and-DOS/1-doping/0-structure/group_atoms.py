@@ -5,6 +5,7 @@
 centre_atom = 71
 source_POSCAR_dir = "0-original-Cr-vac-graphene"
 tolerance = 0.2
+show_labels = False
 
 
 import copy
@@ -101,13 +102,21 @@ if __name__ == "__main__":
             plt.plot(coord[0], coord[1], marker="o", markersize=10, markerfacecolor=color, markeredgecolor="black")
 
             # Add atom index for each atom
-            plt.text(coord[0] + 0.1, coord[1] + 0.1, dot + 1, fontsize=12)
+            if show_labels:
+                plt.text(coord[0] + 0.1, coord[1] + 0.1, dot + 1, fontsize=12)
 
         # Print a unique member in each group
         print(f"Group {i}: {list(members)[0] + 1}")
 
 
+    # Hide axes
+    plt.axis('off')
+
+
     # Save and show figure
     plt.tight_layout()
-    plt.savefig("grouped_atom.png", dpi=300)
+    if show_labels:
+        plt.savefig("grouped_atom.png", dpi=300)
+    else:
+        plt.savefig("grouped_atom_nolabel.png", dpi=300)
     plt.show()
