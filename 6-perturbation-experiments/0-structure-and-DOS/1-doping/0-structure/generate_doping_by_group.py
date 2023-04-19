@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 
 # Doping configs
 atoms_to_replace = "GROUP"  # index starts from 1 ("GROUP" for automatic grouping)
@@ -6,8 +9,8 @@ source_dir = "0-Cr-vac-graphene"
 output_dir = "grouped_nitrogen-doped"
 
 
-import os
 import copy
+import os
 import subprocess
 from lib.poscar import POSCAR
 
