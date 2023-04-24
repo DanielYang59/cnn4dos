@@ -4,10 +4,9 @@
 
 import math
 import matplotlib as mpl
-from matplotlib.patches import Patch
+from matplotlib.colors import ListedColormap, BoundaryNorm
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap, BoundaryNorm
 import numpy as np
 import warnings
 
@@ -64,6 +63,16 @@ class volcanoPlotter:
         """
 
         def calculate_scatter_alpha(x_list, y_list):
+            """Calculate transparency(alpha) based on limiting potential difference.
+
+            Args:
+                x_list (list): x coordinate list
+                y_list (list): y coordinate list
+
+            Returns:
+                np.ndarray: alpha array
+
+            """
             # Locate the maximum
             max_index = np.unravel_index(np.argmax(self.limiting_potential_mesh), self.limiting_potential_mesh.shape)
             x_coord, y_coord = self.x[max_index[1]], self.y[max_index[0]]
@@ -144,7 +153,7 @@ class volcanoPlotter:
                 if substrate_name in label_selection:
                     label = name.split("_")[-1].split("-")[-1]
                 else:
-                    label = ""  # would this lead to positioning conflict? DEBUG
+                    label = ""  # WARNING: this might lead to positioning conflict?
 
 
             # Add annotate
@@ -489,11 +498,12 @@ class volcanoPlotter:
 
 # Test area
 if __name__ == "__main__":
+    from pathlib import Path
     # Set args
-    adsorption_energy_path = "../../../0-dataset/label_adsorption_energy"
-    reaction_pathway_file = "../../data/reaction_pathway.json"
-    thermal_correction_file = "../../data/corrections_thermal.csv"
-    adsorbate_energy_file = "../../data/energy_adsorbate.csv"
+    adsorption_energy_path = Path("../../../0-dataset/label_adsorption_energy")
+    reaction_pathway_file = Path("../../data/reaction_pathway.json")
+    thermal_correction_file = Path("../../data/corrections_thermal.csv")
+    adsorbate_energy_file = Path("../../data/energy_adsorbate.csv")
 
     substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
@@ -511,7 +521,7 @@ if __name__ == "__main__":
     loader = dataLoader()
     loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
 
-    loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
+    loader.calculate_adsorption_free_energy(correction_file=Path("../../data/corrections_thermal.csv"))
 
     # Calculate adsorption energy linear scaling relations
     from .scalingRelation import scalingRelation
@@ -521,8 +531,8 @@ if __name__ == "__main__":
     from .reactionCalculator import reactionCalculator
     reaction_calculator = reactionCalculator(
         adsorption_energy_scaling_relation=calculator.fitting_paras,
-        adsorbate_energy_file="../../data/energy_adsorbate.csv",
-        reaction_pathway_file="../../data/reaction_pathway.json",
+        adsorbate_energy_file=Path("../../data/energy_adsorbate.csv"),
+        reaction_pathway_file=Path("../../data/reaction_pathway.json"),
         external_potential=0.17,
         )
 
