@@ -17,21 +17,21 @@ plot:
       "relative_atomic_mass": '$\mathit{A}_{\mathrm{r}}$',  # ref: CRC book 95th ed page 2-29
       "electron_affinity": '$\mathit{E}_{\mathrm{ea}}$',  # ref: CRC book 95th ed page 8-5
       "ionization_energy": '$\mathit{E}_{\mathrm{i}}$',  # ref: CRC book 95th ed page 2-4
-      "work_function_DFT": '$\Phi_{\mathrm{DFT}}$',
+      "work_function_DFT": '$\mathit{\Phi}_{\mathrm{DFT}}$',
 
-      "work_function": '$\Phi$',  # ref: CRC book 95th ed page 2-7
+      "work_function": '$\mathit{\Phi}$',  # ref: CRC book 95th ed page 2-7
       "Electronegativity-Allen": '$\mathregular{\chi_{Allen}}$',
       "Electronegativity-Pauling": '$\mathregular{\chi_{P}}$',
       "Electronegativity-Revised_Pauling": '$\mathregular{\chi_{RevP}}$',
 
-      "d_band_centre_up": '$\mathregular{\delta\epsilon_{d\uparrow}}$',  # ref: 10.1073/pnas.1006652108
-      "d_band_centre_down": '$\mathregular{\delta\epsilon_{d\downarrow}}$',  # ref: 10.1073/pnas.1006652108
+      "d_band_centre_up": '$\mathregular{\delta\mathit{\epsilon}_{d\uparrow}}$',  # ref: 10.1073/pnas.1006652108
+      "d_band_centre_down": '$\mathregular{\delta\mathit{\epsilon}_{d\downarrow}}$',  # ref: 10.1073/pnas.1006652108
       "d_band_width_up": '$\mathit{W}_{\mathrm{d\uparrow}}$',  # ref: 10.1007/s11244-013-0159-2
       "d_band_width_down": '$\mathit{W}_{\mathrm{d\downarrow}}$',  # ref: 10.1007/s11244-013-0159-2
 
-      "lattice_para_a": '$\alpha$',
-      "lattice_para_b": '$\beta$',
-      "lattice_para_γ": '$\gamma$',
+      "lattice_para_a": '$\mathit{\alpha}$',
+      "lattice_para_b": '$\mathit{\beta}$',
+      "lattice_para_γ": '$\mathit{\gamma}$',
       "vacuum_level": '$\mathit{E}_{\mathrm{vac}}$',  # ref: 10.1039/C5MH00160A
 
       "bandgap_up": '$\mathit{E}_{\mathrm{g\uparrow}}$',  # ref: https://en.wikipedia.org/wiki/Band_gap
