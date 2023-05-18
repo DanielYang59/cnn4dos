@@ -5,6 +5,9 @@
 orbital_index = 7
 
 
+from matplotlib import rcParams
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib.pyplot as plt
 import numpy as np
 import os

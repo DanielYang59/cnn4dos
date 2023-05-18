@@ -14,6 +14,9 @@ from bokeh.plotting import figure, output_file
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge
 import colorcet
+from matplotlib import rcParams
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 from matplotlib.colors import Normalize, to_hex
 from matplotlib.cm import coolwarm, ScalarMappable, turbo
 from pandas import options

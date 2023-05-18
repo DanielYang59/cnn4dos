@@ -7,6 +7,9 @@ orbital_names = ["$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$
 optimum_height = {0.1:0.02, 0.5:0.08, 1.0:0.16}
 
 
+from matplotlib import rcParams
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np

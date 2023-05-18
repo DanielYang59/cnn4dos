@@ -5,6 +5,9 @@ I did not write this module, but took it from somewhere on the Internet. Sadly I
 """
 
 
+from matplotlib import rcParams
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns

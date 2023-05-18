@@ -8,6 +8,9 @@
 fermi_level = -2.06264337  # DEBUG
 
 
+from matplotlib import rcParams
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
