@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Ref: QUT Notebook Page 69. """
 
 
 import os
 import yaml
-
 from src.lib.dataLoader import dataLoader
 from src.lib.reactionCalculator import reactionCalculator
 from src.lib.scalingRelation import scalingRelation

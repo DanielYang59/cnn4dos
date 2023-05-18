@@ -4,6 +4,9 @@
 
 import math
 import matplotlib as mpl
+from matplotlib import rcParams
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 from matplotlib.colors import ListedColormap, BoundaryNorm
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt

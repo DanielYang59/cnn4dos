@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
+from matplotlib import rcParams
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
