@@ -87,7 +87,7 @@ class Dataset:
 
                     # Compile path
                     directory = os.path.join(path, sub, f"{ads}_{state}")
-                    assert os.path.isdir(directory)
+                    assert os.path.isdir(directory), f"Path \"{directory}\" not found."
 
                     # Loop through all directories to load DOS
                     for folder in os.listdir(directory):
