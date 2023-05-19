@@ -3,6 +3,7 @@
 
 
 import os
+from pathlib import Path
 import yaml
 from src.load_limiting_potential import load_limiting_potential
 from src.plot_periodic_table import plot_periodic_table
@@ -31,8 +32,8 @@ def main():
     cbar_height=390,  # colorbar height (should reposition to top right)
     alpha=0.80,
     cbar_location=(0, 162),
-    # output_filename=os.path.join("figures", f"pt_{substrate}"),
-    show=True
+    output_filename=(Path("figures") / f"{substrate}.png").resolve(),
+    show=False
     )
 
 

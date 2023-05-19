@@ -7,9 +7,10 @@ This module was taken from: https://github.com/arosen93/ptable_trends, and only 
 """
 
 
+from bokeh.io import export_png
 from bokeh.io import show as show_
 from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper, NumeralTickFormatter
-from bokeh.plotting import figure, output_file
+from bokeh.plotting import figure
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge
 import colorcet
@@ -258,32 +259,9 @@ def plot_periodic_table(
     p.add_layout(color_bar, "right")
 
 
-    # Attempt to add colorbar title
-    # Ref: https://github.com/bokeh/bokeh/issues/7093
-    # dummy = figure(height=cbar_height, width=100, toolbar_location=None, min_border=0, outline_line_color=None)
-    # dummy.add_layout(color_bar, 'left')
-
-    # dummy2 = figure(height=cbar_height, width=200, toolbar_location=None, min_border=0, outline_line_color=None)
-
-    # from bokeh.models.annotations import Label
-    # color_bar_label = Label(x=-40, y=cbar_height,
-    #                             x_units='screen', y_units='screen',
-    #                             text='testtitle',
-    #                             text_align='center',
-    #                             # render_mode='canvas',
-    #                             angle=270,
-    #                             angle_units='deg',
-    #                             )
-    # dummy2.add_layout(color_bar_label, 'right')
-
-
-    # grid_plot = gridplot([p, dummy, dummy2], ncols=3,
-    #                          toolbar_location="left",
-    #                          toolbar_options=dict(logo=None))
-
-    # Show and output plot
+    # Output and show plot
     if output_filename:
-        output_file(output_filename)
+        export_png(p, filename=output_filename)
 
     if show:
         show_(p)
