@@ -8,8 +8,7 @@ This module was taken from: https://github.com/arosen93/ptable_trends, and only 
 
 
 from bokeh.io import show as show_
-from bokeh.layouts import gridplot
-from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper
+from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper, NumeralTickFormatter
 from bokeh.plotting import figure, output_file
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge
@@ -241,15 +240,21 @@ def plot_periodic_table(
         # Label and tick settings
         major_label_text_font_size=f"{cbar_fontsize}pt",
         label_standoff=cbar_standoff,
-        ticker=BasicTicker(desired_num_ticks=5)
+        ticker=BasicTicker(desired_num_ticks=5),
+        formatter=NumeralTickFormatter(format="0.0"),  # keep one decimal place
         )
+
+    color_bar.major_tick_line_color = "black"  # set ticks to black
+    color_bar.major_tick_out = 10  # set ticks outwards
+    color_bar.major_tick_in = 0
+    color_bar.major_tick_line_width = 2.5  # set ticks thickness
 
 
     ## Set colorbar height
     if cbar_height is not None:
         color_bar.height = cbar_height
 
-
+    ## Put colorbar to the right of the plot
     p.add_layout(color_bar, "right")
 
 
