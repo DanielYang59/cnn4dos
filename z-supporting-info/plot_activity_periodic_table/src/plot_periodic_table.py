@@ -36,7 +36,7 @@ def plot_periodic_table(
     groups_remove: List[int] = None,
     cbar_height: float = None,
     cbar_standoff: int = 12,
-    cbar_fontsize: int = 14,
+    cbar_fontsize: int = 20,
     blank_color: str = "#c4c4c4",
     under_value: float = None,
     under_color: str = "#140F0E",
