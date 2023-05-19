@@ -44,8 +44,8 @@ class volcanoPlotter:
         cbar = fig.colorbar(contour, shrink=0.95, aspect=15, ticks=ticks)  # create colorbar (shrink/aspect for the size of the bar)
 
         # Set colorbar format
-        cbar.set_label(cblabel, fontsize=35)  # add label to the colorbar
-        cbar.ax.tick_params(labelsize=25, length=5, width=2.5)  # set tick label size and tick style
+        cbar.set_label(cblabel, fontsize=20)  # add label to the colorbar
+        cbar.ax.tick_params(labelsize=20, length=5, width=2.5)  # set tick label size and tick style
         if invert:
             cbar.ax.invert_yaxis()  # put the colorbar upside down
         if hide_border:
@@ -137,7 +137,7 @@ class volcanoPlotter:
         plt.legend(
             bbox_to_anchor=(0.45, 0.9),
             framealpha=0.3,  # alpha of background color
-            fontsize=13,
+            fontsize=14,
             handles=[marker_circle, marker_triangle, marker_square, marker_diamond, marker_plus, marker_star],
             labels=[r'g-C$_{3}$N$_{4}$', "nitrogen-doped graphene", "graphene with dual-vacancy", r'C$_{2}$N', "boron nitride ", "black phosphorous"],
             )\
@@ -298,8 +298,8 @@ class volcanoPlotter:
         ax.yaxis.set_tick_params(length=5, width=2.5)
 
         # Set ticks font size
-        plt.xticks(fontsize=25)
-        plt.yticks(fontsize=25)
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20)
 
 
         # Set axis range
@@ -331,8 +331,8 @@ class volcanoPlotter:
 
 
         # Add x/y axis labels
-        plt.xlabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[0].split('-')[-1]} (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
-        plt.ylabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[1].split('-')[-1]} (eV)", fontsize=35)  # y-axis label
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[0].split('-')[-1]} (eV)", fontsize=20)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[1].split('-')[-1]} (eV)", fontsize=20)  # y-axis label
 
 
         # Create background contour plot
@@ -396,8 +396,8 @@ class volcanoPlotter:
 
 
         # Add x/y axis labels
-        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
-        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=35)  # y-axis label
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[0].split('-')[-1]}}}$ (eV)", fontsize=20)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathit{{ads}}}}\ *{{{self.descriptors[1].split('-')[-1]}}}$ (eV)", fontsize=20)  # y-axis label
 
         # Set figure styles
         self.__set_figure_style(plt, fig)
@@ -456,8 +456,8 @@ class volcanoPlotter:
 
 
         # Add x/y axis labels
-        plt.xlabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[0].split('-')[-1]} (eV)", fontsize=35)  # x-axis label ("_" for subscript, "\mathit" for Italic)
-        plt.ylabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[1].split('-')[-1]} (eV)", fontsize=35)  # y-axis label
+        plt.xlabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[0].split('-')[-1]} (eV)", fontsize=20)  # x-axis label ("_" for subscript, "\mathit" for Italic)
+        plt.ylabel(fr"$\mathit{{G}}_{{\mathregular{{ads}}}}$ *{self.descriptors[1].split('-')[-1]} (eV)", fontsize=20)  # y-axis label
 
 
         # Create background contour plot
