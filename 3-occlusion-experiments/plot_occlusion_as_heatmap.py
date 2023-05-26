@@ -8,8 +8,7 @@ TODO: confirm y-axis units #DEBUG
 energy_start = -14
 energy_end = 6
 energy_step = 4000
-fermi_source_dir = "../0-dataset/z-supporting-info/fermi_level"  #DEBUG
-fermi_source_dir = "/Volumes/External_Storage/cnn4dos/0-dataset/z-supporting-info/fermi_level"
+fermi_source_dir = "../0-dataset/z-supporting-info/fermi_level"
 
 occlusion_dos_name = "occlusion.npy"
 orbital_names = ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
@@ -90,7 +89,10 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
 
 
     # Generate subplot for each orbital
-    fig, axs = plt.subplots(arr.shape[1], sharex=False, figsize=(10, 15))
+    subplot_vspacing = 0.2  # vertical spacing between subplots (in inches)
+    fig, axs = plt.subplots(arr.shape[1], sharex=False,
+                            figsize=(10, 6 + (5 * subplot_vspacing))
+                            )
 
 
     # Get min/max values of occlusion array (for a symmetric colorbar)
@@ -115,11 +117,13 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
 
         # Add orbital name to the right
         ax.yaxis.set_label_position("right")
-        ax.set_ylabel(orbital_names[index], rotation=0, fontsize=24, loc="center", labelpad=45)
+        ax.set_ylabel(orbital_names[index], rotation=0, fontsize=16, loc="center", labelpad=28)
 
 
     # Adjust vertical spacing between subplots
-    plt.subplots_adjust(hspace=-0.8)
+    plt.subplots_adjust(hspace=0.2,
+                        left=0.08,  # move y label closer to the main plot
+                        )
 
 
     # Hide ticks for x axes
@@ -132,14 +136,14 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
 
     # Set x/y axis labels
     mpl.rcParams["mathtext.default"] = "regular"  # non-Italic as default
-    fig.supxlabel('$\mathit{E}\ -\ \mathit{E}_f$ (eV)', fontsize=24)
-    fig.supylabel('$\Delta\mathit{E}_{ads}$ (eV)', fontsize=24)
+    fig.supxlabel("$\mathit{E}\ -\ \mathit{E}_f$ (eV)", fontsize=20, x=0.35)
+    fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=20)
 
 
     # Add colorbar
-    cb = fig.colorbar(im, ax=axs.ravel().tolist())
-    # cb.set_label("$ΔE_{ads}\ (eV)$", fontsize=24)
-    # cb.set_ticks([-20, -10, 0, 10, 20])
+    cb = fig.colorbar(im, ax=axs.ravel().tolist(),
+                      pad=0.1,  # spacing between colorbar and main plot
+                      )
     cb.outline.set_visible(False)  # hide border
     cb.ax.tick_params(labelsize=12, width=2.5)  # set ticks
 
