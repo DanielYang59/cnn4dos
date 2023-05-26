@@ -20,6 +20,7 @@ rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 import os
 import pandas as pd
@@ -98,6 +99,8 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
     # Get min/max values of occlusion array (for a symmetric colorbar)
     vmin = np.amin(arr)
     vmax = np.amax(arr)
+    colorbar_range = max(abs(vmin), abs(vmax))
+    assert colorbar_range > 0
 
 
     # Create line plot for each orbital
@@ -107,7 +110,7 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
         im = ax.imshow(np.expand_dims(orbital_arr, axis=0),
                            extent=[energy_array[0], energy_array[-1], 0, 2],  # increase 4th var to increase height
                            cmap="viridis_r",
-                           vmin=vmin, vmax=vmax,  # for symmetry colorbar
+                           vmin=-colorbar_range, vmax=colorbar_range,  # for symmetry colorbar
                            )
 
         # Adjust x range and ticks
@@ -145,7 +148,9 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
                       pad=0.1,  # spacing between colorbar and main plot
                       )
     cb.outline.set_visible(False)  # hide border
-    cb.ax.tick_params(labelsize=12, width=2.5)  # set ticks
+    cb.ax.tick_params(labelsize=12, width=2.5)  # set tick style
+    cb.locator = ticker.MaxNLocator(5)  # set number of ticks
+    cb.update_ticks()
 
 
     # Save figure
