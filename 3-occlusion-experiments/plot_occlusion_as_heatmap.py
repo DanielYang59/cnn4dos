@@ -109,7 +109,7 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
         # Add 1D heatmap for each orbital
         im = ax.imshow(np.expand_dims(orbital_arr, axis=0),
                            extent=[energy_array[0], energy_array[-1], 0, 2],  # increase 4th var to increase height
-                           cmap="viridis_r",
+                           cmap="coolwarm",  # OR: twilight_shifted
                            vmin=-colorbar_range, vmax=colorbar_range,  # for symmetry colorbar
                            )
 
