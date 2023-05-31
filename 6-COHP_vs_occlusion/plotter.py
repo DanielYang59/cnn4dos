@@ -71,4 +71,3 @@ if  __name__ == "__main__":
 
     # Save figure
     plt.savefig("cohp_vs_occlusion.png", dpi=300)
-    plt.show()  # DEBUG
