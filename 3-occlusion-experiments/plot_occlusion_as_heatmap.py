@@ -116,11 +116,11 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
         # Adjust x range and ticks
         ax.set_xlim(-10, 5)
         ax.set_xticks(np.arange(-10, 5 + 2.5, 2.5))
-        ax.tick_params(axis="both", which="major", labelsize=16, width=2.5, length=5)
+        ax.tick_params(axis="both", which="major", labelsize=20, width=2.5, length=5)
 
         # Add orbital name to the right
         ax.yaxis.set_label_position("right")
-        ax.set_ylabel(orbital_names[index], rotation=0, fontsize=16, loc="center", labelpad=28)
+        ax.set_ylabel(orbital_names[index], rotation=0, fontsize=24, loc="center", labelpad=40)
 
 
     # Adjust vertical spacing between subplots
@@ -139,16 +139,17 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
 
     # Set x/y axis labels
     mpl.rcParams["mathtext.default"] = "regular"  # non-Italic as default
-    fig.supxlabel("$\mathit{E}\ -\ \mathit{E}_f$ (eV)", fontsize=20, x=0.35)
-    fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=20)
+    fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=28, x=0.35)
+    fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=28)
+    fig.subplots_adjust(bottom=0.12)  # adjust x-axis title position
 
 
     # Add colorbar
     cb = fig.colorbar(im, ax=axs.ravel().tolist(),
-                      pad=0.1,  # spacing between colorbar and main plot
+                      pad=0.15,  # spacing between colorbar and main plot
                       )
     cb.outline.set_visible(False)  # hide border
-    cb.ax.tick_params(labelsize=12, width=2.5)  # set tick style
+    cb.ax.tick_params(labelsize=20, width=2.5)  # set tick style
     cb.locator = ticker.MaxNLocator(5)  # set number of ticks
     cb.update_ticks()
 
