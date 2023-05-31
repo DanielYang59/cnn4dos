@@ -9,12 +9,14 @@ fermi_level = -2.06264337  # DEBUG
 
 
 from matplotlib import rcParams
-rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import warnings
+
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 
 
 if  __name__ == "__main__":
@@ -48,7 +50,7 @@ if  __name__ == "__main__":
 
 
     # Set x/y axis labels
-    fig.supxlabel('$E\ -\ E_\mathrm{f}$ (eV)', fontsize=20)
+    fig.supxlabel('$E-E_\mathrm{f}$ (eV)', fontsize=20)
     axs[0, 0].set_ylabel('$\Delta\mathit{E}_{\mathrm{ads}}$', fontsize=20)
     axs[1, 0].set_ylabel('-COHP', fontsize=20)
     for i, ax in enumerate(axs.flatten()):
