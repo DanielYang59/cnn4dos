@@ -5,14 +5,14 @@
 import math
 import matplotlib as mpl
 from matplotlib import rcParams
-rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
 from matplotlib.colors import ListedColormap, BoundaryNorm
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
 import numpy as np
 import warnings
 
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 
 class volcanoPlotter:
     def __init__(self, scaling_relations, x_range, y_range, descriptors, adsorption_free_energies, dpi=300, *args, **kwargs):

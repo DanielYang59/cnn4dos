@@ -6,8 +6,6 @@ model_dir = "../1-model-and-training/2-best-model"
 
 
 from matplotlib import rcParams
-rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
 from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,6 +17,9 @@ import statsmodels.api as sm
 import sys
 import tensorflow as tf
 import yaml
+
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 
 sys.path.append(model_dir)
 from lib.dataset import Dataset

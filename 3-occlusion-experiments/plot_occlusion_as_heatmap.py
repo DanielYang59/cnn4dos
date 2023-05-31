@@ -16,8 +16,6 @@ d_orbital_only = True
 
 
 from matplotlib import rcParams
-rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
@@ -25,6 +23,9 @@ import numpy as np
 import os
 import pandas as pd
 import warnings
+
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 
 
 def _get_fermi(fermi_source_dir):

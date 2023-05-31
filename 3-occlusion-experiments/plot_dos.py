@@ -17,11 +17,15 @@ orbital_names = ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^
 remove_ghost = True
 
 
+from matplotlib import rcParams
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import os
 import warnings
+
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 
 
 def plot_line(x_coords, arr, savedir):
