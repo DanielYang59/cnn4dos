@@ -54,14 +54,17 @@ if  __name__ == "__main__":
 
     for ax in [ax1, ax2, ax3, ax4]:
         ax.set_xlim([-11, 6])
-        ax.tick_params(axis="both", labelsize=18, width=2.5, length=5)
+        ax.tick_params(axis="both", labelsize=16, width=2.5, length=5)
         ax.yaxis.set_major_locator(MaxNLocator(5))  # set number of ticks
 
 
     # Set x/y axis labels
-    fig.supxlabel("$E-E_\mathrm{f}$ (eV)", fontsize=24)
-    ax1.set_ylabel("$\Delta\mathit{E}_{\mathrm{ads}}$ (eV)", fontsize=24)
-    ax3.set_ylabel("-COHP", fontsize=24)
+    fig.supxlabel("$E-E_\mathrm{f}$ (eV)", fontsize=20)
+    ax1.set_ylabel("$\Delta\mathit{E}_{\mathrm{ads}}$ (eV)", fontsize=20)
+    ax3.set_ylabel("-COHP", fontsize=20)
+    # Align labels vertically
+    ax1.yaxis.set_label_coords(-0.3, 0.5)
+    ax3.yaxis.set_label_coords(-0.3, 0.5)
 
 
     # Adjust spacing of subplots
