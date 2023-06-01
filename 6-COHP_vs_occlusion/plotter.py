@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Plot COHP and occlusion experiment result (dxy/dxz orbitals).
+Plot COHP and occlusion experiment result (Co dxy/dxz orbitals).
 """
 
 
