@@ -53,7 +53,7 @@ def heatmap(x, y, **kwargs):
         palette = kwargs['palette']
         n_colors = len(palette)
     else:
-        n_colors = 256 # Use 256 colors for the diverging color palette
+        n_colors = 128 # Use 256 colors for the diverging color palette
         palette = sns.color_palette("coolwarm", n_colors)
 
     if 'color_range' in kwargs:
