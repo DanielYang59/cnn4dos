@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Visualize pre-generated occlusion array.
+"""Visualize pre-generated occlusion array as heatmap.
+
 TODO: confirm y-axis units #DEBUG
 """
 
@@ -13,6 +14,9 @@ fermi_source_dir = "../0-dataset/z-supporting-info/fermi_level"
 occlusion_dos_name = "occlusion.npy"
 orbital_names = ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
 d_orbital_only = True
+
+colormap = "viridis"
+# Ref: https://matplotlib.org/stable/tutorials/colors/colormaps.html
 
 
 from matplotlib import rcParams
@@ -57,7 +61,7 @@ def _get_fermi(fermi_source_dir):
     return float(fermi_df.loc[metal_name][adsorbate_name])
 
 
-def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=False):
+def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=False, show=False):
     """Plot occlusion array as heatmap.
 
     Args:
@@ -66,6 +70,7 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
         orbital_names (list): orbital names to be displayed
         savedir (str): directory where generated figure will be stored
         d_orbital_only (bool): plot only d suborbitals
+        show (bool): show plot
 
     """
     # Check args
@@ -110,7 +115,7 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
         # Add 1D heatmap for each orbital
         im = ax.imshow(np.expand_dims(orbital_arr, axis=0),
                            extent=[energy_array[0], energy_array[-1], 0, 2],  # increase 4th var to increase height
-                           cmap="coolwarm",  # OR: twilight_shifted
+                           cmap=colormap,
                            vmin=-colorbar_range, vmax=colorbar_range,  # for symmetry colorbar
                            )
 
@@ -158,6 +163,8 @@ def plot_heatmap(arr, energy_array, orbital_names, savedir=".", d_orbital_only=F
     # Save figure
     plt.savefig(os.path.join(savedir, "occlusion_heatmap.png"), dpi=300)
     print(f"Occlusion result plotted as heatmap in {os.getcwd()}.")
+    if show:
+        plt.show()
 
 
 if __name__ == "__main__":
@@ -189,4 +196,4 @@ if __name__ == "__main__":
 
 
     # Plot occlusion array as heatmap
-    plot_heatmap(occlusion_array, energy_array, orbital_names, d_orbital_only=d_orbital_only)
+    plot_heatmap(occlusion_array, energy_array, orbital_names, d_orbital_only=d_orbital_only, show=False)
