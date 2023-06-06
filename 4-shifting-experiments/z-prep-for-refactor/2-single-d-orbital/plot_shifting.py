@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 
 
+colormap = "magma"  # ref: https://matplotlib.org/stable/tutorials/colors/colormaps.html
+
 from matplotlib import rcParams
-rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+
+rcParams["font.family"] = "sans-serif"
+rcParams["font.sans-serif"] = ["DejaVu Sans"]
 
 
 if __name__ == "__main__":
@@ -25,8 +28,8 @@ if __name__ == "__main__":
 
 
     # Get max and min for all subplots (to share the same colorbar)
-    # vmax = max(np.amax(arr) for arr in result_dict.values())
-    # vmin = min(np.amin(arr) for arr in result_dict.values())
+    vmax = max(np.amax(arr) for arr in result_dict.values())
+    vmin = min(np.amin(arr) for arr in result_dict.values())
     # print(f"Min shifting is {vmin} eV, max shifting is {vmax} eV.")
 
     if vmax > 0 and vmin < 0:
@@ -49,7 +52,7 @@ if __name__ == "__main__":
         # Create 1D heatmap
         # ref: https://stackoverflow.com/questions/45841786/creating-a-1d-heat-map-from-a-line-graph
         im = ax.imshow(y, extent=[shift_energy_array[0], shift_energy_array[-1], 0, 1.5],
-                       cmap="viridis",
+                       cmap=colormap,
                        vmin=vmin, vmax=vmax,
                       )
 
@@ -70,7 +73,7 @@ if __name__ == "__main__":
     # Add colorbar
     # Ref: https://stackoverflow.com/questions/13784201/how-to-have-one-colorbar-for-all-subplots
     cb = fig.colorbar(im, ax=axs.ravel().tolist())
-    cb.set_label('$\Delta\mathit{E}_{\mathrm{ads}}\ \mathrm{(eV)}$', fontsize=16)
+    cb.set_label("$\Delta\mathit{E}_{\mathrm{ads}}\ \mathrm{(eV)}$", fontsize=16)
     cb.ax.tick_params(labelsize=10, width=2)  # set ticks
     # cb.set_ticks([-20, -10, 0, 10, 20])
     cb.outline.set_visible(False)  # hide border
