@@ -47,10 +47,13 @@ if  __name__ == "__main__":
     ax3 = fig.add_subplot(gs[1, 0])
     ax4 = fig.add_subplot(gs[1, 1])
 
-    ax1.plot(xs[0], ys[0], color="black", linewidth=2)
-    ax2.plot(xs[1], ys[1], color="black", linewidth=2)
-    ax3.plot(xs[2], ys[2], color="black", linewidth=2)
-    ax4.plot(xs[3], ys[3], color="black", linewidth=2)
+    top_color = "#5B84B1FF"
+    bottom_color = "#FC766AFF"
+
+    ax1.plot(xs[0], ys[0], color=top_color, linewidth=2)
+    ax2.plot(xs[1], ys[1], color=top_color, linewidth=2)
+    ax3.plot(xs[2], ys[2], color=bottom_color, linewidth=2)
+    ax4.plot(xs[3], ys[3], color=bottom_color, linewidth=2)
 
     for ax in [ax1, ax2, ax3, ax4]:
         ax.set_xlim([-11, 6])
@@ -74,3 +77,4 @@ if  __name__ == "__main__":
 
     # Save figure
     plt.savefig("cohp_vs_occlusion.png", dpi=300)
+    plt.show()
