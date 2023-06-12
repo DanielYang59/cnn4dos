@@ -47,8 +47,8 @@ if  __name__ == "__main__":
     ax3 = fig.add_subplot(gs[1, 0])
     ax4 = fig.add_subplot(gs[1, 1])
 
-    top_color = "#5B84B1FF"
-    bottom_color = "#FC766AFF"
+    top_color = "#F5C767"
+    bottom_color = "#1984A3"
 
     ax1.plot(xs[0], ys[0], color=top_color, linewidth=2)
     ax2.plot(xs[1], ys[1], color=top_color, linewidth=2)
