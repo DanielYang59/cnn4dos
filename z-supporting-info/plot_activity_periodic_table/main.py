@@ -13,9 +13,10 @@ def main():
     # Load config
     with open("config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
-    limiting_potential_file = cfg["path"]["limiting_potential_file"]
-    data_cols = cfg["path"]["data_cols"]
+    limiting_potential_file = cfg["paths"]["limiting_potential_file"]
+    data_cols = cfg["paths"]["data_cols"]
     substrate = cfg["species"]["substrate"]
+    colorbar_range = cfg["plottings"]["colorbar_range"]
 
 
     # Load limiting potential for selected substrate
@@ -32,6 +33,7 @@ def main():
     cbar_height=390,  # colorbar height (should reposition to top right)
     alpha=0.80,
     cbar_location=(0, 162),
+    cbar_range=colorbar_range,
     output_filename=(Path("figures") / f"{substrate}.png").resolve(),
     show=False
     )

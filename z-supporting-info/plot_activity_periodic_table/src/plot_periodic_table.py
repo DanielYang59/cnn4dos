@@ -44,7 +44,8 @@ def plot_periodic_table(
     over_color: str = "#140F0E",
     special_elements: List[str] = None,
     special_color: str = "#6F3023",
-    cbar_location: tuple = (0, 0)  # location of colorbar
+    cbar_location: tuple = (0, 0),  # location of colorbar
+    cbar_range: dict = None,
 ) -> figure:
 
     """
@@ -250,6 +251,10 @@ def plot_periodic_table(
     color_bar.major_tick_in = 0
     color_bar.major_tick_line_width = 2.5  # set ticks thickness
 
+    ## Set colorbar value range
+    if cbar_range is not None:
+        color_mapper.low = cbar_range["low"]
+        color_mapper.high = cbar_range["high"]
 
     ## Set colorbar height
     if cbar_height is not None:
