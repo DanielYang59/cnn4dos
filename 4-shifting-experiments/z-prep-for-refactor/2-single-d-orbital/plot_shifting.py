@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     # Set x ticks and title
     plt.xticks([-1, -0.5, 0, 0.5, 1], fontsize=12)
-    plt.xlabel("DOS Shift (eV)", fontsize=16)
+    plt.xlabel("eDOS Shift (eV)", fontsize=16)
 
 
     # plt.tight_layout()
