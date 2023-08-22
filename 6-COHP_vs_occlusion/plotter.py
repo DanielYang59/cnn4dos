@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Plot COHP and occlusion experiment result (Co dxy/dxz orbitals).
+Plot COHP and occlusion experiment result (Co dxz/dxy orbitals).
 """
 
 
@@ -31,24 +31,25 @@ if  __name__ == "__main__":
 
     # Import COHP result
     cohp_energy = pd.read_csv("cohp_dxy.dat").iloc[:, 0]
-    cohp_dxy = -pd.read_csv("cohp_dxy.dat").iloc[:, 1]
     cohp_dxz = -pd.read_csv("cohp_dxz.dat").iloc[:, 1]
+    cohp_dxy = -pd.read_csv("cohp_dxy.dat").iloc[:, 1]
 
-    xs = [occ_energy, cohp_energy, occ_energy, cohp_energy]
-    ys = [occ_dxy, cohp_dxy, occ_dxz, cohp_dxz]
+
+    # Compile x/y data for plotting
+    xs = [occ_energy, occ_energy, cohp_energy, cohp_energy]
+    ys = [occ_dxy, occ_dxz, cohp_dxy, cohp_dxz]
+    top_color = "#F5C767"
+    bottom_color = "#1984A3"
 
 
     # Create subplots
-    rcParams["axes.linewidth"] = 2.5
+    rcParams["axes.linewidth"] = 2
     fig = plt.figure(figsize=(12, 6))
     gs = GridSpec(2, 2, figure=fig)
-    ax1 = fig.add_subplot(gs[0, 0])
-    ax2 = fig.add_subplot(gs[0, 1])
-    ax3 = fig.add_subplot(gs[1, 0])
-    ax4 = fig.add_subplot(gs[1, 1])
-
-    top_color = "#F5C767"
-    bottom_color = "#1984A3"
+    ax1 = fig.add_subplot(gs[0, 0])  # top left
+    ax2 = fig.add_subplot(gs[0, 1])  # top right
+    ax3 = fig.add_subplot(gs[1, 0])  # bottom left
+    ax4 = fig.add_subplot(gs[1, 1])  # bottom right
 
     ax1.plot(xs[0], ys[0], color=top_color, linewidth=2)
     ax2.plot(xs[1], ys[1], color=top_color, linewidth=2)
