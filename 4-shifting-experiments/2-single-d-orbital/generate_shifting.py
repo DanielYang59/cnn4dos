@@ -5,11 +5,11 @@
 # Configs
 shift_value = 1  # positive value: -X eV, X eV
 elements = ["4-Ti", "4-V", "4-Cr", "4-Mn", "4-Fe", "4-Co", "4-Ni", "4-Cu", "4-Zn", "4-Ga", "4-Ge"]
-orbital_index = 7  # starts from zero: 0 s, 1 py, 2 pz, 3 px, 4 dxy, 5 dyz, 6 dz2, 7 dxz, 8 dx2-y2
+orbital_index = 8  # starts from zero: 0 s, 1 py, 2 pz, 3 px, 4 dxy, 5 dyz, 6 dz2, 7 dxz, 8 dx2-y2
 
-model_path = "../../1-model-and-training/2-best-model/model"
-adsorbate_dos_dir = "../../0-dataset/feature_DOS/adsorbate-DOS"
-dos_dir = "../../0-dataset/feature_DOS/g-C3N4/3-CO_is"
+model_path = "../../../1-model-and-training/2-best-model/model"
+adsorbate_dos_dir = "../../../0-dataset/feature_DOS/adsorbate-DOS"
+dos_dir = "../../../0-dataset/feature_DOS/g-C3N4/3-CO_is"
 normalize_dos = False
 append_molecule = True
 remove_ghost_state = True
