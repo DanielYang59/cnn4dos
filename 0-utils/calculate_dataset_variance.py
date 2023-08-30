@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-training_dir = "../1-model-and-training/0-hyper-tuning"
+
+training_dir = "../1-model-and-training/1-hyper-tune"
 
 
-# Import packages
-import os
 import numpy as np
+from pathlib import Path
 import yaml
 
 import sys
@@ -16,12 +16,12 @@ from lib.dataset import Dataset
 
 if __name__ == "__main__":
     # Load configs
-    with open(os.path.join(training_dir, "config.yaml")) as ymlfile:
+    with open(Path(training_dir) / "config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
 
     ## paths
-    feature_dir = "../0-dataset/feature_DOS"
-    label_dir = "../0-dataset/label_adsorption_energy"
+    feature_dir = Path("../0-dataset/feature_DOS")
+    label_dir = Path("../0-dataset/label_adsorption_energy")
     ## species
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
@@ -35,8 +35,11 @@ if __name__ == "__main__":
     dataFetcher = Dataset()
 
     ## Load feature
-    dataFetcher.load_feature(feature_dir, substrates, adsorbates, centre_atoms,
-                             states={"is", }, spin=spin,
+    dataFetcher.load_feature(feature_dir,
+                             substrates, adsorbates,
+                             centre_atoms,
+                             states={"is", },
+                             spin=spin,
                              load_augment=load_augmentation, augmentations=augmentations)
 
     ## Load labels
