@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
-import os
 import matplotlib.pyplot as plt
+import numpy as np
+import os
 import seaborn as sns
 
 from src.create_heatmap import corrplot
@@ -36,4 +37,4 @@ if __name__ == "__main__":
 
     # Show correlation coefficients
     print(corr_matrix)
-    print(f"Min value across entire dataframe is {corr_matrix.min().min():.4f}.")
+    print(f"Min value across entire dataframe is {corr_matrix.min().min():.4f}. Variance is {np.var(corr_matrix.to_numpy().flatten(), ddof=1)}.")
