@@ -166,6 +166,7 @@ if __name__ == "__main__":
         # Add MAE text
         mae = np.absolute(np.subtract(labels, predictions)).mean()
         g.ax_joint.text(-8.5, -10, f"MAE = {'%.2f' % mae} eV", fontsize=28)
+        print(f"MAE is {mae} eV.")
 
         plt.tight_layout()
         plt.savefig(os.path.join("figures", f"parity_plot_{ads}.png"), dpi=300)

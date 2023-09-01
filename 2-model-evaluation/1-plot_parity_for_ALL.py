@@ -167,6 +167,7 @@ if __name__ == "__main__":
     # Add MAE text
     mae = np.absolute(np.subtract(labels, predictions)).mean()
     g.ax_joint.text(-8.5, -10, f"MAE = {'%.2f' % mae} eV", fontsize=28)
+    print(f"MAE is {mae} eV.")
 
     # Calculate R2 score and print
     r2 = r2_score(y_true=labels, y_pred=predictions)
