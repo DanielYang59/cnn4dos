@@ -5,6 +5,7 @@
 model_dir = "../1-model-and-training/2-best-model"
 
 
+import copy
 from matplotlib import rcParams
 from matplotlib.patches import PathPatch
 import matplotlib.pyplot as plt
@@ -55,7 +56,7 @@ if __name__ == "__main__":
     for ads in adsorbates:
         print(f"working on {ads}")
         ## Load feature
-        dataFetcher.load_feature(feature_dir, substrates, [ads, ], centre_atoms,
+        dataFetcher.load_feature(feature_dir, copy.copy(substrates), [ads, ], centre_atoms,
                             states={"is", }, spin=spin,
                             remove_ghost=remove_ghost,
                             load_augment=load_augmentation, augmentations=augmentations)
