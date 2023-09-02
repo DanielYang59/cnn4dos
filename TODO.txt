@@ -1,25 +1,15 @@
 TO-DO list:
 
 
-1. Refactor "shifting-experiments"
-    a. add "all orbital shifting"
-    b. optimize shifting algorithm
+1. Move limiting potential calculation and verification module from "volcano plot" to "supporting info"
 
 
-2. Move limiting potential calculation and verification module from "volcano plot" to "supporting info"
+2. Replace string manipulation of path with pathlib.
 
 
-3. Replace string manipulation of path with pathlib.
+3. HER volcano plot not working.
 
 
-4. HER volcano plot not working.
+4. Testing area under "volcanoPlotter" is not working (import error)
 
 
-5. Testing area under "volcanoPlotter" is not working (import error)
-
-
-6. (Take fermi level into account in CNN.)
-
-
-7. Limiting potential periodic table export image directly.
-    Add title to the right of colorbar.
