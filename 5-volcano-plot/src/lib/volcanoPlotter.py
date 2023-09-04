@@ -5,7 +5,7 @@
 import math
 import matplotlib as mpl
 from matplotlib import rcParams
-from matplotlib.colors import ListedColormap, BoundaryNorm
+from matplotlib.colors import ListedColormap, BoundaryNorm, LinearSegmentedColormap
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
 import numpy as np
@@ -404,17 +404,31 @@ class volcanoPlotter:
 
 
         # Create background contour plot
-        cmap = ListedColormap(["blue", "green", "yellow", "orange", "red", "purple", "brown", "gray"])
+        colors = ["blue", "green", "yellow", "orange", "red", "purple", "brown", "gray"]
+        cmap = LinearSegmentedColormap.from_list("custom_colormap", colors, N=len(colors))
 
-        bounds = [1, 2, 3, 4, 5, 6, 7, 8]
-        norm = BoundaryNorm(bounds, cmap.N)
+        norm = plt.Normalize(vmin=1, vmax=len(colors) + 1)
+
 
         contour = plt.contourf(self.xx, self.yy, rds_mesh,
                                levels=10, cmap=cmap,
                                )
 
         # Add discrete colorbar
-        cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ticks=bounds, boundaries=bounds)
+        cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), )
+
+
+        tick_positions = np.linspace(1 + 0.5, len(colors) + 0.5, len(colors))
+        cbar.set_ticks(tick_positions)
+        cbar.set_ticklabels(np.arange(1, len(colors) + 1))
+
+        ## Adjust colorbar tick size
+        cbar.ax.tick_params(labelsize=18)
+
+
+        ## Add title for colorbar
+        cbar.set_label("Rate determining step", fontsize=24)
+
 
         # Save/show figure
         plt.tight_layout()
