@@ -6,11 +6,7 @@ import yaml
 from pathlib import Path
 
 
-def generate_config_template():
-    pass
-
-
-def read_config(filename: str) -> dict:
+def load_config(filename: str) -> dict:
     """
     Read a YAML configuration file and return its content as a dictionary.
 
