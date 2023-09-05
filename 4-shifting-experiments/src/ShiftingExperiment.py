@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 class ShiftingExperiment:
-    def __init__(self, model_path: Path, adsorbate_path: Path, array: np.ndarray, working_dir: Path = Path(".")):
+    def __init__(self, model_path: Path, adsorbate_path: Path, array: np.ndarray, max_adsorbate_channels: int, working_dir: Path = Path(".")):
         """
         Initialize the ShiftingExperiment class.
 
@@ -16,11 +16,13 @@ class ShiftingExperiment:
             model_path (Path): Path to the saved CNN model.
             adsorbate_path (Path): Path to the saved adsorbate array.
             array (np.ndarray): The initial unshifted array.
+            max_adsorbate_channels (int): Maximum number of adsorbate channels for padding.
             working_dir (Path): The working directory for the experiment.
         """
         self.model = self.load_model(model_path)
         self.adsorbate_array = self.load_adsorbate_array(adsorbate_path)
         self.array = array
+        self.max_adsorbate_channels = max_adsorbate_channels
         self.working_dir = working_dir
 
 
@@ -31,11 +33,19 @@ class ShiftingExperiment:
         return tf.keras.models.load_model(str(model_path))
 
 
-    def load_adsorbate_array(self, adsorbate_path: Path):
-        """Loads the adsorbate array from a given path."""
+    def load_and_pad_adsorbate_array(self, adsorbate_path: Path):
+        """Loads and pads the adsorbate array from a given path."""
         if not adsorbate_path.exists():
             raise FileNotFoundError(f"The adsorbate file does not exist at {adsorbate_path}.")
-        return np.load(adsorbate_path)
+
+        array = np.load(adsorbate_path)
+
+        shape = array.shape
+        if shape[-1] > self.max_adsorbate_channels:
+            raise ValueError(f"The array has more channels ({shape[-1]}) than max_adsorbate_channels ({self.max_adsorbate_channels}).")
+
+        padding_size = self.max_adsorbate_channels - shape[-1]
+        return np.pad(array, ((0, 0), (0, 0), (0, padding_size)), "constant")
 
 
     def generate_shifted_arrays(self, shift_range: tuple, shift_step: float, orbital_indexes: list) -> np.ndarray:
