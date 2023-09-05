@@ -33,8 +33,8 @@ def get_folders_in_dir(directory_path: str, filter_file: str = None) -> list:
             if filter_file:
                 filter_file_path = item / filter_file
                 if filter_file_path.exists():
-                    folder_list.append(item.name)
+                    folder_list.append(dir_path / item.name)
             else:
-                folder_list.append(item.name)
+                folder_list.append(dir_path / item.name)
 
     return folder_list
