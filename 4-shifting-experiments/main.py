@@ -21,15 +21,21 @@ def main(configfile="config.yaml"):
         directory_path=config["path"]["working_dir"],
         filter_file=config["shifting"]["dos_array_name"],
         )
+    if not folders:
+        raise FileNotFoundError(f"No suitable folders containing {config['shifting']['dos_array_name']} found in ({config['path']['working_dir']}).")
 
 
     for d in folders:
+        d = Path(d)
+
         # Initiate shifting experiment class
         experiment = ShiftingExperiment(
             model_path=Path(config["path"]["cnn_model_path"]),
             adsorbate_path=Path(config["path"]["adsorbate_dos_array_path"]),
+            max_adsorbate_channels=int(config["shifting"]["max_adsorbate_channels"]),
             array=np.load(d / config["shifting"]["dos_array_name"]),
-            working_dir=Path(d),
+            remove_ghost_state=bool(config["shifting"]["remove_ghost_state"]),
+            working_dir=d,
         )
 
 
@@ -46,12 +52,12 @@ def main(configfile="config.yaml"):
         # Save shifting experiment results
         experiment.save_shifted_arrays(
             shifted_arrays=differences,
-            filename=Path(d) / "shifting_diff.npy",
+            filename=d / config["shifting"]["result_array_name"],
             )
 
 
-    # Plot shifting experiment heatmap
-    plot_shifting()
+    # Plot shifting experiment as heatmap
+    plot_shifting(folders)
 
 
 if __name__ == "__main__":

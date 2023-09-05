@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 class ShiftingExperiment:
-    def __init__(self, model_path: Path, adsorbate_path: Path, array: np.ndarray, max_adsorbate_channels: int, working_dir: Path = Path(".")):
+    def __init__(self, model_path: Path, adsorbate_path: Path, array: np.ndarray, remove_ghost_state: bool, max_adsorbate_channels: int, working_dir: Path = Path(".")):
         """
         Initialize the ShiftingExperiment class.
 
@@ -16,14 +16,24 @@ class ShiftingExperiment:
             model_path (Path): Path to the saved CNN model.
             adsorbate_path (Path): Path to the saved adsorbate array.
             array (np.ndarray): The initial unshifted array.
+            remove_ghost_state (bool): Flag to remove the ghost state by setting the first row to zero.
             max_adsorbate_channels (int): Maximum number of adsorbate channels for padding.
             working_dir (Path): The working directory for the experiment.
         """
         self.model = self.load_model(model_path)
         self.adsorbate_array = self.load_adsorbate_array(adsorbate_path)
         self.array = array
+        self.remove_ghost_state = remove_ghost_state
         self.max_adsorbate_channels = max_adsorbate_channels
         self.working_dir = working_dir
+
+        if self.remove_ghost_state:
+            self.remove_ghost_states()
+
+
+    def remove_ghost_states(self):
+        """Set the first value of all orbitals in the DOS array to zero if remove_ghost_state is True."""
+        self.array[0, :] = 0.0
 
 
     def load_model(self, model_path: Path):
