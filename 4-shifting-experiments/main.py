@@ -4,6 +4,7 @@
 from pathlib import Path
 import numpy as np
 import tensorflow as tf
+from tqdm import tqdm
 
 from src.cnnPredictor import CNNPredictor
 from src.dataLoader import DataLoader
@@ -36,7 +37,8 @@ def main():
     all_predictions = []
 
     # Step 3: Loop through each folder
-    for folder in folders:
+    for i, folder in enumerate(tqdm(folders, desc="Processing folders")):
+        print(f"Processing folder {folder.name} ({i + 1} out of {len(folders)})...")
         dos_file_path = folder / config['shifting']['dos_array_name']
 
         # a. Load DOS array with DOSProcessor

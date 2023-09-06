@@ -59,6 +59,6 @@ class CNNPredictor:
         combined_array = np.concatenate([dos_array, adsorbate_dos_array], axis=-1)
 
         # Make predictions with CNN model
-        predictions = self.model.predict(np.expand_dims(combined_array, axis=0)).flatten()
+        predictions = self.model.predict(np.expand_dims(combined_array, axis=0), verbose=0).flatten()
 
         return predictions
