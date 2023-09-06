@@ -1,42 +1,63 @@
 #!/bin/usr/python3
 # -*- coding: utf-8 -*-
 
-
 from pathlib import Path
+import numpy as np
+import tensorflow as tf
 
-from src.get_folders_in_dir import get_folders_in_dir
-from src.plot_shifting import plot_shifting
-from src.load_adsorbate import load_and_transpose_dos
-from src.load_config import load_config
-from src.load_cnn_model import load_cnn_model
+from src.cnnPredictor import CNNPredictor
+from src.dataLoader import DataLoader
+from src.dosProcessor import DOSProcessor
+from src.shiftGenerator import ShiftGenerator
+from src.shiftPlotter import shiftPlotter
+from src.utilities import get_folders_in_dir
 
+def main():
+    # Step 1: Load config and adsorbate DOS
+    data_loader = DataLoader()
+    config = data_loader.load_config('path/to/config.yaml')
 
-def main(configfile="config.yaml"):
-    # Load configs
-    config = load_config(Path(configfile))
+    adsorbate_dos = data_loader.load_and_preprocess_adsorbate_dos(config['path']['adsorbate_dos_array_path'])
 
+    # Step 2: List all matched folders
+    working_dir = config['path']['working_dir']
+    folders = get_folders_in_dir(working_dir, filter_file=config['shifting']['dos_array_name'])
 
-    # Read folders
-    folders = get_folders_in_dir(
-        directory_path=config["path"]["working_dir"],
-        filter_file=config["shifting"]["dos_array_name"],
-        )
+    # Load the CNN model
+    cnn_model = tf.keras.models.load_model(Path(config['path']['cnn_model_path']) / "model")
 
+    # Create an instance of CNNPredictor
+    cnn_predictor = CNNPredictor(cnn_model)
 
-    # Load and transpose adsorbate array
-    adsorbate_dos_array = load_and_transpose_dos(Path(config["path"]["adsorbate_dos_array_path"]))
+    # Create an empty list to store predictions for future plotting
+    all_predictions = []
 
+    # Step 3: Loop through each folder
+    for folder in folders:
+        dos_file_path = folder / config['shifting']['dos_array_name']
 
-    # Load CNN model
-    cnn_model = load_cnn_model(Path(config["path"]["cnn_model_path"]))
-    cnn_model.summary()
+        # a. Load DOS array with DOSProcessor
+        dos_processor = DOSProcessor(dos_file_path)
+        processed_dos = dos_processor.remove_ghost_state()
 
+        # b. Generate shifting arrays with ShiftGenerator
+        shift_gen = ShiftGenerator(processed_dos, config['shifting'])
+        shifted_dos_arrays = shift_gen.generate_shifted_arrays()
 
-    # G
+        # c. Feed each shifted array into the CNN model for prediction
+        predictions = []
+        for shifted_dos in shifted_dos_arrays:
+            prediction = cnn_predictor.predict(shifted_dos, adsorbate_dos)
+            predictions.append(prediction)
 
+        # d. Feed the unshifted DOS array into the CNN model for a reference point
+        ref_prediction = cnn_predictor.predict(processed_dos, adsorbate_dos)
 
-    # # Plot shifting experiment as heatmap
-    # plot_shifting(folders)
+        # e. Store the predictions for future plotting
+        all_predictions.append({"folder": folder, "predictions": np.array(predictions), "reference": ref_prediction})
+
+    # # Step 4: Plot
+    # shiftPlotter(all_predictions)
 
 
 if __name__ == "__main__":
