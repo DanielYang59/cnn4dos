@@ -87,9 +87,9 @@ class ShiftGenerator:
             for orbital_idx in self.shifting_orbitals:
                 # First, perform the shifting
                 if shift_value > 0:
-                    shifted_data = shifted_dos[:num_indices_to_shift, orbital_idx, :]
-                elif shift_value < 0:
                     shifted_data = shifted_dos[:-num_indices_to_shift, orbital_idx, :]
+                elif shift_value < 0:
+                    shifted_data = shifted_dos[num_indices_to_shift:, orbital_idx, :]
                 else:  # shift_value == 0
                     shifted_data = shifted_dos[:, orbital_idx, :]
 
