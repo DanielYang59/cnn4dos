@@ -7,6 +7,7 @@ path:
 
 shifting:
   dos_array_name: "dos_up.npy"
+  dos_calculation_resolution: 0.005
   max_adsorbate_channels: 5
   remove_ghost_state: True
   shifting_range: [-1, 1]
