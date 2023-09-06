@@ -1,26 +1,37 @@
 #!/bin/usr/python3
 # -*- coding: utf-8 -*-
 
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 import numpy as np
 from pathlib import Path
 
 class CNNPredictor:
 
-    def __init__(self, model_dir: Path):
+    def __init__(self, model_path=None, loaded_model=None):
         """
-        Initialize the CNNPredictor class and load the Keras CNN model.
+        Initialize the CNNPredictor class.
 
         Args:
-            model_dir (Path): The directory containing the saved Keras CNN model.
+            model_path (str, optional): The file path to the saved Keras model.
+            loaded_model (tf.keras.Model, optional): An already loaded Keras model.
 
         Raises:
-            FileNotFoundError: If the specified directory or model does not exist.
+            ValueError: If both model_path and loaded_model are provided.
         """
-        model_path = Path(model_dir) / "model"
-        if not model_path.exists():
-            raise FileNotFoundError(f"The specified model {model_path} does not exist.")
-        self.model = load_model(model_path)
+
+        if model_path and loaded_model:
+            raise ValueError("You can either provide a model_path or a loaded_model, not both.")
+
+        if model_path:
+            self.model = tf.keras.models.load_model(Path(model_path) / "model")
+
+        elif loaded_model:
+            if not isinstance(loaded_model, tf.keras.Model):
+                raise TypeError("loaded_model should be of type tf.keras.Model")
+            self.model = loaded_model
+
+        else:
+            raise ValueError("Either model_path or loaded_model should be provided.")
 
     def predict(self, dos_array: np.ndarray, adsorbate_dos_array: np.ndarray) -> np.ndarray:
         """
