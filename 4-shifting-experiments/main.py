@@ -34,7 +34,7 @@ def main():
     cnn_predictor = CNNPredictor(loaded_model=cnn_model)
 
     # Create an empty list to store predictions for future plotting
-    all_predictions = []
+    all_predictions = {}
 
     # Step 3: Loop through each folder
     for i, folder in enumerate(tqdm(folders, desc="Processing folders")):
@@ -65,11 +65,15 @@ def main():
         # d. Feed the unshifted DOS array into the CNN model for a reference point
         ref_prediction = cnn_predictor.predict(processed_dos, adsorbate_dos)
 
-        # e. Store the predictions for future plotting
-        all_predictions.append({"folder": folder, "predictions": np.array(predictions), "reference": ref_prediction})
+        # Subtract ref_prediction from each prediction
+        predictions = np.array(predictions) - ref_prediction
 
-    # # Step 4: Plot
-    # shiftPlotter(all_predictions)
+        # e. Store the predictions for future plotting
+        all_predictions[folder.name] = predictions
+
+    # Step 4: Plot
+    plotter = ShiftPlotter(all_predictions, config)
+    plotter.plot()
 
 
 if __name__ == "__main__":
