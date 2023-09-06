@@ -33,19 +33,20 @@ class DataLoader:
 
         return config
 
-    def load_and_preprocess_adsorbate_dos(self, filepath: str) -> np.ndarray:
+    def load_and_preprocess_adsorbate_dos(self, filepath: str, max_adsorbate_channels: int) -> np.ndarray:
         """
         Load and preprocess the adsorbate DOS array.
 
         Args:
             filepath (str): The path to the .npy file.
+            max_adsorbate_channels (int): Maximum number of channels for adsorbate_DOS.
 
         Returns:
-            np.ndarray: The preprocessed adsorbate DOS array of shape (numSamplings, numOrbitals, numChannels).
+            np.ndarray: The preprocessed adsorbate DOS array of shape (numSamplings, numOrbitals, max_adsorbate_channels).
 
         Raises:
             FileNotFoundError: If the specified file does not exist.
-            ValueError: If numOrbitals is not in {1, 4, 9, 16}.
+            ValueError: If numOrbitals is not in {1, 4, 9, 16} or numChannels exceeds max_adsorbate_channels.
 
         Note:
             The original shape of the adsorbate DOS array in the file should be (numChannels, numSamplings, numOrbitals).
@@ -67,6 +68,13 @@ class DataLoader:
 
         if numChannels >= 20:
             warnings.warn("The number of channels is greater than 20.")
+
+        # Check numberChannels and zero-pad if necessary
+        if numChannels > max_adsorbate_channels:
+            raise ValueError("Number of channels exceeds the maximum allowed.")
+        elif numChannels < max_adsorbate_channels:
+            pad_width = max_adsorbate_channels - numChannels
+            adsorbate_dos = np.pad(adsorbate_dos, ((0, 0), (0, 0), (0, pad_width)), 'constant')
 
         return adsorbate_dos
 
