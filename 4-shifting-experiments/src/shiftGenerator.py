@@ -82,30 +82,29 @@ class ShiftGenerator:
             num_indices_to_shift = int(abs(shift_value) / self.dos_calculation_resolution)
 
             if num_indices_to_shift >= shifted_dos.shape[0]:
-                print(f"Skipping shift value {shift_value} as it is greater or equal to the data shape.")
-                continue
+                raise ValueError(f"Skipping shift value {shift_value} as it is greater or equal to the data shape.")
 
             for orbital_idx in self.shifting_orbitals:
                 # First, perform the shifting
                 if shift_value > 0:
-                    shifted_data = shifted_dos[num_indices_to_shift:, orbital_idx, 0]
+                    shifted_data = shifted_dos[:num_indices_to_shift, orbital_idx, :]
                 elif shift_value < 0:
-                    shifted_data = shifted_dos[:-num_indices_to_shift, orbital_idx, 0]
+                    shifted_data = shifted_dos[:-num_indices_to_shift, orbital_idx, :]
                 else:  # shift_value == 0
-                    shifted_data = shifted_dos[:, orbital_idx, 0]
+                    shifted_data = shifted_dos[:, orbital_idx, :]
 
                 # Next, perform the zero-padding
-                padding = np.zeros(num_indices_to_shift)
+                padding = np.zeros((num_indices_to_shift, 1))
                 if shift_value != 0:
                     if shift_value > 0:
-                        padded_data = np.concatenate([padding, shifted_data])
-                    else:  # shift_value < 0
                         padded_data = np.concatenate([shifted_data, padding])
+                    else:  # shift_value < 0
+                        padded_data = np.concatenate([padding, shifted_data])
                 else:  # shift_value == 0
                     padded_data = shifted_data
 
                 # Assign the padded data back to the array
-                shifted_dos[:, orbital_idx, 0] = padded_data
+                shifted_dos[:, orbital_idx, 0] = padded_data.flatten()
 
             shifted_arrays.append(shifted_dos)
 
