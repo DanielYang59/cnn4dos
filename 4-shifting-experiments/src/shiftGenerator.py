@@ -5,14 +5,14 @@ import numpy as np
 import warnings
 
 class ShiftGenerator:
-    def __init__(self, dos_array: np.ndarray, shifting_range: list, shift_step: float, shifting_orbitals: list):
+    def __init__(self, dos_array: np.ndarray, shifting_range: list, shifting_step: float, shifting_orbitals: list):
         """
         Initialize the ShiftGenerator.
 
         Args:
             dos_array (np.ndarray): The pre-processed DOS array of shape (numSamplings, numOrbitals, 1).
             shifting_range (list): A list containing the start and end of the shifting range.
-            shift_step (float): The step length for each shift.
+            shifting_step (float): The step length for each shift.
             shifting_orbitals (list): A list containing the indices of the orbitals to be shifted.
 
         Raises:
@@ -29,9 +29,9 @@ class ShiftGenerator:
         start, end = shifting_range
         if start >= end:
             raise ValueError("The start of the shifting range should be smaller than the end.")
-        if shift_step <= 0:
+        if shifting_step <= 0:
             raise ValueError("shift_step should be greater than zero.")
-        if (end - start) % shift_step != 0:
+        if not self._is_multiple_of(number=(end - start), base=shifting_step):
             raise ValueError("The shifting range (end - start) should be a multiple of shift_step.")
         if len(set(shifting_orbitals)) != len(shifting_orbitals):
             raise ValueError("Duplicate orbital indices found in shifting_orbitals.")
@@ -40,8 +40,22 @@ class ShiftGenerator:
 
         self.dos_array = dos_array
         self.shifting_range = shifting_range
-        self.shift_step = shift_step
+        self.shift_step = shifting_step
         self.shifting_orbitals = shifting_orbitals
+
+    def _is_multiple_of(self, number, base):
+        """
+        Check if a given float number is a multiple of another float base, considering numerical inaccuracies.
+
+        Args:
+            number (float): The number to check.
+            base (float): The base to divide by.
+
+        Returns:
+            bool: True if 'number' is a multiple of 'base', False otherwise.
+        """
+        quotient = number / base
+        return np.isclose(quotient, round(quotient))
 
     def generate_shifted_arrays(self):
         """
