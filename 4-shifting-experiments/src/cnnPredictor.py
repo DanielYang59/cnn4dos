@@ -58,7 +58,7 @@ class CNNPredictor:
         # Append adsorbate DOS array to DOS array along the numChannels axis
         combined_array = np.concatenate([dos_array, adsorbate_dos_array], axis=-1)
 
-        # Make predictions
-        predictions = self.model.predict(combined_array)
+        # Make predictions with CNN model
+        predictions = self.model.predict(np.expand_dims(combined_array, axis=0)).flatten()
 
         return predictions

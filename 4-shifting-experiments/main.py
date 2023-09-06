@@ -13,7 +13,6 @@ from src.shiftPlotter import ShiftPlotter
 from src.utilities import get_folders_in_dir
 
 def main():
-    import sys  #DEBUG
     # Step 1: Load config and adsorbate DOS
     data_loader = DataLoader()
     config = data_loader.load_config('config.yaml')
