@@ -70,12 +70,18 @@ class ShiftGenerator:
         quotient = number / base
         return np.isclose(quotient, round(quotient))
 
-    def generate_shifted_arrays(self):
+    def generate_shifted_arrays(self, folder_name: str):
         """
         Generate a series of shifted DOS arrays.
 
+        Args:
+        folder_name (str): The name of the folder for this particular dataset.
+
         Returns:
             list: A list of shifted DOS arrays.
+
+        Side effect:
+            Saves a single NumPy array containing all shifted arrays for this folder.
         """
         start, end = self.shifting_range
         shift_values = np.arange(start, end + self.shift_step, self.shift_step)
@@ -113,9 +119,13 @@ class ShiftGenerator:
                 shifted_dos[:, orbital_idx, 0] = padded_data.flatten()
             shifted_arrays.append(shifted_dos)
 
+        # Save generated shift arrays
         if self.save_arrays:
-            self.save_path.mkdir(parents=True, exist_ok=True)
-            for i, shifted_dos in enumerate(shifted_arrays):
-                np.save(self.save_path / f"shifted_array_{i}.npy", shifted_dos)
+            result_array = np.stack(shifted_arrays, axis=0)  # Convert the list of arrays into a single NumPy array
+            specific_save_path = self.save_path / folder_name
+            specific_save_path.mkdir(parents=True, exist_ok=True)
+
+            # Save the entire 4D array as a single file
+            np.save(specific_save_path / "all_shifted_arrays.npy", result_array)
 
         return shifted_arrays

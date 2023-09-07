@@ -4,7 +4,7 @@ path:
   working_dir: "data/g-C3N4_CO_is"
   cnn_model_path: "../1-model-and-training/2-best-model/model"
   adsorbate_dos_array_path: "../0-dataset/feature_DOS/adsorbate-DOS/3-CO/dos_up_adsorbate.npy"
-  result_saving_path: "result_shifting_arrays"
+  shifting_array_saving_path: "result_shifting_arrays"
 
 shifting:
   dos_array_name: "dos_up.npy"
@@ -14,4 +14,3 @@ shifting:
   shifting_range: [-1, 1]
   shifting_step: 0.005
   shifting_orbitals: [0]  # starts from ZERO
-  result_array_name: "shifting_diff.npy"

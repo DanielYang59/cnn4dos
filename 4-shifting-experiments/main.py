@@ -26,7 +26,8 @@ def main():
     # Check for existing shifting arrays
     save_path_base = Path(config['path']['shifting_array_saving_path'])
     save_folder_name = f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}"
-    full_save_path = save_path_base / save_folder_name
+    folder_name_for_dataset = "YourFolderNameHere"  # Replace with the specific folder name for this dataset
+    full_save_path = save_path_base / save_folder_name / folder_name_for_dataset
 
     if full_save_path.exists():
         user_input = input(f"Shifting arrays already exist in {full_save_path}. Overwrite? (y/n): ")
@@ -67,7 +68,7 @@ def main():
             save_arrays=True,
             save_path=full_save_path
             )
-        shifted_dos_arrays = shift_gen.generate_shifted_arrays()
+        shifted_dos_arrays = shift_gen.generate_shifted_arrays(folder_name=folder)
 
         # c. Feed each shifted array into the CNN model for prediction
         predictions = []
@@ -87,7 +88,6 @@ def main():
     # Step 4: Plot
     plotter = ShiftPlotter(all_predictions, config)
     plotter.plot()
-
 
 if __name__ == "__main__":
     main()
