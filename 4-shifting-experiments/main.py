@@ -23,6 +23,17 @@ def main():
         config['shifting']['max_adsorbate_channels'],
         )
 
+    # Check for existing shifting arrays
+    save_path_base = Path(config['path']['shifting_array_saving_path'])
+    save_folder_name = f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}"
+    full_save_path = save_path_base / save_folder_name
+
+    if full_save_path.exists():
+        user_input = input(f"Shifting arrays already exist in {full_save_path}. Overwrite? (y/n): ")
+        if user_input.lower() != 'y':
+            print("Exiting...")
+            return
+
     # Step 2: List all matched folders
     working_dir = config['path']['working_dir']
     folders = get_folders_in_dir(working_dir, filter_file=config['shifting']['dos_array_name'])
@@ -52,7 +63,9 @@ def main():
             dos_calculation_resolution=config['shifting']['dos_calculation_resolution'],
             shifting_range=config['shifting']['shifting_range'],
             shifting_step=config['shifting']['shifting_step'],
-            shifting_orbitals=config['shifting']['shifting_orbitals']
+            shifting_orbitals=config['shifting']['shifting_orbitals'],
+            save_arrays=True,
+            save_path=full_save_path
             )
         shifted_dos_arrays = shift_gen.generate_shifted_arrays()
 

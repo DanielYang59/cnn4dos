@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+from pathlib import Path
 import warnings
 
 class ShiftGenerator:
-    def __init__(self, dos_array: np.ndarray, shifting_range: list, shifting_step: float, shifting_orbitals: list, dos_calculation_resolution: float):
+    def __init__(self, dos_array: np.ndarray, shifting_range: list, shifting_step: float, shifting_orbitals: list, dos_calculation_resolution: float, save_arrays: bool = False, save_path: Path = None):
         """
         Initialize the ShiftGenerator.
 
@@ -15,6 +16,8 @@ class ShiftGenerator:
             shifting_step (float): The step length for each shift.
             shifting_orbitals (list): A list containing the indices of the orbitals to be shifted.
             dos_calculation_resolution (float): The energy resolution along the numSamplings axis of the DOS array.
+            save_arrays (bool, optional): Whether to save the shifted arrays to disk. Defaults to False.
+            save_path (Path, optional): The directory where to save the shifted arrays if save_arrays is True. Defaults to None.
 
         Raises:
             ValueError: If the shape of dos_array is not as expected, or if shifting parameters are not valid.
@@ -48,6 +51,10 @@ class ShiftGenerator:
         self.shift_step = shifting_step
         self.shifting_orbitals = shifting_orbitals
         self.dos_calculation_resolution = dos_calculation_resolution
+        self.save_arrays = save_arrays
+        if save_arrays and save_path is None:
+            raise ValueError("If save_arrays is True, save_path cannot be None.")
+        self.save_path = save_path
 
     def _is_multiple_of(self, number, base):
         """
@@ -105,5 +112,10 @@ class ShiftGenerator:
                 # Assign the padded data back to the array
                 shifted_dos[:, orbital_idx, 0] = padded_data.flatten()
             shifted_arrays.append(shifted_dos)
+
+        if self.save_arrays:
+            self.save_path.mkdir(parents=True, exist_ok=True)
+            for i, shifted_dos in enumerate(shifted_arrays):
+                np.save(self.save_path / f"shifted_array_{i}.npy", shifted_dos)
 
         return shifted_arrays
