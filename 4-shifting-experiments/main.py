@@ -1,6 +1,7 @@
 #!/bin/usr/python3
 # -*- coding: utf-8 -*-
 
+import os
 from pathlib import Path
 import numpy as np
 import tensorflow as tf
@@ -84,7 +85,7 @@ def main():
 
     # Step 4: Plot
     plotter = ShiftPlotter(all_predictions, config)
-    plotter.plot()
+    plotter.plot(save_dir=f"figures{os.sep}{str(working_dir).split(os.sep)[-1]}")
 
 if __name__ == "__main__":
     main()
