@@ -5,6 +5,7 @@ from matplotlib import rcParams
 import matplotlib.pyplot as plt
 from mendeleev import element
 import numpy as np
+from pathlib import Path
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["DejaVu Sans"]
@@ -48,12 +49,13 @@ class ShiftPlotter:
         sorted_keys = sorted(self.all_predictions.keys(), key=lambda x: elements_order.index(get_element_from_key(x)))
         self.all_predictions = {k: self.all_predictions[k] for k in sorted_keys}
 
-    def plot(self, colormap="magma"):
+    def plot(self, colormap="magma", save_dir="figures"):
         """
         Generate a plot based on the provided shift and prediction data.
 
         Parameters:
             colormap (str, optional): The colormap to use for the plot. Defaults to 'magma'.
+            save_dir (str, optional): Directory where to save the figure. Defaults to "figures".
 
         Returns:
             None: The function saves the plot as a PNG file and displays it.
@@ -106,5 +108,6 @@ class ShiftPlotter:
         plt.xticks(x_ticks, fontsize=12)
         plt.xlabel("eDOS Shift (eV)", fontsize=16)
 
-        plt.savefig("shift_experiment_plot.png", dpi=600)
-        plt.show()
+        save_dir = Path(save_dir)
+        save_dir.mkdir(parents=True, exist_ok=True)
+        plt.savefig(save_dir / f"shift_experiment_{self.shift_range[0]}_{self.shift_range[1]}_{self.shift_step}_{self.shifting_orbitals}.png", dpi=600)
