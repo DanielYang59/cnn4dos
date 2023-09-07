@@ -3,6 +3,7 @@
 
 from matplotlib import rcParams
 import matplotlib.pyplot as plt
+from mendeleev import element
 import numpy as np
 
 rcParams["font.family"] = "sans-serif"
@@ -28,9 +29,24 @@ class ShiftPlotter:
             config (dict): Dictionary containing various configurations.
         """
         self.all_predictions = all_predictions  # Dictionary of all predictions
+        self._sort_predictions_by_element()
         self.shift_range = config['shifting']['shifting_range']  # range of shifting, e.g., [-0.5, 0.5]
         self.shift_step = config['shifting']['shifting_step']  # e.g., 0.005
         self.shifting_orbitals = config['shifting']['shifting_orbitals']
+
+    def _sort_predictions_by_element(self):
+        """
+        Sorts the 'all_predictions' dictionary based on the atomic numbers of the chemical elements found in its keys.
+        The atomic numbers are used to order the elements according to the Periodic Table.
+        """
+        elements_order = [element(i).symbol for i in range(1, 119)]
+
+        def get_element_from_key(key):
+            # Assuming the last component after "-" is the element symbol
+            return str(key).split("/")[-1].split("-")[-1]
+
+        sorted_keys = sorted(self.all_predictions.keys(), key=lambda x: elements_order.index(get_element_from_key(x)))
+        self.all_predictions = {k: self.all_predictions[k] for k in sorted_keys}
 
     def plot(self, colormap="magma"):
         """
