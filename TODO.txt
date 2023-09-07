@@ -1,6 +1,8 @@
 TO-DO list:
 
 0. Reshape (Unify) adsorbate DOS shape to (numSamplings, numOrbitals, numChannels).
+0. Clean up occlusion experiment.
+
 
 1. Move limiting potential calculation and verification module from "volcano plot" to "supporting info"
 
