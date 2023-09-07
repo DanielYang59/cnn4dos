@@ -121,11 +121,12 @@ class ShiftGenerator:
 
         # Save generated shift arrays
         if self.save_arrays:
-            result_array = np.stack(shifted_arrays, axis=0)  # Convert the list of arrays into a single NumPy array
-            specific_save_path = self.save_path / folder_name
-            specific_save_path.mkdir(parents=True, exist_ok=True)
+            # Create a directory for the specific settings if it doesn't exist
+            folder_to_save = self.save_path / folder_name.name
+            folder_to_save.mkdir(parents=True, exist_ok=True)
 
-            # Save the entire 4D array as a single file
-            np.save(specific_save_path / "all_shifted_arrays.npy", result_array)
+            # Save a single array combining all shifted arrays
+            all_shifted_arrays = np.stack(shifted_arrays, axis=0)  # Assuming axis=0 stacks them as you want
+            np.save(folder_to_save / "all_shifted_arrays.npy", all_shifted_arrays)
 
         return shifted_arrays

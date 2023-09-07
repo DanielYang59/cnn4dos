@@ -23,20 +23,8 @@ def main():
         config['shifting']['max_adsorbate_channels'],
         )
 
-    # Check for existing shifting arrays
-    save_path_base = Path(config['path']['shifting_array_saving_path'])
-    save_folder_name = f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}"
-    folder_name_for_dataset = "YourFolderNameHere"  # Replace with the specific folder name for this dataset
-    full_save_path = save_path_base / save_folder_name / folder_name_for_dataset
-
-    if full_save_path.exists():
-        user_input = input(f"Shifting arrays already exist in {full_save_path}. Overwrite? (y/n): ")
-        if user_input.lower() != 'y':
-            print("Exiting...")
-            return
-
     # Step 2: List all matched folders
-    working_dir = config['path']['working_dir']
+    working_dir = Path(config['path']['working_dir'])
     folders = get_folders_in_dir(working_dir, filter_file=config['shifting']['dos_array_name'])
 
     # Load the CNN model
@@ -59,6 +47,13 @@ def main():
         processed_dos = dos_processor.remove_ghost_state()
 
         # b. Generate shifting arrays with ShiftGenerator
+
+        # Create a specific save path for each folder
+        save_path_base = Path(config['path']['shifting_array_saving_path'])
+        save_folder_name = f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}"
+
+        full_save_path = save_path_base / working_dir.name / save_folder_name
+
         shift_gen = ShiftGenerator(
             processed_dos,
             dos_calculation_resolution=config['shifting']['dos_calculation_resolution'],
