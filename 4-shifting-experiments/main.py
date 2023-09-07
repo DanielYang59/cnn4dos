@@ -35,6 +35,7 @@ def main():
 
     # Create an empty list to store predictions for future plotting
     all_predictions = {}
+    prediction_save_base = Path(config['path']['prediction_saving_path'])
 
     # Step 3: Loop through each folder
     for i, folder in enumerate(tqdm(folders, desc="Processing folders")):
@@ -47,23 +48,14 @@ def main():
         processed_dos = dos_processor.remove_ghost_state()
 
         # b. Generate shifting arrays with ShiftGenerator
-
-        # Create a specific save path for each folder
-        save_path_base = Path(config['path']['shifting_array_saving_path'])
-        save_folder_name = f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}"
-
-        full_save_path = save_path_base / working_dir.name / save_folder_name
-
         shift_gen = ShiftGenerator(
             processed_dos,
             dos_calculation_resolution=config['shifting']['dos_calculation_resolution'],
             shifting_range=config['shifting']['shifting_range'],
             shifting_step=config['shifting']['shifting_step'],
             shifting_orbitals=config['shifting']['shifting_orbitals'],
-            save_arrays=True,
-            save_path=full_save_path
             )
-        shifted_dos_arrays = shift_gen.generate_shifted_arrays(folder_name=folder)
+        shifted_dos_arrays = shift_gen.generate_shifted_arrays()
 
         # c. Feed each shifted array into the CNN model for prediction
         predictions = []
@@ -77,8 +69,18 @@ def main():
         # Subtract ref_prediction from each prediction
         predictions = np.array(predictions) - ref_prediction
 
-        # e. Store the predictions for future plotting
+        # e. Save the predictions for future plotting
         all_predictions[folder.name] = predictions
+
+        # Extract the last part of the working directory
+        last_part_of_working_dir = Path(working_dir).name
+
+        # Create a specific save path for each folder's predictions
+        prediction_save_path = prediction_save_base / last_part_of_working_dir / f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}" / folder.name
+        prediction_save_path.mkdir(parents=True, exist_ok=True)
+
+        # Save the predictions to disk
+        np.save(prediction_save_path / 'predictions.npy', predictions)
 
     # Step 4: Plot
     plotter = ShiftPlotter(all_predictions, config)
