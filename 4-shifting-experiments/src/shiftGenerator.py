@@ -99,9 +99,9 @@ class ShiftGenerator:
                 if np.isclose(shift_value, 0, atol=1e-9):  # shift_value ~ 0
                     padded_data = shifted_data
                 elif shift_value > 0:
-                    padded_data = np.concatenate([shifted_data, padding])
-                else: # shift_value < 0
                     padded_data = np.concatenate([padding, shifted_data])
+                else: # shift_value < 0
+                    padded_data = np.concatenate([shifted_data, padding])
 
                 # Assign the padded data back to the array
                 shifted_dos[:, orbital_idx, 0] = padded_data.flatten()
