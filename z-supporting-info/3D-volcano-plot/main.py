@@ -11,6 +11,7 @@ def main():
         font_url='https://github.com/google/fonts/blob/main/ofl/uncialantiqua/UncialAntiqua-Regular.ttf?raw=true',
         show_plot=False,
         cmap='plasma',  # https://matplotlib.org/stable/gallery/color/colormap_reference.html
+        interpolate=True,
         )
 
     # Generate and plot 3D ridge
