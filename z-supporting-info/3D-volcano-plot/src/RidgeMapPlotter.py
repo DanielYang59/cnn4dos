@@ -1,4 +1,4 @@
-#!/bin/usr/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from ridge_map import FontManager, RidgeMap
@@ -13,11 +13,9 @@ class RidgeMapPlotter:
     Attributes:
         font (FontManager): Font manager object.
         rm (RidgeMap): Ridge map object.
-        values (ndarray): Elevation data.
-        preprocessed_values (ndarray): Preprocessed elevation data.
+        cmap (matplotlib.colors.Colormap): The colormap used for plotting.
     """
-
-    def __init__(self, coordinates, font_url, cmap="ocean"):
+    def __init__(self, coordinates, font_url, show_plot=False, cmap='ocean'):
         """
         Initialize a RidgeMapPlotter object.
 
@@ -28,36 +26,47 @@ class RidgeMapPlotter:
         """
         self.font = FontManager(font_url)
         self.rm = RidgeMap(coordinates, font=self.font.prop)
-        self.values = self.rm.get_elevation_data(num_lines=150)
-        self.preprocessed_values = self.rm.preprocess(values=self.values, lake_flatness=2, water_ntile=10, vertical_ratio=250)
+        self.show_plot = show_plot
         self.cmap = plt.get_cmap(cmap)
 
-    def plot_3D_ridge(self, filename="3D_volcano.png"):
+    def get_3D_data(self, num_lines):
         """
-        Plot a 3D ridge map and save it to a file.
+        Generate data for 3D plot.
 
         Args:
-            filename (str): Name of the file to save the plot. Defaults to "3D_volcano.png".
+            num_lines (int): Number of lines for the 3D plot.
         """
+        self.values_3D = self.rm.get_elevation_data(num_lines=num_lines)
+        self.preprocessed_values_3D = self.rm.preprocess(values=self.values_3D, lake_flatness=2, water_ntile=10, vertical_ratio=250)
+
+    def get_2D_data(self, num_lines):
+        """
+        Generate data for 2D plot.
+
+        Args:
+            num_lines (int): Number of lines for the 2D plot.
+        """
+        self.values_2D = self.rm.get_elevation_data(num_lines=num_lines)
+        self.preprocessed_values_2D = self.rm.preprocess(values=self.values_2D, lake_flatness=2, water_ntile=10, vertical_ratio=250)
+
+    def plot_3D_ridge(self, filename="Hawaii_3D_Ridge_Map.png"):
         fig, ax = plt.subplots(figsize=(10, 8))
-        self.rm.plot_map(values=self.preprocessed_values,
-                         label="",  # hide label
+        self.rm.plot_map(values=self.preprocessed_values_3D,
+                         label="",
                          linewidth=2,
                          line_color=self.cmap,
                          kind='elevation',
-                         ax=ax)
+                         ax=ax
+                         )
         plt.savefig(Path(filename), dpi=600)
-        plt.show()
+        if self.show_plot:
+            plt.show()
 
-    def plot_2D_projection(self, filename="2D_volcano.png"):
-        """
-        Plot a 2D projection of the ridge map and save it to a file.
 
-        Args:
-            filename (str): Name of the file to save the plot. Defaults to "2D_volcano.png".
-        """
+    def plot_2D_projection(self, filename="Hawaii_2D_Projection.png", alpha=1.0):
         fig, ax = plt.subplots(figsize=(10, 8))
-        ax.imshow(np.array(self.preprocessed_values), aspect="auto", cmap=self.cmap, origin="upper")
-        ax.axis('off')  # hide axes for 2D projection
+        ax.imshow(np.array(self.preprocessed_values_2D), aspect='auto', cmap=self.cmap, origin='upper', alpha=alpha)
+        ax.axis('off')
         plt.savefig(Path(filename), dpi=600)
-        plt.show()
+        if self.show_plot:
+            plt.show()
