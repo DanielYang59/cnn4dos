@@ -10,7 +10,7 @@ def main():
         coordinates=(-156.250305, 18.890695, -154.714966, 20.275080),
         font_url='https://github.com/google/fonts/blob/main/ofl/uncialantiqua/UncialAntiqua-Regular.ttf?raw=true',
         show_plot=False,
-        cmap='ocean',
+        cmap='plasma',  # https://matplotlib.org/stable/gallery/color/colormap_reference.html
         )
 
     # Generate and plot 3D ridge
