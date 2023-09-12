@@ -38,7 +38,7 @@ class RidgeMapPlotter:
                          kind='elevation',
                          ax=ax
                          )
-        plt.savefig(Path(filename), dpi=600)
+        plt.savefig(Path(filename), transparent=True, dpi=600)
         if self.show_plot:
             plt.show()
 
@@ -46,7 +46,7 @@ class RidgeMapPlotter:
         fig, ax = plt.subplots(figsize=(10, 8))
         ax.imshow(np.array(self.preprocessed_values_2D), aspect='auto', cmap=self.cmap, origin='upper', alpha=alpha)
         ax.axis('off')
-        plt.savefig(Path(filename), dpi=600)
+        plt.savefig(Path(filename), transparent=True, dpi=600)
         if self.show_plot:
             plt.show()
 
