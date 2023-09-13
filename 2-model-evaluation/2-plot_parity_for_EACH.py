@@ -20,7 +20,7 @@ import tensorflow as tf
 import yaml
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 
 sys.path.append(model_dir)
 from lib.dataset import Dataset

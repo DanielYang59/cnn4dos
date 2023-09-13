@@ -23,7 +23,7 @@ import pandas as pd
 from pathlib import Path
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 
 
 def plot_line(arr, energy_array, savedir="."):

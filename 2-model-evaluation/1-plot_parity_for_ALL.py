@@ -20,7 +20,7 @@ import tensorflow as tf
 import yaml
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 
 sys.path.append(model_dir)
 from lib.dataset import Dataset
@@ -175,4 +175,4 @@ if __name__ == "__main__":
 
     plt.tight_layout()
     plt.savefig(os.path.join("figures", "parity_plot_ALL.png"), dpi=300)
-    plt.show()
+    # plt.show()

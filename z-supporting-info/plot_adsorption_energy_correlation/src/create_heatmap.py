@@ -7,7 +7,7 @@ I did not write this module, but took it from somewhere on the Internet. Sadly I
 
 from matplotlib import rcParams
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
@@ -116,7 +116,7 @@ def heatmap(x, y, **kwargs):
     ax.set_ylim([-0.5, max([v for v in y_to_num.values()]) + 0.5])
     ax.set_facecolor('#F1F1F1')
 
-    plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]  # fix missing subscript
+    plt.rcParams["font.sans-serif"] = ["Arial"]  # fix missing subscript
     ax.set_xlabel(kwargs.get('xlabel', ''))
     ax.set_ylabel(kwargs.get('ylabel', ''))
 

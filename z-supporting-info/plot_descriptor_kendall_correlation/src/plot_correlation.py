@@ -9,8 +9,7 @@ import seaborn as sns
 from .heatmap_revised import corrplot  # pip install heatmapz
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
-
+rcParams["font.sans-serif"] = ["Arial"]
 
 def plot_correlation(dataset, method, savename, show=True, verbose=False):
     """Plot correlation map.

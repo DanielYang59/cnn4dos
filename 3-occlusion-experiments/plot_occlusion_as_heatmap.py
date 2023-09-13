@@ -29,7 +29,7 @@ import pandas as pd
 import warnings
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 
 
 def _get_fermi(fermi_source_dir):

@@ -12,7 +12,7 @@ import numpy as np
 import warnings
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 
 class volcanoPlotter:
     def __init__(self, scaling_relations, x_range, y_range, descriptors, adsorption_free_energies, dpi=300, *args, **kwargs):

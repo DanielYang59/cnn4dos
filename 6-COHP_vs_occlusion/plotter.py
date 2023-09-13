@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 
 
 if  __name__ == "__main__":

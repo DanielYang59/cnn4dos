@@ -8,7 +8,7 @@ import numpy as np
 from pathlib import Path
 
 rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["DejaVu Sans"]
+rcParams["font.sans-serif"] = ["Arial"]
 
 class ShiftPlotter:
     """
