@@ -23,6 +23,7 @@ import warnings
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
+
 def plot_periodic_table(
     limiting_potential_dict: dict,
     show: bool = False,
