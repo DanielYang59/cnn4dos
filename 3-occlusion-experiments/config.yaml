@@ -11,3 +11,4 @@ occlusion:
   dos_calculation_resolution: 0.005
   occlusion_width: 1
   occlusion_step: 1
+  save_predictions: True

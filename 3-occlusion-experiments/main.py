@@ -3,6 +3,8 @@
 
 import os
 from pathlib import Path
+import numpy as np
+from tqdm import tqdm
 import tensorflow as tf
 import sys
 
@@ -17,7 +19,6 @@ from src.occlusionPlotter import occlusionPlotter
 from cnnPredictor import CNNPredictor
 from dataLoader import DataLoader
 from dosProcessor import DOSProcessor
-from utilities import get_folders_in_dir
 
 def main():
     """Main function to execute occlusion experiments."""
@@ -31,22 +32,60 @@ def main():
         config['occlusion']['max_adsorbate_channels']
     )
 
-    # Step 2: Load original DOS in shape (numSamplings, numOrbitals, 1)
-    original_DOS = data_loader.load_unshifted_dos(Path(os.getcwd()) / config['occlusion']['dos_array_name'])
+    # Step 2: Load original DOS in shape (numSamplings, numOrbitals, 1) and remove ghost state
+    unshifted_dos = data_loader.load_unshifted_dos(Path(os.getcwd()) / config['occlusion']['dos_array_name'])
+    dos_processor = DOSProcessor(unshifted_dos)
+    processed_dos = dos_processor.remove_ghost_state()
 
     # Step 3: Generate occlusion arrays
-    generator = occlusionGenerator()
+    print("Generating occlusion arrays...")
+    generator = occlusionGenerator(
+        dos_array=processed_dos,
+        occlusion_width=config['occlusion']['occlusion_width'],
+        occlusion_step=config['occlusion']['occlusion_step'],
+        dos_calculation_resolution=config['occlusion']['dos_calculation_resolution']
+        )
     occlusion_arrays = generator.generate_occlusion_arrays()
+    print("Occlusion arrays generated.")
 
-    # # Step 4: Predict with CNN model
-    # # Load the CNN model
-    # cnn_model = tf.keras.models.load_model(Path(config['path']['cnn_model_path']))
-    # # Create an instance of CNNPredictor
-    # cnn_predictor = CNNPredictor(loaded_model=cnn_model)
+    # Step 4: Predict with CNN model
+    # Load the CNN model
+    cnn_model = tf.keras.models.load_model(root_dir / Path(config['path']['cnn_model_path']))
+    # Create an instance of CNNPredictor
+    cnn_predictor = CNNPredictor(loaded_model=cnn_model)
 
-    # # Step 5: Plot
-    # plotter = ShiftPlotter(all_predictions, config)
-    # plotter.plot(save_dir=f"figures{os.sep}{str(working_dir).split(os.sep)[-1]}")
+    # Calculate reference point
+    ref_prediction = cnn_predictor.predict(processed_dos, adsorbate_dos)
+
+    # Make prediction along each orbital
+    predictions = []
+
+    # Get dimensions
+    num_occlusions = occlusion_arrays.shape[0]  # Number of occlusions
+    numOrbitals = occlusion_arrays.shape[1]  # Number of orbitals
+
+    # Initialize tqdm progress bar
+    with tqdm(total=num_occlusions * numOrbitals, desc="Making Predictions") as pbar:
+        for i in range(num_occlusions):  # Loop over the number of occlusions
+            for j in range(numOrbitals):  # Loop over each orbital
+                occluded_array = np.expand_dims(occlusion_arrays[i, j], axis=-1)  # Reshape array
+                prediction = cnn_predictor.predict(occluded_array, adsorbate_dos)  # Make prediction
+                predictions.append(prediction)  # Append to predictions list
+                pbar.update(1)  # Update the progress bar
+
+    # Reshape the predictions array to (num_occlusions, numOrbitals)
+    predictions = np.array(predictions).reshape(num_occlusions, numOrbitals)
+
+    # Subtract ref_prediction from each prediction
+    predictions = predictions - ref_prediction
+
+    # (Optional) Save predictions locally
+    if config['occlusion']['save_predictions']:
+        np.save(Path(os.getcwd()) / "occlusion_predictions.npy", predictions)
+
+    # Step 5: Plot
+    plotter = occlusionPlotter(predictions, config)
+    plotter.plot()
 
 if __name__ == "__main__":
     main()
