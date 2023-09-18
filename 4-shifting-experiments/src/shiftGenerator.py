@@ -5,6 +5,10 @@ import numpy as np
 import warnings
 
 class ShiftGenerator:
+    """
+    Class for generating Density of States (DOS) arrays with shifting.
+    """
+
     def __init__(self, dos_array: np.ndarray, shifting_range: list, shifting_step: float, shifting_orbitals: list, dos_calculation_resolution: float):
         """
         Initialize the ShiftGenerator.
