@@ -83,7 +83,7 @@ def main():
     if config['occlusion']['save_predictions']:
         np.save(Path(os.getcwd()) / "occlusion_predictions.npy", predictions)
 
-    # Step 5: Plot
+    # Step 5: Plot (reference to fermi level)
     plotter = occlusionPlotter(predictions, config)
     plotter.plot_as_line()
     plotter.plot_as_heatmap()
