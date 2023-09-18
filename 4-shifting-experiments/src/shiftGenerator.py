@@ -28,6 +28,9 @@ class ShiftGenerator:
         if numChannels != 1:
             raise ValueError("numChannels must be 1")
 
+        if dos_calculation_resolution <= 0:
+            raise ValueError("DOS calculation resolution must be greater than zero.")
+
         # Check shifting parameters
         start, end = shifting_range
         if start >= end:
