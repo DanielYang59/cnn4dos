@@ -54,14 +54,28 @@ class occlusionGenerator:
             np.ndarray:
         """
         numSamplings, numOrbitals = self.dos_array.shape
-        # Calculate total number of occlusions
+
+        # Calculate and check total number of occlusions
         num_occlusions = ((numSamplings - self.occlusion_width) // self.occlusion_step) + 1
         if not float(num_occlusions).is_integer():
             raise ValueError(f"The resultant number of occlusions must be an integer. Current value is {num_occlusions}.")
 
         # Initialize a zero-filled array to store the occlusion arrays
-        occlusion_arrays = np.zeros((num_occlusions, numSamplings, numOrbitals))
+        occlusion_arrays = []
 
+        for orbital_index in range(numOrbitals):
+            occluded_orbitals = []
+            for test_index in range(num_occlusions):
+                # Copy original DOS array
+                occluded_array = np.copy(self.dos_array[:, orbital_index])
 
+                # Calculate start position of occlusion region
+                start_index = test_index * self.occlusion_step + 1
+
+                occluded_array[start_index: start_index + self.occlusion_width] = 0.0
+
+                # Store occluded array
+                occluded_orbitals.append(occluded_array)
+            occlusion_arrays.append(occluded_orbitals)
 
         return occlusion_arrays
