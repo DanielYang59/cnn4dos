@@ -7,12 +7,16 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-from src.cnnPredictor import CNNPredictor
-from src.dataLoader import DataLoader
-from src.dosProcessor import DOSProcessor
 from src.shiftGenerator import ShiftGenerator
 from src.shiftPlotter import ShiftPlotter
-from src.utilities import get_folders_in_dir
+
+import sys
+sys.path.append("../shared_components/src")
+
+from cnnPredictor import CNNPredictor
+from dataLoader import DataLoader
+from dosProcessor import DOSProcessor
+from utilities import get_folders_in_dir
 
 def main():
     # Step 1: Load config and adsorbate DOS
