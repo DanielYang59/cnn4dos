@@ -17,4 +17,4 @@ plotting:
 energy_start: -14
 energy_end: 6
 fermi_level_source: "../0-dataset/z-supporting-info/fermi_level"
-orbital_names = ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
+orbital_names: ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
