@@ -82,26 +82,12 @@ class occlusionGenerator:
         # Initialize a list to store the occlusion arrays
         occlusion_arrays = []
 
-        for test_index in range(num_occlusions):
-            # Initialize array to hold this occlusion case
-            occluded_orbitals = np.zeros((numSamplings, numOrbitals))
-
+        for occlusion_test_index in range(num_occlusions):
+            occluded_orbitals = []
             for orbital_index in range(numOrbitals):
-                # Copy original DOS array
-                occluded_array = np.copy(self.dos_array[:, orbital_index])
-
-                # Calculate start position of occlusion region
-                start_index = test_index * self.occlusion_step
-
-                # Apply occlusion
-                occluded_array[start_index: start_index + self.occlusion_width] = 0.0
-
-                # Store in its corresponding orbital position
-                occluded_orbitals[:, orbital_index] = occluded_array
-
-            # Append this occlusion case to the list
-            occlusion_arrays.append(occluded_orbitals)
+                start_index = occlusion_test_index * self.occlusion_step
+                occluded_array = self._occlude(self.dos_array, orbital_index, start_index, self.occlusion_width)
+                occluded_orbitals.append(occluded_array)
+            occlusion_arrays.append(np.array(occluded_orbitals))
 
         return np.array(occlusion_arrays)
-
-
