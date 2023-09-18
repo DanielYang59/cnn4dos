@@ -36,36 +36,32 @@ class occlusionGenerator:
             raise ValueError("DOS calculation resolution must be greater than zero.")
 
         # Check occlusion parameters
-        if not isinstance(occlusion_step, int) or occlusion_step <= 1:
+        if not isinstance(occlusion_step, int) or occlusion_step < 1:
             raise ValueError("Occlusion step must be an integer greater than 1.")
         if not isinstance(occlusion_width, int) or occlusion_width <= 0 or not ((occlusion_width - 1) / 2).is_integer():
             raise ValueError("(occlusion_width - 1)/2 must be a non-negative integer, and occlusion_width must be an integer.")
 
-        self.dos_array = dos_array
+        self.dos_array = np.squeeze(dos_array, axis=2)  # squeeze shape to (numSamplings, numOrbitals)
         self.dos_calculation_resolution = dos_calculation_resolution
         self.occlusion_width = occlusion_width
         self.occlusion_step = occlusion_step
 
-    def _is_multiple_of(self, number, base):
+    def generate_occlusion_arrays(self) -> np.ndarray:
         """
-        Check if a given float number is a multiple of another float base, considering numerical inaccuracies.
-
-        Args:
-            number (float): The number to check.
-            base (float): The base to divide by.
+        Generate a series of occlusion DOS arrays, where each array is created by occluding a region in the original DOS array (not going across orbitals).
 
         Returns:
-            bool: True if 'number' is a multiple of 'base', False otherwise.
+            np.ndarray:
         """
-        quotient = number / base
-        return np.isclose(quotient, round(quotient))
+        numSamplings, numOrbitals = self.dos_array.shape
+        # Calculate total number of occlusions
+        num_occlusions = ((numSamplings - self.occlusion_width) // self.occlusion_step) + 1
+        if not float(num_occlusions).is_integer():
+            raise ValueError(f"The resultant number of occlusions must be an integer. Current value is {num_occlusions}.")
 
-    def generate_occlusion_arrays(self):
-        """
-        Generate a series of occlusion DOS arrays.
+        # Initialize a zero-filled array to store the occlusion arrays
+        occlusion_arrays = np.zeros((num_occlusions, numSamplings, numOrbitals))
 
-        Returns:
-            list: A list of occlusion DOS arrays.
 
-        """
-        pass
+
+        return occlusion_arrays
