@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project aims to perform a shifting experiment involving Density of States (DOS) and adsorbate DOS arrays.
+This project aims to perform a shifting experiment involving Density of States (DOS) and adsorbate DOS arrays. It leverages shared components for loading and processing data, CNN predictions, and utility functions.
 
 ## Features
 
@@ -20,12 +20,17 @@ This project aims to perform a shifting experiment involving Density of States (
 
 ## Classes and Functions
 
-- `DataLoader`: Load and preprocess DOS and adsorbate DOS arrays.
-- `DosProcessor`: Load DOS arrays from specified folders.
+### From this project
+
 - `ShiftGenerator`: Generate shifted DOS arrays.
-- `CNNPredictor`: Use a pre-trained CNN model for predictions.
-- `ShiftPlotter`: Visualize the shifting experiments. Allows for flexible configurations including changing colormap and saving to different directories.
-- `get_folders_in_dir`: Utility function to get folders matching certain criteria.
+- `ShiftPlotter`: Visualize the shifting experiments.
+
+### From Shared Components
+
+- `DataLoader`: Load and preprocess DOS and adsorbate DOS arrays (from `../shared_components/src`).
+- `DOSProcessor`: Process loaded DOS arrays (from `../shared_components/src`).
+- `CNNPredictor`: Use a pre-trained CNN model for predictions (from `../shared_components/src`).
+- `get_folders_in_dir`: Utility function to get folders matching certain criteria (from `../shared_components/src`).
 
 ## Configuration
 

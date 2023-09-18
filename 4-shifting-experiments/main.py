@@ -6,13 +6,12 @@ from pathlib import Path
 import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
+import sys
 
 from src.shiftGenerator import ShiftGenerator
 from src.shiftPlotter import ShiftPlotter
 
-import sys
 sys.path.append("../shared_components/src")
-
 from cnnPredictor import CNNPredictor
 from dataLoader import DataLoader
 from dosProcessor import DOSProcessor
