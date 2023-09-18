@@ -46,12 +46,31 @@ class occlusionGenerator:
         self.occlusion_width = occlusion_width
         self.occlusion_step = occlusion_step
 
+    def _occlude(self, dos: np.ndarray, orbital_index: int, start_index: int, width: int) -> np.ndarray:
+        """
+        Occlude a region in a given DOS array along a specified orbital.
+
+        Args:
+            dos (np.ndarray): The original DOS array.
+            orbital_index (int): The index of the orbital to be occluded.
+            start_index (int): The starting index for the occlusion.
+            width (int): The width of the occlusion region.
+
+        Returns:
+            np.ndarray: The occluded DOS array, maintaining the same shape as the original DOS array.
+        """
+        occluded_dos = np.copy(dos)
+        occluded_dos[start_index:start_index + width, orbital_index] = 0.0
+
+        assert dos.shape == occluded_dos.shape
+        return occluded_dos
+
     def generate_occlusion_arrays(self) -> np.ndarray:
         """
         Generate a series of occlusion DOS arrays, where each array is created by occluding a region in the original DOS array (not going across orbitals).
 
         Returns:
-            np.ndarray:
+            np.ndarray: An array of shape (num_occlusions, numOrbitals), each element hosting an occluded_array of shape (numSamplings, numOrbitals)
         """
         numSamplings, numOrbitals = self.dos_array.shape
 
@@ -60,22 +79,29 @@ class occlusionGenerator:
         if not float(num_occlusions).is_integer():
             raise ValueError(f"The resultant number of occlusions must be an integer. Current value is {num_occlusions}.")
 
-        # Initialize a zero-filled array to store the occlusion arrays
+        # Initialize a list to store the occlusion arrays
         occlusion_arrays = []
 
-        for orbital_index in range(numOrbitals):
-            occluded_orbitals = []
-            for test_index in range(num_occlusions):
+        for test_index in range(num_occlusions):
+            # Initialize array to hold this occlusion case
+            occluded_orbitals = np.zeros((numSamplings, numOrbitals))
+
+            for orbital_index in range(numOrbitals):
                 # Copy original DOS array
                 occluded_array = np.copy(self.dos_array[:, orbital_index])
 
                 # Calculate start position of occlusion region
-                start_index = test_index * self.occlusion_step + 1
+                start_index = test_index * self.occlusion_step
 
+                # Apply occlusion
                 occluded_array[start_index: start_index + self.occlusion_width] = 0.0
 
-                # Store occluded array
-                occluded_orbitals.append(occluded_array)
+                # Store in its corresponding orbital position
+                occluded_orbitals[:, orbital_index] = occluded_array
+
+            # Append this occlusion case to the list
             occlusion_arrays.append(occluded_orbitals)
 
-        return occlusion_arrays
+        return np.array(occlusion_arrays)
+
+
