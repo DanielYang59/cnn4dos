@@ -1,0 +1,13 @@
+##### Config File for Occlusion Experiment #####
+
+path:
+  cnn_model_path: "../1-model-and-training/2-best-model/model"
+  adsorbate_dos_array_path: "../0-dataset/feature_DOS/adsorbate-DOS/3-CO/dos_up_adsorbate.npy"
+
+occlusion:
+  dos_array_name: "dos_up.npy"
+  max_adsorbate_channels: 5
+  remove_ghost_state: True
+  dos_calculation_resolution: 0.005
+  occlusion_width: 1
+  occlusion_step: 1
