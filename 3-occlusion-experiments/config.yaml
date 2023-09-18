@@ -15,6 +15,6 @@ occlusion:
   save_predictions: True
 
 plotting:
-  energy_start: -14
-  energy_end: 6
+  dos_energy_range: [-14, 6]
+  plot_energy_range: [-10, 5]
   orbital_names: ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"]
