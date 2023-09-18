@@ -85,7 +85,8 @@ def main():
 
     # Step 5: Plot
     plotter = occlusionPlotter(predictions, config)
-    plotter.plot()
+    plotter.plot_as_line()
+    plotter.plot_as_heatmap()
 
 if __name__ == "__main__":
     main()
