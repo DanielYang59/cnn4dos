@@ -105,14 +105,18 @@ class OcclusionPlotter:
         colorbar_range = max(abs(vmin), abs(vmax))
         assert colorbar_range > 0
 
-        dos_energy_range = config["plotting"]["dos_energy_range"]  # DEBUG
-
         # Create line plot for each orbital
+        dos_energy_range = config["plotting"]["dos_energy_range"]
+
         for index, orbital_arr in enumerate(array.transpose()):
             ax = axs[index]
+
+            # Adjust for Fermi level
+            shifted_dos_range = [dos_energy_range[0] - self.fermi_level, dos_energy_range[1] - self.fermi_level]
+
             # Add 1D heatmap for each orbital
             im = ax.imshow(np.expand_dims(orbital_arr, axis=0),
-                            extent=[dos_energy_range[0], dos_energy_range[1], 0, 2],  # increase 4th value to increase height
+                            extent=[shifted_dos_range[0], shifted_dos_range[1], 0, 2],  # increase 4th value to increase height
                             cmap=colormap,
                             vmin=-colorbar_range, vmax=colorbar_range,  # symmetric colorbar
                             )
@@ -124,7 +128,11 @@ class OcclusionPlotter:
 
             # Add orbital names to the right
             ax.yaxis.set_label_position("right")
-            ax.set_ylabel(names[index], rotation=0, fontsize=28, loc="center", labelpad=44)  # DEBUG
+            ax.set_ylabel(names[index], rotation=0, fontsize=28, loc="center", labelpad=44)
+
+            # Set border thickness to 2
+            for spine in ax.spines.values():
+                spine.set_linewidth(2)
 
         # Adjust vertical spacing between subplots
         plt.subplots_adjust(hspace=0.2,
