@@ -14,36 +14,49 @@ rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
 
 class OcclusionPlotter:
+    """
+    Class to generate occlusion heatmaps from predictions.
+
+    Attributes:
+        predictions_file (Path): Path to the file containing occlusion predictions.
+        orbital_names (list): List of names for orbitals.
+        fermi_level (float): The Fermi energy level.
+        dos_energy_range (list): Energy range for density of states (DOS).
+        plot_energy_range (list): Energy range for the plot.
+    """
+
     def __init__(self, predictions_file: Path, config: dict, fermi_level: float):
         """
-        Initialize the OcclusionPlotter.
+        Initialize the OcclusionPlotter with the given parameters.
 
         Parameters:
-            predictions_file (Path): The path to the predictions file.
-            config (dict): Configuration dictionary for occlusion experiment.
+            predictions_file (Path): Path to the predictions file.
+            config (dict): Configuration dictionary for occlusion plot settings.
+            fermi_level (float): The Fermi energy level.
         """
         self.predictions_file = predictions_file
+        self.config = config
         self.orbital_names = config["plotting"]["orbital_names"]
         self.fermi_level = fermi_level
-
         self.dos_energy_range = config["plotting"]["dos_energy_range"]
         self.plot_energy_range = config["plotting"]["plot_energy_range"]
 
-        # Check that energy start is smaller than energy end for dos and plot
+        self._validate_energy_ranges()
+
+    def _validate_energy_ranges(self):
+        """Validate the given energy ranges."""
         if self.dos_energy_range[0] >= self.dos_energy_range[1]:
             raise ValueError("In dos_energy_range, the start energy should be smaller than the end energy.")
-
         if self.plot_energy_range[0] >= self.plot_energy_range[1]:
             raise ValueError("In plot_energy_range, the start energy should be smaller than the end energy.")
-
-        # Check that plot_energy_range is within dos_energy_range
-        if (self.plot_energy_range[0] < self.dos_energy_range[0]) or (self.plot_energy_range[1] > self.dos_energy_range[1]):
+        if self.plot_energy_range[0] < self.dos_energy_range[0] or self.plot_energy_range[1] > self.dos_energy_range[1]:
             raise ValueError("plot_energy_range should be within dos_energy_range.")
 
     def _take_orbitals(self, original_predictions, orbitals, names):
-        """Filter the original predictions based on the selected orbitals.
+        """
+        Filter the original predictions based on the selected orbitals.
 
-        Args:
+        Parameters:
             original_predictions (np.ndarray): The original prediction data.
             orbitals (list): List containing the orbital types ("s", "p", "d", "f").
             names (list): List containing the orbital names.
@@ -84,12 +97,19 @@ class OcclusionPlotter:
         return filtered_predictions, selected_names
 
     def plot_heatmap(self, orbitals: list = ["s", "p", "d"], colormap: str = "viridis", show: bool = False):
-        """Plot occlusion predictions as a heatmap."""
+        """
+        Plot the heatmap for occlusion predictions.
+
+        Parameters:
+            orbitals (list, optional): List of orbitals to consider. Defaults to ["s", "p", "d"].
+            colormap (str, optional): The colormap for the heatmap. Defaults to "viridis".
+            show (bool, optional): Whether to show the plot or not. Defaults to False.
+        """
         # Load predictions
         predictions = np.load(self.predictions_file)
 
         # Take requested orbitals
-        array, names = self._take_orbitals(predictions, orbitals, names=config["plotting"]["orbital_names"])
+        array, names = self._take_orbitals(predictions, orbitals, names=self.config["plotting"]["orbital_names"])
         if orbitals != ["d"]:
             warnings.warn("This script is intended to work for d orbital only. Other selection may generate unsatisfactory figures.")
 
@@ -106,7 +126,7 @@ class OcclusionPlotter:
         assert colorbar_range > 0
 
         # Create line plot for each orbital
-        dos_energy_range = config["plotting"]["dos_energy_range"]
+        dos_energy_range = self.config["plotting"]["dos_energy_range"]
 
         for index, orbital_arr in enumerate(array.transpose()):
             ax = axs[index]
@@ -122,7 +142,7 @@ class OcclusionPlotter:
                             )
 
             # Adjust x range and ticks
-            ax.set_xlim(config["plotting"]["plot_energy_range"])
+            ax.set_xlim(self.config["plotting"]["plot_energy_range"])
             ax.set_xticks(np.arange(-10, 5 + 2.5, 2.5))
             ax.tick_params(axis="both", which="major", labelsize=20, width=2.5, length=5)
 
@@ -166,18 +186,3 @@ class OcclusionPlotter:
         plt.savefig(self.predictions_file.parent / "occlusion_heatmap.png", dpi=300)
         if show:
             plt.show()
-
-if __name__ == "__main__":
-    # Set the working directory and read config
-    working_dir = Path("/Users/yang/Developer/cnn4dos/3-occlusion-experiments/data/g-C3N4_CO_is/4-Co")
-
-    with open("/Users/yang/Developer/cnn4dos/3-occlusion-experiments/config.yaml", 'r') as f:
-        config = yaml.safe_load(f)
-
-    # Initialize plotter and plot heatmap
-    plotter = OcclusionPlotter(
-        predictions_file=working_dir / "occlusion_predictions.npy",
-        config=config,
-        fermi_level=-2.06264337,
-    )
-    plotter.plot_heatmap(orbitals=["d", ], show=True)
