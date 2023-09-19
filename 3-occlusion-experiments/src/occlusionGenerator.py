@@ -61,6 +61,8 @@ class occlusionGenerator:
             raise ValueError("pad_width must be an integer. Please choose an odd integer for occlusion_width.")
 
         pad_width = int(pad_width)
+        if pad_width == 0:
+            return array
 
         if mode == "pad":
             return np.pad(array, ((pad_width, pad_width), (0, 0)), mode="constant")
