@@ -186,3 +186,22 @@ class OcclusionPlotter:
         plt.savefig(Path(os.getcwd()) / "occlusion_heatmap.png", dpi=300)
         if show:
             plt.show()
+
+
+# Test area
+if __name__ == "__main__":
+    test_predictions = "../data/g-C3N4_CO_is/4-Co"
+    test_config = {
+        "plotting" : {
+            "dos_energy_range" : [-14, 6],
+            "plot_energy_range" : [-10, 5],
+            "orbital_names" : ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"],
+            "heatmap_orbitals": ["d", ],
+            "line_orbitals": ["s", "p", "d"],
+        }
+    }
+    test_fermi_level = -2.06264337
+
+    plotter = OcclusionPlotter(test_predictions, test_config, test_fermi_level)
+    plotter.plot_heatmap(orbitals=test_config['plotting']['heatmap_orbitals'])
+    # plotter.plot_line(orbitals=test_config['plotting']['line_orbitals'])
