@@ -14,7 +14,7 @@ shared_components_dir = root_dir / "../shared_components/src"
 sys.path.append(str(shared_components_dir.resolve()))
 
 from src.occlusionGenerator import occlusionGenerator
-from src.occlusionPlotter import occlusionPlotter
+from src.occlusionPlotter import OcclusionPlotter
 from src.utilities import get_fermi_level
 
 from cnnPredictor import CNNPredictor
@@ -87,9 +87,9 @@ def main():
     # Step 5: Read fermi level and plot occlusion
     fermi_level = get_fermi_level(working_dir=os.getcwd(), fermi_level_source=root_dir / Path(config['path']['fermi_level_source']))
 
-    plotter = occlusionPlotter(predictions, config, fermi_level)
-    plotter.plot_as_line()
-    plotter.plot_as_heatmap()
+    plotter = OcclusionPlotter(predictions, config, fermi_level)
+    plotter.plot_heatmap(orbitals=config['plotting']['heatmap_orbitals'])
+    plotter.plot_line(orbitals=config['plotting']['line_orbitals'])
 
 if __name__ == "__main__":
     main()
