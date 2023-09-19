@@ -196,17 +196,21 @@ class OcclusionPlotter:
             show (bool): Whether to show the plot. Default is False.
         """
 
+        # Filter the predictions based on selected orbitals
+        orbital_names = self.config["plotting"]["orbital_names"]
+        filtered_predictions, selected_names = self._take_orbitals(self.predictions, orbitals, orbital_names)
+
         # Generate subplots
-        fig, axs = plt.subplots(self.predictions.shape[1], sharex=True, figsize=(10, 15))
+        fig, axs = plt.subplots(len(selected_names), sharex=True, figsize=(10, 15))
 
         # Plotting Settings
         mpl.rcParams["mathtext.default"] = "regular"  # Non-italic as default
         dos_energy_range = self.config["plotting"]["dos_energy_range"]
         shifted_dos_range = [dos_energy_range[0] - self.fermi_level, dos_energy_range[1] - self.fermi_level]
-        energy_array = np.linspace(shifted_dos_range[0], shifted_dos_range[1], self.predictions.shape[0])
+        energy_array = np.linspace(shifted_dos_range[0], shifted_dos_range[1], filtered_predictions.shape[0])
 
-        # Plot lines for each orbital
-        for index, orbital_arr in enumerate(self.predictions.transpose()):
+        # Plot lines for each selected orbital
+        for index, orbital_arr in enumerate(filtered_predictions.transpose()):
             ax = axs[index]
             ax.plot(energy_array, orbital_arr, color="black")
             ax.set_xlim(self.config["plotting"]["plot_energy_range"])
@@ -218,17 +222,7 @@ class OcclusionPlotter:
                 spine.set_linewidth(2)
 
             ax.yaxis.set_label_position("right")
-            ax.set_ylabel(self.config["plotting"]["orbital_names"][index], rotation=0, fontsize=24, loc="center", labelpad=45)
-
-        # Apply consistent y-range for p and d orbitals
-        p_range = (np.amin(self.predictions[:, 1:4]), np.amax(self.predictions[:, 1:4]))
-        d_range = (np.amin(self.predictions[:, 4:9]), np.amax(self.predictions[:, 4:9]))
-
-        for i in range(1, 4):
-            axs[i].set_ylim(p_range[0] * 1.2, p_range[1] * 1.2)
-
-        for i in range(4, 9):
-            axs[i].set_ylim(d_range[0] * 1.2, d_range[1] * 1.2)
+            ax.set_ylabel(selected_names[index], rotation=0, fontsize=24, loc="center", labelpad=45)
 
         # Add super labels
         fig.supxlabel('$\mathit{E}\ -\ \mathit{E}_f$ (eV)', fontsize=24)
