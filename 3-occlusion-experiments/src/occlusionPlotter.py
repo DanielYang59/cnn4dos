@@ -34,6 +34,7 @@ class OcclusionPlotter:
             config (dict): Configuration dictionary for occlusion plot settings.
             fermi_level (float): The Fermi energy level.
         """
+        assert isinstance(predictions, np.ndarray)
         self.predictions = predictions
         self.config = config
         self.orbital_names = config["plotting"]["orbital_names"]
@@ -190,7 +191,7 @@ class OcclusionPlotter:
 
 # Test area
 if __name__ == "__main__":
-    test_predictions = "../data/g-C3N4_CO_is/4-Co"
+    test_predictions = np.load("../data/g-C3N4_CO_is/4-Co/occlusion_predictions.npy")
     test_config = {
         "plotting" : {
             "dos_energy_range" : [-14, 6],
@@ -203,5 +204,5 @@ if __name__ == "__main__":
     test_fermi_level = -2.06264337
 
     plotter = OcclusionPlotter(test_predictions, test_config, test_fermi_level)
-    plotter.plot_heatmap(orbitals=test_config['plotting']['heatmap_orbitals'])
+    plotter.plot_heatmap(orbitals=test_config['plotting']['heatmap_orbitals'], show=True)
     # plotter.plot_line(orbitals=test_config['plotting']['line_orbitals'])
