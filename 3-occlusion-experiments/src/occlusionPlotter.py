@@ -18,23 +18,23 @@ class OcclusionPlotter:
     Class to generate occlusion heatmaps from predictions.
 
     Attributes:
-        predictions_file (Path): Path to the file containing occlusion predictions.
+        predictions_file (np.ndarray): Path to the file containing occlusion predictions.
         orbital_names (list): List of names for orbitals.
         fermi_level (float): The Fermi energy level.
         dos_energy_range (list): Energy range for density of states (DOS).
         plot_energy_range (list): Energy range for the plot.
     """
 
-    def __init__(self, predictions_file: Path, config: dict, fermi_level: float):
+    def __init__(self, predictions: np.ndarray, config: dict, fermi_level: float):
         """
         Initialize the OcclusionPlotter with the given parameters.
 
         Parameters:
-            predictions_file (Path): Path to the predictions file.
+            predictions (np.ndarray): the predictions numpy array.
             config (dict): Configuration dictionary for occlusion plot settings.
             fermi_level (float): The Fermi energy level.
         """
-        self.predictions_file = predictions_file
+        self.predictions = predictions
         self.config = config
         self.orbital_names = config["plotting"]["orbital_names"]
         self.fermi_level = fermi_level
@@ -106,7 +106,7 @@ class OcclusionPlotter:
             show (bool, optional): Whether to show the plot or not. Defaults to False.
         """
         # Load predictions
-        predictions = np.load(self.predictions_file)
+        predictions = self.predictions
 
         # Take requested orbitals
         array, names = self._take_orbitals(predictions, orbitals, names=self.config["plotting"]["orbital_names"])
