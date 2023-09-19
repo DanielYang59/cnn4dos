@@ -46,6 +46,31 @@ class occlusionGenerator:
         self.occlusion_width = occlusion_width
         self.occlusion_step = occlusion_step
 
+    def _apply_padding(self, array: np.ndarray, mode: str) -> np.ndarray:
+        """Applies zero-padding or cropping to the input array.
+
+        Args:
+            array (np.ndarray): The input array to be padded or cropped.
+            mode (str): Either "pad" for zero-padding or "crop" for cropping.
+
+        Returns:
+            np.ndarray: The zero-padded or cropped array.
+        """
+        pad_width = (self.occlusion_width - 1) / 2
+        if not pad_width.is_integer():
+            raise ValueError("pad_width must be an integer. Please choose an odd integer for occlusion_width.")
+
+        pad_width = int(pad_width)
+
+        if mode == "pad":
+            return np.pad(array, ((pad_width, pad_width), (0, 0)), mode="constant")
+
+        elif mode == "crop":
+            return array[pad_width:-pad_width, :]
+
+        else:
+            raise ValueError("Mode should be either 'pad' or 'crop'.")
+
     def _occlude(self, dos: np.ndarray, orbital_index: int, start_index: int, width: int) -> np.ndarray:
         """
         Occlude a region in a given DOS array along a specified orbital.
@@ -59,11 +84,17 @@ class occlusionGenerator:
         Returns:
             np.ndarray: The occluded DOS array, maintaining the same shape as the original DOS array.
         """
-        occluded_dos = np.copy(dos)
-        occluded_dos[start_index:start_index + width, orbital_index] = 0.0
+        # Zero-padding the DOS array
+        padded_dos = self._apply_padding(np.copy(dos), "pad")
 
-        assert dos.shape == occluded_dos.shape
-        return occluded_dos
+        # Occlude the DOS array
+        padded_dos[start_index:start_index + width, orbital_index] = 0.0
+
+        # Crop the DOS array to its original shape
+        cropped_occluded_dos = self._apply_padding(padded_dos, "crop")
+
+        assert dos.shape == cropped_occluded_dos.shape
+        return cropped_occluded_dos
 
     def generate_occlusion_arrays(self) -> np.ndarray:
         """
