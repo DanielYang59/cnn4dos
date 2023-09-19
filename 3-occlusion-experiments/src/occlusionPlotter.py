@@ -249,5 +249,5 @@ if __name__ == "__main__":
     test_fermi_level = -2.06264337
 
     plotter = OcclusionPlotter(test_predictions, test_config, test_fermi_level)
-    # plotter.plot_heatmap(orbitals=test_config['plotting']['heatmap_orbitals'], show=True)
+    plotter.plot_heatmap(orbitals=test_config['plotting']['heatmap_orbitals'], show=True)
     plotter.plot_line(orbitals=test_config['plotting']['line_orbitals'], show=True)
