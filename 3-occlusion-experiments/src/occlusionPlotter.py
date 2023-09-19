@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 import os
+from pathlib import Path
 import warnings
 
 rcParams["font.family"] = "sans-serif"
@@ -182,6 +183,6 @@ class OcclusionPlotter:
         cb.update_ticks()
 
         # Save figure and (optionally show figure)
-        plt.savefig(os.path.join(os.getcwd(), "occlusion_heatmap.png"), dpi=300)
+        plt.savefig(Path(os.getcwd()) / "occlusion_heatmap.png", dpi=300)
         if show:
             plt.show()
