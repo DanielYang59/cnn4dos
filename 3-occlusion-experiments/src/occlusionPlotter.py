@@ -188,6 +188,57 @@ class OcclusionPlotter:
         if show:
             plt.show()
 
+    def plot_line(self, orbitals: list = ["s", "p", "d"], show: bool = False):
+        """Plot DOS line charts for specified orbitals.
+
+        Args:
+            orbitals (list): List of orbitals to plot. Default is ["s", "p", "d"].
+            show (bool): Whether to show the plot. Default is False.
+        """
+
+        # Generate subplots
+        fig, axs = plt.subplots(self.predictions.shape[1], sharex=True, figsize=(10, 15))
+
+        # Plotting Settings
+        mpl.rcParams["mathtext.default"] = "regular"  # Non-italic as default
+        dos_energy_range = self.config["plotting"]["dos_energy_range"]
+        shifted_dos_range = [dos_energy_range[0] - self.fermi_level, dos_energy_range[1] - self.fermi_level]
+        energy_array = np.linspace(shifted_dos_range[0], shifted_dos_range[1], self.predictions.shape[0])
+
+        # Plot lines for each orbital
+        for index, orbital_arr in enumerate(self.predictions.transpose()):
+            ax = axs[index]
+            ax.plot(energy_array, orbital_arr, color="black")
+            ax.set_xlim(self.config["plotting"]["plot_energy_range"])
+            ax.set_xticks(np.arange(-10, 5 + 2.5, 2.5))
+            ax.tick_params(axis="both", which="major", labelsize=16, width=2.5, length=5)
+
+            # Set border thickness to 2
+            for spine in ax.spines.values():
+                spine.set_linewidth(2)
+
+            ax.yaxis.set_label_position("right")
+            ax.set_ylabel(self.config["plotting"]["orbital_names"][index], rotation=0, fontsize=24, loc="center", labelpad=45)
+
+        # Apply consistent y-range for p and d orbitals
+        p_range = (np.amin(self.predictions[:, 1:4]), np.amax(self.predictions[:, 1:4]))
+        d_range = (np.amin(self.predictions[:, 4:9]), np.amax(self.predictions[:, 4:9]))
+
+        for i in range(1, 4):
+            axs[i].set_ylim(p_range[0] * 1.2, p_range[1] * 1.2)
+
+        for i in range(4, 9):
+            axs[i].set_ylim(d_range[0] * 1.2, d_range[1] * 1.2)
+
+        # Add super labels
+        fig.supxlabel('$\mathit{E}\ -\ \mathit{E}_f$ (eV)', fontsize=24)
+        fig.supylabel('$\Delta\mathit{E}_{ads}$ (eV)', fontsize=24)
+
+        # Save the plot
+        plt.savefig(Path.cwd() / "occlusion_line.png", dpi=300)
+
+        if show:
+            plt.show()
 
 # Test area
 if __name__ == "__main__":
@@ -204,5 +255,5 @@ if __name__ == "__main__":
     test_fermi_level = -2.06264337
 
     plotter = OcclusionPlotter(test_predictions, test_config, test_fermi_level)
-    plotter.plot_heatmap(orbitals=test_config['plotting']['heatmap_orbitals'], show=True)
-    # plotter.plot_line(orbitals=test_config['plotting']['line_orbitals'])
+    # plotter.plot_heatmap(orbitals=test_config['plotting']['heatmap_orbitals'], show=True)
+    plotter.plot_line(orbitals=test_config['plotting']['line_orbitals'], show=True)
