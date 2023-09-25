@@ -34,7 +34,7 @@ def main():
     warnings.warn("Fermi level set manually.")
 
     # Import occlusion result
-    occ_array = np.load(Path("data") / "occlusion.npy")
+    occ_array = np.load(Path("data") / "occlusion_predictions.npy")
     occ_energy = np.linspace(-14, 6, 4000)
     occ_energy -= fermi_level
     occ_dxy = occ_array[:, 4]
