@@ -10,12 +10,12 @@ import sys
 
 from src.shiftGenerator import ShiftGenerator
 from src.shiftPlotter import ShiftPlotter
+from src.utilities import get_folders_in_dir
 
 sys.path.append("../shared_components/src")
 from cnnPredictor import CNNPredictor
 from dataLoader import DataLoader
 from dosProcessor import DOSProcessor
-from utilities import get_folders_in_dir
 
 def main():
     # Step 1: Load config and adsorbate DOS
