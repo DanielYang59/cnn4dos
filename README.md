@@ -1,4 +1,4 @@
-# MPhil Research Project "cnn4dos": Adsorption Energy Prediction
+# MPhil Research Project "cnn4dos": Adsorption Energy Prediction from Electronic Density of States with Convolutional Neural Networks
 
 ## Overview
 
