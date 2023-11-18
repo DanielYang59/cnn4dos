@@ -19,7 +19,7 @@ This project investigated the CO<sub>2</sub> reduction to CH<sub>4</sub> reactio
 
 ## Citation
 
-If you find this work beneficial, kindly consider citing my MPhil Thesis (and a Journal Paper is in progress).
+If you find this work beneficial, kindly consider citing [my MPhil Thesis](https://eprints.qut.edu.au/241290/) (and a Journal Paper is in progress).
 ```
 @phdthesis{quteprints241290,
           school = {Queensland University of Technology},
