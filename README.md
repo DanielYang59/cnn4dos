@@ -6,7 +6,7 @@ This repository contains the code, data and resources to support my [MPhil resea
 
 ## Description
 
-This project investigated the CO<sub>2</sub> reduction to CH<sub>4</sub> reaction performance of 228 single atom electrocatalysts supported on six 2D substrates (graphitic carbon nitride (g-C<sub>3</sub>N<sub>4</sub>), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorus, single-layer C<sub>2</sub>N and boron nitride). Furthermore, electronic descriptors and elementary descriptors were selected to elucidate the correlation between the intrinsic properties and catalytic performance of investigated candidates. Among them, electronic density of states (eDOS), inspired by the d-band theory, were selected to establish a direct descriptor-performance mapping through convolutional neural networks (CNNs). Resulted neural network model achieved mean absolute errors (MAEs) on the order of 0.1 eV for all nine intermediates (including the competing hydrogen evolution reaction (HER)).
+This project investigated the CO`<sub>`2`</sub>` reduction to CH`<sub>`4`</sub>` reaction performance of 228 single atom electrocatalysts supported on six 2D substrates (graphitic carbon nitride (g-C`<sub>`3`</sub>`N`<sub>`4`</sub>`), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorus, single-layer C`<sub>`2`</sub>`N and boron nitride). Furthermore, electronic descriptors and elementary descriptors were selected to elucidate the correlation between the intrinsic properties and catalytic performance of investigated candidates. Among them, electronic density of states (eDOS), inspired by the d-band theory, were selected to establish a direct descriptor-performance mapping through convolutional neural networks (CNNs). Resulted neural network model achieved mean absolute errors (MAEs) on the order of 0.1 eV for all nine intermediates (including the competing hydrogen evolution reaction (HER)).
 
 ## Highlights
 
@@ -16,10 +16,10 @@ This project investigated the CO<sub>2</sub> reduction to CH<sub>4</sub> reactio
 - Physical meaningfulness confirmed by crystal orbital Hamilton population (COHP) analysis.
 - Shifting experiments could potentially couple with volcano plots to improve existing candidates.
 
-
 ## Citation
 
-If you find this work beneficial, kindly consider citing [my MPhil Thesis](https://eprints.qut.edu.au/241290/) (and a Journal Paper is in progress).
+If you find this work beneficial, kindly consider citing [my MPhil Thesis](https://eprints.qut.edu.au/241290/) (and a Journal Paper is in progress with my supervisory team).
+
 ```
 @phdthesis{quteprints241290,
           school = {Queensland University of Technology},
@@ -37,3 +37,8 @@ If you find this work beneficial, kindly consider citing [my MPhil Thesis](https
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## References
+
+- [My MPhil Thesis](https://eprints.qut.edu.au/241290/)
+- [Victor Fung's Inspiring work developed for bimetallic surfaces](https://www.nature.com/articles/s41467-020-20342-6)
