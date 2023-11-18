@@ -16,6 +16,24 @@ This project investigated the CO<sub>2</sub> reduction to CH<sub>4</sub> reactio
 - Physical meaningfulness confirmed by crystal orbital Hamilton population (COHP) analysis.
 - Shifting experiments could potentially couple with volcano plots to improve existing candidates.
 
+
+## Citation
+
+If you find this work beneficial, kindly consider citing my MPhil Thesis (and a Journal Paper is in progress).
+```
+@phdthesis{quteprints241290,
+          school = {Queensland University of Technology},
+          author = {Haoyu Yang},
+           title = {Descriptor-guided screening and understanding of 2D substrate supported single atomic CO2RR electrocalysts},
+           month = {July},
+            year = {2023},
+        abstract = {This thesis investigated the CO2 reduction reaction performance of 228 supported single atom catalysts via density functional theory method. Furthermore, electronic descriptors and elementary descriptors were selected trying to elucidate the correlation between catalytic performance and intrinsic performance of investigated candidates. Among them, electronic density of states, inspired by the d-band theory, were selected to establish a direct descriptor-performance mapping through neural networks. Resulted neural network model achieved a mean absolute error on the order of 0.1 eV.},
+             url = {https://eprints.qut.edu.au/241290/},
+             doi = {10.5204/thesis.eprints.241290},
+        keywords = {Adsorption Energy, CO2 Reduction Reaction, Convolutional Neural Network, Density Functional Theory, Descriptor, Electronic Density of States, Linear Scaling Relation, Limiting Potential, Single-Atom Catalyst, Two-Dimensional}
+}
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
