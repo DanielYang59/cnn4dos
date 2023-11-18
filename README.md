@@ -2,11 +2,11 @@
 
 ## Overview
 
-This repository contains the code, data and resources to support my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT). The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
+This repository contains the code, data and resources to support my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT), co-supervised by [Prof. Ziqi Sun](https://www.qut.edu.au/about/our-people/academic-profiles/ziqi.sun) and [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao). The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
 
 ## Description
 
-This project investigated the CO`<sub>`2`</sub>` reduction to CH`<sub>`4`</sub>` reaction performance of 228 single atom electrocatalysts supported on six 2D substrates (graphitic carbon nitride (g-C`<sub>`3`</sub>`N`<sub>`4`</sub>`), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorus, single-layer C`<sub>`2`</sub>`N and boron nitride). Furthermore, electronic descriptors and elementary descriptors were selected to elucidate the correlation between the intrinsic properties and catalytic performance of investigated candidates. Among them, electronic density of states (eDOS), inspired by the d-band theory, were selected to establish a direct descriptor-performance mapping through convolutional neural networks (CNNs). Resulted neural network model achieved mean absolute errors (MAEs) on the order of 0.1 eV for all nine intermediates (including the competing hydrogen evolution reaction (HER)).
+This project investigated the CO `<sub>`2 `</sub>` reduction to CH `<sub>`4 `</sub>` reaction performance of 228 single atom electrocatalysts supported on six 2D substrates (graphitic carbon nitride (g-C `<sub>`3 `</sub>`N `<sub>`4 `</sub>`), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorus, single-layer C `<sub>`2 `</sub>`N and boron nitride). Furthermore, electronic descriptors and elementary descriptors were selected to elucidate the correlation between the intrinsic properties and catalytic performance of investigated candidates. Among them, electronic density of states (eDOS), inspired by the d-band theory, were selected to establish a direct descriptor-performance mapping through convolutional neural networks (CNNs). Resulted neural network model achieved mean absolute errors (MAEs) on the order of 0.1 eV for all nine intermediates (including the competing hydrogen evolution reaction (HER)).
 
 ## Highlights
 
@@ -38,7 +38,13 @@ If you find this work beneficial, kindly consider citing [my MPhil Thesis](https
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
+## Contact and Data Access
+
+If you have **ANY** questions regarding this project, feel free to open a discussion, raise an issue, or contact me directly at [yanghaoyu97@outlook.com](yanghaoyu97@outlook.com).
+
+I have provide as much resource data (VASP structures, eDOSs) as possible in this repo. However if you need access to the original VASP input/output files, please reach out to my principal supervisor [Prof. Ziqi Sun](https://www.qut.edu.au/about/our-people/academic-profiles/ziqi.sun) or associate supervisor [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao), as the original data is too large (in several TBs) and has been stored in the QUT Remote Data Storage System (RDSS), to which I no longer have access after graduation.
+
 ## References
 
 - [My MPhil Thesis](https://eprints.qut.edu.au/241290/)
-- [Victor Fung's Inspiring work developed for bimetallic surfaces](https://www.nature.com/articles/s41467-020-20342-6)
+- [Victor\'s Inspiring work on bimetallic surfaces](https://www.nature.com/articles/s41467-020-20342-6)
