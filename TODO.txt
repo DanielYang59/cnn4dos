@@ -1,9 +1,0 @@
-TO-DO list:
-
-0. Reshape (Unify) adsorbate DOS shape to (numSamplings, numOrbitals, numChannels).
-
-1. Move limiting potential calculation and verification module from "volcano plot" to "supporting info"
-
-2. HER volcano plot not working.
-
-3. Testing area under "volcanoPlotter" is not working (import error)
