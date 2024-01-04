@@ -11,46 +11,46 @@ Supported SACs were modelled by anchoring individual metal atoms onto various 2D
 CO2RR pathway.
 The C1 production CO2RR pathway, as initially described by Peterson et al. [45] and later confirmed by Jiao et al. [57] for g-C3N4 based SACs, involves the following elementary steps. Asterisks (*) indicate species adsorbed on the SAC surfaces:
 # TODO: check format
-█(CO_2+ ^*+H^++e^- □(→┴(          ) )  ^* COOH#(1))
-█( ^* COOH+H^++e^- □(→┴(          ) )  ^* CO+H_2 O#(2))
-█( ^* CO+H^++e^- □(→┴(          ) )  ^* CHO#(3)######)
-█( ^* CHO+H^++e^- □(→┴(          ) )  ^* CH_2 O#(4)##)
-█( ^* CH_2 O+H^++e^- □(→┴(          ) )  ^* OCH_3#(5)#)
-█( ^* OCH_3+H^++e^- □(→┴(          ) )  ^* O+CH_4#(6)#)
-█( ^* O+H^++e^- □(→┴(          ) )  ^* OH#(7)#)
-█( ^* OH+H^++e^- □(→┴(          ) )  ^*+H_2 O#(8)#)
+% (CO_2+ ^*+H^++e^- □(→┴(          ) )  ^* COOH#(1))
+% ( ^* COOH+H^++e^- □(→┴(          ) )  ^* CO+H_2 O#(2))
+% ( ^* CO+H^++e^- □(→┴(          ) )  ^* CHO#(3)######)
+% ( ^* CHO+H^++e^- □(→┴(          ) )  ^* CH_2 O#(4)##)
+% ( ^* CH_2 O+H^++e^- □(→┴(          ) )  ^* OCH_3#(5)#)
+% ( ^* OCH_3+H^++e^- □(→┴(          ) )  ^* O+CH_4#(6)#)
+% ( ^* O+H^++e^- □(→┴(          ) )  ^* OH#(7)#)
+% ( ^* OH+H^++e^- □(→┴(          ) )  ^*+H_2 O#(8)#)
 
 
 Free energy calculations.
 Free energies were computed from electronic energies by considering thermal corrections, incorporating normal mode analysis of all degrees of freedom of adsorbates. The free energy G was calculated using the formula:
 # TODO: check format
-█(G=E+ E_ZPE-TS#(9))
+% (G=E+ E_ZPE-TS#(9))
 where G represents the free energy, E denotes electronic energy, EZPE is the zero-point energy, T represents temperature in Kevin, and S stands for entropy. Detailed information regarding these corrections can be found in Supplementary Section 1.3.
 
 The computational hydrogen electrode (CHE) model [45, 58] was employed to introduce potential dependence. At the reference electrode surface, the reaction
 # TODO: check format
-█(1/2 H_2(g)   □(↔┴(           )  H^++ e^- )#(10))
+% (1/2 H_2(g)   □(↔┴(           )  H^++ e^- )#(10))
 is in equilibrium, allowing the calculation of the chemical potential of the electron-proton pair as:
-█(μ(H^+)+μ(e^-)=1/2 μ(H_2(g) )-eU#(11))
+% (μ(H^+)+μ(e^-)=1/2 μ(H_2(g) )-eU#(11))
 For the external potential U applied, the change in free energy (ΔG) was determined using the equation:
-█(∆G_n (U)= ∆G_n (U=0)+neU#(12))
+% (∆G_n (U)= ∆G_n (U=0)+neU#(12))
 Here, μ represents chemical potential, U signifies the external potential applied, n represents the number of proton-electron pairs transferred, and e denotes the elementary charge.
 
 
 Hybrid descriptor for volcano plots.
 Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary Figure 10 and Supplementary Table 13. Comprehensive analyses are presented Supplementary Section 1.5. This leads to the formulation of the scaling relation:
 # TODO: check format
-█(G_ads Z=k[θ*G_ads CO+(1-θ)*G_ads OH]+c_Z#(13)##)
+(G_ads Z=k[θ*G_ads CO+(1-θ)*G_ads OH]+c_Z#(13)##)
 Here, θ represents the mixing ratio of the CO descriptor, Z denotes any adsorbate, and k and cZ are adsorbate-specific scaling parameters. The optimal mixing ratio θ is determined through iterative exploration across the range, utilizing a step length of 0.01.
 
 Equation 14 could be simplified to a more general form:
 # TODO: check format
-█(G_ads Z=a_Z G_ads CO+b_Z G_ads OH+c_Z#(14)#)
+% (G_ads Z=a_Z G_ads CO+b_Z G_ads OH+c_Z#(14)#)
 Here, a_Z, b_Z, c_Z are adsorbate-specific parameters.
 
 Consequently, the limiting potential UL is entirely determined by two descriptors through the following equation:
 # TODO: check format
-█(U_L=-max⁡{〖ΔG〗_i }/e#(15)#)
+% (U_L=-max⁡{〖ΔG〗_i }/e#(15)#)
 Where ∆Gi represents the free energy change of reaction step i.
 
 This approach simplifies the theoretical performance assessment of any catalyst within the scope of our research to only two descriptors: G_ads CO and G_ads OH. This method offers a visual representation of the high-dimensional optimization challenge. To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of limiting potentials across the descriptor value ranges. At each grid point, the limiting potential is computed using Equation 16.
