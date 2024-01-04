@@ -1,11 +1,11 @@
 Section 2 Additional details on machine learning method
+
 Section 2.1 d-band center and adsorption energy relations
 
 
 Supplementary Figure 18 | Scatter plot of d-Band Center and Adsorption Energy Relationships. This figure delineates the relationship between d-band center and adsorption energies for various species: (a) CO2, (b) COOH, (c) CO, (d) CHO, (e) CH2O, (f) OCH3, (g) O, and (h) OH. Data from all six substrates investigated in this study are included.
 
 
- 
 Section 2.2 Feature correlation analysis
 
 
@@ -26,14 +26,13 @@ P	period number	eBader	Bader charge
 V	number of valence electrons
 
 
- 
 Section 2.3 Input pipeline construction
 The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs. In this study, the array adopts a shape of [numSamplings, numOrbitals, numChannels], as illustrated in Supplementary Figure 20. Here, “numSamplings” represents the number of data points sampled across the energy spectrum, “numOrbitals” denotes the number of DOS orbitals, and “numChannels” indicates the number of atomic channels.
 
 
 Supplementary Figure 20 | Schematic representation of the input eDOS data structure.
 
-For practical purposes, certain spatial hierarchies are expected to remain invariant, such as the energy range over which the eDOS is sampled. In this work, we maintain a consistent energy range of -14 eV to 6 eV, sampled at a density of 50 points⋅eV-1. In addition to maintaining a fixed energy range, the following steps are taken to standardize the input eDOS data:
+For practical purposes, certain spatial hierarchies are expected to remain invariant, such as the energy range over which the eDOS is sampled. In this work, we maintain a consistent energy range of -14 eV to 6 eV, sampled at a density of 50 points⋅eV-1. In addition to maintaining a fixed energy range, the following steps are taken to standardize the input eDOS data:
 1.	For atoms lacking d-electrons, the eDOS is zero-padded.
 2.	f-orbital eDOS data are excluded.
 3.	The eDOS of adsorbates is zero-padded along the Channels axis to align with the adsorbate that contains the maximum number of atoms, which, in this study, is the *OCH3 species. This padded eDOS is then appended to the metal eDOS.
@@ -41,7 +40,6 @@ For practical purposes, certain spatial hierarchies are expected to remain invar
 As a result of these preprocessing steps, the input eDOS arrays consistently have a shape of [4000, 9, 6]. This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
 
 
- 
 Section 2.4 Hyperparameter tuning for CNN
 
 Supplementary Table 16
@@ -93,12 +91,10 @@ H	0.0703	0.0646
 Note. The same CNN model, trained on the augmented dataset, was used for all predictions. The term “Original dataset” refers to evaluations conducted on the original dataset without any augmented data; it does not imply the use of a different CNN model trained solely on the original dataset. Similarly, “Augmented dataset” refers to evaluations on the dataset with both original data and augment data, not a distinct model.
 
 
- 
 Section 2.5 Occlusion experiment
 
 
 Supplementary Figure 21 | Illustration of the occlusion experiment. This figure demonstrates the step-by-step process of the occlusion experiment. The input eDOS array first undergoes zero-padded, and then a masker of width “width” is applied, resulting in an occlusion array that preserves the shape of the input array.
-
 
 
 Supplementary Figure 22 | Occlusion Experiment with a masker width of “1”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
@@ -107,11 +103,9 @@ Supplementary Figure 22 | Occlusion Experiment with a masker width of “1”. T
 Supplementary Figure 23 | Occlusion Experiment with a masker width of “3”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
 
 
-
 Supplementary Figure 24 | Occlusion Experiment with a masker width of “5”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
 
 Supplementary Figure 25 | Occlusion Experiment with a masker width of “11”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
-
 
 
 Supplementary Figure 26 | Occlusion Experiment with a masker width of “21”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
@@ -119,13 +113,11 @@ Supplementary Figure 26 | Occlusion Experiment with a masker width of “21”. 
 Supplementary Figure 27 | Occlusion Experiment with a masker width of “31”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
 
 
-
 Supplementary Figure 28 | Occlusion Experiment with a masker width of “41”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
 
 Supplementary Figure 29 | Occlusion Experiment with a masker width of “51”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
 
 
- 
 Section 2.6 Shifting experiment
 
 
