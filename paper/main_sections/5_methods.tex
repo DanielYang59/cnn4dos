@@ -4,11 +4,11 @@
 \section{Methods}
 
 \subsection{DFT calculations}
-# TODO: fix multiply sign (×)
+% TODO: fix multiply sign (×)
 Spin-polarized density functional theory calculations were performed using the Vienna Ab initio Simulation Package (VASP) version 5.4.4 [53-55] to optimize geometries and determine the electronic structure.
 The Perdew-Burke-Ernzerhof (PBE) functional [53] within the generalized gradient approximation (GGA) [56] was utilized to describe the electron-ion interactions and electronic exchange correlations.
 Kohn-Shan equations were approached employing a plane-wave basis set with a cut-off energy of 440 eV.
-Geometry optimizations were performed using Γ-Centered K-point meshes of (2 × 2 × 1) until the force on each atom fell below 0.02 eV Å-1 (TODO:).
+Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of (2 × 2 × 1) until the force on each atom fell below 0.02 eV Å-1 (TODO:).
 Electronic structure calculations utilized denser K-point meshes of (3 × 3 × 1) and employed self-consistent field (SCF) methods.
 
 
@@ -21,7 +21,7 @@ To prevent interactions between adjacent images along the z-axis, vacuum layers 
 \subsection{CO$_2$RR pathway}
 The C1 production CO$_2$RR pathway, as initially described by Peterson et al. [45] and later confirmed by Jiao et al. [57] for g-C$_3$N$_4$ based SACs, involves the following elementary steps.
 Asterisks (*) indicate species adsorbed on the SAC surfaces:
-# TODO: check format
+% TODO: check format
 % (CO_2+ ^*+H^++e^- □(→┴(          ) )  ^* COOH#(1))
 % ( ^* COOH+H^++e^- □(→┴(          ) )  ^* CO+H_2 O#(2))
 % ( ^* CO+H^++e^- □(→┴(          ) )  ^* CHO#(3)######)
@@ -35,14 +35,14 @@ Asterisks (*) indicate species adsorbed on the SAC surfaces:
 \subsection{Free energy calculations}
 Free energies were computed from electronic energies by considering thermal corrections, incorporating normal mode analysis of all degrees of freedom of adsorbates.
 The free energy $\textit{G}$ was calculated using the formula:
-# TODO: check format
+% TODO: check format
 % (G=E+ E_ZPE-TS#(9))
 where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy, $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin, and $\textit{S}$ stands for entropy.
 Detailed information regarding these corrections can be found in Supplementary Section 1.3.
 
 The computational hydrogen electrode (CHE) model [45, 58] was employed to introduce potential dependence.
 At the reference electrode surface, the reaction
-# TODO: check format
+% TODO: check format
 % (1/2 H_2(g)   □(↔┴(           )  H^++ e^- )#(10))
 is in equilibrium, allowing the calculation of the chemical potential of the electron-proton pair as:
 % (μ(H^+)+μ(e^-)=1/2 μ(H_2(g) )-eU#(11))
@@ -54,20 +54,20 @@ Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external p
 \subsection{Hybrid descriptor for volcano plots}
 Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary Figure 10 and Supplementary Table 13.
 Comprehensive analyses are presented Supplementary Section 1.5. This leads to the formulation of the scaling relation:
-# TODO: check format
+% TODO: check format
 % (G_ads Z=k[θ*G_ads CO+(1-θ)*G_ads OH]+c_Z#(13)##)
 Here, $\theta$ represents the mixing ratio of the CO descriptor, $\textit{Z}$ denotes any adsorbate, and $\textit{k}$ and $\textit{c}_{Z}$ are adsorbate-specific scaling parameters.
 The optimal mixing ratio $\theta$ is determined through iterative exploration across the range, utilizing a step length of 0.01.
 
 Equation 14 could be simplified to a more general form:
-# TODO: check format
+% TODO: check format
 % (G_ads Z=a_Z G_ads CO+b_Z G_ads OH+c_Z#(14)#)
-Here, a_Z, b_Z, c_Z are adsorbate-specific parameters.
+Here, $a_Z$, $b_Z$, $c_Z$ are adsorbate-specific parameters.
 
 Consequently, the limiting potential $\textit{U}_{L}$ is entirely determined by two descriptors through the following equation:
-# TODO: check format
+% TODO: check format
 % (U_L=-max⁡{〖ΔG〗_i }/e#(15)#)
-Where ∆Gi represents the free energy change of reaction step i.
+Where $\Delta G_{i}$ represents the free energy change of reaction step i.
 
 This approach simplifies the theoretical performance assessment of any catalyst within the scope of our research to only two descriptors: $G_{\textit{ads} \, \textit{CO}}$ and $G_{\textit{ads} \, \textit{OH}}$.
 This method offers a visual representation of the high-dimensional optimization challenge.
