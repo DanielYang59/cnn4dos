@@ -16,26 +16,28 @@ Supplementary Figure 19 | Pairwise Plot of Adsorption Energy and Key Descriptors
 
 
 % Supplementary Table 15
+% TODO: buggy format
 \begin{table}[h]
-    \centering
-    \begin{tabular}{lr}
-      \hline
-      Elementary Descriptors	Electronic Descriptors
-      \hline
-      R	atomic radius	α, β, γ	lattice parameters
-      Eea	electron affinity	ΦDFT	DFT calculated work function
-      Φ	work function	Evac	vacuum level
-      XAllen, ΧP, ΧRevP	electronegativity in Allen, Pauling and revised Pauling scales	Eg, Eg↑, Eg↓	average, spin-up and spin-down band gaps
-      Ar	relative atomic mass	ed	number of d-electrons
-      Ei	ionisation energy	δεd↑	d-band centre (spin-up)
-      G	group number	Wd	d-band width
-      P	period number	eBader	Bader charge
-      V	number of valence electrons
-      \hline
-    \end{tabular}
-    \caption{Notations for elementary descriptors and electronic descriptors}
-    \label{si_table15}
+  \centering
+  \begin{tabular}{p{3cm} p{11cm}}
+    \hline
+    \textbf{Elementary Descriptors} & \textbf{Electronic Descriptors} \\
+    \hline
+    R                 & atomic radius \quad α, β, γ & lattice parameters \\
+    Eea               & electron affinity \quad ΦDFT & DFT-calculated work function \\
+    Φ                 & work function \quad Evac & vacuum level \\
+    XAllen, ΧP, ΧRevP & electronegativity in Allen, Pauling, and revised Pauling scales \quad Eg, Eg↑, Eg↓ & average, spin-up, and spin-down band gaps \\
+    Ar                & relative atomic mass \quad ed & number of d-electrons \\
+    Ei                & ionization energy \quad δεd↑ & d-band center (spin-up) \\
+    G                 & group number \quad Wd & d-band width \\
+    P                 & period number \quad eBader & Bader charge \\
+    V                 & number of valence electrons \\
+    \hline
+  \end{tabular}
+  \caption{Notations for elementary descriptors and electronic descriptors}
+  \label{si_table15}
 \end{table}
+
 
 
 \subsection{Input pipeline construction}
@@ -58,77 +60,79 @@ As a result of these preprocessing steps, the input eDOS arrays consistently hav
 
 % Supplementary Table 16
 \begin{table}[h]
-    \centering
-    \begin{tabular}{lr}
-      \hline
-      Hyperparameter	Search space	Description
-      \hline
-      learningRate	[10-4, 10-2], logscale	Learning rate of Adam optimiser
-      dropoutRate	[0, 1]	Dropout rate
-      root_fc0	128, 256, 512	Output dimensionality of 1st fully connected layer in root
-      root_fc1	256, 512, 1024, 2048	Output dimensionality of 2nd fully connected layer in root
-      root_act	"tanh", "relu", "sigmoid"	Activation function of fully connected layers in root
-      kernelSize	[2, 32]	Width of convolution window
-      numFilters	[8, 64]	Number of filters in the convolution
-      numConvLayers	[1, 16]	Number of convolution layers
-      numConvBlocks	[1, 16]	Number of convolution blocks
-      br_fc0	16, 32, 64, 128, 256, 512	Output dimensionality of 1st fully connected layer in branch
-      br_fc1	8, 16, 32, 64, 128, 256	Output dimensionality of 2nd fully connected layer in branch
-      br_act	"tanh", "relu", "sigmoid"	Activation function of fully connected layers in branch
-      \hline
-    \end{tabular}
-    \caption{The hyperparameter searching space}
-    \label{si_table16}
+  \centering
+  \begin{tabular}{lrp{5.5cm}}
+    \hline
+    \textbf{Hyperparameter} & \textbf{Search Space}                             & \textbf{Description}            \\
+    \hline
+    learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam optimizer \\
+    dropoutRate   & [0, 1]                    & Dropout rate                                                      \\
+    root\_fc0     & 128, 256, 512             & Output dimensionality of 1st fully connected layer in root        \\
+    root\_fc1     & 256, 512, 1024, 2048      & Output dimensionality of 2nd fully connected layer in root        \\
+    root\_act     & "tanh", "relu", "sigmoid" & Activation function of fully connected layers in root             \\
+    kernelSize    & [2, 32]                   & Width of the convolution window                                   \\
+    numFilters    & [8, 64]                   & Number of filters in the convolution                              \\
+    numConvLayers & [1, 16]                   & Number of convolution layers                                      \\
+    numConvBlocks & [1, 16]                   & Number of convolution blocks                                      \\
+    br\_fc0       & 16, 32, 64, 128, 256, 512 & Output dimensionality of 1st fully connected layer in branch      \\
+    br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2nd fully connected layer in branch      \\
+    br\_act       & "tanh", "relu", "sigmoid" & Activation function of fully connected layers in branch           \\
+    \hline
+  \end{tabular}
+  \caption{The hyperparameter search space}
+  \label{si_table16}
 \end{table}
+
 
 
 % Supplementary Table 17
 \begin{table}[h]
-    \centering
-    \begin{tabular}{lr}
-      \hline
-      Hyperparameter	Optimal value	Description
-      \hline
-      learningRate	10-3	Learning rate of Adam optimiser
-      dropoutRate	0.3	Dropout rate
-      root_fc0	256	Output dimensionality of 1st fully connected layer in root
-      root_fc1	512	Output dimensionality of 2nd fully connected layer in root
-      root_act	“relu”	Activation function of fully connected layers in root
-      kernelSize	10	Width of convolution window
-      numFilters	17	Number of filters in the convolution
-      numConvLayers	3	Number of convolution layers
-      numConvBlocks	1	Number of convolution blocks
-      br_fc0	256	Output dimensionality of 1st fully connected layer in branch
-      br_fc1	128	Output dimensionality of 2nd fully connected layer in branch
-      br_act	“tanh”	Activation function of fully connected layers in branch
-      \hline
-    \end{tabular}
-    \caption{Optimal hyperparameters identified with Hyperband algorithm}
-    \label{si_table17}
+  \centering
+  \begin{tabular}{lrp{5.5cm}}
+    \hline
+    \textbf{Hyperparameter}   & \textbf{Optimal Value} & \textbf{Description}                \\
+    \hline
+    learningRate  & $10^{-3}$ & Learning rate of Adam optimizer                              \\
+    dropoutRate   & 0.3       & Dropout rate                                                 \\
+    root\_fc0     & 256       & Output dimensionality of 1st fully connected layer in root   \\
+    root\_fc1     & 512       & Output dimensionality of 2nd fully connected layer in root   \\
+    root\_act     & "relu"    & Activation function of fully connected layers in root        \\
+    kernelSize    & 10        & Width of convolution window                                  \\
+    numFilters    & 17        & Number of filters in the convolution                         \\
+    numConvLayers & 3         & Number of convolution layers                                 \\
+    numConvBlocks & 1         & Number of convolution blocks                                 \\
+    br\_fc0       & 256       & Output dimensionality of 1st fully connected layer in branch \\
+    br\_fc1       & 128       & Output dimensionality of 2nd fully connected layer in branch \\
+    br\_act       & "tanh"    & Activation function of fully connected layers in branch      \\
+    \hline
+  \end{tabular}
+  \caption{Optimal hyperparameters identified with Hyperband algorithm}
+  \label{si_table17}
 \end{table}
 
 
 % Supplementary Table 18
 \begin{table}[h]
-    \centering
-    \begin{tabular}{lr}
-      \hline
-      Adsorbate	Original dataset (eV)	Augmented dataset (eV)
-      \hline
-      CO2	0.0447	0.0336
-      COOH	0.0436	0.0581
-      CO	0.0402	0.0402
-      CHO	0.0614	0.0778
-      CH2O	0.0553	0.0632
-      OCH3	0.0605	0.0636
-      O	0.1135	0.1081
-      OH	0.0547	0.0602
-      H	0.0703	0.0646
-      \hline
-    \end{tabular}
-    \caption{Prediction mean absolute errors of the CNN model}
-    \label{si_table18}
+  \centering
+  \begin{tabular}{lrr}
+    \hline
+    \textbf{Adsorbate} & \textbf{Original dataset (eV)} & \textbf{Augmented dataset (eV)} \\
+    \hline
+    CO$_2$  & 0.0447 & 0.0336 \\
+    COOH    & 0.0436 & 0.0581 \\
+    CO      & 0.0402 & 0.0402 \\
+    CHO     & 0.0614 & 0.0778 \\
+    CH$_2$O & 0.0553 & 0.0632 \\
+    OCH$_3$ & 0.0605 & 0.0636 \\
+    O       & 0.1135 & 0.1081 \\
+    OH      & 0.0547 & 0.0602 \\
+    H       & 0.0703 & 0.0646 \\
+    \hline
+  \end{tabular}
+  \caption{Prediction mean absolute errors of the CNN model}
+  \label{si_table18}
 \end{table}
+
 Note. The same CNN model, trained on the augmented dataset, was used for all predictions. The term “Original dataset” refers to evaluations conducted on the original dataset without any augmented data; it does not imply the use of a different CNN model trained solely on the original dataset. Similarly, “Augmented dataset” refers to evaluations on the dataset with both original data and augment data, not a distinct model.
 
 \subsection{Occlusion experiment}
