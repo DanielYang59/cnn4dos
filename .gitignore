@@ -2,6 +2,7 @@
 .DS_Store
 __pycache__
 p4vasp.log
+.vscode/
 
 
 # Temperarily cached labels and features numpy array for model training
