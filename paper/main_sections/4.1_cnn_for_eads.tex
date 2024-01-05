@@ -25,7 +25,7 @@ Moreover, they suggest the potential for predicting adsorption energies for SACs
 
 In terms of adsorption energy prediction, the CNN model maintained consistency across diverse elemental compositions and varied adsorption strengths.
 It handled species containing oxygen, hydrogen, and carbon atoms equally well, spanning an adsorption energy range from 0 to 10 eV.
-Significantly, after pretraining the CNN model, making predictions (inference) scales only linearly with system size and demands considerably less computational resources compared to DFT calculations [40].
+Significantly, after training the CNN model, making predictions (inferences) scales only linearly with system size and demands considerably less computational resources compared to DFT calculations [40].
 Conversely, unlike QM based methods, which could generate reasonably precise energy estimation for individual candidates, CNN relies on extensive datasets to ensure reliable predictions.
 In our case, the original dataset comprised 2052 samples, leading to a CNN model with a validation MAE of 0.3725 eV.
 In pursuit of enhanced prediction accuracy, we proposed a data augmentation method detailed in the Methods section.

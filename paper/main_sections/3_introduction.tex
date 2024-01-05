@@ -13,7 +13,8 @@ Consequently, there is a pressing need to modulate the electronic structure of s
 
 The challenge towards effective catalysts design lies in understanding the reaction mechanisms.
 Experimental determination of these mechanisms remains challenging due to the complexity of in situ spectroscopic detection of reaction intermediates [10].
-Computational modeling, particularly methods based on quantum mechanics (QM) such as density functional theory (DFT), allows for the profiling the energetics of intermediates and unveils structure-activity relationships for identified active sites [11, 12], contributing to understanding of reaction mechanisms.
+Computational modeling, particularly methods based on quantum mechanics (QM) such as density functional theory (DFT),
+allows for the profiling the energetics of intermediates and unveils structure-activity relationships for identified active sites [11, 12], contributing to understanding of reaction mechanisms.
 However, the high computational cost of QM methods restricts the accessible catalyst space [13-15].
 
 In this context, researchers have explored descriptor-based methods to circumvent QM calculations and establish direct correlations between target properties and electronic factors, commonly referred to as descriptors or features.
@@ -26,7 +27,7 @@ In this study, we introduced a catalyst performance analysis pipeline (Figure 1)
 Our CNN model accurately estimated the adsorption energies, the activity descriptor, from the eDOS of 2D materials supported single metal catalysts.
 Evaluations on the adsorption energies of nine intermediates along CO$_2$RR and competing hydrogen evolution reaction (HER) as well yielded prediction mean absolute errors (MAEs) at the level of 0.1 eV, which is well aligned with the precision of conventional DFT calculations [23-25].
 This result validated the capability of current CNN model to accurately capture intricate spatial information from eDOS.
-Building on this, we introduced an orbital-wise eDOS occlusion experiment was adopted afterwards inspired from the occlusion technique widely used in computer vision and pattern recognition applications.
+Building on this, we introduced an orbitalwise eDOS occlusion experiment was adopted afterwards inspired from the occlusion technique widely used in computer vision and pattern recognition applications.
 Systematic eDOS experiment was performed to elucidate orbitalwise contributions to the adsorption energies at different energy levels, which produced consistent outcome from Crystal Orbital Hamilton Population (COHP) analysis and real-space wavefunction visualization.
 All these results justified the proficiency of CNN model on identifying the dominant orbitals for adsorbate-substrate interactions.
 Furthermore, orbital-wise eDOS shifting experiment, exploring the impact of orbital-wise eDOS shifting on the adsorption behavior of studied catalysts were performed.
