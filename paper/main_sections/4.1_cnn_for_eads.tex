@@ -15,12 +15,12 @@
     \label{main_fig2:cnn_for_eads}
 \end{figure}
 
-Originating from the pioneering work of Hammer and Nørskov [30], the d-band center model has emerged as a successful paradigm for employing descriptor to understand and predict the adsorption behavior on transition metal surfaces.
-To investigate alternative electronic and elementary descriptors that may serve as more suitable substitutes for the d-band center model in the context of SACs, we performed Kendall rank correlation analysis to account for both linearity and non-linearity [31].
+Originating from the pioneering work of Hammer and Nørskov \cite{hammer2000theoretical}, the d-band center model has emerged as a successful paradigm for employing descriptor to understand and predict the adsorption behavior on transition metal surfaces.
+To investigate alternative electronic and elementary descriptors that may serve as more suitable substitutes for the d-band center model in the context of SACs, we performed Kendall rank correlation analysis to account for both linearity and non-linearity \cite{kendall1938new}.
 The correlation coefficient map, as presented in Figure 2a, highlighted the d-band center as the most informative descriptor with a Kendall's $\tau$ coefficient of -0.33, and followed by the vacuum level and electronegativity.
 However, d-band center alone does not suffice for accurate predictions of intermediate adsorption energy as illustrated in the scatter plot Supplementary Figure 18, and therefore, refinements are imperative.
-Unlike bulk transition metal surfaces, where the variations in the d-band centre account for the majority of the adsorption energy variations [27, 32], the unique structure of SACs introduces more variables rather than d-band center that are intrinsically correlated with the variations of adsorption energy.
-This finding also interpreted that in some reported prior studies, indicating that depending solely on the d-band center may be insufficient for accurate adsorption energy predictions in the context of SACs [33-37].
+Unlike bulk transition metal surfaces, where the variations in the d-band centre account for the majority of the adsorption energy variations \cite{norskov2011density, takigawa2016machine}, the unique structure of SACs introduces more variables rather than d-band center that are intrinsically correlated with the variations of adsorption energy.
+This finding also interpreted that in some reported prior studies, indicating that depending solely on the d-band center may be insufficient for accurate adsorption energy predictions in the context of SACs \cite{33-37sun2022going, fung2020descriptors, di2022universal, yuan2020descriptor, huang2020rational}.
 As a result, the development of a method tailored specifically for catalysts like SACs becomes essential.
 
 In our study, we employ CNN, a renowned deep learning method proficient in capturing spatial hierarchy from matrix-like data, such as the eDOS.
@@ -31,19 +31,19 @@ The workflow involves processing the entire 2D eDOS as input, segregating orbita
 Sharing learnable parameters across branches optimizes computational efficiency.
 By leveraging the CNN model, we predicted adsorption energies from the eDOS of supported single atoms, and validated through parity plots (Figure 2d-m).
 The model predicts adsorption energies across nine species within the CO$_2$RR process and competing HER side reaction, attaining an averaged MAE of 0.06 eV.
-This MAE aligns with the established precision of DFT methods, which typically range between 0.1-0.2 eV concerning experimental measurement [25, 38, 39].
+This MAE aligns with the established precision of DFT methods, which typically range between 0.1-0.2 eV concerning experimental measurement \cite{wellendorff2015benchmark, kirklin2015open, lejaeghere2016reproducibility}.
 The full list of prediction errors is available in Supplementary Table 18.
 These results confirm the CNN model's ability to predict adsorption energies from eDOS input.
 Moreover, they suggest the potential for predicting adsorption energies for SACs using eDOS, although this would demand more sophisticated feature engineering techniques.
 
 In terms of adsorption energy prediction, the CNN model maintained consistency across diverse elemental compositions and varied adsorption strengths.
 It handled species containing oxygen, hydrogen, and carbon atoms equally well, spanning an adsorption energy range from 0 to 10 eV.
-Significantly, after training the CNN model, making predictions (inferences) scales only linearly with system size and demands considerably less computational resources compared to DFT calculations [40].
+Significantly, after training the CNN model, making predictions (inferences) scales only linearly with system size and demands considerably less computational resources compared to DFT calculations \cite{chandrasekaran2019solving}.
 Conversely, unlike QM based methods, which could generate reasonably precise energy estimation for individual candidates, CNN relies on extensive datasets to ensure reliable predictions.
 In our case, the original dataset comprised 2052 samples, leading to a CNN model with a validation MAE of 0.3725 eV.
 In pursuit of enhanced prediction accuracy, we proposed a data augmentation method detailed in the Methods section.
 This augmentation resulted in an expanded dataset of 12312 samples, enhancing prediction performance with a reduced validation MAE of 0.1736 eV.
-Comparatively, our CNN model diverges from prior attempts, notably Fung's pioneer work [41], by requiring only the eDOS of supported single metal atom alone and adsorbate.
+Comparatively, our CNN model diverges from prior attempts, notably Fung's pioneer work \cite{fung2021machine}, by requiring only the eDOS of supported single metal atom alone and adsorbate.
 This revision eliminated the necessity for a complete set of substrate and adsorbate eDOS and significantly reduced computational cost.
 We foresee the potential in the applicability of our method to diverse species and electrocatalytic reactions, given the availability of comprehensive datasets.
 The strength of our CNN model lies in its freedom from element- or adsorbate-specific parameters, relying solely on eDOS as input.
