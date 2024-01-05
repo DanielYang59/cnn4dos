@@ -648,32 +648,52 @@ Supplementary Figure 9 | Pearson correlation map for adsorption energies of vari
 
 
 \subsection{The scaling relation scheme and the hybrid scaling relation}
-In line with the scaling relation framework proposed by Abild-Pedersen et al. \cite{abild2007scaling}, and later applied to the CO$_2$ reduction to methane process by Peterson & Nørskov \cite{peterson2012activity}, adsorbates in the CO$_2$RR process can be categorized into C-centered or O-centered species. In each group, a representative species is designated as the “descriptor”, allowing approximating the adsorption energies of other species within the same group using scaling relations. The following equations capture this relationship:
-% TODO: check format
-% █(G_ads X=a_X G_ads CO+c_X  (X=COOH,CHO,CH_2 O)#(1))
-% █(G_ads Y=a_Y G_ads OH+c_Y  (Y=O,OCH_3 )#(2))
-Here, CO and OH serve as descriptors for C-centered (X) and O-centered (Y) groups, respectively, and a_X, c_X, a_Y, c_Y are species-specific scaling parameters. The scaling relations simplify the adsorption energy landscape to a two-dimensional space, thereby enabling visualization.
+In line with the scaling relation framework proposed by Abild-Pedersen et al. \cite{abild2007scaling}, and later applied to the CO$_2$ reduction to methane process by Peterson \& Nørskov \cite{peterson2012activity}, adsorbates in the CO$_2$RR process can be categorized into C-centered or O-centered species. In each group, a representative species is designated as the “descriptor”, allowing approximating the adsorption energies of other species within the same group using scaling relations. The following equations capture this relationship:
 
-However, it's crucial to note that in the CO$_2$RR process, most species are not solely C- or O-centered. Thus, it becomes advantageous to incorporate both types of species in the scaling relation. Building upon the hybrid scaling relation introduced in the main text, the free energy change ($\Delta\mathit{G}$) for any given reaction step can be readily calculated using Equation 14 from the main text. Consider the generic reaction step:
-% # TODO: check format
-% █(A^*+H^++e^- □(→┴  ) B^*#(3))
-% The free energy change $\Delta\mathit{G}$ is defined as:
-% █(ΔG=G(B^* )-G(A^* )-G(H^+ )-G(e^- )#(4))
+\begin{align}
+  G_{\text{ads } X} &= a_X \cdot G_{\text{ads CO}} + c_X  && \text{(where } X = \text{COOH, CHO, CH}_2\text{O}) \\
+  G_{\text{ads } Y} &= a_Y \cdot G_{\text{ads OH}} + c_Y  && \text{(where } Y = \text{O, OCH}_3\text{)}
+\end{align}
 
-Focusing on any reaction step delineated by Equations 1 to Equation 8 in the main text, Equation 15 shows that limiting potential UL at a specific external potential U is fully determined by the adsorption energies of two descriptors. For instance, for the reaction described by Equation 2:
+Here, CO and OH serve as descriptors for C-centered ($X$) and O-centered ($Y$) groups, respectively, and $a_{\mathrm{X}}, c_{\mathrm{X}}, a_{\mathrm{Y}}, c_{\mathrm{Y}}$ are species-specific scaling parameters.
+The scaling relations simplify the adsorption energy landscape to a two-dimensional space, thereby enabling visualization.
+
+However, it's crucial to note that in the CO$_2$RR process, most species are not solely C- or O-centered.
+Thus, it becomes advantageous to incorporate both types of species in the scaling relation.
+Building upon the hybrid scaling relation introduced in the main text, the free energy change ($\Delta\mathit{G}$) for any given reaction step can be readily calculated using Equation 14 from the main text.
+Consider the generic reaction step:
+\begin{align}
+  \ce{\text{*}A + H+ + e- -> \text{*}B}
+\end{align}
+
+The free energy change $\Delta\mathit{G}$ is defined as:
+\begin{align}
+  \Delta G = G(\text{*}\mathrm{B}) - G(\text{*}\mathrm{A}) - G(\mathrm{H}^+) - G(e^-)
+\end{align}
+
+Focusing on any reaction step delineated by Equations 1 to Equation 8 in the main text,
+Equation 15 shows that limiting potential $U_{\mathrm{L}}$ at a specific external potential $U$ is fully determined by the adsorption energies of two descriptors.
+For instance, for the reaction described by Equation 2:
 % # TODO: check format
+\begin{align}
 % ∆G=G((_ ^*)COOH )-G( ^* )-G(CO_2 )-G(H^+ )-G(e^- )
 % =G(COOH)+G( ^* )+G_ads COOH-G( ^* )-G(CO_2 )-G(H^+ )-G(e^- )
-% █(=G_ads COOH+G(COOH)-G(CO_2 )-G(H^+ )-G(e^- )#(5))
-% From adsorption energy linear relations, we have:
-% █(G_ads COOH=a_COOH G_ads CO+b_COOH G_ads OH+c_COOH#(6)#)
+% =G_ads COOH+G(COOH)-G(CO_2 )-G(H^+ )-G(e^- )
+\end{align}
 
+From adsorption energy linear relations, we have:
+\begin{align}
+  G_{ads}{\mathrm{COOH}} = a_{\text{COOH}} \cdot G_{ads}{\mathrm{CO}} + b_{\text{COOH}} \cdot G_{ads}{\mathrm{OH}} + c_{\text{COOH}}
+\end{align}
 
 which then reduces Equation 5 to:
-% # TODO: check format
-% ∆G=(a_COOH G_ads CO+b_COOH G_ads OH)+
-% █([c_COOH+G(COOH)-G(CO_2 )-G(H^+ )-G(e^-)]#(7))
-In this case, the first term in Supplementary Equation 7 depends solely on the descriptors, while the second term remains constant for a given potential U.
+\begin{align}
+  \begin{split}
+    \Delta G = &(a_{\text{COOH}} \cdot G_{\text{ads}}{\mathrm{CO}} + b_{\text{COOH}} \cdot G_{\text{ads}}{\mathrm{OH}}) + \\
+    &[c_{\text{COOH}} + G(\mathrm{COOH}) + G(\mathrm{CO}_2) + G(\mathrm{H}^+) + G(\mathrm{e}^-)]
+  \end{split}
+\end{align}
+In this case, the first term in Supplementary Equation 7 depends solely on the descriptors, while the second term remains constant for a given potential $U$.
 
 
 % Supplementary Table 13
