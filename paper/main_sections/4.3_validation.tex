@@ -17,9 +17,9 @@
     \label{main_fig4:validation}
 \end{figure}
 
-Historically, interpretability has posed challenges for deep learning methods, often rendering their inner workings akin to black boxes [46-48].
-The occlusion technique, widely utilized in Computer Vision [49-51], involves systematically masking sections of the input matrix to assess their impact on the final prediction score.
-In our work, we introduce an orbitalwise occlusion method to discern individual orbital contribution to adsorption energy within the CNN model, drawing inspiration from Fung's pioneer integration of this technique into eDOS analysis [41].
+Historically, interpretability has posed challenges for deep learning methods, often rendering their inner workings akin to black boxes \cite{zhang2018interpretable, zhang2018visual, savage2022breaking}.
+The occlusion technique, widely utilized in Computer Vision \cite{zeiler2014visualizing, kortylewski2020combining, wang2020robust}, involves systematically masking sections of the input matrix to assess their impact on the final prediction score.
+In our work, we introduce an orbitalwise occlusion method to discern individual orbital contribution to adsorption energy within the CNN model, drawing inspiration from Fung's pioneer integration of this technique into eDOS analysis \cite{fung2021machine}.
 In this work, occlusion experiments involve orbitalwise masking specific eDOS, which are then fed into the CNN model to observe resulting disturbance in adsorption energy.
 A visual representation of this process can be found in Supplementary Figure 21. Conceptually, this experiment simulates the effect of shielding electronic states, allowing investigation of the potential contribution to adsorption energy from these states.
 Additionally, we attempted to extract the planewave coefficients of Kohn-Sham orbital for wavefunction visualization.
@@ -37,7 +37,7 @@ In both cases, the $d_xy$ orbital was identified as the dominant contributor.
 While identifying the dominant orbital is crucial, these findings also suggest that interactions with adsorbates occurring out-of-plane are influenced by in-plane orbitals as well.
 Importantly, it becomes evident that d orbitals do not universally impact interactions with adsorbates, emphasizing the need for case-specific discussions.
 
-To validate the chemical relevance of predictions made by CNN model, we conducted COHP analysis, a theoretical bond-detecting tool used to identify bonding and anti-bonding contributions to band-structure energy [52].
+To validate the chemical relevance of predictions made by CNN model, we conducted COHP analysis, a theoretical bond-detecting tool used to identify bonding and anti-bonding contributions to band-structure energy \cite{deringer2011crystal}.
 In this research, interactions between the supported metal atom and atoms within a 5 \text{\AA} radius were calculated to understand its bonding environment, as detailed in the Methods section.
 The results of the occlusion experiment on the Co $d_xy$ orbital of Co@g-C$_3$N$_4$, identified as the dominant orbital via occlusion experiments, were compared with the COHP analysis, as shown in Figure 4g and Figure 4i.
 The occlusion experiment pinpointed strong metal-adsorbate interactions at energy levels of -1 eV and -6.3 eV, which were confirmed by the COHP analysis.

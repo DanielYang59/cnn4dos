@@ -6,12 +6,11 @@
 % 0. Confirm figure/table insert positions
 % 0. Should "d" for d-orbital be italicised?
 % 1. fix cross-references (of figures/tables/equations)
-% 2. fix reference
 
 
 % Document Class and Packages
 \documentclass[a4paper, 12pt]{article}
-\input{preamble.tex}  % Preamble (Packages, Settings, Custom Commands)
+\input{preamble.tex}
 
 
 \begin{document}
@@ -39,12 +38,14 @@
 \input{main_sections/5_methods.tex}
 
 
-% % References
-% \bibliographystyle{plain} % bibliography style
-% \bibliography{main_sections/reference}
-
 % Appendix
 \appendix
 \input{main_sections/6_tail.tex}
+
+
+% References
+\bibliographystyle{plain}
+\bibliography{main_sections/references.bib}
+
 
 \end{document}
