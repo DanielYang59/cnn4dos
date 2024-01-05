@@ -17,19 +17,19 @@
 
 Originating from the pioneering work of Hammer and Nørskov \cite{hammer2000theoretical}, the d-band center model has emerged as a successful paradigm for employing descriptor to understand and predict the adsorption behavior on transition metal surfaces.
 To investigate alternative electronic and elementary descriptors that may serve as more suitable substitutes for the d-band center model in the context of SACs, we performed Kendall rank correlation analysis to account for both linearity and non-linearity \cite{kendall1938new}.
-The correlation coefficient map, as presented in Figure 2a, highlighted the d-band center as the most informative descriptor with a Kendall's $\tau$ coefficient of -0.33, and followed by the vacuum level and electronegativity.
-However, d-band center alone does not suffice for accurate predictions of intermediate adsorption energy as illustrated in the scatter plot Supplementary Figure 18, and therefore, refinements are imperative.
+The correlation coefficient map, as presented in \cref{main_fig2:cnn_for_eads}a, highlighted the d-band center as the most informative descriptor with a Kendall's $\tau$ coefficient of -0.33, and followed by the vacuum level and electronegativity.
+However, d-band center alone does not suffice for accurate predictions of intermediate adsorption energy as illustrated in the scatter plot Supplementary Figure 18 (TODO:), and therefore, refinements are imperative.
 Unlike bulk transition metal surfaces, where the variations in the d-band centre account for the majority of the adsorption energy variations \cite{norskov2011density, takigawa2016machine}, the unique structure of SACs introduces more variables rather than d-band center that are intrinsically correlated with the variations of adsorption energy.
-This finding also interpreted that in some reported prior studies, indicating that depending solely on the d-band center may be insufficient for accurate adsorption energy predictions in the context of SACs \cite{33-37sun2022going, fung2020descriptors, di2022universal, yuan2020descriptor, huang2020rational}.
+This finding also interpreted that in some reported prior studies, indicating that depending solely on the d-band center may be insufficient for accurate adsorption energy predictions in the context of SACs \cite{sun2022going, fung2020descriptors, di2022universal, yuan2020descriptor, huang2020rational}.
 As a result, the development of a method tailored specifically for catalysts like SACs becomes essential.
 
 In our study, we employ CNN, a renowned deep learning method proficient in capturing spatial hierarchy from matrix-like data, such as the eDOS.
 Notably, CNN's autonomy from prior knowledge and human intervention during feature extraction renders it more efficient than traditional machine-learning methods.
 Our approach harnesses the entire 2D eDOS with a multi-branch CNN model.
-Figure 2b and Figure 2c delineate the model and its branches.
+\cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c delineate the model and its branches.
 The workflow involves processing the entire 2D eDOS as input, segregating orbitals into branches, and directing the concatenated outputs through another convolutional block, which generates the adsorption energy prediction.
 Sharing learnable parameters across branches optimizes computational efficiency.
-By leveraging the CNN model, we predicted adsorption energies from the eDOS of supported single atoms, and validated through parity plots (Figure 2d-m).
+By leveraging the CNN model, we predicted adsorption energies from the eDOS of supported single atoms, and validated through parity plots (\cref{main_fig2:cnn_for_eads}d-m).
 The model predicts adsorption energies across nine species within the CO$_2$RR process and competing HER side reaction, attaining an averaged MAE of 0.06 eV.
 This MAE aligns with the established precision of DFT methods, which typically range between 0.1-0.2 eV concerning experimental measurement \cite{wellendorff2015benchmark, kirklin2015open, lejaeghere2016reproducibility}.
 The full list of prediction errors is available in Supplementary Table 18.
