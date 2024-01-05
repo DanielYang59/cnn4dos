@@ -41,19 +41,27 @@ Supplementary Figure 19 | Pairwise Plot of Adsorption Energy and Key Descriptors
 
 
 \subsection{Input pipeline construction}
-The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs. In this study, the array adopts a shape of [numSamplings, numOrbitals, numChannels], as illustrated in Supplementary Figure 20. Here, “numSamplings” represents the number of data points sampled across the energy spectrum, “numOrbitals” denotes the number of DOS orbitals, and “numChannels” indicates the number of atomic channels.
+The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs.
+In this study, the array adopts a shape of [numSamplings, numOrbitals, numChannels], as illustrated in Supplementary Figure 20.
+Here, “numSamplings” represents the number of data points sampled across the energy spectrum,
+“numOrbitals” denotes the number of DOS orbitals,
+and “numChannels” indicates the number of atomic channels.
 
 
 Supplementary Figure 20 | Schematic representation of the input eDOS data structure.
 
-For practical purposes, certain spatial hierarchies are expected to remain invariant, such as the energy range over which the eDOS is sampled.
-In this work, we maintain a consistent energy range of -14 eV to 6 eV, sampled at a density of 50 points⋅eV-1.
-In addition to maintaining a fixed energy range, the following steps are taken to standardize the input eDOS data:
+For practical purposes, certain spatial hierarchies are expected to remain invariant,
+such as the energy range over which the eDOS is sampled.
+In this work, we maintain a consistent energy range of -14 eV to 6 eV,
+sampled at a density of 50 points⋅eV-1.
+In addition to maintaining a fixed energy range,
+the following steps are taken to standardize the input eDOS data:
   1.	For atoms lacking d-electrons, the eDOS is zero-padded.
   2.	f-orbital eDOS data are excluded.
   3.	The eDOS of adsorbates is zero-padded along the Channels axis to align with the adsorbate that contains the maximum number of atoms, which, in this study, is the *OCH3 species. This padded eDOS is then appended to the metal eDOS.
 
-As a result of these preprocessing steps, the input eDOS arrays consistently have a shape of [4000, 9, 6]. This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
+As a result of these preprocessing steps, the input eDOS arrays consistently have a shape of [4000, 9, 6].
+This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
 
 
 \subsection{Hyperparameter tuning for CNN}
