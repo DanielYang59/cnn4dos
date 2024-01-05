@@ -1,5 +1,6 @@
 % Journal Paper Main Text Header
 
+
 % TODO:
 % 0. Prevent words from being broken in the middle
 % 0. Confirm figure/table insert positions
@@ -10,26 +11,22 @@
 
 % Document Class and Packages
 \documentclass[a4paper, 12pt]{article}
+\input{preamble.tex}  % Preamble (Packages, Settings, Custom Commands)
 
-
-% Preamble (Packages, Settings, Custom Commands)
-\input{preamble.tex}
 
 \begin{document}
 
 % Title and Author Information
 \input{main_sections/1_head.tex}
 
+
 % Abstract
 \input{main_sections/2_abstract.tex}
 
-% % Table of Contents, List of Figures, List of Tables
-% \tableofcontents
-% \listoffigures
-% \listoftables
 
 % Introduction
 \input{main_sections/3_introduction.tex}
+
 
 % Results and Discussions
 \input{main_sections/4.1_cnn_for_eads.tex}
@@ -37,8 +34,10 @@
 \input{main_sections/4.3_validation.tex}
 \input{main_sections/4.4_shifting_exp.tex}
 
-% % Methods
+
+% Methods
 \input{main_sections/5_methods.tex}
+
 
 % % References
 % \bibliographystyle{plain} % bibliography style
