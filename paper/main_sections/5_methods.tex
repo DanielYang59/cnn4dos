@@ -13,7 +13,7 @@ Electronic structure calculations utilized denser K-point meshes of ($3\times3\t
 
 \subsection{Catalyst models}
 Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates, including graphitic carbon nitride (g-C$_3$N$_4$), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C$_2$N.
-The specific single metal atoms studied are outlined in Supplementary Figure 1.
+The specific single metal atoms studied are outlined in Supplementary Figure 1 (TODO:).
 To prevent interactions between adjacent images along the z-axis, vacuum layers of 15 \text{\AA} were introduced.
 
 
@@ -62,7 +62,7 @@ Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external p
 
 
 \subsection{Hybrid descriptor for volcano plots}
-Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary Figure 10 and Supplementary Table 13.
+Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary Figure 10 (TODO:) and Supplementary Table 13 (TODO:).
 Comprehensive analyses are presented Supplementary Section 1.5. This leads to the formulation of the scaling relation:
 \begin{equation*}
 G_{\text{ads}} Z = k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z
@@ -89,7 +89,7 @@ At each grid point, the limiting potential is computed using Equation 16.
 
 
 \subsection{CNN architecture and hyperparameter tuning}
-We designed our CNN architecture drawing inspiration from its successful implementation in tasks involving electrocardiogram signal classification \cite{weimann2021transfer}, as illustrated in Figure 2b and 2c.
+We designed our CNN architecture drawing inspiration from its successful implementation in tasks involving electrocardiogram signal classification \cite{weimann2021transfer}, as illustrated in \cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c.
 This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals while ensuring a reduced memory footprint.
 
 The effectiveness of neural network models is intricately tied to the choice of hyperparameters.
@@ -107,7 +107,7 @@ Twenty percent of these samples were allocated to the validation set. Throughout
 
 
 \subsection{Occlusion experiments}
-Supplementary Figure 21 visually illustrates the occlusion experiment methodology.
+Supplementary Figure 21 (TODO:) visually illustrates the occlusion experiment methodology.
 To maintain consistent shapes, zero-padding was applied to the input eDOS arrays.
 Focusing on understanding the influence of metals on adsorption behavior, a masker with dimensions [width, 1, 1] was employed along the metal channel to eliminate cross-orbital interactions.
 Here, "width" denotes the masker width, and detailed explanations for determining the width are provided in Supplementary Section 2.6.
@@ -115,7 +115,7 @@ Through recursive application of these maskers, variations in predicted adsorpti
 
 
 \subsection{Shifting experiments}
-Supplementary Figure 30 illustrates the implemented shifting experiment protocol.
+Supplementary Figure 30 (TODO:) illustrates the implemented shifting experiment protocol.
 In this study, the initial electronic density of states underwent controlled shifting along the energy axis.
 This protocol ranges from -1 eV to 1 eV, with a step length of 0.005 eV per image.
 To maintain a uniform energy window, each image underwent cropping and padding procedures.

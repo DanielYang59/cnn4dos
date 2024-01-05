@@ -31,7 +31,7 @@ Particularly in the case of SACs, the relationship is intricate, rendering manua
 To streamline this featurization process, we employed convolutional neural networks (CNNs), which autonomously derive a hierarchical representation directly from the electronic density of state (eDOS) \cite{tran2015learning, socher2012convolutional, krizhevsky2012imagenet}.
 This approach accurately maps to the activity space, negating the need for manual crafting of descriptors and providing a more efficient method to understand and establish the structure-mechanism-activity relationship for electrochemical reactions.
 
-In this study, we introduced a catalyst performance analysis pipeline (Figure 1) integrating a customized CNN model and volcano plots.
+In this study, we introduced a catalyst performance analysis pipeline (\cref{main_fig1:pipeline}) integrating a customized CNN model and volcano plots.
 Our CNN model accurately estimated the adsorption energies, the activity descriptor, from the eDOS of 2D materials supported single metal catalysts.
 Evaluations on the adsorption energies of nine intermediates along CO$_2$RR and competing hydrogen evolution reaction (HER) as well yielded prediction mean absolute errors (MAEs) at the level of 0.1 eV, which is well aligned with the precision of conventional DFT calculations \cite{kirklin2015open, lejaeghere2016reproducibility, wellendorff2015benchmark}.
 This result validated the capability of current CNN model to accurately capture intricate spatial information from eDOS.
