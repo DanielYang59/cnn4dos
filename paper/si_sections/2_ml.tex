@@ -1,12 +1,15 @@
-Section 2 Additional details on machine learning method
+% Supporting Information Section Two: Additional details on ML Methods
 
-Section 2.1 d-band center and adsorption energy relations
+
+\section{Additional details on machine learning method}
+
+\subsection{d-band center and adsorption energy relations}
 
 
 Supplementary Figure 18 | Scatter plot of d-Band Center and Adsorption Energy Relationships. This figure delineates the relationship between d-band center and adsorption energies for various species: (a) CO2, (b) COOH, (c) CO, (d) CHO, (e) CH2O, (f) OCH3, (g) O, and (h) OH. Data from all six substrates investigated in this study are included.
 
 
-Section 2.2 Feature correlation analysis
+\subsection{Feature correlation analysis}
 
 
 Supplementary Figure 19 | Pairwise Plot of Adsorption Energy and Key Descriptors. This chart displays the pairwise relationships between CO adsorption energy and its four most correlated descriptors–d-band center (spin-up) δεd↑, lattice parameter γ, vacuum level Evac, and electronegativity on the Allen scale XAllen –as identified by Kendall rank correlation analysis. Data from all six substrates investigated in this study are incorporated.
@@ -26,7 +29,7 @@ P	period number	eBader	Bader charge
 V	number of valence electrons
 
 
-Section 2.3 Input pipeline construction
+\subsection{Input pipeline construction}
 The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs. In this study, the array adopts a shape of [numSamplings, numOrbitals, numChannels], as illustrated in Supplementary Figure 20. Here, “numSamplings” represents the number of data points sampled across the energy spectrum, “numOrbitals” denotes the number of DOS orbitals, and “numChannels” indicates the number of atomic channels.
 
 
@@ -40,7 +43,7 @@ For practical purposes, certain spatial hierarchies are expected to remain invar
 As a result of these preprocessing steps, the input eDOS arrays consistently have a shape of [4000, 9, 6]. This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
 
 
-Section 2.4 Hyperparameter tuning for CNN
+\subsection{Hyperparameter tuning for CNN}
 
 Supplementary Table 16
 The hyperparameter searching space
@@ -91,8 +94,7 @@ H	0.0703	0.0646
 Note. The same CNN model, trained on the augmented dataset, was used for all predictions. The term “Original dataset” refers to evaluations conducted on the original dataset without any augmented data; it does not imply the use of a different CNN model trained solely on the original dataset. Similarly, “Augmented dataset” refers to evaluations on the dataset with both original data and augment data, not a distinct model.
 
 
-Section 2.5 Occlusion experiment
-
+\subsection{Occlusion experiment}
 
 Supplementary Figure 21 | Illustration of the occlusion experiment. This figure demonstrates the step-by-step process of the occlusion experiment. The input eDOS array first undergoes zero-padded, and then a masker of width “width” is applied, resulting in an occlusion array that preserves the shape of the input array.
 
@@ -118,8 +120,7 @@ Supplementary Figure 28 | Occlusion Experiment with a masker width of “41”. 
 Supplementary Figure 29 | Occlusion Experiment with a masker width of “51”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C3N4.
 
 
-Section 2.6 Shifting experiment
-
+\subsection{Shifting experiment}
 
 Supplementary Figure 30 | Illustration of the shifting experiment. This figure illustrates the sequential stages of the shifting experiment. Initially, the input eDOS array is shifted along the Energy axis. Subsequently, it undergoes zero-padding and cropping, ensuring a consistent shape based on the shifting direction, to match the input eDOS array. The resulting shifted array is then processed by the CNN model to assess the disturbance in adsorption energy caused by the shifting operation.
 
