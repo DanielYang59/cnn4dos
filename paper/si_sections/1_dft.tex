@@ -641,7 +641,7 @@ Note. Free energy corrections were obtained by averaging the DFT-computed correc
 
 
 \subsection{Correlation analysis of adsorption energies}
-Supplementary Figure 9 presents a Pearson correlation map that illustrates the relationships between the adsorption energies of various intermediates. This analysis encompasses all six substrates under consideration. The mean Pearson correlation coefficient is 0.6023 with a variance of 0.0109 (TODO: unit missing), signifying a robust correlation between the adsorption energies of different intermediates, accompanied by low variability.
+Supplementary Figure 9 presents a Pearson correlation map that illustrates the relationships between the adsorption energies of various intermediates. This analysis encompasses all six substrates under consideration. The mean Pearson correlation coefficient is 0.6023 with a variance of 0.0109, signifying a robust correlation between the adsorption energies of different intermediates, accompanied by low variability.
 
 
 Supplementary Figure 9 | Pearson correlation map for adsorption energies of various adsorbates for all six substrates.
@@ -674,11 +674,10 @@ The free energy change $\Delta\mathit{G}$ is defined as:
 Focusing on any reaction step delineated by Equations 1 to Equation 8 in the main text,
 Equation 15 shows that limiting potential $U_{\mathrm{L}}$ at a specific external potential $U$ is fully determined by the adsorption energies of two descriptors.
 For instance, for the reaction described by Equation 2:
-% # TODO: check format
 \begin{align}
-% ∆G=G((_ ^*)COOH )-G( ^* )-G(CO_2 )-G(H^+ )-G(e^- )
-% =G(COOH)+G( ^* )+G_ads COOH-G( ^* )-G(CO_2 )-G(H^+ )-G(e^- )
-% =G_ads COOH+G(COOH)-G(CO_2 )-G(H^+ )-G(e^- )
+  \Delta G &= G(\text{*COOH}) - G(\text{*}) - G(\text{CO}_2) - G(\text{H}^+) - G(\text{e}^-) \\
+  &= G(\text{COOH}) + G(\text{*}) - G_{\text{ads}}\text{COOH} - G(\text{*}) - G(\text{CO}_2) -G(\text{H}^+) - G(\text{e}^-) \\
+  &= G_{\text{ads}}\text{COOH} + G(\text{COOH}) - G(\text{CO}_2) -G(\text{H}^+) - G(\text{e}^-)
 \end{align}
 
 From adsorption energy linear relations, we have:
