@@ -11,33 +11,33 @@ Supplementary Figure 18 | Scatter plot of d-Band Center and Adsorption Energy Re
 
 \subsection{Feature correlation analysis}
 
-
 Supplementary Figure 19 | Pairwise Plot of Adsorption Energy and Key Descriptors. This chart displays the pairwise relationships between CO adsorption energy and its four most correlated descriptors-d-band center (spin-up) δεd↑, lattice parameter γ, vacuum level Evac, and electronegativity on the Allen scale XAllen -as identified by Kendall rank correlation analysis. Data from all six substrates investigated in this study are incorporated.
 
 
 % Supplementary Table 15
-% TODO: buggy format
 \begin{table}[h]
   \centering
   \begin{tabular}{llll}
     \hline
-    \textbf{Elementary Descriptors} & \textbf{Electronic Descriptors} \\
+    \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
     \hline
-    R                 & atomic radius \quad α, β, γ & lattice parameters \\
-    Eea               & electron affinity \quad ΦDFT & DFT-calculated work function \\
-    Φ                 & work function \quad Evac & vacuum level \\
-    XAllen, ΧP, ΧRevP & electronegativity in Allen, Pauling, and revised Pauling scales \quad Eg, Eg↑, Eg↓ & average, spin-up, and spin-down band gaps \\
-    Ar                & relative atomic mass \quad ed & number of d-electrons \\
-    Ei                & ionization energy \quad δεd↑ & d-band center (spin-up) \\
-    G                 & group number \quad Wd & d-band width \\
-    P                 & period number \quad eBader & Bader charge \\
-    V                 & number of valence electrons \\
+    $R$            & atomic radius                   & $\alpha$, $\beta$, $\gamma$  & lattice parameters     \\
+    $E_\text{ea}$  & electron affinity               & $\Phi_{\text{DFT}}$    & DFT calculated work function \\
+    $\Phi$         & work function                   & $E_\text{vac}$         & vacuum level                 \\
+    $\chi_\text{Allen}$, $\chi_\text{P}$, $\chi_\text{RevP}$
+    & \parbox[t]{4cm}{electronegativity in Allen, Pauling and revised Pauling scales}
+    & $E_\text{g}$, $E_\text{g}\uparrow$, $E_\text{g}\uparrow$
+    & \parbox[t]{4cm}{average, spin-up and spin-down band gaps} \\
+    $A_\text{r}$   & relative atomic mass            & $e_\text{d}$           & number of d-electrons        \\
+    $E_\text{i}$   & ionization energy & $\delta\epsilon_{\text{d}}\uparrow$  & d-band centre (spin-up)      \\
+    $G$            & group number                    & $W_\text{d}$           & d-band width                 \\
+    $P$            & period number                   & $e_{\text{Bader}}$     & Bader charge                 \\
+    $V$            & number of valence electrons     &                        &
     \hline
   \end{tabular}
   \caption{Notations for elementary descriptors and electronic descriptors}
   \label{si_table15}
 \end{table}
-
 
 
 \subsection{Input pipeline construction}
