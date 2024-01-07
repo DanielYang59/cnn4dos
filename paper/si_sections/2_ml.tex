@@ -7,17 +7,35 @@
 
 
 % SI Figure 18: d-band venter vs adsorption energy scatter plot
-Supplementary Figure 18 | Scatter plot of d-Band Center and Adsorption Energy Relationships. This figure delineates the relationship between d-band center and adsorption energies for various species: (a) CO2, (b) COOH, (c) CO, (d) CHO, (e) CH2O, (f) OCH3, (g) O, and (h) OH. Data from all six substrates investigated in this study are included.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig18_d-band_eads.png}
+  \caption{\textbf{Scatter plot of d-Band Center and Adsorption Energy Relationships.}
+  This figure delineates the relationship between d-band center and adsorption energies for
+  various species: (a) CO$_2$, (b) COOH, (c) CO, (d) CHO, (e) CH$_2$O, (f) OCH$_3$, (g) O, and (h) OH.
+  Data from all six substrates investigated in this study are included.}
+  \label{si_fig18:dband_vs_eads}
+\end{figure}
 
 
 \subsection{Feature correlation analysis}
 
 
 % SI Figure 19: Pairwise plot of adsorption energy vs key descriptors
-Supplementary Figure 19 | Pairwise Plot of Adsorption Energy and Key Descriptors. This chart displays the pairwise relationships between CO adsorption energy and its four most correlated descriptors-d-band center (spin-up) δεd↑, lattice parameter γ, vacuum level Evac, and electronegativity on the Allen scale XAllen -as identified by Kendall rank correlation analysis. Data from all six substrates investigated in this study are incorporated.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig19_pairwise_eads_des.png}
+  \caption{\textbf{Pairwise Plot of Adsorption Energy and Key Descriptors.}
+  This chart displays the pairwise relationships between CO adsorption energy and
+  its four most correlated descriptors: d-band center (spin-up) $\delta\epsilon_{\text{d}}\uparrow$,
+  lattice parameter $\gamma$, vacuum level $E_\text{vac}$, and electronegativity
+  on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation analysis.
+  Data from all six substrates investigated in this study are included.}
+  \label{si_fig19:pairwise_eads_des}
+\end{figure}
 
 
-% Supplementary Table 15: TODO: revise header comment
+% Supplementary Table 15: Notations for elementary descriptors and electronic descriptors
 \begin{table}[h]
   \centering
   \begin{tabular}{llll}
@@ -52,18 +70,23 @@ and “numChannels” indicates the number of atomic channels.
 
 
 % SI Figure 20: Representation of the input eDOS data structure
-Supplementary Figure 20 | Schematic representation of the input eDOS data structure.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig20_input_dos.png}
+  \caption{\textbf{Schematic representation of the input eDOS data structure.}}
+  \label{si_fig20:input_dos}
+\end{figure}
 
 
 For practical purposes, certain spatial hierarchies are expected to remain invariant,
 such as the energy range over which the eDOS is sampled.
 In this work, we maintain a consistent energy range of -14 eV to 6 eV,
-sampled at a density of 50 points * eV-1 (TODO: format).
+sampled at a density of 50 \si{\text{points} \cdot \text{eV}^{-1}}.
 In addition to maintaining a fixed energy range,
 the following steps are taken to standardize the input eDOS data:
   1.	For atoms lacking d-electrons, the eDOS is zero-padded.
   2.	f-orbital eDOS data are excluded.
-  3.	The eDOS of adsorbates is zero-padded along the Channels axis to align with the adsorbate that contains the maximum number of atoms, which, in this study, is the *OCH3 species. This padded eDOS is then appended to the metal eDOS.
+  3.	The eDOS of adsorbates is zero-padded along the Channels axis to align with the adsorbate that contains the maximum number of atoms, which, in this study, is the *OCH$_3$ species. This padded eDOS is then appended to the metal eDOS.
 
 As a result of these preprocessing steps, the input eDOS arrays consistently have a shape of [4000, 9, 6].
 This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
@@ -71,7 +94,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 
 \subsection{Hyperparameter tuning for CNN}
 
-% Supplementary Table 16
+% Supplementary Table 16: The hyperparameter search space
 \begin{table}[h]
   \centering
   \begin{tabular}{lll}
@@ -98,7 +121,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 
 
 
-% Supplementary Table 17
+% Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
 \begin{table}[h]
   \centering
   \begin{tabular}{lll}
@@ -124,7 +147,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \end{table}
 
 
-% Supplementary Table 18
+% Supplementary Table 18: Prediction MAEs of the CNN model
 \begin{table}[h]
   \centering
   \begin{tabular}{lll}
@@ -156,47 +179,132 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 
 
 % SI Figure 21: Illustration of the eDOS occlusion experiment
-Supplementary Figure 21 | Illustration of the eDOS cclusion experiment. This figure demonstrates the step-by-step process of the occlusion experiment. The input eDOS array first undergoes zero-padded, and then a masker of width “width” is applied, resulting in an occlusion array that preserves the shape of the input array.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig21_occlusion.png}
+  \caption{\textbf{Illustration of the eDOS occlusion experiment.}
+  This figure demonstrates the step-by-step process of the occlusion experiment.
+  The input eDOS array first undergoes zero-padded, and then a masker of width “width” is applied,
+  resulting in an occlusion array that preserves the shape of the input array.}
+  \label{si_fig21:occlusion}
+\end{figure}
 
 
 % SI Figure 22: Occlusion experiment with a masker width of 1
-Supplementary Figure 22 | Occlusion Experiment with a masker width of “1”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig22_occl_wid1.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “1”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig22:occl_wid1}
+\end{figure}
 
 
 % SI Figure 23: Occlusion experiment with a masker width of 3
-Supplementary Figure 23 | Occlusion Experiment with a masker width of “3”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig23_occl_wid3.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “3”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig23:occl_wid3}
+\end{figure}
 
 
 % SI Figure 24: Occlusion experiment with a masker width of 5
-Supplementary Figure 24 | Occlusion Experiment with a masker width of “5”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig24_occl_wid5.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “5”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig24:occl_wid5}
+\end{figure}
 
 
 % SI Figure 25: Occlusion experiment with a masker width of 11
-Supplementary Figure 25 | Occlusion Experiment with a masker width of “11”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig25_occl_wid11.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “11”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig25:occl_wid11}
+\end{figure}
 
 
 % SI Figure 26: Occlusion experiment with a masker width of 21
-Supplementary Figure 26 | Occlusion Experiment with a masker width of “21”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig26_occl_wid21.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “21”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig26:occl_wid21}
+\end{figure}
 
 
 % SI Figure 27: Occlusion experiment with a masker width of 31
-Supplementary Figure 27 | Occlusion Experiment with a masker width of “31”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig27_occl_wid31.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “31”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig27:occl_wid31}
+\end{figure}
 
 
 % SI Figure 28: Occlusion experiment with a masker width of 41
-Supplementary Figure 28 | Occlusion Experiment with a masker width of “41”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig28_occl_wid41.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “41”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig28:occl_wid41}
+\end{figure}
 
 
 % SI Figure 29: Occlusion experiment with a masker width of 51
-Supplementary Figure 29 | Occlusion Experiment with a masker width of “51”. This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C$_3$N$_4$.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig29_occl_wid51.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of “51”.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C$_3$N$_4$.}
+  \label{si_fig29:occl_wid51}
+\end{figure}
 
 
 \subsection{Shifting experiment}
 
 
 % SI Figure 30: Illustration of the eDOS shifting experiment
-Supplementary Figure 30 | Illustration of the eDOS shifting experiment. This figure illustrates the sequential stages of the shifting experiment. Initially, the input eDOS array is shifted along the Energy axis. Subsequently, it undergoes zero-padding and cropping, ensuring a consistent shape based on the shifting direction, to match the input eDOS array. The resulting shifted array is then processed by the CNN model to assess the disturbance in adsorption energy caused by the shifting operation.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig30_shifting.png}
+  \caption{\textbf{Illustration of the eDOS shifting experiment.}
+  This figure illustrates the sequential stages of the shifting experiment.
+  Initially, the input eDOS array is shifted along the Energy axis.
+  Subsequently, it undergoes zero-padding and cropping,
+  ensuring a consistent shape based on the shifting direction, to match the input eDOS array.
+  The resulting shifted array is then processed by the CNN model to
+  assess the disturbance in adsorption energy caused by the shifting operation.}
+  \label{si_fig30:shifting}
+\end{figure}
 
 
 % SI Figure 31: Shifting experiment on p orbital
-Supplementary Figure 31 | Shifting experiment on p orbital. Effect of orbital shifting on CO adsorption energy, predicted by the CNN model, for single metal atom catalysts supported on g-C$_3$N$_4$. The perturbations caused by shifting of entire p orbital are presented. The shifting step size corresponds to the energy resolution of the eDOS, set at 0.005 eV in this study. A positive eDOS shift indicates a shift towards higher energy levels, and vice versa.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{si_sections/si_figures/si_fig31_p_shifting.png}
+  \caption{\textbf{Shifting experiment on p orbital.}
+  Effect of orbital shifting on CO adsorption energy, predicted by the CNN model,
+  for single metal atom catalysts supported on g-C$_3$N$_4$.
+  The perturbations caused by shifting of entire p orbital are presented.
+  The shifting step size corresponds to the energy resolution of the eDOS, set at 0.005 eV in this study.
+  A positive eDOS shift indicates a shift towards higher energy levels, and vice versa.}
+  \label{si_fig31:p_shifting}
+\end{figure}
