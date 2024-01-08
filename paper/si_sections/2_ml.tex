@@ -95,23 +95,24 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \subsection{Hyperparameter tuning for CNN}
 
 % Supplementary Table 16: The hyperparameter search space
+% TODO: check adam citation
 \begin{table}[h]
   \centering
   \begin{tabular}{lll}
     \hline
     \textbf{Hyperparameter} & \textbf{Search Space}                             & \textbf{Description}            \\
     \hline
-    learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam optimizer \\
+    learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam\cite{kingma2017adam} optimizer \\
     dropoutRate   & [0, 1]                    & Dropout rate                                                      \\
-    root\_fc0     & 128, 256, 512             & Output dimensionality of 1st fully connected layer in root        \\
-    root\_fc1     & 256, 512, 1024, 2048      & Output dimensionality of 2nd fully connected layer in root        \\
+    root\_fc0     & 128, 256, 512             & Output dimensionality of 1\textsuperscript{st} fully connected layer in root           \\
+    root\_fc1     & 256, 512, 1024, 2048      & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root           \\
     root\_act     & "tanh", "relu", "sigmoid" & Activation function of fully connected layers in root             \\
     kernelSize    & [2, 32]                   & Width of the convolution window                                   \\
     numFilters    & [8, 64]                   & Number of filters in the convolution                              \\
     numConvLayers & [1, 16]                   & Number of convolution layers                                      \\
     numConvBlocks & [1, 16]                   & Number of convolution blocks                                      \\
-    br\_fc0       & 16, 32, 64, 128, 256, 512 & Output dimensionality of 1st fully connected layer in branch      \\
-    br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2nd fully connected layer in branch      \\
+    br\_fc0       & 16, 32, 64, 128, 256, 512 & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch      \\
+    br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch      \\
     br\_act       & "tanh", "relu", "sigmoid" & Activation function of fully connected layers in branch           \\
     \hline
   \end{tabular}
@@ -122,23 +123,24 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 
 
 % Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
+% TODO: check adam citation
 \begin{table}[h]
   \centering
   \begin{tabular}{lll}
     \hline
     \textbf{Hyperparameter}   & \textbf{Optimal Value} & \textbf{Description}                \\
     \hline
-    learningRate  & $10^{-3}$ & Learning rate of Adam optimizer                              \\
+    learningRate  & $10^{-3}$ & Learning rate of Adam\cite{kingma2017adam} optimizer                              \\
     dropoutRate   & 0.3       & Dropout rate                                                 \\
-    root\_fc0     & 256       & Output dimensionality of 1st fully connected layer in root   \\
-    root\_fc1     & 512       & Output dimensionality of 2nd fully connected layer in root   \\
+    root\_fc0     & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in root   \\
+    root\_fc1     & 512       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root   \\
     root\_act     & "relu"    & Activation function of fully connected layers in root        \\
     kernelSize    & 10        & Width of convolution window                                  \\
     numFilters    & 17        & Number of filters in the convolution                         \\
     numConvLayers & 3         & Number of convolution layers                                 \\
     numConvBlocks & 1         & Number of convolution blocks                                 \\
-    br\_fc0       & 256       & Output dimensionality of 1st fully connected layer in branch \\
-    br\_fc1       & 128       & Output dimensionality of 2nd fully connected layer in branch \\
+    br\_fc0       & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch \\
+    br\_fc1       & 128       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch \\
     br\_act       & "tanh"    & Activation function of fully connected layers in branch      \\
     \hline
   \end{tabular}
