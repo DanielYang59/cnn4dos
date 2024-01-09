@@ -8,7 +8,7 @@
     \centering
     \includegraphics[width=0.95\linewidth]{main_fig2_cnn.JPG}
     \caption{\textbf{CNN for Electronic Density of States.}
-    a. Kendall rank correlation map illustrating the correlation between adsorption energy and some electronic and elementary descriptors. Definitions of the notations are provided in Supplementary Table 15.
+    a. Kendall rank correlation map illustrating the correlation between adsorption energy and some electronic and elementary descriptors. Definitions of the notations are provided in Supplementary \cref{si_table15:descriptor_notations}.
     b-c. Architectural of (b)the root and (c)each branch of the CNN model. The architecture remains consistent across individual branches.
     d-m. Parity plots demonstrating the performance of the CNN model across nine adsorbates: (d)all adsorbates, (e) $\mathrm{CO_2}$, (f)COOH, (g)CO, (h)CHO, (i) $\mathrm{CH_2O}$, (j) $\mathrm{OCH_3}$, (k)O, (l)OH, and (m)H.
     The augmentation data are not displayed in the plots nor included in MAE evaluations.
@@ -20,7 +20,7 @@
 Originating from the pioneering work of Hammer and Nørskov \cite{hammer2000theoretical}, the d-band center model has emerged as a successful paradigm for employing descriptor to understand and predict the adsorption behavior on transition metal surfaces.
 To investigate alternative electronic and elementary descriptors that may serve as more suitable substitutes for the d-band center model in the context of SACs, we performed Kendall rank correlation analysis to account for both linearity and non-linearity \cite{kendall1938new}.
 The correlation coefficient map, as presented in \cref{main_fig2:cnn_for_eads}a, highlighted the d-band center as the most informative descriptor with a Kendall's $\tau$ coefficient of -0.33, and followed by the vacuum level and electronegativity.
-However, d-band center alone does not suffice for accurate predictions of intermediate adsorption energy as illustrated in the scatter plot Supplementary Figure 18 (TODO:), and therefore, refinements are imperative.
+However, d-band center alone does not suffice for accurate predictions of intermediate adsorption energy as illustrated in the scatter plot Supplementary \cref{si_fig18:dband_vs_eads}, and therefore, refinements are imperative.
 Unlike bulk transition metal surfaces, where the variations in the d-band centre account for the majority of the adsorption energy variations \cite{norskov2011density, takigawa2016machine}, the unique structure of SACs introduces more variables rather than d-band center that are intrinsically correlated with the variations of adsorption energy.
 This finding also interpreted that in some reported prior studies, indicating that depending solely on the d-band center may be insufficient for accurate adsorption energy predictions in the context of SACs \cite{sun2022going, fung2020descriptors, di2022universal, yuan2020descriptor, huang2020rational}.
 As a result, the development of a method tailored specifically for catalysts like SACs becomes essential.
@@ -34,7 +34,7 @@ Sharing learnable parameters across branches optimizes computational efficiency.
 By leveraging the CNN model, we predicted adsorption energies from the eDOS of supported single atoms, and validated through parity plots (\cref{main_fig2:cnn_for_eads}d-m).
 The model predicts adsorption energies across nine species within the CO$_2$RR process and competing HER side reaction, attaining an averaged MAE of 0.06 eV.
 This MAE aligns with the established precision of DFT methods, which typically range between 0.1-0.2 eV concerning experimental measurement \cite{wellendorff2015benchmark, kirklin2015open, lejaeghere2016reproducibility}.
-The full list of prediction errors is available in Supplementary Table 18.
+The full list of prediction errors is available in Supplementary \cref{si_table18:cnn_mae}.
 These results confirm the CNN model's ability to predict adsorption energies from eDOS input.
 Moreover, they suggest the potential for predicting adsorption energies for SACs using eDOS, although this would demand more sophisticated feature engineering techniques.
 
