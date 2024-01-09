@@ -14,7 +14,7 @@
     b-c. Architectural of (b)the root and (c)each branch of the CNN model.
     The architecture remains consistent across individual branches.
     d-m. Parity plots demonstrating the performance of the CNN model across nine adsorbates:
-    (d)all adsorbates, (e) $\mathrm{CO_2}$, (f)COOH, (g)CO, (h)CHO, (i) $\mathrm{CH_2O}$, (j) $\mathrm{OCH_3}$, (k)O, (l)OH, and (m)H.
+    (d)all adsorbates, (e) CO\textsubscript{2}, (f)COOH, (g)CO, (h)CHO, (i) CH\textsubscript{2}O, (j) OCH\textsubscript{3}, (k)O, (l)OH, and (m)H.
     The augmentation data are not displayed in the plots nor included in MAE evaluations.
     Kernel density estimate results are shown along the top and right sides of the main plot,
     representing DFT calculations and CNN model prediction distributions, respectively.}
@@ -37,7 +37,7 @@ Our approach harnesses the entire 2D eDOS with a multi-branch CNN model.
 The workflow involves processing the entire 2D eDOS as input, segregating orbitals into branches, and directing the concatenated outputs through another convolutional block, which generates the adsorption energy prediction.
 Sharing learnable parameters across branches optimizes computational efficiency.
 By leveraging the CNN model, we predicted adsorption energies from the eDOS of supported single atoms, and validated through parity plots (\cref{main_fig2:cnn_for_eads}d-m).
-The model predicts adsorption energies across nine species within the CO$_2$RR process and competing HER side reaction, attaining an averaged MAE of 0.06 eV.
+The model predicts adsorption energies across nine species within the CO\textsubscript{2}RR process and competing HER side reaction, attaining an averaged MAE of 0.06 eV.
 This MAE aligns with the established precision of DFT methods, which typically range between 0.1-0.2 eV concerning experimental measurement \cite{wellendorff2015benchmark, kirklin2015open, lejaeghere2016reproducibility}.
 The full list of prediction errors is available in Supplementary \cref{si_table18:cnn_mae}.
 These results confirm the CNN model's ability to predict adsorption energies from eDOS input.
