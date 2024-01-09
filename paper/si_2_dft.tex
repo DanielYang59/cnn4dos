@@ -1,9 +1,6 @@
 % SI Section One: Additional details on DFT calculations
 
 
-% TODO: fix main text equation cross-ref (search for main text/TODO)
-
-
 \section{Additional details on DFT calculations}
 
 
@@ -747,7 +744,7 @@ The scaling relations simplify the adsorption energy landscape to a two-dimensio
 
 However, it's crucial to note that in the CO$_2$RR process, most species are not solely C- or O-centered.
 Thus, it becomes advantageous to incorporate both types of species in the scaling relation.
-Building upon the hybrid scaling relation introduced in the main text, the free energy change ($\Delta\mathit{G}$) for any given reaction step can be readily calculated using Equation 14 from the main text (TODO: fix).
+Building upon the hybrid scaling relation introduced in the main text, the free energy change ($\Delta\mathit{G}$) for any given reaction step can be readily calculated using \cref{main_eq14:general_scaling_relation} from the main text.
 Consider the generic reaction step:
 \begin{align}
   \ce{\text{*}A + H+ + e- -> \text{*}B}  \label{si_eq3:generic_reaction}
@@ -758,9 +755,9 @@ The free energy change $\Delta\mathit{G}$ is defined as:
   \Delta G = G(\text{*}\mathrm{B}) - G(\text{*}\mathrm{A}) - G(\mathrm{H}^+) - G(e^-)  \label{si_eq4:free_energy_change}
 \end{align}
 
-Focusing on any reaction step delineated by Equations 1 to Equation 8 in the main text (TODO: fix),
-Equation 15 shows that limiting potential $U_{\mathrm{L}}$ at a specific external potential $U$ is fully determined by the adsorption energies of two descriptors.
-For instance, for the reaction described by Equation 2:
+Focusing on any reaction step delineated by \cref{main_eq1:co2rr1} to \cref{main_eq8:co2rr8} in the main text,
+\cref{main_eq15:limiting_potential} shows that limiting potential $U_{\mathrm{L}}$ at a specific external potential $U$ is fully determined by the adsorption energies of two descriptors.
+For instance, for the reaction described by \cref{main_eq2:co2rr2}:
 \begin{align}
   \Delta G &= G(\text{*COOH}) - G(\text{*}) - G(\text{CO}_2) - G(\text{H}^+) - G(\text{e}^-)  \\
   &= G(\text{COOH}) + G(\text{*}) + G_{\text{ads}}\text{COOH} -
@@ -774,7 +771,7 @@ From adsorption energy linear relations, we have:
   b_{\text{COOH}} \cdot G_{ads}{\mathrm{OH}} + c_{\text{COOH}}  \label{si_eq6:eads}
 \end{align}
 
-which then reduces Equation 5(TODO: add cross-ref) to:
+which then reduces Supplementary \cref{si_eq5:exp_reaction} to:
 \begin{align}
   \begin{split}
     \Delta G = &(a_{\text{COOH}} \cdot G_{\text{ads}}{\mathrm{CO}} +
@@ -783,7 +780,7 @@ which then reduces Equation 5(TODO: add cross-ref) to:
     G(\mathrm{CO}_2) - G(\mathrm{H}^+) - G(\mathrm{e}^-)]  \label{si_eq7:reduced_eads}
   \end{split}
 \end{align}
-In this case, the first term in Supplementary Equation 7 (TODO: add cross-ref) depends solely on the descriptors, while the second term remains constant for a given potential $U$.
+In this case, the first term depends solely on the descriptors, while the second term remains constant at a given potential $U$.
 
 
 % Supplementary Table 13: Eads scaling relation params from hybrid descriptor method

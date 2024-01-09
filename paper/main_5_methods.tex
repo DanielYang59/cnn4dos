@@ -73,7 +73,7 @@ k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z  
 Here, $\theta$ represents the mixing ratio of the CO descriptor, $\textit{Z}$ denotes any adsorbate, and $\textit{k}$ and $\textit{c}_{Z}$ are adsorbate-specific scaling parameters.
 The optimal mixing ratio $\theta$ is determined through iterative exploration across the range, utilizing a step length of 0.01.
 
-Equation 14 could be simplified to a more general form:
+\ref{main_eq13:scaling_relation} could be simplified to a more general form:
 \begin{align}
 G_{\text{ads}} Z =
 a_Z G_{\text{ads}} \ce{CO} + b_Z G_{\text{ads}} \ce{OH} + c_Z  \label{main_eq14:general_scaling_relation}
@@ -82,14 +82,14 @@ Here, $a_Z$, $b_Z$, $c_Z$ are adsorbate-specific parameters.
 
 Consequently, the limiting potential $\textit{U}_{L}$ is entirely determined by two descriptors through the following equation:
 \begin{align}
-U_L = -\frac{\max\{ \Delta G_i \}}{e}  \label{main_eq14:limiting_potential}
+U_L = -\frac{\max\{ \Delta G_i \}}{e}  \label{main_eq15:limiting_potential}
 \end{align}
 Where $\Delta G_{i}$ represents the free energy change of reaction step i.
 
 This approach simplifies the theoretical performance assessment of any catalyst within the scope of our research to only two descriptors: $G_{\textit{ads} \, \textit{CO}}$ and $G_{\textit{ads} \, \textit{OH}}$.
 This method offers a visual representation of the high-dimensional optimization challenge.
 To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of limiting potentials across the descriptor value ranges.
-At each grid point, the limiting potential is computed using Equation 16 (TODO:).
+At each grid point, the limiting potential is computed using \cref{main_eq15:limiting_potential}.
 
 
 \subsection{CNN architecture and hyperparameter tuning}
