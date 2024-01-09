@@ -4,7 +4,6 @@
 % TODO:
 % Table align width (toprule/bottomrule)
 % why table are at the end?
-% table/figure cross-references
 % formula/equation indexing (equation cross-ref)
 % should table headers be centered (and bold)?
 % should table/figure header/title be capitalized?
@@ -24,15 +23,15 @@
 \begin{document}
 
 
-\input{si_sections/0_head.tex}  % Title
-\input{si_sections/1_dft.tex}  % DFT
-\input{si_sections/2_ml.tex}  % Machine Learning
-\input{si_sections/3_others.tex}
+\input{si_1_head.tex}  % Title
+\input{si_2_dft.tex}  % DFT
+\input{si_3_ml.tex}  % Machine Learning
+\input{si_4_others.tex}
 
 
 % References
 \bibliographystyle{plain}
-\bibliography{si_sections/references_si.bib}
+\bibliography{si_references_si.bib}
 
 
 \end{document}
