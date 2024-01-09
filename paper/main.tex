@@ -10,34 +10,24 @@
 
 % Document Class and Packages
 \documentclass[a4paper, 12pt]{article}
-\AddToHook{cmd/section/before}{\clearpage}  % start new sections in new page
-
 \input{preamble.tex}
+
+
+% Define Figure/Table cross-reference headers
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
 
 
 \begin{document}
 
 
-% Title and Author Information
-\input{main_sections/1_head.tex}
-
-
-% Abstract
+\input{main_sections/1_head.tex}  % Title and Author Information
 \input{main_sections/2_abstract.tex}
-
-
-% Introduction
 \input{main_sections/3_introduction.tex}
-
-
-% Results and Discussions
 \input{main_sections/4.1_cnn_for_eads.tex}
 \input{main_sections/4.2_volcano_plots.tex}
 \input{main_sections/4.3_validation.tex}
 \input{main_sections/4.4_shifting_exp.tex}
-
-
-% Methods
 \input{main_sections/5_methods.tex}
 
 

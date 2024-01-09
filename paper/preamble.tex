@@ -1,5 +1,4 @@
 % Global Latex settings
-
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -18,7 +17,8 @@
 \usepackage{geometry}  % Adjust page geometry if needed
 
 
-% Define Figure/Table cross-reference headers
-\usepackage{cleveref}
-\crefname{figure}{Figure}{Figures}
-\crefname{table}{Table}{Tables}
+\usepackage{cleveref}  % Define Figure/Table cross-ref headers
+
+
+% start new sections in new page
+\AddToHook{cmd/section/before}{\clearpage}
