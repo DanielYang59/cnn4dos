@@ -736,8 +736,10 @@ In each group, a representative species is designated as the “descriptor”, a
 The following equations capture this relationship:
 
 \begin{align}
-  G_{\text{ads}}X &= a_X \cdot G_{\text{ads}}{\text{CO}} + c_X  && \text{(where  $X$ = COOH, CHO, CH$_2$O)} \\
-  G_{\text{ads}}Y &= a_Y \cdot G_{\text{ads}}{\text{OH}} + c_Y  && \text{(where  $Y$ = O, OCH$_3$)}
+  G_{\text{ads}}X &= a_X \cdot G_{\text{ads}}{\text{CO}} + c_X
+  && \text{(where  $X$ = COOH, CHO, CH$_2$O)}  \label{si_eq1:scaling_relation_x_co}  \\
+  G_{\text{ads}}Y &= a_Y \cdot G_{\text{ads}}{\text{OH}} + c_Y
+  && \text{(where  $Y$ = O, OCH$_3$)}          \label{si_eq2:scaling_relation_y_oh}
 \end{align}
 
 Here, CO and OH serve as descriptors for C-centered ($X$) and O-centered ($Y$) groups, respectively, and $a_{\mathrm{X}}, c_{\mathrm{X}}, a_{\mathrm{Y}}, c_{\mathrm{Y}}$ are species-specific scaling parameters.
@@ -748,33 +750,37 @@ Thus, it becomes advantageous to incorporate both types of species in the scalin
 Building upon the hybrid scaling relation introduced in the main text, the free energy change ($\Delta\mathit{G}$) for any given reaction step can be readily calculated using Equation 14 from the main text (TODO: fix).
 Consider the generic reaction step:
 \begin{align}
-  \ce{\text{*}A + H+ + e- -> \text{*}B}
+  \ce{\text{*}A + H+ + e- -> \text{*}B}  \label{si_eq3:generic_reaction}
 \end{align}
 
 The free energy change $\Delta\mathit{G}$ is defined as:
 \begin{align}
-  \Delta G = G(\text{*}\mathrm{B}) - G(\text{*}\mathrm{A}) - G(\mathrm{H}^+) - G(e^-)
+  \Delta G = G(\text{*}\mathrm{B}) - G(\text{*}\mathrm{A}) - G(\mathrm{H}^+) - G(e^-)  \label{si_eq4:free_energy_change}
 \end{align}
 
 Focusing on any reaction step delineated by Equations 1 to Equation 8 in the main text (TODO: fix),
 Equation 15 shows that limiting potential $U_{\mathrm{L}}$ at a specific external potential $U$ is fully determined by the adsorption energies of two descriptors.
 For instance, for the reaction described by Equation 2:
 \begin{align}
-  \Delta G &= G(\text{*COOH}) - G(\text{*}) - G(\text{CO}_2) - G(\text{H}^+) - G(\text{e}^-) \\
-  &= G(\text{COOH}) + G(\text{*}) + G_{\text{ads}}\text{COOH} - G(\text{*}) - G(\text{CO}_2) -G(\text{H}^+) - G(\text{e}^-) \\
-  &= G_{\text{ads}}\text{COOH} + G(\text{COOH}) - G(\text{CO}_2) -G(\text{H}^+) - G(\text{e}^-)
+  \Delta G &= G(\text{*COOH}) - G(\text{*}) - G(\text{CO}_2) - G(\text{H}^+) - G(\text{e}^-)  \\
+  &= G(\text{COOH}) + G(\text{*}) + G_{\text{ads}}\text{COOH} -
+  G(\text{*}) - G(\text{CO}_2) -G(\text{H}^+) - G(\text{e}^-) \\
+  &= G_{\text{ads}}\text{COOH} + G(\text{COOH}) - G(\text{CO}_2) -G(\text{H}^+) - G(\text{e}^-)  \label{si_eq5:exp_reaction}
 \end{align}
 
 From adsorption energy linear relations, we have:
 \begin{align}
-  G_{ads}{\mathrm{COOH}} = a_{\text{COOH}} \cdot G_{ads}{\mathrm{CO}} + b_{\text{COOH}} \cdot G_{ads}{\mathrm{OH}} + c_{\text{COOH}}
+  G_{ads}{\mathrm{COOH}} = a_{\text{COOH}} \cdot G_{ads}{\mathrm{CO}} +
+  b_{\text{COOH}} \cdot G_{ads}{\mathrm{OH}} + c_{\text{COOH}}  \label{si_eq6:eads}
 \end{align}
 
 which then reduces Equation 5(TODO: add cross-ref) to:
 \begin{align}
   \begin{split}
-    \Delta G = &(a_{\text{COOH}} \cdot G_{\text{ads}}{\mathrm{CO}} + b_{\text{COOH}} \cdot G_{\text{ads}}{\mathrm{OH}}) + \\
-    &[c_{\text{COOH}} + G(\mathrm{COOH}) - G(\mathrm{CO}_2) - G(\mathrm{H}^+) - G(\mathrm{e}^-)]
+    \Delta G = &(a_{\text{COOH}} \cdot G_{\text{ads}}{\mathrm{CO}} +
+    b_{\text{COOH}} \cdot G_{\text{ads}}{\mathrm{OH}}) + \\
+    &[c_{\text{COOH}} + G(\mathrm{COOH}) -
+    G(\mathrm{CO}_2) - G(\mathrm{H}^+) - G(\mathrm{e}^-)]  \label{si_eq7:reduced_eads}
   \end{split}
 \end{align}
 In this case, the first term in Supplementary Equation 7 (TODO: add cross-ref) depends solely on the descriptors, while the second term remains constant for a given potential $U$.
