@@ -23,7 +23,7 @@ Historically, interpretability has posed challenges for deep learning methods, o
 The occlusion technique, widely utilized in Computer Vision \cite{zeiler2014visualizing, kortylewski2020combining, wang2020robust}, involves systematically masking sections of the input matrix to assess their impact on the final prediction score.
 In our work, we introduce an orbitalwise occlusion method to discern individual orbital contribution to adsorption energy within the CNN model, drawing inspiration from Fung's pioneer integration of this technique into eDOS analysis \cite{fung2021machine}.
 In this work, occlusion experiments involve orbitalwise masking specific eDOS, which are then fed into the CNN model to observe resulting disturbance in adsorption energy.
-A visual representation of this process can be found in Supplementary Figure 21 (TODO:). Conceptually, this experiment simulates the effect of shielding electronic states, allowing investigation of the potential contribution to adsorption energy from these states.
+A visual representation of this process can be found in Supplementary \cref{si_fig21:occlusion}. Conceptually, this experiment simulates the effect of shielding electronic states, allowing investigation of the potential contribution to adsorption energy from these states.
 Additionally, we attempted to extract the planewave coefficients of Kohn-Sham orbital for wavefunction visualization.
 This validation step was undertaken to confirm the spatial distribution of the orbitals pinpointed by the occlusion experiments.
 
