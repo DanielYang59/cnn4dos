@@ -1,8 +1,5 @@
 % Methods
 
-% TODO: line 47/70/117/139: cross-ref of SI sections
-
-
 
 \section{Methods}
 
@@ -45,7 +42,7 @@ G = E + E_{\text{ZPE}} - TS  \label{main_eq9:free_energy}
 \end{align}
 
 where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy, $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin, and $\textit{S}$ stands for entropy.
-Detailed information regarding these corrections can be found in Supplementary Section 1.3 % TODO:.
+Detailed information regarding these corrections can be found in Supplementary \cref{si_sec2.3_energies}.
 
 The computational hydrogen electrode (CHE) model \cite{peterson2010copper, norskov2004origin} was employed to introduce potential dependence.
 At the reference electrode surface, the reaction
@@ -65,7 +62,7 @@ Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external p
 
 \subsection{Hybrid descriptor for volcano plots}
 Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary \cref{si_fig10:r2_hyb_des} and Supplementary \cref{si_table13:scaling_params}.
-Comprehensive analyses are presented Supplementary Section 1.5 (TODO: fix this). This leads to the formulation of the scaling relation:
+Comprehensive analyses are presented Supplementary \cref{si_sec2.5_scaling}. This leads to the formulation of the scaling relation:
 \begin{align}
 G_{\text{ads}} Z =
 k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z  \label{main_eq13:scaling_relation}
@@ -114,7 +111,7 @@ Twenty percent of these samples were allocated to the validation set. Throughout
 Supplementary \cref{si_fig21:occlusion} visually illustrates the occlusion experiment methodology.
 To maintain consistent shapes, zero-padding was applied to the input eDOS arrays.
 Focusing on understanding the influence of metals on adsorption behavior, a masker with dimensions [width, 1, 1] was employed along the metal channel to eliminate cross-orbital interactions.
-Here, "width" denotes the masker width, and detailed explanations for determining the width are provided in Supplementary Section 2.6 (TODO: fix).
+Here, "width" denotes the masker width, and detailed explanations for determining the width are provided in Supplementary \cref{si_sec3.5_occlusion}.
 Through recursive application of these maskers, variations in predicted adsorption energies from the CNN model were recorded, generating an occlusion array.
 
 
@@ -136,4 +133,4 @@ Orbitals of interest were confirmed through band-structure analysis, and real-sp
 
 \subsection{Machine learning and data analysis environment}
 The CNN model was implemented using TensorFlow \cite{abadi2016tensorflow}, and hyperparameter optimization was conducted using the Hyperband \cite{li2018hyperband} algorithm via KerasTuner \cite{omalley2019kerastuner}.
-For a more detailed overview of our machine learning setup and data analysis environment, please refer to Supplementary Section 3 (TODO: fix).
+For a more detailed overview of our machine learning setup and data analysis environment, please refer to Supplementary \cref{si_sec4_env}.
