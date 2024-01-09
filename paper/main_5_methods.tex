@@ -1,6 +1,6 @@
 % Methods
 
-% TODO: line 47/70/117/139: cross-ref of section
+% TODO: line 47/70/117/139: cross-ref of SI sections
 
 
 
@@ -25,71 +25,71 @@ To prevent interactions between adjacent images along the z-axis, vacuum layers 
 The C1 production CO$_2$RR pathway, as initially described by Peterson et al. \cite{peterson2010copper} and later confirmed by Jiao et al. \cite{jiao2017molecular} for g-C$_3$N$_4$ based SACs, involves the following elementary steps.
 Asterisks (*) indicate species adsorbed on the SAC surfaces:
 
-\begin{equation*}
-\begin{aligned}
-\ce{CO2 + H+ + e- &-> \text{*}COOH} \\
-\ce{\text{*}COOH + H+ + e- &-> \text{*}CO + H2O} \\
-\ce{\text{*}CO + H+ + e- &-> \text{*}CHO} \\
-\ce{\text{*}CHO + H+ + e- &-> \text{*}CH2O} \\
-\ce{\text{*}CH2O + H+ + e- &-> \text{*}OCH3} \\
-\ce{\text{*}OCH3 + H+ + e- &-> \text{*}O + CH4} \\
-\ce{\text{*}O + H+ + e- &-> \text{*}OH} \\
-\ce{\text{*}OH + H+ + e- &-> \text{*} + H2O}
-\end{aligned}
-\end{equation*}
+\begin{align}
+\ce{CO2 + H+ + e-          &-> \text{*}COOH}      \label{main_eq1:co2rr1}    \\
+\ce{\text{*}CO + H+ + e-   &-> \text{*}CHO}       \label{main_eq3:co2rr3}    \\
+\ce{\text{*}COOH + H+ + e- &-> \text{*}CO + H2O}  \label{main_eq2:co2rr2}    \\
+\ce{\text{*}CHO + H+ + e-  &-> \text{*}CH2O}      \label{main_eq4:co2rr4}    \\
+\ce{\text{*}CH2O + H+ + e- &-> \text{*}OCH3}      \label{main_eq5:co2rr5}    \\
+\ce{\text{*}OCH3 + H+ + e- &-> \text{*}O + CH4}   \label{main_eq6:co2rr6}    \\
+\ce{\text{*}O + H+ + e-    &-> \text{*}OH}        \label{main_eq7:co2rr7}    \\
+\ce{\text{*}OH + H+ + e-   &-> \text{*} + H2O}    \label{main_eq8:co2rr8}
+\end{align}
 
 
 \subsection{Free energy calculations}
 Free energies were computed from electronic energies by considering thermal corrections, incorporating normal mode analysis of all degrees of freedom of adsorbates.
 The free energy $\textit{G}$ was calculated using the formula:
-\begin{equation*}
-G = E + E_{\text{ZPE}} - TS
-\end{equation*}
+\begin{align}
+G = E + E_{\text{ZPE}} - TS  \label{main_eq9:free_energy}
+\end{align}
 
 where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy, $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin, and $\textit{S}$ stands for entropy.
 Detailed information regarding these corrections can be found in Supplementary Section 1.3 % TODO:.
 
 The computational hydrogen electrode (CHE) model \cite{peterson2010copper, norskov2004origin} was employed to introduce potential dependence.
 At the reference electrode surface, the reaction
-\begin{equation*}
-\ce{1/2H2_{(g)}  <-> H+ + e-}
-\end{equation*}
+\begin{align}
+\ce{1/2H2_{(g)}  <-> H+ + e-}  \label{main_eq10:che}
+\end{align}
 is in equilibrium, allowing the calculation of the chemical potential of the electron-proton pair as:
-\begin{equation*}
-\mu(H^+) + \mu(e^-) = \frac{1}{2}\mu(H_{2(g)}) - eU
-\end{equation*}
+\begin{align}
+\mu(H^+) + \mu(e^-) = \frac{1}{2}\mu(H_{2(g)}) - eU  \label{main_eq11:che_potential}
+\end{align}
 For the external potential $\textit{U}$ applied, the change in free energy ($\Delta \textit{G}$) was determined using the equation:
-\begin{equation*}
-\Delta G_n(U) = \Delta G_n(U=0) + neU
-\end{equation*}
+\begin{align}
+\Delta G_n(U) = \Delta G_n(U=0) + neU  \label{main_eq12:ext_potential_che}
+\end{align}
 Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external potential applied, $\textit{n}$ represents the number of proton-electron pairs transferred, and $\textit{e}$ denotes the elementary charge.
 
 
 \subsection{Hybrid descriptor for volcano plots}
 Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary \cref{si_fig10:r2_hyb_des} and Supplementary \cref{si_table13:scaling_params}.
 Comprehensive analyses are presented Supplementary Section 1.5 (TODO: fix this). This leads to the formulation of the scaling relation:
-\begin{equation*}
-G_{\text{ads}} Z = k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z
-\end{equation*}
+\begin{align}
+G_{\text{ads}} Z =
+k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z  \label{main_eq13:scaling_relation}
+\end{align}
 Here, $\theta$ represents the mixing ratio of the CO descriptor, $\textit{Z}$ denotes any adsorbate, and $\textit{k}$ and $\textit{c}_{Z}$ are adsorbate-specific scaling parameters.
 The optimal mixing ratio $\theta$ is determined through iterative exploration across the range, utilizing a step length of 0.01.
 
 Equation 14 could be simplified to a more general form:
-\begin{equation*}
-G_{\text{ads}} Z = a_Z G_{\text{ads}} \ce{CO} + b_Z G_{\text{ads}} \ce{OH} + c_Z
-\end{equation*}
+\begin{align}
+G_{\text{ads}} Z =
+a_Z G_{\text{ads}} \ce{CO} + b_Z G_{\text{ads}} \ce{OH} + c_Z  \label{main_eq14:general_scaling_relation}
+\end{align}
 Here, $a_Z$, $b_Z$, $c_Z$ are adsorbate-specific parameters.
 
 Consequently, the limiting potential $\textit{U}_{L}$ is entirely determined by two descriptors through the following equation:
-\begin{equation*}
-U_L = -\frac{\max\{ \Delta G_i \}}{e}
-\end{equation*}
+\begin{align}
+U_L = -\frac{\max\{ \Delta G_i \}}{e}  \label{main_eq14:limiting_potential}
+\end{align}
 Where $\Delta G_{i}$ represents the free energy change of reaction step i.
 
 This approach simplifies the theoretical performance assessment of any catalyst within the scope of our research to only two descriptors: $G_{\textit{ads} \, \textit{CO}}$ and $G_{\textit{ads} \, \textit{OH}}$.
 This method offers a visual representation of the high-dimensional optimization challenge.
 To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of limiting potentials across the descriptor value ranges.
-At each grid point, the limiting potential is computed using Equation 16.
+At each grid point, the limiting potential is computed using Equation 16 (TODO:).
 
 
 \subsection{CNN architecture and hyperparameter tuning}
