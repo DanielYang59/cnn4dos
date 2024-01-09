@@ -13,13 +13,13 @@ Electronic structure calculations utilized denser K-point meshes of ($3\times3\t
 
 
 \subsection{Catalyst models}
-Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates, including graphitic carbon nitride (g-C$_3$N$_4$), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C$_2$N.
+Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates, including graphitic carbon nitride (g-C\textsubscript{3}N\textsubscript{4}), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C\textsubscript{2}N.
 The specific single metal atoms studied are outlined in Supplementary \cref{si_fig1:ptable}.
 To prevent interactions between adjacent images along the z-axis, vacuum layers of 15 \text{\AA} were introduced.
 
 
 \subsection{CO$_2$RR pathway}
-The C1 production CO$_2$RR pathway, as initially described by Peterson et al. \cite{peterson2010copper} and later confirmed by Jiao et al. \cite{jiao2017molecular} for g-C$_3$N$_4$ based SACs, involves the following elementary steps.
+The C1 production CO$_2$RR pathway, as initially described by Peterson et al. \cite{peterson2010copper} and later confirmed by Jiao et al. \cite{jiao2017molecular} for g-C\textsubscript{3}N\textsubscript{4} based SACs, involves the following elementary steps.
 Asterisks (*) indicate species adsorbed on the SAC surfaces:
 
 \begin{align}
@@ -103,7 +103,7 @@ To enhance the generalizability and robustness of the our CNN model, and achieve
 	- In addition to the designated "initial state" of the adsorption process, where the adsorbate positioned 6.5 \text{\AA} above the supported single metal atom, five intermediate images were interpolated. These images were distributed between the initial and final states at a spacing of 0.5 \text{\AA}, starting from the initial state side.
 	- A diverse set of smearing techniques was employed to determine of partial occupancies $f_{nk}$, including the tetrahedron method \cite{blochl1994improved} and the Gaussian method. For the Gaussian method, the smearing width was varied within the range of 0.01 eV to 0.1 eV. This careful selection of methods was made to guarantee reliable and consistent predictions of adsorption energies from the model, regardless of the smearing technique used.
 
-The augmented dataset comprises 12,312 samples, with adsorption energies having a standard deviation of 1.8117 eV and a variance of 3.2821 $\mathrm{eV}^2$.
+The augmented dataset comprises 12,312 samples, with adsorption energies having a standard deviation of 1.8117 eV and a variance of 3.2821 eV\textsubscript{2}.
 Twenty percent of these samples were allocated to the validation set. Throughout the training process, a batch size of 64 was employed to ensure a balanced learning dynamic.
 
 
