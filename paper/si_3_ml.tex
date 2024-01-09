@@ -4,7 +4,7 @@
 \section{Additional details on machine learning method}
 
 
-\subsection{d-band center and adsorption energy relations}
+\subsection{d-band center and adsorption energy relations}  \label{si_sec3.1_dband_eads}
 
 
 % SI Figure 18: d-band venter vs adsorption energy scatter plot
@@ -19,7 +19,7 @@
 \end{figure}
 
 
-\subsection{Feature correlation analysis}
+\subsection{Feature correlation analysis}  \label{si_sec3.2_feature_corr}
 
 
 % SI Figure 19: Pairwise plot of adsorption energy vs key descriptors
@@ -62,7 +62,7 @@
 \end{table}
 
 
-\subsection{Input pipeline construction}
+\subsection{Input pipeline construction}  \label{si_sec3.3_input_pipeline}
 The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs.
 In this study, the array adopts a shape of [numSamplings, numOrbitals, numChannels], as illustrated in \cref{si_fig20:input_dos}.
 Here, “numSamplings” represents the number of data points sampled across the energy spectrum,
@@ -93,7 +93,7 @@ As a result of these preprocessing steps, the input eDOS arrays consistently hav
 This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
 
 
-\subsection{Hyperparameter tuning for CNN}
+\subsection{Hyperparameter tuning for CNN}  \label{si_sec3.4_hyperparam}
 
 % Supplementary Table 16: The hyperparameter search space
 % TODO: check adam citation
@@ -178,7 +178,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \end{table}
 
 
-\subsection{Occlusion experiment}
+\subsection{Occlusion experiment}  \label{si_sec3.5_occlusion}
 
 
 % SI Figure 21: Illustration of the eDOS occlusion experiment
@@ -281,7 +281,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \end{figure}
 
 
-\subsection{Shifting experiment}
+\subsection{Shifting experiment}  \label{si_sec3.6_shifting}
 
 
 % SI Figure 30: Illustration of the eDOS shifting experiment
