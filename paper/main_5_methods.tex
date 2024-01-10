@@ -1,8 +1,6 @@
 % Methods
 
-
 \section{Methods}
-
 
 \subsection{DFT calculations}
 Spin-polarized density functional theory calculations were performed using the Vienna Ab initio Simulation Package (VASP) version 5.4.4 \cite{kresse1996efficient, kresse1996efficiency, kresse1993ab} to optimize geometries and determine the electronic structure.
@@ -11,12 +9,12 @@ Kohn-Shan equations were approached employing a plane-wave basis set with a cut-
 Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of ($2\times2\times1$) until the force on each atom fell below 0.02 eV/\(\mathrm{\AA}^{-1}\).
 Electronic structure calculations utilized denser K-point meshes of ($3\times3\times1$) and employed self-consistent field (SCF) methods.
 
-
 \subsection{Catalyst models}
-Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates, including graphitic carbon nitride (g-C\textsubscript{3}N\textsubscript{4}), nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C\textsubscript{2}N.
+Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates,
+including graphitic carbon nitride (g-C\textsubscript{3}N\textsubscript{4}), nitrogen-doped graphene,
+graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C\textsubscript{2}N.
 The specific single metal atoms studied are outlined in Supplementary \cref{si_fig1:ptable}.
 To prevent interactions between adjacent images along the z-axis, vacuum layers of 15 \text{\AA} were introduced.
-
 
 \subsection{CO$_2$RR pathway}
 The C1 production CO$_2$RR pathway, as initially described by Peterson et al. \cite{peterson2010copper} and later confirmed by Jiao et al. \cite{jiao2017molecular} for g-C\textsubscript{3}N\textsubscript{4} based SACs, involves the following elementary steps.
@@ -32,7 +30,6 @@ Asterisks (*) indicate species adsorbed on the SAC surfaces:
 \ce{\text{*}O + H+ + e-    &-> \text{*}OH}        \label{main_eq7:co2rr7}    \\
 \ce{\text{*}OH + H+ + e-   &-> \text{*} + H2O}    \label{main_eq8:co2rr8}
 \end{align}
-
 
 \subsection{Free energy calculations}
 Free energies were computed from electronic energies by considering thermal corrections, incorporating normal mode analysis of all degrees of freedom of adsorbates.
@@ -58,7 +55,6 @@ For the external potential $\textit{U}$ applied, the change in free energy ($\De
 \Delta G_n(U) = \Delta G_n(U=0) + neU  \label{main_eq12:ext_potential_che}
 \end{align}
 Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external potential applied, $\textit{n}$ represents the number of proton-electron pairs transferred, and $\textit{e}$ denotes the elementary charge.
-
 
 \subsection{Hybrid descriptor for volcano plots}
 Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary \cref{si_fig10:r2_hyb_des} and Supplementary \cref{si_table13:scaling_params}.
@@ -88,7 +84,6 @@ This method offers a visual representation of the high-dimensional optimization 
 To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of limiting potentials across the descriptor value ranges.
 At each grid point, the limiting potential is computed using \cref{main_eq15:limiting_potential}.
 
-
 \subsection{CNN architecture and hyperparameter tuning}
 We designed our CNN architecture drawing inspiration from its successful implementation in tasks involving electrocardiogram signal classification \cite{weimann2021transfer}, as illustrated in \cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c.
 This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals while ensuring a reduced memory footprint.
@@ -96,7 +91,6 @@ This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals
 The effectiveness of neural network models is intricately tied to the choice of hyperparameters.
 To identify the optimal set of hyperparameters, we employed Hyperband \cite{li2018hyperband}, a modern and parallelizable bandit-based optimization algorithm.
 The search space for hyperparameters is detailed in Supplementary \cref{si_table16:hyperparam_space}, and the resulting optimal hyperparameters are presented in Supplementary \cref{si_table17:opt_hyperparam}.
-
 
 \subsection{Data augmentation and CNN model training}
 To enhance the generalizability and robustness of the our CNN model, and achieve comprehensive coverage of the chemical space \cite{DBLP:journals/corr/abs-2112-12542}, we applied data augmentation techniques to the initial dataset using the following procedures:
@@ -106,14 +100,12 @@ To enhance the generalizability and robustness of the our CNN model, and achieve
 The augmented dataset comprises 12,312 samples, with adsorption energies having a standard deviation of 1.8117 eV and a variance of 3.2821 eV\textsubscript{2}.
 Twenty percent of these samples were allocated to the validation set. Throughout the training process, a batch size of 64 was employed to ensure a balanced learning dynamic.
 
-
 \subsection{Occlusion experiments}
 Supplementary \cref{si_fig21:occlusion} visually illustrates the occlusion experiment methodology.
 To maintain consistent shapes, zero-padding was applied to the input eDOS arrays.
 Focusing on understanding the influence of metals on adsorption behavior, a masker with dimensions [width, 1, 1] was employed along the metal channel to eliminate cross-orbital interactions.
 Here, "width" denotes the masker width, and detailed explanations for determining the width are provided in Supplementary \cref{si_sec3.5_occlusion}.
 Through recursive application of these maskers, variations in predicted adsorption energies from the CNN model were recorded, generating an occlusion array.
-
 
 \subsection{Shifting experiments}
 Supplementary \cref{si_fig30:shifting} illustrates the implemented shifting experiment protocol.
@@ -123,13 +115,11 @@ To maintain a uniform energy window, each image underwent cropping and padding p
 The resulted output arrays took the form of [400, 1] arrays for simultaneous orbital shifting and [400, 9] arrays for individual orbital shifting.
 The energy range for shifting was chosen to induce a moderate disturbance to adsorption energy.
 
-
 \subsection{Chemical bond analysis and real-space wavefunction visualization}
 COHP analysis was performed using the Local-Orbital Basis Suite Towards Electronic-Structure Reconstruction (LOBSTER) package  \cite{deringer2011crystal, koga1999analytical, nelson2020lobster, maintz2013analytic, dronskowski1993crystal} version 4.1.0, with the GGA-PBE wavefunctions fitted by S. Maintz \cite{koga1999analytical, maintz2016lobster}.
 A Gaussian smearing for energy integration was employed with a broadening width of 0.05 eV.
 The quantification of bonding strength between the single metal atom and the substrate was achieved through the summation of interactions with neighboring atoms within a range of 0.5 \text{\AA} to 5.0 \text{\AA} from the single metal atom.
 Orbitals of interest were confirmed through band-structure analysis, and real-space wavefunctions were subsequently visualized using VASPKIT \cite{wang2021vaspkit} and VESTA \cite{momma2008vesta}.
-
 
 \subsection{Machine learning and data analysis environment}
 The CNN model was implemented using TensorFlow \cite{abadi2016tensorflow}, and hyperparameter optimization was conducted using the Hyperband \cite{li2018hyperband} algorithm via KerasTuner \cite{omalley2019kerastuner}.

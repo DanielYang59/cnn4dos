@@ -14,15 +14,18 @@
     b-c. Architectural of (b)the root and (c)each branch of the CNN model.
     The architecture remains consistent across individual branches.
     d-m. Parity plots demonstrating the performance of the CNN model across nine adsorbates:
-    (d)all adsorbates, (e) CO\textsubscript{2}, (f)COOH, (g)CO, (h)CHO, (i) CH\textsubscript{2}O, (j) OCH\textsubscript{3}, (k)O, (l)OH, and (m)H.
+    (d) all adsorbates, (e) CO\textsubscript{2}, (f)COOH, (g)CO, (h)CHO,
+    (i) CH\textsubscript{2}O, (j) OCH\textsubscript{3}, (k)O, (l)OH, and (m)H.
     The augmentation data are not displayed in the plots nor included in MAE evaluations.
     Kernel density estimate results are shown along the top and right sides of the main plot,
     representing DFT calculations and CNN model prediction distributions, respectively.}
     \label{main_fig2:cnn_for_eads}
 \end{figure}
 
-Originating from the pioneering work of Hammer and Nørskov \cite{hammer2000theoretical}, the d-band center model has emerged as a successful paradigm for employing descriptor to understand and predict the adsorption behavior on transition metal surfaces.
-To investigate alternative electronic and elementary descriptors that may serve as more suitable substitutes for the d-band center model in the context of SACs, we performed Kendall rank correlation analysis to account for both linearity and non-linearity \cite{kendall1938new}.
+Originating from the pioneering work of Hammer and Nørskov \cite{hammer2000theoretical},
+the d-band center model has emerged as a successful paradigm for employing descriptor to understand and predict the adsorption behavior on transition metal surfaces.
+To investigate alternative electronic and elementary descriptors that may serve as more suitable substitutes for the d-band center model in the context of SACs,
+we performed Kendall rank correlation analysis to account for both linearity and non-linearity \cite{kendall1938new}.
 The correlation coefficient map, as presented in \cref{main_fig2:cnn_for_eads}a, highlighted the d-band center as the most informative descriptor with a Kendall's $\tau$ coefficient of -0.33, and followed by the vacuum level and electronegativity.
 However, d-band center alone does not suffice for accurate predictions of intermediate adsorption energy as illustrated in the scatter plot Supplementary \cref{si_fig18:dband_vs_eads}, and therefore, refinements are imperative.
 Unlike bulk transition metal surfaces, where the variations in the d-band centre account for the majority of the adsorption energy variations \cite{norskov2011density, takigawa2016machine}, the unique structure of SACs introduces more variables rather than d-band center that are intrinsically correlated with the variations of adsorption energy.

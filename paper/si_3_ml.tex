@@ -1,12 +1,9 @@
 % SI Section Two: Additional details on Machine Learning
 
-
 \section{Additional details on machine learning method}
-
 
 \subsection{d-band center and adsorption energy relations}
 \label{si_sec3.1_dband_eads}
-
 
 % SI Figure 18: d-band venter vs adsorption energy scatter plot
 \begin{figure}
@@ -20,10 +17,8 @@
   \label{si_fig18:dband_vs_eads}
 \end{figure}
 
-
 \subsection{Feature correlation analysis}
 \label{si_sec3.2_feature_corr}
-
 
 % SI Figure 19: Pairwise plot of adsorption energy vs key descriptors
 \begin{figure}
@@ -37,7 +32,6 @@
   Data from all six substrates investigated in this study are included.}
   \label{si_fig19:pairwise_eads_des}
 \end{figure}
-
 
 % Supplementary Table 15: Notations for elementary descriptors and electronic descriptors
 \begin{table}[h]
@@ -64,7 +58,6 @@
   \label{si_table15:descriptor_notations}
 \end{table}
 
-
 \subsection{Input pipeline construction}
 \label{si_sec3.3_input_pipeline}
 The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs.
@@ -73,7 +66,6 @@ Here, “numSamplings” represents the number of data points sampled across the
 “numOrbitals” denotes the number of DOS orbitals,
 and “numChannels” indicates the number of atomic channels.
 
-
 % SI Figure 20: Representation of the input eDOS data structure
 \begin{figure}
   \centering
@@ -81,7 +73,6 @@ and “numChannels” indicates the number of atomic channels.
   \caption{\textbf{Schematic representation of the input eDOS data structure.}}
   \label{si_fig20:input_dos}
 \end{figure}
-
 
 For practical purposes, certain spatial hierarchies are expected to remain invariant,
 such as the energy range over which the eDOS is sampled.
@@ -95,7 +86,6 @@ the following steps are taken to standardize the input eDOS data:
 
 As a result of these preprocessing steps, the input eDOS arrays consistently have a shape of [4000, 9, 6].
 This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
-
 
 \subsection{Hyperparameter tuning for CNN}
 \label{si_sec3.4_hyperparam}
@@ -126,8 +116,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \label{si_table16:hyperparam_space}
 \end{table}
 
-
-
 % Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
 % TODO: check adam citation
 \begin{table}[h]
@@ -153,7 +141,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \caption{Optimal hyperparameters identified with Hyperband algorithm}
   \label{si_table17:opt_hyperparam}
 \end{table}
-
 
 % Supplementary Table 18: Prediction MAEs of the CNN model
 \begin{table}[h]
@@ -182,10 +169,8 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \label{si_table18:cnn_mae}
 \end{table}
 
-
 \subsection{Occlusion experiment}
 \label{si_sec3.5_occlusion}
-
 
 % SI Figure 21: Illustration of the eDOS occlusion experiment
 \begin{figure}
@@ -198,7 +183,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \label{si_fig21:occlusion}
 \end{figure}
 
-
 % SI Figure 22: Occlusion experiment with a masker width of 1
 \begin{figure}
   \centering
@@ -208,7 +192,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig22:occl_wid1}
 \end{figure}
-
 
 % SI Figure 23: Occlusion experiment with a masker width of 3
 \begin{figure}
@@ -220,7 +203,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \label{si_fig23:occl_wid3}
 \end{figure}
 
-
 % SI Figure 24: Occlusion experiment with a masker width of 5
 \begin{figure}
   \centering
@@ -230,7 +212,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig24:occl_wid5}
 \end{figure}
-
 
 % SI Figure 25: Occlusion experiment with a masker width of 11
 \begin{figure}
@@ -242,7 +223,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \label{si_fig25:occl_wid11}
 \end{figure}
 
-
 % SI Figure 26: Occlusion experiment with a masker width of 21
 \begin{figure}
   \centering
@@ -252,7 +232,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig26:occl_wid21}
 \end{figure}
-
 
 % SI Figure 27: Occlusion experiment with a masker width of 31
 \begin{figure}
@@ -264,7 +243,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \label{si_fig27:occl_wid31}
 \end{figure}
 
-
 % SI Figure 28: Occlusion experiment with a masker width of 41
 \begin{figure}
   \centering
@@ -274,7 +252,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig28:occl_wid41}
 \end{figure}
-
 
 % SI Figure 29: Occlusion experiment with a masker width of 51
 \begin{figure}
@@ -286,10 +263,8 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \label{si_fig29:occl_wid51}
 \end{figure}
 
-
 \subsection{Shifting experiment}
 \label{si_sec3.6_shifting}
-
 
 % SI Figure 30: Illustration of the eDOS shifting experiment
 \begin{figure}
@@ -304,7 +279,6 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   assess the disturbance in adsorption energy caused by the shifting operation.}
   \label{si_fig30:shifting}
 \end{figure}
-
 
 % SI Figure 31: Shifting experiment on p orbital
 \begin{figure}
