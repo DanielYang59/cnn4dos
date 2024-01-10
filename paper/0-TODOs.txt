@@ -1,2 +1,2 @@
 1. MAE of volcano plots (reference to DFT)
-2. citation of mountain in Figure One (main text)
+2. format for Nature Communications submission (https://www.nature.com/ncomms/submit/how-to-submit)

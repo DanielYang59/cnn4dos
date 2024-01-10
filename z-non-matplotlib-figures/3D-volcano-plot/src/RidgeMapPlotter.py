@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# https://github.com/ColCarroll/ridge_map
 
 from ridge_map import FontManager, RidgeMap
 import matplotlib.pyplot as plt
