@@ -1,2 +1,1 @@
-1. MAE of volcano plots (reference to DFT)
-2. format for Nature Communications submission (https://www.nature.com/ncomms/submit/how-to-submit)
+format for Nature Communications submission (https://www.nature.com/ncomms/submit/how-to-submit)
