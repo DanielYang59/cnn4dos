@@ -7,3 +7,4 @@ Table align width (try toprule/bottomrule)
 should table headers be centered (and bold)?
 should table/figure header/title be capitalized?
 some sections in SI don't start in new page
+double-check figure size and position (some extra large figures go to the next section/page)
