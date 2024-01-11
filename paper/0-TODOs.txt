@@ -1,1 +1,10 @@
+# Main
+update figures with high resolution ones
 format for Nature Communications submission (https://www.nature.com/ncomms/submit/how-to-submit)
+
+# SI
+Table align width (try toprule/bottomrule)
+why table are at the end of file?
+should table headers be centered (and bold)?
+should table/figure header/title be capitalized?
+some sections in SI don't start in new page
