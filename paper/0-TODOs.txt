@@ -3,8 +3,7 @@ update figures with high resolution ones
 format for Nature Communications submission (https://www.nature.com/ncomms/submit/how-to-submit)
 
 # SI
-Table align width (try toprule/bottomrule)
-should table headers be centered (and bold)?
-should table/figure header/title be capitalized?
+should table headers be centered (and bold)? (check NC requirements)
+should table/figure header/title be capitalized?  (check NC requirements)
 some sections in SI don't start in new page
 double-check figure size and position (some extra large figures go to the next section/page)
