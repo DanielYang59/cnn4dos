@@ -37,9 +37,9 @@
 \begin{table}[htbp]
   \centering
   \begin{tabular}{lp{5cm}lp{5cm}}
-    \hline
+    \toprule
     \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
-    \hline
+    \midrule
     $R$            & atomic radius                   & $\alpha$, $\beta$, $\gamma$  & lattice parameters     \\
     $E_\text{ea}$  & electron affinity               & $\Phi_{\text{DFT}}$    & DFT calculated work function \\
     $\Phi$         & work function                   & $E_\text{vac}$         & vacuum level                 \\
@@ -52,7 +52,7 @@
     $G$            & group number                    & $W_\text{d}$           & d-band width                 \\
     $P$            & period number                   & $e_{\text{Bader}}$     & Bader charge                 \\
     $V$            & number of valence electrons     &                        &                              \\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Notations for elementary descriptors and electronic descriptors}
   \label{si_table15:descriptor_notations}
@@ -96,9 +96,9 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{table}[htbp]
   \centering
   \begin{tabular}{llp{5cm}}
-    \hline
+    \toprule
     \textbf{Hyperparameter} & \textbf{Search Space}                             & \textbf{Description}            \\
-    \hline
+    \midrule
     learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam\cite{kingma2017adam} optimizer \\
     dropoutRate   & [0, 1]                    & Dropout rate                                                      \\
     root\_fc0     & 128, 256, 512             & Output dimensionality of 1\textsuperscript{st} fully connected layer in root           \\
@@ -111,7 +111,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_fc0       & 16, 32, 64, 128, 256, 512 & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch      \\
     br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch      \\
     br\_act       & "tanh", "relu", "sigmoid" & Activation function of fully connected layers in branch           \\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{The hyperparameter search space}
   \label{si_table16:hyperparam_space}
@@ -122,9 +122,9 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{table}[htbp]
   \centering
   \begin{tabular}{llp{6cm}}
-    \hline
+    \toprule
     \textbf{Hyperparameter}   & \textbf{Optimal Value} & \textbf{Description}                \\
-    \hline
+    \midrule
     learningRate  & $10^{-3}$ & Learning rate of Adam\cite{kingma2017adam} optimizer                              \\
     dropoutRate   & 0.3       & Dropout rate                                                 \\
     root\_fc0     & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in root   \\
@@ -137,7 +137,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_fc0       & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch \\
     br\_fc1       & 128       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch \\
     br\_act       & "tanh"    & Activation function of fully connected layers in branch      \\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Optimal hyperparameters identified with Hyperband algorithm}
   \label{si_table17:opt_hyperparam}
@@ -147,9 +147,9 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{table}[htbp]
   \centering
   \begin{tabular}{lll}
-    \hline
+    \toprule
     \textbf{Adsorbate}    & \textbf{Original dataset (eV)} & \textbf{Augmented dataset (eV)} \\
-    \hline
+    \midrule
     CO\textsubscript{2}   & 0.0447 & 0.0336 \\
     COOH                  & 0.0436 & 0.0581 \\
     CO                    & 0.0402 & 0.0402 \\
@@ -159,7 +159,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     O                     & 0.1135 & 0.1081 \\
     OH                    & 0.0547 & 0.0602 \\
     H                     & 0.0703 & 0.0646 \\
-    \hline
+    \bottomrule
   \end{tabular}
   \caption{Prediction mean absolute errors of the CNN model}
   \tablefootnote{The same CNN model, trained on the augmented dataset, was used for all predictions.

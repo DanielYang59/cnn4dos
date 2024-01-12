@@ -105,7 +105,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-      \hline
+      \toprule
       \multirow{2}{*}{Metal}
       & \multicolumn{3}{c}{g-C\textsubscript{3}N\textsubscript{4}}
       & \multicolumn{3}{c}{nitrogen-doped graphene}
@@ -113,7 +113,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       & Pathway-1 & Pathway-2 & Pathway-3
       & Pathway-1 & Pathway-2 & Pathway-3
       & Pathway-1 & Pathway-2 & Pathway-3  \\
-      \hline
+      \midrule
       Al & \textbf{-499.3494} & -497.8343 & -499.3005 & \textbf{-670.3489} & -668.5142 & -670.3093 & -667.2538 & -666.6725 & \textbf{-667.2665} \\
       Co & -502.5946 & -501.1257 & \textbf{-502.6139} & -672.8847 & -670.8013 & \textbf{-672.9020} & \textbf{-671.6284} & -670.4388 & -671.3827 \\
       Cr & -505.6012 & -504.2022 & \textbf{-505.6029} & -675.3126 & -674.1640 & \textbf{-675.3480} & \textbf{-673.4283} & -672.1919 & -673.3818 \\
@@ -152,6 +152,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Ta & -506.6180 & -505.7793 & \textbf{-506.6241} & \textbf{-677.7222} & -675.9907 & -677.0911 & \textbf{-676.4371} & -674.5434 & -676.4262 \\
       Tl & \textbf{-497.9559} & -496.1578 & -497.9382 & -664.5047 & -662.7051 & \textbf{-664.5051} & -662.6279 & -660.6086 & \textbf{-662.6317}\\
       W  & \textbf{-505.8134} & -504.9085 & -505.8030 & -676.5304 & -676.1384 & \textbf{-676.9965} & \textbf{-676.7669} & -675.4895 & -676.7356 \\
+      \bottomrule
   \end{tabular}
   }
   \caption{DFT-calculated energies in eV for protonated *CO intermediate for three investigated CO\textsubscript{2}RR pathways}
@@ -167,9 +168,9 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{10}{12}\selectfont
   \begin{tabular}{ll}
-    \hline
+    \toprule
     \textbf{Species}      & \textbf{Free Energy (eV)} \\
-    \hline
+    \midrule
     CO\textsubscript{2}   & -23.3140                  \\
     CO                    & -15.3336                  \\
     CH\textsubscript{4}   & -23.4639                  \\
@@ -181,7 +182,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     OCH\textsubscript{3}  & -24.5075                  \\
     O                     & -1.9007                   \\
     OH                    & -7.7303                   \\
-    \hline
+    \bottomrule
   \end{tabular}
   }
   \caption{Free energies at 298.15 K for isolated species.}
@@ -194,9 +195,9 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{10}{12}\selectfont
   \begin{tabular}{ll}
-    \hline
+    \toprule
     \textbf{Species}       & \textbf{Free energy correction (eV)} \\
-    \hline
+    \midrule
     *CO\textsubscript{2}   &  0.0864                              \\
     *COOH                  &  0.3693                              \\
     *CO                    &  0.0111                              \\
@@ -206,7 +207,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     *O                     & -0.0193                              \\
     *OH                    &  0.1993                              \\
     *H                     &  0.1533                              \\
-    \hline
+    \bottomrule
   \end{tabular}
   }
   \caption{Free energy corrections at 298.15 K for adsorbed intermediates}
@@ -221,10 +222,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-    \hline
+    \toprule
     Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
     & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
-    \hline
+    \midrule
     Al & -481.2292 & -504.7972 & -508.6897 & -496.4490 & -500.7640 & -503.7935 & -509.9998 & -488.6623 & -485.4855 \\
     Co & -483.2039 & -507.0765 & -510.0453 & -500.1329 & -503.9316 & -507.0552 & -510.9052 & -489.9487 & -486.6194 \\
     Cr & -486.7813 & -509.9599 & -513.3962 & -502.1493 & -505.7125 & -509.8851 & -514.1702 & -493.7457 & -489.9202 \\
@@ -263,7 +264,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     Ta & -486.3299 & -512.1371 & -515.1895 & -504.6585 & -507.5888 & -512.5295 & -516.0165 & -497.0134 & -490.5695 \\
     Tl & -480.7357 & -503.7632 & -505.9937 & -495.5894 & -497.7724 & -503.0564 & -506.7919 & -484.0732 & -482.3846 \\
     W  & -485.2596 & -510.8145 & -514.28   & -504.2714 & -506.7988 & -511.0643 & -514.2358 & -494.4330 & -490.6506 \\
-    \hline
+    \bottomrule
   \end{tabular}
   }
   \caption{DFT calculated final state energies in eV for adsorbates supported on g-C\textsubscript{3}N\textsubscript{4}}
@@ -275,10 +276,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \centering
     {\fontsize{6}{12}\selectfont % Set the font size to 6pt
     \begin{tabular}{*{10}{l}}
-      \hline
+      \toprule
       Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
       & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
-      \hline
+      \midrule
       Al	& -652.7589	&-675.7997	&-679.7595	&-668.0296	&-671.7596	&-676.2161	&-681.1311	&-658.7849	&-656.4702 \\
       Co	& -654.3280 &-677.5394	&-681.2518	&-670.0860  &-673.9208	&-676.7761	&-680.7219	&-659.1714	&-657.8777 \\
       Cr	& -657.0479	&-680.2074	&-683.7982	&-673.0760  &-676.1859	&-679.4701	&-684.5295	&-664.7306	&-660.4141 \\
@@ -317,7 +318,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Ta	& -657.1988	&-682.6048	&-685.8231	&-674.1666	&-678.5029	&-682.9709	&-687.2294	&-667.7321	&-661.8794 \\
       Tl	& -648.1346	&-671.1831	&-673.2953	&-662.9610  &-665.6240  &-670.3512	&-673.4567	&-651.7909	&-650.4750 \\
       W	  & -657.0204	&-682.0186	&-685.3735	&-674.3843	&-678.2483	&-682.4377	&-686.3613	&-667.4547	&-661.5686 \\
-      \hline
+      \bottomrule
     \end{tabular}
     }
     \caption{DFT calculated final state energies in eV for adsorbates supported on nitrogen-doped graphene}
@@ -329,10 +330,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-    \hline
+    \toprule
     Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
     & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
-    \hline
+    \midrule
     Al & -650.3496 & -673.3468 & -676.2273 & -665.6303 & -668.4112 & -672.5763 & -677.4453 & -655.0864 & -653.0166 \\
     Co & -652.5157 & -675.5864 & -679.3861 & -669.0614 & -672.8955 & -675.8508 & -679.5268 & -658.7929 & -655.9377 \\
     Cr & -655.0421 & -678.1256 & -681.8470 & -671.1282 & -674.2868 & -679.1554 & -683.4111 & -663.3554 & -658.4913 \\
@@ -371,7 +372,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     Ta & -657.4068 & -681.0711 & -685.1062 & -673.5947 & -677.3738 & -681.6985 & -686.7561 & -666.0327 & -661.7361 \\
     Tl & -645.7286 & -668.8734 & -671.7205 & -660.7259 & -664.0001 & -668.1110 & -672.0305 & -649.7198 & -648.7563 \\
     W  & -657.5901 & -681.6722 & -685.1010 & -674.1028 & -677.7828 & -682.4493 & -686.6385 & -666.9364 & -661.8641 \\
-    \hline
+    \bottomrule
   \end{tabular}
   }
   \caption{DFT calculated final state energies in eV for adsorbates supported on graphene with dual-vacancy}
@@ -383,10 +384,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-    \hline
+    \toprule
     Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
     & *CH\textsubscript{2}O & *OCH\textsubscript{3} & *O & *OH    & *H     \\
-    \hline
+    \midrule
     Al & 0.2905 & 0.6130 & 0.1743 & 0.4606 & 0.7456 & 1.0974 & 0.0629 & 0.3521 & 0.1925 \\
     Co & 0.3038 & 0.5895 & 0.2051 & 0.4186 & 0.6269 & 1.0663 & 0.0571 & 0.3248 & 0.1507 \\
     Cr & 0.3140 & 0.5964 & 0.1640 & 0.4374 & 0.7725 & 1.0779 & 0.0670 & 0.3286 & 0.1626 \\
@@ -425,7 +426,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     Ta & 0.3099 & 0.5977 & 0.2000 & 0.4414 & 0.7993 & 1.0880 & 0.0847 & 0.3410 & 0.1780 \\
     Tl & 0.3114 & 0.5614 & 0.1389 & 0.3494 & 0.7105 & 1.0410 & 0.0246 & 0.3210 & 0.0951 \\
     W  & 0.3146 & 0.6059 & 0.2160 & 0.4456 & 0.8033 & 1.0886 & 0.0725 & 0.3387 & 0.1834 \\
-    \hline
+    \bottomrule
   \end{tabular}
   }
   \caption{Zero-point energies in eV for relaxed adsorbates supported on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K}
@@ -437,10 +438,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-      \hline
+      \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
-      \hline
+      \midrule
       Al & -0.2195 & -0.2476 & -0.1874 & -0.1939 & -0.2359 & -0.1759 & -0.0894 & -0.1010 & -0.0124 \\
       Co & -0.2359 & -0.2665 & -0.1544 & -0.1572 & -0.1755 & -0.2095 & -0.1078 & -0.1510 & -0.0341 \\
       Cr & -0.1862 & -0.2605 & -0.2075 & -0.2069 & -0.1478 & -0.1733 & -0.0790 & -0.1437 & -0.0221 \\
@@ -479,7 +480,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Ta & -0.1872 & -0.2532 & -0.1523 & -0.1847 & -0.1265 & -0.1798 & -0.0535 & -0.1040 & -0.0177 \\
       Tl & -0.2599 & -0.2833 & -0.1807 & -0.1538 & -0.2422 & -0.1501 & -0.0126 & -0.1338 & -0.0533 \\
       W  & -0.1791 & -0.2368 & -0.1335 & -0.1723 & -0.1225 & -0.2253 & -0.0673 & -0.1180 & -0.0201 \\
-      \hline
+      \bottomrule
   \end{tabular}
   }
   \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K}
@@ -491,10 +492,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-      \hline
+      \toprule
       Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
       & *CH\textsubscript{2}O & *OCH\textsubscript{3} & *O & *OH    & *H     \\
-      \hline
+      \midrule
       Al & 0.3093 & 0.6024 & 0.1683 & 0.4395 & 0.7509 & 1.0855 & 0.0552 & 0.3401 & 0.1864 \\
       Co & 0.3140 & 0.6247 & 0.2044 & 0.4787 & 0.7345 & 1.0615 & 0.0606 & 0.3315 & 0.2006 \\
       Cr & 0.3108 & 0.5983 & 0.2007 & 0.4410 & 0.7211 & 1.0824 & 0.0828 & 0.3253 & 0.1625 \\
@@ -533,7 +534,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Ta & 0.2751 & 0.6019 & 0.1869 & 0.4630 & 0.7724 & 1.0937 & 0.0751 & 0.3060 & 0.1669 \\
       Tl & 0.3131 & 0.5988 & 0.1402 & 0.4439 & 0.7193 & 1.0169 & 0.0573 & 0.3244 & 0.1506 \\
       W  & 0.2889 & 0.6117 & 0.1927 & 0.4777 & 0.7852 & 1.0941 & 0.0810 & 0.3273 & 0.1832 \\
-      \hline
+      \bottomrule
   \end{tabular}
   }
   \caption{Zero-point energies in eV for relaxed adsorbates supported on nitrogen-doped graphene at 298.15 K}
@@ -545,10 +546,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-      \hline
+      \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
-      \hline
+      \midrule
       Al & -0.1981 & -0.2564 & -0.1979 & -0.1424 & -0.2051 & -0.1839 & -0.0794 & -0.1211 & -0.0113 \\
       Co & -0.2358 & -0.2213 & -0.1589 & -0.1584 & -0.2025 & -0.2223 & -0.0701 & -0.0817 & -0.0123 \\
       Cr & -0.2593 & -0.1973 & -0.1568 & -0.2037 & -0.2291 & -0.1679 & -0.0569 & -0.0875 & -0.0228 \\
@@ -587,7 +588,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Ta & -0.2078 & -0.2197 & -0.1675 & -0.1373 & -0.1542 & -0.2084 & -0.0698 & -0.1979 & -0.0195 \\
       Tl & -0.2573 & -0.2043 & -0.1719 & -0.2270 & -0.1288 & -0.2326 & -0.0688 & -0.1876 & -0.0332 \\
       W  & -0.2007 & -0.2007 & -0.1642 & -0.1194 & -0.1565 & -0.2032 & -0.0607 & -0.1275 & -0.0202 \\
-      \hline
+      \bottomrule
   \end{tabular}
   }
   \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on nitrogen-doped graphene at 298.15 K}
@@ -599,10 +600,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-      \hline
+      \toprule
       Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
       & *CH\textsubscript{2}O & *OCH\textsubscript{3} & *O & *OH    & *H     \\
-      \hline
+      \midrule
       Al & 0.3140 & 0.5988 & 0.1888 & 0.4386 & 0.7218 & 1.0769 & 0.0472 & 0.3366 & 0.1729 \\
       Co & 0.3080 & 0.6179 & 0.2173 & 0.4899 & 0.7928 & 1.0616 & 0.0573 & 0.3458 & 0.1726 \\
       Cr & 0.3318 & 0.5862 & 0.1957 & 0.4277 & 0.8826 & 1.0733 & 0.0792 & 0.3294 & 0.1560 \\
@@ -641,7 +642,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Ta & 0.2938 & 0.6078 & 0.1872 & 0.4601 & 0.7707 & 1.0754 & 0.0732 & 0.3243 & 0.1783 \\
       Tl & 0.3091 & 0.5948 & 0.1424 & 0.4406 & 0.7123 & 1.0568 & 0.0342 & 0.3173 & 0.1569 \\
       W  & 0.3066 & 0.6062 & 0.1912 & 0.3984 & 0.8010 & 1.0777 & 0.0787 & 0.3333 & 0.1815 \\
-      \hline
+      \bottomrule
   \end{tabular}
   }
   \caption{Zero-point energies in eV for relaxed adsorbates supported on graphene with dual-vacancy at 298.15 K}
@@ -653,10 +654,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
   \centering
   {\fontsize{6}{12}\selectfont
   \begin{tabular}{*{10}{l}}
-      \hline
+      \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
-      \hline
+      \midrule
       Al & -0.2501 & -0.2622 & -0.1799 & -0.2106 & -0.3101 & -0.2050 & -0.0980 & -0.1303 & -0.0165 \\
       Co & -0.1962 & -0.2352 & -0.1529 & -0.1520 & -0.1515 & -0.0821 & -0.0427 & -0.1165 & -0.0376 \\
       Cr & -0.2178 & -0.2281 & -0.1603 & -0.2297 & -0.0849 & -0.0961 & -0.0623 & -0.1200 & -0.0250 \\
@@ -695,7 +696,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Ta & -0.2269 & -0.2462 & -0.1744 & -0.1715 & -0.1696 & -0.1787 & -0.0694 & -0.1428 & -0.0135 \\
       Tl & -0.1981 & -0.2044 & -0.2304 & -0.2198 & -0.2048 & -0.2595 & -0.1146 & -0.1764 & -0.0256 \\
       W  & -0.2006 & -0.2433 & -0.1670 & -0.1453 & -0.1295 & -0.1025 & -0.0613 & -0.1185 & -0.0157 \\
-      \hline
+      \bottomrule
   \end{tabular}
   }
   \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on graphene with dual-vacancy at 298.15 K}
@@ -779,16 +780,16 @@ In this case, the first term depends solely on the descriptors, while the second
   \centering
   {\fontsize{10}{12}\selectfont
   \begin{tabular}{*{4}{l}}
-    \hline
+    \toprule
     \textbf{Adsorbate}    & \textbf{$a_Z$}  & \textbf{$b_Z$}  & \textbf{$c_Z$}   \\
-    \hline
+    \midrule
     COOH                  & 0.4032          & 0.5132          &  0.0899          \\
     CHO                   & 0.5977          & 0.3664          & -2.6763          \\
     CH\textsubscript{2}O  & 0.5011          & 0.5011          & -0.9806          \\
     OCH\textsubscript{3}  & 0.0532          & 1.0114          &  0.8489          \\
     O                     & 0.3758          & 1.2580          &  0.0910          \\
     H                     & 0.3164          & 0.3568          & -0.6764          \\
-    \hline
+    \bottomrule
   \end{tabular}
   }
   \caption{Adsorption free energy scaling relation parameters determined by the hybrid descriptor method}
@@ -813,10 +814,10 @@ In this case, the first term depends solely on the descriptors, while the second
   \centering
   {\fontsize{10}{12}\selectfont
   \begin{tabular}{*{4}{l}}
-    \hline
+    \toprule
     \multirow{2}{*}{Adsorbate} & Hybrid Descriptor $R^2$ & Single Descriptor $R^2$ & \multirow{2}{*}{$R^2$} \\
                                & (Optimal CO Ratio)      & Reference Species       &                        \\
-    \hline
+    \midrule
     CO\textsubscript{2}    & 0.8083 (57\%)  & 0.7368 (CO)  & 0.0715 \\
     COOH                   & 0.9500 (44\%)  & 0.8113 (CO)  & 0.1387 \\
     CHO                    & 0.9146 (62\%)  & 0.8541 (CO)  & 0.0605 \\
@@ -824,7 +825,7 @@ In this case, the first term depends solely on the descriptors, while the second
     OCH\textsubscript{3}   & 0.9936 (5\%)   & 0.9929 (OH)  & 0.0007 \\
     O                      & 0.8974 (23\%)  & 0.8825 (OH)  & 0.0149 \\
     H                      & 0.8303 (47\%)  & 0.7617 (OH)  & 0.0686 \\
-    \hline
+    \bottomrule
   \end{tabular}
   }
   \caption{Performance comparison of hybrid descriptor and single descriptor for linear scaling relations}
