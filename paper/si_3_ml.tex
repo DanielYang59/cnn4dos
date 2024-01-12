@@ -92,12 +92,11 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \label{si_sec3.4_hyperparam}
 
 % Supplementary Table 16: The hyperparameter search space
-% TODO: check adam citation
 \begin{table}[htbp]
   \centering
   \begin{tabular}{llp{5cm}}
     \toprule
-    \textbf{Hyperparameter} & \textbf{Search Space}                             & \textbf{Description}            \\
+    Hyperparameter& Search Space              & Description                                                       \\
     \midrule
     learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam\cite{kingma2017adam} optimizer \\
     dropoutRate   & [0, 1]                    & Dropout rate                                                      \\
@@ -118,12 +117,11 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \end{table}
 
 % Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
-% TODO: check adam citation
 \begin{table}[htbp]
   \centering
   \begin{tabular}{llp{6cm}}
     \toprule
-    \textbf{Hyperparameter}   & \textbf{Optimal Value} & \textbf{Description}                \\
+    Hyperparameter& Optimal Value & Description                                              \\
     \midrule
     learningRate  & $10^{-3}$ & Learning rate of Adam\cite{kingma2017adam} optimizer                              \\
     dropoutRate   & 0.3       & Dropout rate                                                 \\
@@ -148,7 +146,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \centering
   \begin{tabular}{lll}
     \toprule
-    \textbf{Adsorbate}    & \textbf{Original dataset (eV)} & \textbf{Augmented dataset (eV)} \\
+    Adsorbate             & Original dataset (eV) & Augmented dataset (eV) \\
     \midrule
     CO\textsubscript{2}   & 0.0447 & 0.0336 \\
     COOH                  & 0.0436 & 0.0581 \\
