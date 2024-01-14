@@ -1,0 +1,4 @@
+
+make SI Tables APA style
+some sections in SI don't start in new page (Section 2.2 for example)
+check python package citations

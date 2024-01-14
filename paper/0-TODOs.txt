@@ -1,6 +1,0 @@
-
-# SI
-make Tables APA style
-How to make caption label "Figure SXXX" (an extra "S") without breaking main?
-some sections in SI don't start in new page
-double-check figure size and position (some extra large figures go to the next section/page)
