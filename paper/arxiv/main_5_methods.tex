@@ -95,7 +95,7 @@ The search space for hyperparameters is detailed in Supplementary \cref{supp_tab
 
 \subsection{Data augmentation and CNN model training}
 To enhance the generalizability and robustness of the our CNN model, and achieve comprehensive coverage of the chemical space \cite{DBLP:journals/corr/abs-2112-12542}, we applied data augmentation techniques to the initial dataset using the following procedures:
-	- In addition to the designated "initial state" of the adsorption process, where the adsorbate positioned 6.5 \text{\AA} above the supported single metal atom, five intermediate images were interpolated. These images were distributed between the initial and final states at a spacing of 0.5 \text{\AA}, starting from the initial state side.
+	- In addition to the designated ``initial state'' of the adsorption process, where the adsorbate positioned 6.5 \text{\AA} above the supported single metal atom, five intermediate images were interpolated. These images were distributed between the initial and final states at a spacing of 0.5 \text{\AA}, starting from the initial state side.
 	- A diverse set of smearing techniques was employed to determine of partial occupancies $f_{nk}$, including the tetrahedron method \cite{blochl1994improved} and the Gaussian method. For the Gaussian method, the smearing width was varied within the range of 0.01 eV to 0.1 eV. This careful selection of methods was made to guarantee reliable and consistent predictions of adsorption energies from the model, regardless of the smearing technique used.
 
 The augmented dataset comprises 12,312 samples, with adsorption energies having a standard deviation of 1.8117 eV and a variance of 3.2821 eV\textsubscript{2}.
@@ -105,7 +105,7 @@ Twenty percent of these samples were allocated to the validation set. Throughout
 Supplementary \cref{supp_fig21:occlusion} visually illustrates the occlusion experiment methodology.
 To maintain consistent shapes, zero-padding was applied to the input eDOS arrays.
 Focusing on understanding the influence of metals on adsorption behavior, a masker with dimensions [width, 1, 1] was employed along the metal channel to eliminate cross-orbital interactions.
-Here, "width" denotes the masker width, and detailed explanations for determining the width are provided in Supplementary \cref{supp_sec3.5_occlusion}.
+Here, ``width'' denotes the masker width, and detailed explanations for determining the width are provided in Supplementary \cref{supp_sec3.5_occlusion}.
 Through recursive application of these maskers, variations in predicted adsorption energies from the CNN model were recorded, generating an occlusion array.
 
 \subsection{Shifting experiments}
