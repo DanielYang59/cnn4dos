@@ -1,7 +1,7 @@
-% Journal Paper Main Text Header
+% Journal Paper Supporting Information Header
 
 % Document Class and Packages
-\documentclass[a4paper, 12pt, titlepage]{article}
+\documentclass[a4paper, 12pt]{article}
 
 % Import packages
 \usepackage{amsmath}
@@ -19,6 +19,7 @@
 \usepackage{nicematrix}
 \usepackage{tablefootnote}
 \usepackage{textcomp}
+\usepackage{tikz}
 \usepackage{siunitx}
 \usepackage{xr}  % external cross-ref
 \usepackage[affil-it]{authblk}
@@ -28,37 +29,23 @@
 % Define Figure/Table cross-reference headers
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
-\captionsetup{labelfont=bf}  % make caption label bold
+\captionsetup{labelfont=bf}
 
-\externaldocument{2-si}  % for cross-ref
+\externaldocument{main}  % for cross-ref
 
 \begin{document}
 
+\input{si_1_head.tex}  % Title
 \newpage
-\input{main_1_head.tex}  % Title and Author Information
+\input{si_2_dft.tex}  % DFT
 \newpage
-\input{main_2_abstract.tex}
+\input{si_3_ml.tex}  % Machine Learning
 \newpage
-\input{main_3_introduction.tex}
-\newpage
-\input{main_4.1_cnn_for_eads.tex}
-\input{main_4.2_volcano_plots.tex}
-\input{main_4.3_validation.tex}
-\input{main_4.4_shifting_exp.tex}
-\newpage
-\input{main_5_methods.tex}
+\input{si_4_others.tex}
 
-\appendix
-\newpage
-\input{main_6_appendix.tex}  % Appendix
-
-% Bibliography
+% References
 \newpage
 \bibliographystyle{plain}
 \bibliography{references}
 
 \end{document}
-
-
-% Notes:
-% Table formatted to APA format following: https://tex.stackexchange.com/questions/681466/annotation-for-table-following-the-apa-style
