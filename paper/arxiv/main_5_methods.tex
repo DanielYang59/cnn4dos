@@ -14,7 +14,7 @@ Electronic structure calculations utilized denser K-point meshes of ($3\times3\t
 Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates,
 including graphitic carbon nitride (g-C\textsubscript{3}N\textsubscript{4}), nitrogen-doped graphene,
 graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C\textsubscript{2}N.
-The specific single metal atoms studied are outlined in Supplementary \cref{si_fig1:ptable}.
+The specific single metal atoms studied are outlined in Supplementary \cref{supp_fig1:ptable}.
 To prevent interactions between adjacent images along the z-axis, vacuum layers of 15 \text{\AA} were introduced.
 
 \subsection{CO$_2$RR pathway}
@@ -40,7 +40,7 @@ G = E + E_{\text{ZPE}} - TS  \label{main_eq9:free_energy}
 \end{align}
 
 where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy, $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin, and $\textit{S}$ stands for entropy.
-Detailed information regarding these corrections can be found in Supplementary \cref{si_sec2.3_energies}.
+Detailed information regarding these corrections can be found in Supplementary \cref{supp_sec2.3_energies}.
 
 The computational hydrogen electrode (CHE) model \cite{peterson2010copper, norskov2004origin} was employed to introduce potential dependence.
 At the reference electrode surface, the reaction
@@ -58,8 +58,8 @@ For the external potential $\textit{U}$ applied, the change in free energy ($\De
 Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external potential applied, $\textit{n}$ represents the number of proton-electron pairs transferred, and $\textit{e}$ denotes the elementary charge.
 
 \subsection{Hybrid descriptor for volcano plots}
-Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary \cref{si_fig10:r2_hyb_des} and Supplementary \cref{si_table13:scaling_params}.
-Comprehensive analyses are presented Supplementary \cref{si_sec2.5_scaling}. This leads to the formulation of the scaling relation:
+Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary \cref{supp_fig10:r2_hyb_des} and Supplementary \cref{supp_table13:scaling_params}.
+Comprehensive analyses are presented Supplementary \cref{supp_sec2.5_scaling}. This leads to the formulation of the scaling relation:
 \begin{align}
 G_{\text{ads}} Z =
 k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z  \label{main_eq13:scaling_relation}
@@ -91,7 +91,7 @@ This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals
 
 The effectiveness of neural network models is intricately tied to the choice of hyperparameters.
 To identify the optimal set of hyperparameters, we employed Hyperband \cite{li2018hyperband}, a modern and parallelizable bandit-based optimization algorithm.
-The search space for hyperparameters is detailed in Supplementary \cref{si_table16:hyperparam_space}, and the resulting optimal hyperparameters are presented in Supplementary \cref{si_table17:opt_hyperparam}.
+The search space for hyperparameters is detailed in Supplementary \cref{supp_table16:hyperparam_space}, and the resulting optimal hyperparameters are presented in Supplementary \cref{supp_table17:opt_hyperparam}.
 
 \subsection{Data augmentation and CNN model training}
 To enhance the generalizability and robustness of the our CNN model, and achieve comprehensive coverage of the chemical space \cite{DBLP:journals/corr/abs-2112-12542}, we applied data augmentation techniques to the initial dataset using the following procedures:
@@ -102,14 +102,14 @@ The augmented dataset comprises 12,312 samples, with adsorption energies having 
 Twenty percent of these samples were allocated to the validation set. Throughout the training process, a batch size of 64 was employed to ensure a balanced learning dynamic.
 
 \subsection{Occlusion experiments}
-Supplementary \cref{si_fig21:occlusion} visually illustrates the occlusion experiment methodology.
+Supplementary \cref{supp_fig21:occlusion} visually illustrates the occlusion experiment methodology.
 To maintain consistent shapes, zero-padding was applied to the input eDOS arrays.
 Focusing on understanding the influence of metals on adsorption behavior, a masker with dimensions [width, 1, 1] was employed along the metal channel to eliminate cross-orbital interactions.
-Here, "width" denotes the masker width, and detailed explanations for determining the width are provided in Supplementary \cref{si_sec3.5_occlusion}.
+Here, "width" denotes the masker width, and detailed explanations for determining the width are provided in Supplementary \cref{supp_sec3.5_occlusion}.
 Through recursive application of these maskers, variations in predicted adsorption energies from the CNN model were recorded, generating an occlusion array.
 
 \subsection{Shifting experiments}
-Supplementary \cref{si_fig30:shifting} illustrates the implemented shifting experiment protocol.
+Supplementary \cref{supp_fig30:shifting} illustrates the implemented shifting experiment protocol.
 In this study, the initial electronic density of states underwent controlled shifting along the energy axis.
 This protocol ranges from -1 eV to 1 eV, with a step length of 0.005 eV per image.
 To maintain a uniform energy window, each image underwent cropping and padding procedures.
@@ -124,4 +124,4 @@ Orbitals of interest were confirmed through band-structure analysis, and real-sp
 
 \subsection{Machine learning and data analysis environment}
 The CNN model was implemented using TensorFlow \cite{abadi2016tensorflow}, and hyperparameter optimization was conducted using the Hyperband \cite{li2018hyperband} algorithm via KerasTuner \cite{omalley2019kerastuner}.
-For a more detailed overview of our machine learning setup and data analysis environment, please refer to Supplementary \cref{si_sec4_env}.
+For a more detailed overview of our machine learning setup and data analysis environment, please refer to Supplementary \cref{supp_sec4_env}.
