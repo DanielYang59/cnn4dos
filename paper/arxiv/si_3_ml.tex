@@ -63,9 +63,9 @@
 
 The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs.
 In this study, the array adopts a shape of [numSamplings, numOrbitals, numChannels], as illustrated in \cref{si_fig20:input_dos}.
-Here, “numSamplings” represents the number of data points sampled across the energy spectrum,
-“numOrbitals” denotes the number of DOS orbitals,
-and “numChannels” indicates the number of atomic channels.
+Here, "numSamplings" represents the number of data points sampled across the energy spectrum,
+"numOrbitals" denotes the number of DOS orbitals,
+and "numChannels" indicates the number of atomic channels.
 
 % SI Figure 20: Representation of the input eDOS data structure
 \begin{figure}[htbp]
@@ -161,9 +161,9 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \end{tabular}
   \caption{Prediction mean absolute errors of the CNN model}
   \tablefootnote{The same CNN model, trained on the augmented dataset, was used for all predictions.
-  The term “original dataset” refers to evaluations conducted on the original dataset without any augmented data;
+  The term "original dataset" refers to evaluations conducted on the original dataset without any augmented data;
   it does not imply the use of a different CNN model trained solely on the original dataset.
-  Similarly, “augmented dataset” refers to evaluations on the dataset with both original data and augment data,
+  Similarly, "augmented dataset" refers to evaluations on the dataset with both original data and augment data,
   not a distinct model.}
   \label{si_table18:cnn_mae}
 \end{table}
@@ -177,7 +177,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
   \includegraphics[width=\textwidth]{si_fig21_occlusion.png}
   \caption{\textbf{Illustration of the eDOS occlusion experiment.}
   This figure demonstrates the step-by-step process of the occlusion experiment.
-  The input eDOS array first undergoes zero-padded, and then a masker of width “width” is applied,
+  The input eDOS array first undergoes zero-padded, and then a masker of width "width" is applied,
   resulting in an occlusion array that preserves the shape of the input array.}
   \label{si_fig21:occlusion}
 \end{figure}
@@ -186,7 +186,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig22_occl_wid1.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “1”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "1".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig22:occl_wid1}
@@ -196,7 +196,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig23_occl_wid3.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “3”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "3".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig23:occl_wid3}
@@ -206,7 +206,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig24_occl_wid5.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “5”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "5".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig24:occl_wid5}
@@ -216,7 +216,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig25_occl_wid11.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “11”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "11".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig25:occl_wid11}
@@ -226,7 +226,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig26_occl_wid21.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “21”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "21".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig26:occl_wid21}
@@ -236,7 +236,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig27_occl_wid31.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “31”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "31".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig27:occl_wid31}
@@ -246,7 +246,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig28_occl_wid41.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “41”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "41".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig28:occl_wid41}
@@ -256,7 +256,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{si_fig29_occl_wid51.png}
-  \caption{\textbf{Occlusion Experiment with a masker width of “51”.}
+  \caption{\textbf{Occlusion Experiment with a masker width of "51".}
   This figure shows an occlusion experiment on the Ge atom in
   the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
   \label{si_fig29:occl_wid51}
