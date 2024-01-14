@@ -1,4 +1,15 @@
 
-make SI Tables APA style
-some sections in SI don't start in new page (Section 2.2 for example)
 check python package citations
+
+Style file? "You probably do not need to submit any style files since we have copies of all the common scientific style files. Try submitting without style files. If you find that this does not work because we do not have the style file you need, then you can include the necessary style file in your submission and resubmit."
+
+Figure "Separate figures with LaTeX submissions
+Figures in jpeg, png, or gif format may be submitted alongside native (La)TeX submissions provided that they are not included in the source file.. PDF or other formats not listed above are not permitted with (La)TeX submission; use PDFLaTeX instead for PDF, jpeg, or png figures.
+
+Figures which are not incorporated in the main body of the paper will be listed separately. They should be given names of the form figure<number><optional letter>.ext, e.g. figure1.jpg, figure2a.gif, figure2b.png, so that they can be automatically sorted into the correct order for the "combined figures" link."
+
+Figure: "Note that TeX/LaTeX can only include (encapsulated) PostScript (.ps or .eps), figures directly. Other formats are not supported in native (La)TeX. See Useful Software for figure conversion tools. If you are making use of PDFLaTeX you may embed your .pdf, .png, .jpg figures using the same mechanisms. Please note that arXiv does not perform "on the fly" figure file conversion during tex processing (i.e. "-eps-converted-to.pdf" files being present in your source directory). You must perform such conversion yourself, before uploading, updating any effected inclusion command. This process ensures that you have examined the results of any figure conversion to ensure that the figures still contain scientifically correct information and that arXiv is not responsible for the scientific accuracy of your figures."
+
+some sections in SI don't start in new page (Section 2.2 for example)
+
+It is the responsibility of the submitter to ensure that all authors consent to the article being submitted(https://info.arxiv.org/help/prep.html).
