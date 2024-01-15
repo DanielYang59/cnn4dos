@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Occlusion experiments plotter: line mode and heatmap mode."""
+
 
 import matplotlib as mpl
 from matplotlib import rcParams
@@ -12,6 +12,7 @@ import warnings
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
+
 
 class OcclusionPlotter:
     """
@@ -112,13 +113,15 @@ class OcclusionPlotter:
         # Take requested orbitals
         array, names = self._take_orbitals(predictions, orbitals, names=self.config["plotting"]["orbital_names"])
         if orbitals != ["d"]:
-            warnings.warn("This script is intended to work for d orbital only. Other selection may generate unsatisfactory figures.")
+            warnings.warn("This script is intended to work for d orbital only.\
+                          Other selection may generate unsatisfactory figures.")
 
         # Create figure and axis
         subplot_vspacing = 0.2  # vertical spacing between subplots
-        fig, axs = plt.subplots(array.shape[1], sharex=False,
-                            figsize=(10, 6 + (5 * subplot_vspacing))
-                            )
+        fig, axs = plt.subplots(
+            array.shape[1], sharex=False,
+            figsize=(10, 6 + (5 * subplot_vspacing))
+            )
 
         # Get min/max values of occlusion array (for a symmetric colorbar)
         vmin = np.amin(array)
@@ -136,11 +139,12 @@ class OcclusionPlotter:
             shifted_dos_range = [dos_energy_range[0] - self.fermi_level, dos_energy_range[1] - self.fermi_level]
 
             # Add 1D heatmap for each orbital
-            im = ax.imshow(np.expand_dims(orbital_arr, axis=0),
-                            extent=[shifted_dos_range[0], shifted_dos_range[1], 0, 2],  # increase 4th value to increase height
-                            cmap=colormap,
-                            vmin=-colorbar_range, vmax=colorbar_range,  # symmetric colorbar
-                            )
+            im = ax.imshow(
+                np.expand_dims(orbital_arr, axis=0),
+                extent=[shifted_dos_range[0], shifted_dos_range[1], 0, 2],  # increase 4th value to increase height
+                cmap=colormap,
+                vmin=-colorbar_range, vmax=colorbar_range,  # symmetric colorbar
+                )
 
             # Adjust x range and ticks
             ax.set_xlim(self.config["plotting"]["plot_energy_range"])
@@ -149,16 +153,17 @@ class OcclusionPlotter:
 
             # Add orbital names to the right
             ax.yaxis.set_label_position("right")
-            ax.set_ylabel(names[index], rotation=0, fontsize=28, loc="center", labelpad=44)
+            ax.set_ylabel(names[index], rotation=0, fontsize=36, loc="center", labelpad=48)
 
             # Set border thickness to 2
             for spine in ax.spines.values():
                 spine.set_linewidth(2)
 
         # Adjust vertical spacing between subplots
-        plt.subplots_adjust(hspace=0.2,
-                            left=0.08,  # move y label closer to the main plot
-                            )
+        plt.subplots_adjust(
+            hspace=0.2,
+            left=0.08,  # move y label closer to the main plot
+            )
 
         # Hide ticks for x axes
         for i in range(4):
@@ -169,15 +174,17 @@ class OcclusionPlotter:
             axs[i].set_yticks([])
 
         # Set x/y axis labels
-        mpl.rcParams["mathtext.default"] = "regular"  # non-Italic as default
-        fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=32, x=0.35)
-        fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=32)
+        # TODO: increase fontsize further would lead to overlap
+        mpl.rcParams["mathtext.default"] = "regular"  # non-Italic
+        fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=36, x=0.35)
+        fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=36)
         fig.subplots_adjust(bottom=0.12)  # adjust x-axis title position
 
         # Add colorbar
-        cb = fig.colorbar(im, ax=axs.ravel().tolist(),
-                        pad=0.16,  # spacing between colorbar and main plot
-                        )
+        cb = fig.colorbar(
+            im, ax=axs.ravel().tolist(),
+            pad=0.16,  # spacing between colorbar and main plot
+            )
         cb.outline.set_visible(False)  # hide border
         cb.ax.tick_params(labelsize=24, width=2.5)  # set tick style
         cb.locator = ticker.MaxNLocator(5)  # set number of ticks
@@ -187,6 +194,7 @@ class OcclusionPlotter:
         plt.savefig(Path(os.getcwd()) / "occlusion_heatmap.png", dpi=300)
         if show:
             plt.show()
+
 
     def plot_line(self, orbitals: list = ["s", "p", "d"], show: bool = False):
         """Plot DOS line charts for specified orbitals.
@@ -234,14 +242,15 @@ class OcclusionPlotter:
         if show:
             plt.show()
 
+
 # Test area
 if __name__ == "__main__":
     test_predictions = np.load("../data/g-C3N4_CO_is/4-Co/occlusion_predictions.npy")
     test_config = {
-        "plotting" : {
-            "dos_energy_range" : [-14, 6],
-            "plot_energy_range" : [-10, 5],
-            "orbital_names" : ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"],
+        "plotting": {
+            "dos_energy_range": [-14, 6],
+            "plot_energy_range": [-10, 5],
+            "orbital_names": ["s", "$p_y$", "$p_z$", "$p_x$", "$d_{xy}$", "$d_{yz}$", "$d_{z^2}$", "$d_{xz}$", "$d_{x^2-y^2}$"],
             "heatmap_orbitals": ["d", ],
             "line_orbitals": ["s", "p", "d"],
         }
