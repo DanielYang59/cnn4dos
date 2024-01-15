@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Main for eDOS occlusion experiments."""
+
 
 import os
 from pathlib import Path
@@ -20,6 +20,7 @@ from src.utilities import get_fermi_level
 from cnnPredictor import CNNPredictor
 from dataLoader import DataLoader
 from dosProcessor import DOSProcessor
+
 
 def main():
     """Main function to execute occlusion experiments."""
@@ -84,12 +85,19 @@ def main():
     if config['occlusion']['save_predictions']:
         np.save(Path(os.getcwd()) / "occlusion_predictions.npy", predictions)
 
+    # # (Optional) Load local predictions
+    # predictions = np.load(Path(os.getcwd()) / "occlusion_predictions.npy")
+
     # Step 5: Read fermi level and plot occlusion
-    fermi_level = get_fermi_level(working_dir=os.getcwd(), fermi_level_source=root_dir / Path(config['path']['fermi_level_source']))
+    fermi_level = get_fermi_level(
+        working_dir=os.getcwd(),
+        fermi_level_source=root_dir / Path(config['path']['fermi_level_source'])
+        )
 
     plotter = OcclusionPlotter(predictions, config, fermi_level)
     plotter.plot_heatmap(orbitals=config['plotting']['heatmap_orbitals'])
-    plotter.plot_line(orbitals=config['plotting']['line_orbitals'])
+    # plotter.plot_line(orbitals=config['plotting']['line_orbitals'])
+
 
 if __name__ == "__main__":
     main()
