@@ -1,12 +1,15 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Utilities for eDOS occlusion."""
+
 
 import pandas as pd
 from pathlib import Path
+from typing import Tuple
 
-def get_properties_from_path(working_dir: Path) -> tuple:
+
+def get_properties_from_path(working_dir: Path) -> Tuple[str, str, str, str]:
     """
-    Extract substrate name, adsorbate name, state ('is' or 'fs'), and metal name from a given working directory path.
+    Extract substrate name, adsorbate name, state ('is' or 'fs'),
+    and metal name from a given working directory path.
 
     Parameters:
         working_dir (Path): The working directory path.
@@ -19,11 +22,14 @@ def get_properties_from_path(working_dir: Path) -> tuple:
     """
     parts = working_dir.parts
     substrate, adsorbate, state = parts[-2].split("_")
-    if state not in ['is', 'fs']:
-        raise ValueError("State should be 'is' for initial state or 'fs' for final state.")
+    if state not in ["is", "fs"]:
+        raise ValueError(
+            "State should be 'is' for initial state or 'fs' for final state."
+        )
     metal = parts[-1]
 
     return substrate, adsorbate, state, metal
+
 
 def get_fermi_level(working_dir: str, fermi_level_source: str) -> float:
     """
@@ -57,6 +63,4 @@ def get_fermi_level(working_dir: str, fermi_level_source: str) -> float:
 
     original_column_name = df.columns[adsorbate_columns.index(adsorbate)]
 
-    fermi_level = df.loc[metal, original_column_name]
-
-    return fermi_level
+    return df.loc[metal, original_column_name]

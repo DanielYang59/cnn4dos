@@ -1,17 +1,14 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot -COHP and occlusion experiment result (Co dxz/dxy orbitals)."""
 
-"""
-Plot -COHP and occlusion experiment result (Co dxz/dxy orbitals).
-"""
 
-import warnings
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import MaxNLocator
+import warnings
 from pathlib import Path
+
 
 def setup_matplotlib():
     """Sets up Matplotlib parameters."""
@@ -19,13 +16,16 @@ def setup_matplotlib():
     plt.rcParams["font.sans-serif"] = ["Arial"]
     plt.rcParams["axes.linewidth"] = 2
 
+
 def import_data(file_path: Path):
     """Imports data from a given file path."""
     return pd.read_csv(file_path).iloc[:, [0, 1]]
 
+
 def plot_data(ax, x, y, color, linewidth):
     """Plots data on a given Matplotlib axis."""
     ax.plot(x, y, color=color, linewidth=linewidth)
+
 
 def main():
     setup_matplotlib()
@@ -82,6 +82,7 @@ def main():
     # Save and show figure
     plt.savefig(Path("figures") / "cohp_vs_occlusion.png", dpi=300)
     plt.show()
+
 
 if __name__ == "__main__":
     main()

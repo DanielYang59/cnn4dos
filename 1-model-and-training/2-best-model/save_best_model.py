@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Save best CNN model."""
 
 
 import keras_tuner
 import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 from hp_model import hp_model
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 
 # Main Loop
@@ -20,8 +20,7 @@ if __name__ == "__main__":
         objective="val_mean_absolute_error",
         directory="hp_search",
         project_name="best_model",
-        )
-
+    )
 
     # Load best model
     best_model = tuner.get_best_models(num_models=1)[0]

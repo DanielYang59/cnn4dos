@@ -20,14 +20,12 @@ def get_folders_in_dir(directory_path: str, filter_file: str = None) -> list:
     Raises:
         FileNotFoundError: If no suitable folders are found, especially when a filter_file is specified and not found.
     """
-
     folder_list = []
     dir_path = Path(directory_path)
 
     # Check if the directory exists
     if not dir_path.exists():
         return f"Directory {directory_path} does not exist."
-
 
     # List items in the directory
     for item in dir_path.iterdir():
@@ -41,6 +39,8 @@ def get_folders_in_dir(directory_path: str, filter_file: str = None) -> list:
                 folder_list.append(dir_path / item.name)
 
     if not folder_list:
-        raise FileNotFoundError(f"No suitable folders containing {filter_file} found in ({directory_path}).")
+        raise FileNotFoundError(
+            f"No suitable folders containing {filter_file} found in ({directory_path})."
+        )
 
     return folder_list

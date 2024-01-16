@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Data loader for volcano plotter."""
+
 
 import json
 import os
@@ -14,10 +14,8 @@ class dataLoader:
             3. thermal correction (ZPE, TS) for adsorption energy
 
         """
-        pass
 
-
-    def calculate_adsorption_free_energy(self, correction_file):
+    def calculate_adsorption_free_energy(self, correction_file) -> None:
         """Calculate adsorption free energy from DFT adsorption energy, by adding thermal corrections to adsorption energies.
 
         Args:
@@ -37,7 +35,6 @@ class dataLoader:
         df = pd.read_csv(correction_file)
         thermal_correction_dict = dict(zip(df["Species"], df["Correction"].astype(float)))
 
-
         # Apply thermal correction for each substrate
         self.adsorption_free_energy = {}
         for sub, df in self.adsorption_energy.items():
@@ -53,8 +50,7 @@ class dataLoader:
 
             self.adsorption_free_energy[sub] = free_energy_df
 
-
-    def load_adsorption_energy(self, path, substrates, adsorbates):
+    def load_adsorption_energy(self, path, substrates, adsorbates) -> None:
         """Load adsorption energy from csv file (without ZPE corrections).
 
         Args:
@@ -77,8 +73,7 @@ class dataLoader:
             for sub in substrates
         }
 
-
-    def load_adsorbate_free_energy(self, path):
+    def load_adsorbate_free_energy(self, path) -> dict:
         """Load adsorbate free energy from csv file.
 
         Args:
@@ -96,8 +91,7 @@ class dataLoader:
 
         return dict(zip(df["name"], df["free_energy"].astype(float)))
 
-
-    def load_reaction_pathway(self, file):
+    def load_reaction_pathway(self, file) -> dict:
         """Load reaction pathway json file.
 
         Args:
@@ -111,7 +105,7 @@ class dataLoader:
         assert os.path.exists(file) and file.endswith("json")
 
         # Import reaction pathway file
-        with open(file) as f:
+        with open(file, encoding="utf-8") as f:
             reaction_pathway = json.load(f)
 
         return reaction_pathway
@@ -119,18 +113,17 @@ class dataLoader:
 
 # Test area
 if __name__ == "__main__":
-    path = "../../../0-dataset/label_adsorption_energy"
-    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
-    adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
+    test_path = "../../../0-dataset/label_adsorption_energy"
+    test_substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
+    test_adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     # Test loading adsorption energy
     loader = dataLoader()
-    loader.load_adsorption_energy(path, substrates, adsorbates)
+    loader.load_adsorption_energy(test_path, test_substrates, test_adsorbates)
     # print(loader.adsorption_energy_dict)
 
     # Test adding thermal correction
     loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
-
 
     # Test loading reaction pathway
     reaction_pathway = loader.load_reaction_pathway(file="../../data/reaction_pathway.json")
