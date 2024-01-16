@@ -1,12 +1,18 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Calculate reaction for volcano plotter."""
+
+
+import numpy as np
 
 from .dataLoader import dataLoader
-import numpy as np
 
 
 class reactionCalculator:
-    def __init__(self, adsorption_energy_scaling_relation, adsorbate_energy_file, reaction_pathway_file, external_potential=0.0):
+    def __init__(self,
+                 adsorption_energy_scaling_relation,
+                 adsorbate_energy_file,
+                 reaction_pathway_file,
+                 external_potential=0.0
+                 ):
         """Calculate scaling relations for reaction.
 
         Args:
@@ -22,13 +28,11 @@ class reactionCalculator:
         assert isinstance(external_potential, (int, float))
         self.external_potential = external_potential
 
-
         loader = dataLoader()
         # Load adsorbate energy and reaction pathways
         self.adsorbate_energy = loader.load_adsorbate_free_energy(adsorbate_energy_file)
         # Load reaction pathway
         self.reaction_pathway = loader.load_reaction_pathway(reaction_pathway_file)
-
 
     def __calculate_half_reaction(self, half_reaction):
         """Calculate scaling relation parameters for half reactions.
@@ -46,7 +50,6 @@ class reactionCalculator:
         # Check args
         assert isinstance(half_reaction, dict)
 
-
         # Initiate empty array
         paras = np.array([0.0, 0.0, 0.0])
 
@@ -55,12 +58,10 @@ class reactionCalculator:
             if species == "*":
                 continue
 
-
             # Proton-electron pairs (PEP)
             elif species == "PEP":
                 pep_energy = 0.5 * self.adsorbate_energy["H2"] - self.external_potential
                 paras += [0, 0, num * pep_energy]
-
 
             # Adsorbed species
             elif species.startswith("*"):
@@ -72,10 +73,8 @@ class reactionCalculator:
                 else:
                     raise KeyError(f"Cannot find free energy entry for {species}.")
 
-
                 # Add scaling relation parameters
                 paras += num * self.adsorption_energy_scaling_relation[species]
-
 
             # non-adsorbate species (free species)
             else:
@@ -86,9 +85,7 @@ class reactionCalculator:
                 else:
                     raise KeyError(f"Cannot find free energy entry for {species}.")
 
-
         return paras
-
 
     def __calculate_reaction_step(self, equation):
         """Calculate scaling relation parameters for one reaction step.
@@ -110,7 +107,6 @@ class reactionCalculator:
         # Calculate
         return products_paras - reactants_paras
 
-
     def calculate_reaction_scaling_relations(self, name):
         """Calculate scaling relations for a selected reaction and external potential.
 
@@ -127,7 +123,6 @@ class reactionCalculator:
         # Check if reaction exists
         if name not in self.reaction_pathway:
             raise KeyError(f"Cannot find data for reaction {name}")
-
 
         # Calculate each reaction step
         reaction_paras = {}
@@ -147,14 +142,20 @@ if __name__ == "__main__":
 
     # Loading adsorption energy
     from dataLoader import dataLoader
-    loader = dataLoader()
-    loader.load_adsorption_energy(path, substrates, adsorbates)
+    test_loader = dataLoader()
+    test_loader.load_adsorption_energy(path, substrates, adsorbates)
 
-    loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
+    test_loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
 
     # Calculate adsorption energy linear scaling relations
     from scalingRelation import scalingRelation
-    calculator = scalingRelation(adsorption_energy_dict=loader.adsorption_free_energy, descriptors=("3-CO", "8-OH"), mixing_ratios="AUTO", verbose=False, remove_ads_prefix=True)
+    calculator = scalingRelation(
+        adsorption_energy_dict=test_loader.adsorption_free_energy,
+        descriptors=("3-CO", "8-OH"),
+        mixing_ratios="AUTO",
+        verbose=False,
+        remove_ads_prefix=True
+        )
 
     # Test reaction energy scaling relations calculator
     reaction_calculator = reactionCalculator(
@@ -165,5 +166,4 @@ if __name__ == "__main__":
         )
 
     co2rr_para = reaction_calculator.calculate_reaction_scaling_relations(name="CO2RR_CH4")
-
     print(co2rr_para)

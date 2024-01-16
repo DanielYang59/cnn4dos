@@ -1,5 +1,5 @@
-#!/bin/usr/python3
-# -*- coding: utf-8 -*-
+"""Plot eDOS shifting experiments results."""
+
 
 from matplotlib import rcParams
 import matplotlib.pyplot as plt
@@ -9,6 +9,7 @@ from pathlib import Path
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
+
 
 class ShiftPlotter:
     """
@@ -21,7 +22,7 @@ class ShiftPlotter:
         shifting_orbitals (str): The orbital types subject to shifting.
     """
 
-    def __init__(self, all_predictions, config):
+    def __init__(self, all_predictions, config) -> None:
         """
         Initialize ShiftPlotter with prediction data and configuration.
 
@@ -31,14 +32,18 @@ class ShiftPlotter:
         """
         self.all_predictions = all_predictions  # Dictionary of all predictions
         self._sort_predictions_by_element()
-        self.shift_range = config['shifting']['shifting_range']  # range of shifting, e.g., [-0.5, 0.5]
-        self.shift_step = config['shifting']['shifting_step']  # e.g., 0.005
-        self.shifting_orbitals = config['shifting']['shifting_orbitals']
+        self.shift_range = config["shifting"][
+            "shifting_range"
+        ]  # range of shifting, e.g., [-0.5, 0.5]
+        self.shift_step = config["shifting"]["shifting_step"]  # e.g., 0.005
+        self.shifting_orbitals = config["shifting"]["shifting_orbitals"]
 
-    def _sort_predictions_by_element(self):
+    def _sort_predictions_by_element(self) -> None:
         """
-        Sorts the 'all_predictions' dictionary based on the atomic numbers of the chemical elements found in its keys.
-        The atomic numbers are used to order the elements according to the Periodic Table.
+        Sorts the 'all_predictions' dictionary based on the atomic numbers of
+        the chemical elements found in its keys.
+        The atomic numbers are used to order the elements
+        according to the periodic Table.
         """
         elements_order = [element(i).symbol for i in range(1, 119)]
 
@@ -46,10 +51,13 @@ class ShiftPlotter:
             # Assuming the last component after "-" is the element symbol
             return str(key).split("/")[-1].split("-")[-1]
 
-        sorted_keys = sorted(self.all_predictions.keys(), key=lambda x: elements_order.index(get_element_from_key(x)))
+        sorted_keys = sorted(
+            self.all_predictions.keys(),
+            key=lambda x: elements_order.index(get_element_from_key(x)),
+        )
         self.all_predictions = {k: self.all_predictions[k] for k in sorted_keys}
 
-    def plot(self, colormap="magma", save_dir="figures"):
+    def plot(self, colormap="magma", save_dir="figures") -> None:
         """
         Generate a plot based on the provided shift and prediction data.
 
@@ -61,10 +69,14 @@ class ShiftPlotter:
             None: The function saves the plot as a PNG file and displays it.
         """
         # Generate shift_energy_array dynamically
-        shift_energy_array = np.arange(self.shift_range[0], self.shift_range[1] + self.shift_step, self.shift_step)
+        shift_energy_array = np.arange(
+            self.shift_range[0], self.shift_range[1] + self.shift_step, self.shift_step
+        )
 
         # Calculate global vmin and vmax for a symmetric colorbar
-        vmax = max(abs(np.max(prediction)) for prediction in self.all_predictions.values())
+        vmax = max(
+            abs(np.max(prediction)) for prediction in self.all_predictions.values()
+        )
         vmin = -vmax
 
         # Generate subplot for each folder's prediction
@@ -74,14 +86,19 @@ class ShiftPlotter:
 
         for index, (folder_name, prediction) in enumerate(self.all_predictions.items()):
             ax = axs[index]
-            y = np.expand_dims(prediction, axis=0)  # The prediction array for this folder
+            y = np.expand_dims(
+                prediction, axis=0
+            )  # The prediction array for this folder
 
             # Create 1D heatmap
-            im = ax.imshow(y, extent=[shift_energy_array[0], shift_energy_array[-1], 0, 1.5],
-                        cmap=colormap,
-                        vmin=vmin, vmax=vmax,
-                        aspect='auto'
-                        )
+            im = ax.imshow(
+                y,
+                extent=[shift_energy_array[0], shift_energy_array[-1], 0, 1.5],
+                cmap=colormap,
+                vmin=vmin,
+                vmax=vmax,
+                aspect="auto",
+            )
 
             # Set x tick thickness
             ax.xaxis.set_tick_params(width=2)
@@ -89,7 +106,9 @@ class ShiftPlotter:
             # Y axis settings
             ax.set_yticks([])  # Hide y labels
             element_name = str(folder_name).split("/")[-1].split("-")[-1]
-            ax.set_ylabel(element_name, rotation=0, fontsize=16, loc="bottom", labelpad=30) # Set y title
+            ax.set_ylabel(
+                element_name, rotation=0, fontsize=16, loc="bottom", labelpad=30
+            )  # Set y title
 
             # Hide top/left/right frames
             ax.spines.top.set_visible(False)
@@ -110,4 +129,8 @@ class ShiftPlotter:
 
         save_dir = Path(save_dir)
         save_dir.mkdir(parents=True, exist_ok=True)
-        plt.savefig(save_dir / f"shift_experiment_{self.shift_range[0]}_{self.shift_range[1]}_{self.shift_step}_{self.shifting_orbitals}.png", dpi=600)
+        plt.savefig(
+            save_dir
+            / f"shift_experiment_{self.shift_range[0]}_{self.shift_range[1]}_{self.shift_step}_{self.shifting_orbitals}.png",
+            dpi=600,
+        )
