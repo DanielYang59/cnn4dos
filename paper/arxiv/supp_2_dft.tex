@@ -200,15 +200,9 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 % Supplementary Table 3: Free energy corrections for adsorbed intermediates
 \begin{table}[htbp]
 \label{supp_table3:ads_e_correction}
-  \centering
-  {\fontsize{10}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Free energy corrections at 298.15 K for adsorbed intermediates,
-    tabularnote = \textit{Note:} {Free energy corrections were obtained by averaging the
-    DFT-computed corrections, which include zero-point energy and entropy, across three substrates:
-    g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, and dual-vacancy graphene.}]
-    {ll}
+  \caption{Free energy corrections at 298.15 K for adsorbed intermediates}
+  \small
+  \begin{tabularx}{\textwidth}{@{}lXr@{}}
     \toprule
     Species                & Free energy correction (eV)  \\
     \midrule
@@ -222,20 +216,20 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     *OH                    &  0.1993                      \\
     *H                     &  0.1533                      \\
     \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
+  \bigskip
+  \small\textit{Note:} {Free energy corrections were obtained by averaging the
+  DFT-computed corrections, which include zero-point energy and entropy, across three substrates:
+  g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, and dual-vacancy graphene.}
 \end{table}
 
 % Supplementary Table 4: DFT calculated final state energies for adsorbates supported on g-c3n4
 \begin{table}[htbp]
 \label{supp_table4:e_g-c3n4}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = DFT calculated final state energies in eV for adsorbates
-    supported on g-C\textsubscript{3}N\textsubscript{4}]
-    {*{10}{l}}
+  \caption{DFT calculated final state energies in eV for adsorbates
+    supported on g-C\textsubscript{3}N\textsubscript{4}}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
     \toprule
     Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
     & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
@@ -279,19 +273,15 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     Tl & -480.7357 & -503.7632 & -505.9937 & -495.5894 & -497.7724 & -503.0564 & -506.7919 & -484.0732 & -482.3846 \\
     W  & -485.2596 & -510.8145 & -514.28   & -504.2714 & -506.7988 & -511.0643 & -514.2358 & -494.4330 & -490.6506 \\
     \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 5: DFT calculated final state energies for adsorbates supported on n-doped graphene
 \begin{table}[htbp]
 \label{supp_table5:e_n_gra}
-    \centering
-    {\fontsize{6}{12}\selectfont % Set the font size to 6pt
-    \NiceMatrixOptions{caption-above}
-    \begin{NiceTabular}
-      [caption = DFT calculated final state energies in eV for adsorbates supported on nitrogen-doped graphene]
-      {*{10}{l}}
+    \caption{DFT calculated final state energies in eV for adsorbates supported on nitrogen-doped graphene}
+    \small
+    \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
       & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
@@ -335,19 +325,15 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Tl	& -648.1346	&-671.1831	&-673.2953	&-662.9610  &-665.6240  &-670.3512	&-673.4567	&-651.7909	&-650.4750 \\
       W	  & -657.0204	&-682.0186	&-685.3735	&-674.3843	&-678.2483	&-682.4377	&-686.3613	&-667.4547	&-661.5686 \\
       \bottomrule
-    \end{NiceTabular}
-    }
+    \end{tabularx}
 \end{table}
 
 % Supplementary Table 6: DFT calculated final state energies for adsorbates supported on graphene with dual-vac
 \begin{table}[htbp]
 \label{supp_table6:e_vac_gra}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = DFT calculated final state energies in eV for adsorbates supported on graphene with dual-vacancy]
-    {*{10}{l}}
+  \caption{DFT calculated final state energies in eV for adsorbates supported on graphene with dual-vacancy}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
     \toprule
     Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
     & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
@@ -391,20 +377,16 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     Tl & -645.7286 & -668.8734 & -671.7205 & -660.7259 & -664.0001 & -668.1110 & -672.0305 & -649.7198 & -648.7563 \\
     W  & -657.5901 & -681.6722 & -685.1010 & -674.1028 & -677.7828 & -682.4493 & -686.6385 & -666.9364 & -661.8641 \\
     \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 7: ZPE for adsorbates supported on g-c3n4
 \begin{table}[htbp]
 \label{supp_table7:zpe_g-c3n4}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Zero-point energies in eV for relaxed adsorbates supported
-    on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K]
-    {*{10}{l}}
+  \caption{Zero-point energies in eV for relaxed adsorbates supported
+    on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
     \toprule
     Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
     & *CH\textsubscript{2}O & *OCH\textsubscript{3} & *O & *OH    & *H     \\
@@ -448,20 +430,16 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     Tl & 0.3114 & 0.5614 & 0.1389 & 0.3494 & 0.7105 & 1.0410 & 0.0246 & 0.3210 & 0.0951 \\
     W  & 0.3146 & 0.6059 & 0.2160 & 0.4456 & 0.8033 & 1.0886 & 0.0725 & 0.3387 & 0.1834 \\
     \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 8: Entropy corrections for adsorbate@g-C3N4
 \begin{table}[htbp]
 \label{supp_table8:s_g-c3n4}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Entropy corrections ($-T \cdot S$) in eV for relaxed
-    adsorbates supported on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K]
-    {*{10}{l}}
+  \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed
+    adsorbates supported on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
@@ -505,20 +483,16 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Tl & -0.2599 & -0.2833 & -0.1807 & -0.1538 & -0.2422 & -0.1501 & -0.0126 & -0.1338 & -0.0533 \\
       W  & -0.1791 & -0.2368 & -0.1335 & -0.1723 & -0.1225 & -0.2253 & -0.0673 & -0.1180 & -0.0201 \\
       \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 9: ZPE for adsorbates supported on N-doped graphene
 \begin{table}[htbp]
 \label{supp_table9:zpe_n_gra}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Zero-point energies in eV for relaxed adsorbates
-    supported on nitrogen-doped graphene at 298.15 K]
-    {*{10}{l}}
+  \caption{Zero-point energies in eV for relaxed adsorbates
+    supported on nitrogen-doped graphene at 298.15 K}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
       & *CH\textsubscript{2}O & *OCH\textsubscript{3} & *O & *OH    & *H     \\
@@ -562,20 +536,15 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Tl & 0.3131 & 0.5988 & 0.1402 & 0.4439 & 0.7193 & 1.0169 & 0.0573 & 0.3244 & 0.1506 \\
       W  & 0.2889 & 0.6117 & 0.1927 & 0.4777 & 0.7852 & 1.0941 & 0.0810 & 0.3273 & 0.1832 \\
       \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 10: Entropy corrections for adsorbate@N-doped graphene
 \begin{table}[htbp]
 \label{supp_table10:s_n_gra}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Entropy corrections ($-T \cdot S$) in eV for relaxed
-    adsorbates supported on nitrogen-doped graphene at 298.15 K]
-    {*{10}{l}}
+  \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed
+    adsorbates supported on nitrogen-doped graphene at 298.15 K}
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
@@ -619,20 +588,16 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Tl & -0.2573 & -0.2043 & -0.1719 & -0.2270 & -0.1288 & -0.2326 & -0.0688 & -0.1876 & -0.0332 \\
       W  & -0.2007 & -0.2007 & -0.1642 & -0.1194 & -0.1565 & -0.2032 & -0.0607 & -0.1275 & -0.0202 \\
       \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 11: ZPE for adsorbates supported on graphene with dual-vac
 \begin{table}[htbp]
 \label{supp_table11:zpe_vac_gra}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Zero-point energies in eV for relaxed adsorbates
-    supported on graphene with dual-vacancy at 298.15 K]
-    {*{10}{l}}
+  \caption{Zero-point energies in eV for relaxed adsorbates
+    supported on graphene with dual-vacancy at 298.15 K}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
       & *CH\textsubscript{2}O & *OCH\textsubscript{3}          & *O     & *OH    & *H     \\
@@ -676,20 +641,16 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Tl & 0.3091 & 0.5948 & 0.1424 & 0.4406 & 0.7123 & 1.0568 & 0.0342 & 0.3173 & 0.1569 \\
       W  & 0.3066 & 0.6062 & 0.1912 & 0.3984 & 0.8010 & 1.0777 & 0.0787 & 0.3333 & 0.1815 \\
       \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 12: Entropy corrections for adsorbate@graphene with dual-vac
 \begin{table}[htbp]
 \label{supp_table12:s_vac_gra}
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Entropy corrections ($-T \cdot S$) in eV for relaxed
-    adsorbates supported on graphene with dual-vacancy at 298.15 K]
-    {*{10}{l}}
+  \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed
+    adsorbates supported on graphene with dual-vacancy at 298.15 K}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
@@ -733,8 +694,7 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Tl & -0.1981 & -0.2044 & -0.2304 & -0.2198 & -0.2048 & -0.2595 & -0.1146 & -0.1764 & -0.0256 \\
       W  & -0.2006 & -0.2433 & -0.1670 & -0.1453 & -0.1295 & -0.1025 & -0.0613 & -0.1185 & -0.0157 \\
       \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 \subsection{Correlation analysis of adsorption energies}
@@ -812,16 +772,10 @@ In this case, the first term depends solely on the descriptors, while the second
 % Supplementary Table 13: Eads scaling relation params from hybrid descriptor method
 \begin{table}[htbp]
 \label{supp_table13:scaling_params}
-  \centering
-  {\fontsize{10}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Adsorption free energy scaling relation parameters
-    determined by the hybrid descriptor method,
-    tabularnote = \textit{Note:} {$a_{Z}$, $b_{Z}$ and $c_{Z}$ correspond
-    to coefficients for $G_{\text{ads}}\text{CO}$, $G_{\text{ads}}\text{OH}$
-    and constant terms, where $Z$ stands for the adsorbed species of interest.}]
-    {*{4}{l}}
+  \caption{Adsorption free energy scaling relation parameters
+    determined by the hybrid descriptor method}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{3}{X} @{}}
     \toprule
     Adsorbate             & $a_Z$   & $b_Z$   & $c_Z$    \\
     \midrule
@@ -832,8 +786,11 @@ In this case, the first term depends solely on the descriptors, while the second
     O                     & 0.3758  & 1.2580  &  0.0910  \\
     H                     & 0.3164  & 0.3568  & -0.6764  \\
     \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
+  \bigskip
+  \small\textit{Note:} $a_{Z}$, $b_{Z}$ and $c_{Z}$ correspond
+    to coefficients for $G_{\text{ads}}\text{CO}$, $G_{\text{ads}}\text{OH}$
+    and constant terms, where $Z$ stands for the adsorbed species of interest.
 \end{table}
 
 % SI Figure 10: Improvement in R2 from hybrid-descriptor method
@@ -853,13 +810,10 @@ In this case, the first term depends solely on the descriptors, while the second
 % Supplementary Table 14: Performance comparison of hybrid/single descriptors
 \begin{table}[htbp]
 \label{supp_table14:hybrid_des_perf}
-  \centering
-  {\fontsize{10}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Performance comparison of hybrid descriptor and single
-    descriptor for linear scaling relations]
-    {*{4}{l}}
+  \caption{Performance comparison of hybrid descriptor and single
+    descriptor for linear scaling relations}
+  \small
+  \begin{tabularx}{\textwidth}{@{}l *{3}{X} @{}}
     \toprule
     \multirow{2}{*}{Adsorbate} & Hybrid Descriptor $R^2$ & Single Descriptor $R^2$ & \multirow{2}{*}{$R^2$} \\
                                & (Optimal CO Ratio)      & Reference Species       &                        \\
@@ -872,8 +826,7 @@ In this case, the first term depends solely on the descriptors, while the second
     O                     & 0.8974 (23\%)  & 0.8825 (OH)  & 0.0149  \\
     H                     & 0.8303 (47\%)  & 0.7617 (OH)  & 0.0686  \\
     \bottomrule
-  \end{NiceTabular}
-  }
+  \end{tabularx}
 \end{table}
 
 \subsection{Volcano plots}

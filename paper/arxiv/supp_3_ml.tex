@@ -43,10 +43,9 @@ on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation a
 % Supplementary Table 15: Notations for elementary descriptors and electronic descriptors
 \begin{table}[htbp]
 \label{supp_table15:descriptor_notations}
-  \centering
-  \begin{NiceTabular}
-    [caption = Notations for elementary descriptors and electronic descriptors]
-    {lp{5cm}lp{5cm}}
+  \caption{Notations for elementary descriptors and electronic descriptors}
+  \small
+  \begin{tabularx}{\textwidth}{@{}llll@{}}
     \toprule
     \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
     \midrule
@@ -63,7 +62,7 @@ on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation a
     $P$            & period number                   & $e_{\text{Bader}}$     & Bader charge                 \\
     $V$            & number of valence electrons     &                        &                              \\
     \bottomrule
-  \end{NiceTabular}
+  \end{tabularx}
 \end{table}
 
 \subsection{Input pipeline construction}
@@ -102,10 +101,9 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 % Supplementary Table 16: The hyperparameter search space
 \begin{table}[htbp]
 \label{supp_table16:hyperparam_space}
-  \centering
-  \begin{NiceTabular}
-    [caption = The hyperparameter search space]
-    {llp{5cm}}
+  \caption{The hyperparameter search space}
+  \small
+  \begin{tabularx}{\textwidth}{@{}lXX@{}}
     \toprule
     Hyperparameter& Search Space              & Description                                                       \\
     \midrule
@@ -122,16 +120,15 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch      \\
     br\_act       & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in branch           \\
     \bottomrule
-  \end{NiceTabular}
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
 \begin{table}[htbp]
 \label{supp_table17:opt_hyperparam}
-  \centering
-  \begin{NiceTabular}
-    [caption = Optimal hyperparameters identified with Hyperband algorithm]
-    {llp{6cm}}
+  \caption{Optimal hyperparameters identified with Hyperband algorithm}
+  \small
+  \begin{tabularx}{\textwidth}{@{}lXX@{}}
     \toprule
     Hyperparameter& Optimal Value & Description                                              \\
     \midrule
@@ -148,22 +145,15 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_fc1       & 128       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch \\
     br\_act       & ``tanh''    & Activation function of fully connected layers in branch      \\
     \bottomrule
-  \end{NiceTabular}
+  \end{tabularx}
 \end{table}
 
 % Supplementary Table 18: Prediction MAEs of the CNN model
 \begin{table}[htbp]
 \label{supp_table18:cnn_mae}
-  \centering
-  \begin{NiceTabular}
-    [caption = Prediction mean absolute errors of the CNN model,
-    tabularnote = \textit{Note:} {The same CNN model, trained on the
-    augmented dataset, was used for all predictions. The term ``original dataset''
-    refers to evaluations conducted on the original dataset without any augmented data;
-    it does not imply the use of a different CNN model trained solely on the original dataset.
-    Similarly, ``augmented dataset'' refers to evaluations on the dataset with
-    both original data and augment data, not a distinct model.}]
-    {lll}
+  \caption{Prediction mean absolute errors of the CNN model}
+  \small
+  \begin{tabularx}{\textwidth}{@{}lXX@{}}
     \toprule
     Adsorbate             & Original dataset (eV)  & Augmented dataset (eV)  \\
     \midrule
@@ -177,8 +167,14 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     OH                    & 0.0547                 & 0.0602                  \\
     H                     & 0.0703                 & 0.0646                  \\
     \bottomrule
-  \end{NiceTabular}
-  \caption{}
+  \end{tabularx}
+  \bigskip
+  \small\textit{Note:} The same CNN model, trained on the
+    augmented dataset, was used for all predictions. The term ``original dataset''
+    refers to evaluations conducted on the original dataset without any augmented data;
+    it does not imply the use of a different CNN model trained solely on the original dataset.
+    Similarly, ``augmented dataset'' refers to evaluations on the dataset with
+    both original data and augment data, not a distinct model.
 \end{table}
 
 \subsection{Occlusion experiment}
