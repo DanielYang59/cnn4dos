@@ -111,7 +111,12 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+      [caption = DFT-calculated energies in eV for protonated *CO intermediate for
+      three investigated CO\textsubscript{2}RR pathways,
+      tabularnote = \textit{Note:} Energies of the most stable configurations are highlighted in bold.]
+      {*{10}{l}}
       \toprule
       \multirow{2}{*}{Metal}
       & \multicolumn{3}{c}{g-C\textsubscript{3}N\textsubscript{4}}
@@ -162,8 +167,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \caption{DFT-calculated energies in eV for protonated *CO intermediate for three investigated CO\textsubscript{2}RR pathways}
-  \tablefootnote{Energies of the most stable configurations are highlighted in bold.}
   \label{supp_table1:e_3_co2rr_paths}
 \end{table}
 
@@ -174,7 +177,12 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{10}{12}\selectfont
-  \begin{NiceTabular}{ll}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Free energies at 298.15 K for isolated species,
+    tabularnote = \textit{Note:} VASPKIT \cite{wang2021vaspkit}
+    was employed to calculate free energies.]
+    {ll}
     \toprule
     Species               & Free Energy (eV)  \\
     \midrule
@@ -192,16 +200,20 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \caption{Free energies at 298.15 K for isolated species.}
-  \tablefootnote{VASPKIT \cite{wang2021vaspkit} was employed to calculate free energies.}
   \label{supp_table2:species_free_energies}
 \end{table}
 
-%Supplementary Table 3: Free energy corrections for adsorbed intermediates
+% Supplementary Table 3: Free energy corrections for adsorbed intermediates
 \begin{table}[htbp]
   \centering
   {\fontsize{10}{12}\selectfont
-  \begin{NiceTabular}{ll}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Free energy corrections at 298.15 K for adsorbed intermediates,
+    tabularnote = \textit{Note:} {Free energy corrections were obtained by averaging the
+    DFT-computed corrections, which include zero-point energy and entropy, across three substrates:
+    g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, and dual-vacancy graphene.}]
+    {ll}
     \toprule
     Species                & Free energy correction (eV)  \\
     \midrule
@@ -217,10 +229,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \caption{Free energy corrections at 298.15 K for adsorbed intermediates}
-  \tablefootnote{Free energy corrections were obtained by averaging the DFT-computed corrections,
-  which include zero-point energy and entropy, across three substrates:
-  g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, and dual-vacancy graphene.}
   \label{supp_table3:ads_e_correction}
 \end{table}
 
@@ -228,7 +236,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = DFT calculated final state energies in eV for adsorbates
+    supported on g-C\textsubscript{3}N\textsubscript{4}]
+    {*{10}{l}}
     \toprule
     Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
     & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
@@ -274,7 +286,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \caption{DFT calculated final state energies in eV for adsorbates supported on g-C\textsubscript{3}N\textsubscript{4}}
   \label{supp_table4:e_g-c3n4}
 \end{table}
 
@@ -282,7 +293,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
     \centering
     {\fontsize{6}{12}\selectfont % Set the font size to 6pt
-    \begin{NiceTabular}{*{10}{l}}
+    \NiceMatrixOptions{caption-above}
+    \begin{NiceTabular}
+      [caption = DFT calculated final state energies in eV for adsorbates supported on nitrogen-doped graphene]
+      {*{10}{l}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
       & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
@@ -328,7 +342,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
     \end{NiceTabular}
     }
-    \caption{DFT calculated final state energies in eV for adsorbates supported on nitrogen-doped graphene}
     \label{supp_table5:e_n_gra}
 \end{table}
 
@@ -336,7 +349,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = DFT calculated final state energies in eV for adsorbates supported on graphene with dual-vacancy]
+    {*{10}{l}}
     \toprule
     Metal & *CO\textsubscript{2} & *COOH    & *CO       & *CHO
     & *CH\textsubscript{2}O  & *OCH\textsubscript{3}  & *O        & *OH       & *H        \\
@@ -382,7 +398,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \caption{DFT calculated final state energies in eV for adsorbates supported on graphene with dual-vacancy}
   \label{supp_table6:e_vac_gra}
 \end{table}
 
@@ -390,7 +405,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Zero-point energies in eV for relaxed adsorbates supported
+    on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K]
+    {*{10}{l}}
     \toprule
     Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
     & *CH\textsubscript{2}O & *OCH\textsubscript{3} & *O & *OH    & *H     \\
@@ -436,7 +455,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \caption{Zero-point energies in eV for relaxed adsorbates supported on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K}
   \label{supp_table7:zpe_g-c3n4}
 \end{table}
 
@@ -444,7 +462,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Entropy corrections ($-T \cdot S$) in eV for relaxed
+    adsorbates supported on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K]
+    {*{10}{l}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
@@ -490,7 +512,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on g-C\textsubscript{3}N\textsubscript{4} at 298.15 K}
   \label{supp_table8:s_g-c3n4}
 \end{table}
 
@@ -498,7 +519,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Zero-point energies in eV for relaxed adsorbates
+    supported on nitrogen-doped graphene at 298.15 K]
+    {*{10}{l}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
       & *CH\textsubscript{2}O & *OCH\textsubscript{3} & *O & *OH    & *H     \\
@@ -544,7 +569,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \caption{Zero-point energies in eV for relaxed adsorbates supported on nitrogen-doped graphene at 298.15 K}
   \label{supp_table9:zpe_n_gra}
 \end{table}
 
@@ -552,7 +576,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Entropy corrections ($-T \cdot S$) in eV for relaxed
+    adsorbates supported on nitrogen-doped graphene at 298.15 K]
+    {*{10}{l}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
@@ -598,7 +626,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on nitrogen-doped graphene at 298.15 K}
   \label{supp_table10:s_n_gra}
 \end{table}
 
@@ -606,7 +633,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Zero-point energies in eV for relaxed adsorbates
+    supported on graphene with dual-vacancy at 298.15 K]
+    {*{10}{l}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH & *CO & *CHO
       & *CH\textsubscript{2}O & *OCH\textsubscript{3}          & *O     & *OH    & *H     \\
@@ -652,7 +683,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \caption{Zero-point energies in eV for relaxed adsorbates supported on graphene with dual-vacancy at 298.15 K}
   \label{supp_table11:zpe_vac_gra}
 \end{table}
 
@@ -660,7 +690,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
   \centering
   {\fontsize{6}{12}\selectfont
-  \begin{NiceTabular}{*{10}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Entropy corrections ($-T \cdot S$) in eV for relaxed
+    adsorbates supported on graphene with dual-vacancy at 298.15 K]
+    {*{10}{l}}
       \toprule
       Metal & *CO\textsubscript{2} & *COOH& *CO     & *CHO
       & *CH\textsubscript{2}O& *OCH\textsubscript{3}& *O      & *OH     & *H      \\
@@ -706,7 +740,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \caption{Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on graphene with dual-vacancy at 298.15 K}
   \label{supp_table12:s_vac_gra}
 \end{table}
 
@@ -786,7 +819,14 @@ In this case, the first term depends solely on the descriptors, while the second
 \begin{table}[htbp]
   \centering
   {\fontsize{10}{12}\selectfont
-  \begin{NiceTabular}{*{4}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Adsorption free energy scaling relation parameters
+    determined by the hybrid descriptor method,
+    tabularnote = \textit{Note:} {$a_{Z}$, $b_{Z}$ and $c_{Z}$ correspond
+    to coefficients for $G_{\text{ads}}\text{CO}$, $G_{\text{ads}}\text{OH}$
+    and constant terms, where $Z$ stands for the adsorbed species of interest.}]
+    {*{4}{l}}
     \toprule
     Adsorbate             & $a_Z$   & $b_Z$   & $c_Z$    \\
     \midrule
@@ -799,10 +839,6 @@ In this case, the first term depends solely on the descriptors, while the second
     \bottomrule
   \end{NiceTabular}
   }
-  \caption{Adsorption free energy scaling relation parameters determined by the hybrid descriptor method}
-  \tablefootnote{$a_{Z}$, $b_{Z}$ and $c_{Z}$ correspond to coefficients for
-  $G_{\text{ads}}\text{CO}$, $G_{\text{ads}}\text{OH}$ and constant terms,
-  where $Z$ stands for the adsorbed species of interest.}
   \label{supp_table13:scaling_params}
 \end{table}
 
@@ -824,7 +860,11 @@ In this case, the first term depends solely on the descriptors, while the second
 \begin{table}[htbp]
   \centering
   {\fontsize{10}{12}\selectfont
-  \begin{NiceTabular}{*{4}{l}}
+  \NiceMatrixOptions{caption-above}
+  \begin{NiceTabular}
+    [caption = Performance comparison of hybrid descriptor and single
+    descriptor for linear scaling relations]
+    {*{4}{l}}
     \toprule
     \multirow{2}{*}{Adsorbate} & Hybrid Descriptor $R^2$ & Single Descriptor $R^2$ & \multirow{2}{*}{$R^2$} \\
                                & (Optimal CO Ratio)      & Reference Species       &                        \\
@@ -839,7 +879,6 @@ In this case, the first term depends solely on the descriptors, while the second
     \bottomrule
   \end{NiceTabular}
   }
-  \caption{Performance comparison of hybrid descriptor and single descriptor for linear scaling relations}
   \label{supp_table14:hybrid_des_perf}
 \end{table}
 

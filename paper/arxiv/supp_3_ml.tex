@@ -43,7 +43,9 @@ on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation a
 % Supplementary Table 15: Notations for elementary descriptors and electronic descriptors
 \begin{table}[htbp]
   \centering
-  \begin{NiceTabular}{lp{5cm}lp{5cm}}
+  \begin{NiceTabular}
+    [caption = Notations for elementary descriptors and electronic descriptors]
+    {lp{5cm}lp{5cm}}
     \toprule
     \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
     \midrule
@@ -61,7 +63,6 @@ on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation a
     $V$            & number of valence electrons     &                        &                              \\
     \bottomrule
   \end{NiceTabular}
-  \caption{Notations for elementary descriptors and electronic descriptors}
   \label{supp_table15:descriptor_notations}
 \end{table}
 
@@ -101,7 +102,9 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 % Supplementary Table 16: The hyperparameter search space
 \begin{table}[htbp]
   \centering
-  \begin{NiceTabular}{llp{5cm}}
+  \begin{NiceTabular}
+    [caption = The hyperparameter search space]
+    {llp{5cm}}
     \toprule
     Hyperparameter& Search Space              & Description                                                       \\
     \midrule
@@ -119,14 +122,15 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_act       & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in branch           \\
     \bottomrule
   \end{NiceTabular}
-  \caption{The hyperparameter search space}
   \label{supp_table16:hyperparam_space}
 \end{table}
 
 % Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
 \begin{table}[htbp]
   \centering
-  \begin{NiceTabular}{llp{6cm}}
+  \begin{NiceTabular}
+    [caption = Optimal hyperparameters identified with Hyperband algorithm]
+    {llp{6cm}}
     \toprule
     Hyperparameter& Optimal Value & Description                                              \\
     \midrule
@@ -144,14 +148,21 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_act       & ``tanh''    & Activation function of fully connected layers in branch      \\
     \bottomrule
   \end{NiceTabular}
-  \caption{Optimal hyperparameters identified with Hyperband algorithm}
   \label{supp_table17:opt_hyperparam}
 \end{table}
 
 % Supplementary Table 18: Prediction MAEs of the CNN model
 \begin{table}[htbp]
   \centering
-  \begin{NiceTabular}{lll}
+  \begin{NiceTabular}
+    [caption = Prediction mean absolute errors of the CNN model,
+    tabularnote = \textit{Note:} {The same CNN model, trained on the
+    augmented dataset, was used for all predictions. The term ``original dataset''
+    refers to evaluations conducted on the original dataset without any augmented data;
+    it does not imply the use of a different CNN model trained solely on the original dataset.
+    Similarly, ``augmented dataset'' refers to evaluations on the dataset with
+    both original data and augment data, not a distinct model.}]
+    {lll}
     \toprule
     Adsorbate             & Original dataset (eV)  & Augmented dataset (eV)  \\
     \midrule
@@ -166,12 +177,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     H                     & 0.0703                 & 0.0646                  \\
     \bottomrule
   \end{NiceTabular}
-  \caption{Prediction mean absolute errors of the CNN model}
-  \tablefootnote{The same CNN model, trained on the augmented dataset, was used for all predictions.
-  The term ``original dataset'' refers to evaluations conducted on the original dataset without any augmented data;
-  it does not imply the use of a different CNN model trained solely on the original dataset.
-  Similarly, ``augmented dataset'' refers to evaluations on the dataset with both original data and augment data,
-  not a distinct model.}
+  \caption{}
   \label{supp_table18:cnn_mae}
 \end{table}
 
