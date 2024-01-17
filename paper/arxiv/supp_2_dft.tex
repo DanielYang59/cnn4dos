@@ -1,4 +1,5 @@
 % SI Section One: Additional details on DFT calculations
+% Tables are formatted following: https://tex.stackexchange.com/questions/254254/how-to-set-figures-and-tables-captions-in-apa-style-without-using-apa6-class
 
 \section{Additional details on DFT calculations}
 
@@ -109,14 +110,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 
 % Supplementary Table 1: DFT-calculated energies for protonated *CO intermediate for 3 pathways
 \begin{table}[htbp]
-  \centering
-  {\fontsize{6}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-      [caption = DFT-calculated energies in eV for protonated *CO intermediate for
-      three investigated CO\textsubscript{2}RR pathways,
-      tabularnote = \textit{Note:} Energies of the most stable configurations are highlighted in bold.]
-      {*{10}{l}}
+\label{supp_table1:e_3_co2rr_paths}
+  \caption{DFT-calculated energies in eV for protonated *CO intermediate
+    for three investigated CO\textsubscript{2}RR pathways.}
+  \tiny  % TODO: set font size
+  \begin{tabularx}{\textwidth}{@{}l *{9}{X} @{}}
       \toprule
       \multirow{2}{*}{Metal}
       & \multicolumn{3}{c}{g-C\textsubscript{3}N\textsubscript{4}}
@@ -165,9 +163,9 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       Tl & \textbf{-497.9559} & -496.1578 & -497.9382 & -664.5047 & -662.7051 & \textbf{-664.5051} & -662.6279 & -660.6086 & \textbf{-662.6317}\\
       W  & \textbf{-505.8134} & -504.9085 & -505.8030 & -676.5304 & -676.1384 & \textbf{-676.9965} & \textbf{-676.7669} & -675.4895 & -676.7356 \\
       \bottomrule
-  \end{NiceTabular}
-  }
-  \label{supp_table1:e_3_co2rr_paths}
+  \end{tabularx}
+  \bigskip
+  \small\textit{Note:} Energies of the most stable configurations are highlighted in bold
 \end{table}
 
 \subsection{DFT energies and energy corrections}
@@ -175,14 +173,10 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 
 % Supplementary Table 2: Free energies for isolated species.
 \begin{table}[htbp]
-  \centering
-  {\fontsize{10}{12}\selectfont
-  \NiceMatrixOptions{caption-above}
-  \begin{NiceTabular}
-    [caption = Free energies at 298.15 K for isolated species,
-    tabularnote = \textit{Note:} VASPKIT \cite{wang2021vaspkit}
-    was employed to calculate free energies.]
-    {ll}
+\label{supp_table2:species_free_energies}
+  \caption{Free energies at 298.15 K for isolated species}
+  \small
+  \begin{tabularx}{\textwidth}{@{}lXr@{}}
     \toprule
     Species               & Free Energy (eV)  \\
     \midrule
@@ -198,13 +192,14 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     O                     & -1.9007           \\
     OH                    & -7.7303           \\
     \bottomrule
-  \end{NiceTabular}
-  }
-  \label{supp_table2:species_free_energies}
+  \end{tabularx}
+  \bigskip
+  \small\textit{Note:} VASPKIT \cite{wang2021vaspkit} was employed to calculate free energies.
 \end{table}
 
 % Supplementary Table 3: Free energy corrections for adsorbed intermediates
 \begin{table}[htbp]
+\label{supp_table3:ads_e_correction}
   \centering
   {\fontsize{10}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -229,11 +224,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table3:ads_e_correction}
 \end{table}
 
 % Supplementary Table 4: DFT calculated final state energies for adsorbates supported on g-c3n4
 \begin{table}[htbp]
+\label{supp_table4:e_g-c3n4}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -286,11 +281,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table4:e_g-c3n4}
 \end{table}
 
 % Supplementary Table 5: DFT calculated final state energies for adsorbates supported on n-doped graphene
 \begin{table}[htbp]
+\label{supp_table5:e_n_gra}
     \centering
     {\fontsize{6}{12}\selectfont % Set the font size to 6pt
     \NiceMatrixOptions{caption-above}
@@ -342,11 +337,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
     \end{NiceTabular}
     }
-    \label{supp_table5:e_n_gra}
 \end{table}
 
 % Supplementary Table 6: DFT calculated final state energies for adsorbates supported on graphene with dual-vac
 \begin{table}[htbp]
+\label{supp_table6:e_vac_gra}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -398,11 +393,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table6:e_vac_gra}
 \end{table}
 
 % Supplementary Table 7: ZPE for adsorbates supported on g-c3n4
 \begin{table}[htbp]
+\label{supp_table7:zpe_g-c3n4}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -455,11 +450,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
     \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table7:zpe_g-c3n4}
 \end{table}
 
 % Supplementary Table 8: Entropy corrections for adsorbate@g-C3N4
 \begin{table}[htbp]
+\label{supp_table8:s_g-c3n4}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -512,11 +507,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table8:s_g-c3n4}
 \end{table}
 
 % Supplementary Table 9: ZPE for adsorbates supported on N-doped graphene
 \begin{table}[htbp]
+\label{supp_table9:zpe_n_gra}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -569,11 +564,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table9:zpe_n_gra}
 \end{table}
 
 % Supplementary Table 10: Entropy corrections for adsorbate@N-doped graphene
 \begin{table}[htbp]
+\label{supp_table10:s_n_gra}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -626,11 +621,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table10:s_n_gra}
 \end{table}
 
 % Supplementary Table 11: ZPE for adsorbates supported on graphene with dual-vac
 \begin{table}[htbp]
+\label{supp_table11:zpe_vac_gra}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -683,11 +678,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table11:zpe_vac_gra}
 \end{table}
 
 % Supplementary Table 12: Entropy corrections for adsorbate@graphene with dual-vac
 \begin{table}[htbp]
+\label{supp_table12:s_vac_gra}
   \centering
   {\fontsize{6}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -740,7 +735,6 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
       \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table12:s_vac_gra}
 \end{table}
 
 \subsection{Correlation analysis of adsorption energies}
@@ -817,6 +811,7 @@ In this case, the first term depends solely on the descriptors, while the second
 
 % Supplementary Table 13: Eads scaling relation params from hybrid descriptor method
 \begin{table}[htbp]
+\label{supp_table13:scaling_params}
   \centering
   {\fontsize{10}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -839,7 +834,6 @@ In this case, the first term depends solely on the descriptors, while the second
     \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table13:scaling_params}
 \end{table}
 
 % SI Figure 10: Improvement in R2 from hybrid-descriptor method
@@ -858,6 +852,7 @@ In this case, the first term depends solely on the descriptors, while the second
 
 % Supplementary Table 14: Performance comparison of hybrid/single descriptors
 \begin{table}[htbp]
+\label{supp_table14:hybrid_des_perf}
   \centering
   {\fontsize{10}{12}\selectfont
   \NiceMatrixOptions{caption-above}
@@ -879,7 +874,6 @@ In this case, the first term depends solely on the descriptors, while the second
     \bottomrule
   \end{NiceTabular}
   }
-  \label{supp_table14:hybrid_des_perf}
 \end{table}
 
 \subsection{Volcano plots}
