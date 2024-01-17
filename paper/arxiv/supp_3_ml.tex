@@ -44,25 +44,26 @@ on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation a
 \begin{table}[htbp]
 \label{supp_table15:descriptor_notations}
   \caption{Notations for elementary descriptors and electronic descriptors}
-  \small
-  \begin{tabularx}{\textwidth}{@{}llll@{}}
-    \toprule
-    \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
-    \midrule
-    $R$            & atomic radius                   & $\alpha$, $\beta$, $\gamma$  & lattice parameters     \\
-    $E_\text{ea}$  & electron affinity               & $\Phi_{\text{DFT}}$    & DFT calculated work function \\
-    $\Phi$         & work function                   & $E_\text{vac}$         & vacuum level                 \\
-    $\chi_\text{Allen}$, $\chi_\text{P}$, $\chi_\text{RevP}$
-    & \parbox[t]{4cm}{electronegativity in Allen, Pauling and revised Pauling scales}
-    & $E_\text{g}$, $E_\text{g}\uparrow$, $E_\text{g}\uparrow$
-    & \parbox[t]{4cm}{average, spin-up and spin-down band gaps}                                              \\
-    $A_\text{r}$   & relative atomic mass            & $e_\text{d}$           & number of d-electrons        \\
-    $E_\text{i}$   & ionization energy & $\delta\epsilon_{\text{d}}\uparrow$  & d-band centre (spin-up)      \\
-    $G$            & group number                    & $W_\text{d}$           & d-band width                 \\
-    $P$            & period number                   & $e_{\text{Bader}}$     & Bader charge                 \\
-    $V$            & number of valence electrons     &                        &                              \\
-    \bottomrule
-  \end{tabularx}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{llll}
+      \toprule
+      \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
+      \midrule
+      $R$            & atomic radius                   & $\alpha$, $\beta$, $\gamma$  & lattice parameters     \\
+      $E_\text{ea}$  & electron affinity               & $\Phi_{\text{DFT}}$    & DFT calculated work function \\
+      $\Phi$         & work function                   & $E_\text{vac}$         & vacuum level                 \\
+      $\chi_\text{Allen}$, $\chi_\text{P}$, $\chi_\text{RevP}$
+      & \parbox[t]{4cm}{electronegativity in Allen, Pauling and revised Pauling scales}
+      & $E_\text{g}$, $E_\text{g}\uparrow$, $E_\text{g}\uparrow$
+      & \parbox[t]{4cm}{average, spin-up and spin-down band gaps}                                              \\
+      $A_\text{r}$   & relative atomic mass            & $e_\text{d}$           & number of d-electrons        \\
+      $E_\text{i}$   & ionization energy & $\delta\epsilon_{\text{d}}\uparrow$  & d-band centre (spin-up)      \\
+      $G$            & group number                    & $W_\text{d}$           & d-band width                 \\
+      $P$            & period number                   & $e_{\text{Bader}}$     & Bader charge                 \\
+      $V$            & number of valence electrons     &                        &                              \\
+      \bottomrule
+    \end{tabular}
+  }
 \end{table}
 
 \subsection{Input pipeline construction}
@@ -102,50 +103,52 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \begin{table}[htbp]
 \label{supp_table16:hyperparam_space}
   \caption{The hyperparameter search space}
-  \small
-  \begin{tabularx}{\textwidth}{@{}lXX@{}}
-    \toprule
-    Hyperparameter& Search Space              & Description                                                       \\
-    \midrule
-    learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam \cite{kingma2017adam} optimizer \\
-    dropoutRate   & [0, 1]                    & Dropout rate                                                      \\
-    root\_fc0     & 128, 256, 512             & Output dimensionality of 1\textsuperscript{st} fully connected layer in root           \\
-    root\_fc1     & 256, 512, 1024, 2048      & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root           \\
-    root\_act     & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in root             \\
-    kernelSize    & [2, 32]                   & Width of the convolution window                                   \\
-    numFilters    & [8, 64]                   & Number of filters in the convolution                              \\
-    numConvLayers & [1, 16]                   & Number of convolution layers                                      \\
-    numConvBlocks & [1, 16]                   & Number of convolution blocks                                      \\
-    br\_fc0       & 16, 32, 64, 128, 256, 512 & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch      \\
-    br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch      \\
-    br\_act       & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in branch           \\
-    \bottomrule
-  \end{tabularx}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lll}
+      \toprule
+      Hyperparameter& Search Space              & Description                                                       \\
+      \midrule
+      learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam \cite{kingma2017adam} optimizer \\
+      dropoutRate   & [0, 1]                    & Dropout rate                                                      \\
+      root\_fc0     & 128, 256, 512             & Output dimensionality of 1\textsuperscript{st} fully connected layer in root           \\
+      root\_fc1     & 256, 512, 1024, 2048      & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root           \\
+      root\_act     & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in root             \\
+      kernelSize    & [2, 32]                   & Width of the convolution window                                   \\
+      numFilters    & [8, 64]                   & Number of filters in the convolution                              \\
+      numConvLayers & [1, 16]                   & Number of convolution layers                                      \\
+      numConvBlocks & [1, 16]                   & Number of convolution blocks                                      \\
+      br\_fc0       & 16, 32, 64, 128, 256, 512 & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch      \\
+      br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch      \\
+      br\_act       & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in branch           \\
+      \bottomrule
+    \end{tabular}
+  }
 \end{table}
 
 % Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
 \begin{table}[htbp]
 \label{supp_table17:opt_hyperparam}
   \caption{Optimal hyperparameters identified with Hyperband algorithm}
-  \small
-  \begin{tabularx}{\textwidth}{@{}lXX@{}}
-    \toprule
-    Hyperparameter& Optimal Value & Description                                              \\
-    \midrule
-    learningRate  & $10^{-3}$ & Learning rate of Adam \cite{kingma2017adam} optimizer                              \\
-    dropoutRate   & 0.3       & Dropout rate                                                 \\
-    root\_fc0     & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in root   \\
-    root\_fc1     & 512       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root   \\
-    root\_act     & ``relu''    & Activation function of fully connected layers in root        \\
-    kernelSize    & 10        & Width of convolution window                                  \\
-    numFilters    & 17        & Number of filters in the convolution                         \\
-    numConvLayers & 3         & Number of convolution layers                                 \\
-    numConvBlocks & 1         & Number of convolution blocks                                 \\
-    br\_fc0       & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch \\
-    br\_fc1       & 128       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch \\
-    br\_act       & ``tanh''    & Activation function of fully connected layers in branch      \\
-    \bottomrule
-  \end{tabularx}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lll}
+      \toprule
+      Hyperparameter& Optimal Value & Description                                              \\
+      \midrule
+      learningRate  & $10^{-3}$ & Learning rate of Adam \cite{kingma2017adam} optimizer                              \\
+      dropoutRate   & 0.3       & Dropout rate                                                 \\
+      root\_fc0     & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in root   \\
+      root\_fc1     & 512       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root   \\
+      root\_act     & ``relu''    & Activation function of fully connected layers in root        \\
+      kernelSize    & 10        & Width of convolution window                                  \\
+      numFilters    & 17        & Number of filters in the convolution                         \\
+      numConvLayers & 3         & Number of convolution layers                                 \\
+      numConvBlocks & 1         & Number of convolution blocks                                 \\
+      br\_fc0       & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch \\
+      br\_fc1       & 128       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch \\
+      br\_act       & ``tanh''    & Activation function of fully connected layers in branch      \\
+      \bottomrule
+    \end{tabular}
+  }
 \end{table}
 
 % Supplementary Table 18: Prediction MAEs of the CNN model
