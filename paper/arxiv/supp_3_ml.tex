@@ -43,7 +43,7 @@ on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation a
 % Supplementary Table 15: Notations for elementary descriptors and electronic descriptors
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{lp{5cm}lp{5cm}}
+  \begin{NiceTabular}{lp{5cm}lp{5cm}}
     \toprule
     \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
     \midrule
@@ -60,7 +60,7 @@ on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation a
     $P$            & period number                   & $e_{\text{Bader}}$     & Bader charge                 \\
     $V$            & number of valence electrons     &                        &                              \\
     \bottomrule
-  \end{tabular}
+  \end{NiceTabular}
   \caption{Notations for elementary descriptors and electronic descriptors}
   \label{supp_table15:descriptor_notations}
 \end{table}
@@ -101,7 +101,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 % Supplementary Table 16: The hyperparameter search space
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{llp{5cm}}
+  \begin{NiceTabular}{llp{5cm}}
     \toprule
     Hyperparameter& Search Space              & Description                                                       \\
     \midrule
@@ -118,7 +118,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch      \\
     br\_act       & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in branch           \\
     \bottomrule
-  \end{tabular}
+  \end{NiceTabular}
   \caption{The hyperparameter search space}
   \label{supp_table16:hyperparam_space}
 \end{table}
@@ -126,7 +126,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 % Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{llp{6cm}}
+  \begin{NiceTabular}{llp{6cm}}
     \toprule
     Hyperparameter& Optimal Value & Description                                              \\
     \midrule
@@ -143,7 +143,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     br\_fc1       & 128       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch \\
     br\_act       & ``tanh''    & Activation function of fully connected layers in branch      \\
     \bottomrule
-  \end{tabular}
+  \end{NiceTabular}
   \caption{Optimal hyperparameters identified with Hyperband algorithm}
   \label{supp_table17:opt_hyperparam}
 \end{table}
@@ -151,7 +151,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 % Supplementary Table 18: Prediction MAEs of the CNN model
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{lll}
+  \begin{NiceTabular}{lll}
     \toprule
     Adsorbate             & Original dataset (eV)  & Augmented dataset (eV)  \\
     \midrule
@@ -165,7 +165,7 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
     OH                    & 0.0547                 & 0.0602                  \\
     H                     & 0.0703                 & 0.0646                  \\
     \bottomrule
-  \end{tabular}
+  \end{NiceTabular}
   \caption{Prediction mean absolute errors of the CNN model}
   \tablefootnote{The same CNN model, trained on the augmented dataset, was used for all predictions.
   The term ``original dataset'' refers to evaluations conducted on the original dataset without any augmented data;
