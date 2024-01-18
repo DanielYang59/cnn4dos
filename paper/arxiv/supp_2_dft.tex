@@ -178,8 +178,9 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 \begin{table}[htbp]
 \label{supp_table2:species_free_energies}
   \caption{Free energies at 298.15 K for isolated species.}
+  \center
   \small
-  \begin{tabularx}{\textwidth}{@{}lXr@{}}
+  \begin{tabularx}{0.5\textwidth}{@{}lXr@{}}
     \toprule
     Species               & Free Energy (eV)  \\
     \midrule
@@ -199,15 +200,19 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 
   \smallskip
 
-  \footnotesize\textit{Note:} VASPKIT \cite{wang2021vaspkit} was employed to calculate free energies.
+  \begin{minipage}{\textwidth}
+    \raggedright
+    \footnotesize\textit{Note:} VASPKIT \cite{wang2021vaspkit} was employed to calculate free energies.
+  \end{minipage}
 \end{table}
 
 % Supplementary Table 3: Free energy corrections for adsorbed intermediates
 \begin{table}[htbp]
 \label{supp_table3:ads_e_correction}
   \caption{Free energy corrections at 298.15 K for adsorbed intermediates.}
+  \centering
   \small
-  \begin{tabularx}{\textwidth}{@{}lXr@{}}
+  \begin{tabularx}{0.5\textwidth}{@{}lXr@{}}
     \toprule
     Species                & Free energy correction (eV)  \\
     \midrule
@@ -225,9 +230,12 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 
   \smallskip
 
-  \footnotesize\textit{Note:} {Free energy corrections were obtained by averaging the
-  DFT-computed corrections, which include zero-point energy and entropy, across three substrates:
-  g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, and dual-vacancy graphene.}
+  \begin{minipage}{\textwidth}
+    \raggedright
+    \footnotesize\textit{Note:} {Free energy corrections were obtained by averaging the
+      DFT-computed corrections, which include zero-point energy and entropy, across three substrates:
+      g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, and dual-vacancy graphene.}
+  \end{minipage}
 \end{table}
 
 % Supplementary Table 4: DFT calculated final state energies for adsorbates supported on g-c3n4
@@ -792,7 +800,7 @@ In this case, the first term depends solely on the descriptors, while the second
   \caption{Adsorption free energy scaling relation parameters
     determined by the hybrid descriptor method.}
   \small
-  \begin{tabularx}{\textwidth}{@{}l *{3}{X} @{}}
+  \begin{tabularx}{0.8\textwidth}{@{}l *{3}{X} @{}}
     \toprule
     Adsorbate             & $a_Z$   & $b_Z$   & $c_Z$    \\
     \midrule
@@ -832,7 +840,7 @@ In this case, the first term depends solely on the descriptors, while the second
   \caption{Performance comparison of hybrid descriptor and single
     descriptor for linear scaling relations.}
   \small
-  \begin{tabularx}{\textwidth}{@{}l *{3}{X} @{}}
+  \begin{tabularx}{0.9\textwidth}{@{}l *{3}{X} @{}}
     \toprule
     \multirow{2}{*}{Adsorbate} & Hybrid Descriptor $R^2$ & Single Descriptor $R^2$ & \multirow{2}{*}{$R^2$} \\
                                & (Optimal CO Ratio)      & Reference Species       &                        \\

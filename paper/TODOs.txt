@@ -1,4 +1,6 @@
 
+justify table footnotes (if possible)
+
 check abbr. for chemicals , for example BN(boron nitride)?
 
 ensure that all authors consent to the article being submitted(https://info.arxiv.org/help/prep.html).
