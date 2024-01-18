@@ -200,10 +200,11 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 
   \smallskip
 
+  \begin{flushright}
   \begin{minipage}{\textwidth}
-    \raggedright
     \footnotesize\textit{Note:} VASPKIT \cite{wang2021vaspkit} was employed to calculate free energies.
   \end{minipage}
+  \end{flushright}
 \end{table}
 
 % Supplementary Table 3: Free energy corrections for adsorbed intermediates
@@ -230,12 +231,13 @@ Therefore, to streamline our analysis, we focused exclusively on Mechanism 1 acr
 
   \smallskip
 
+  \begin{flushright}  % justify footnote
   \begin{minipage}{\textwidth}
-    \raggedright
     \footnotesize\textit{Note:} {Free energy corrections were obtained by averaging the
       DFT-computed corrections, which include zero-point energy and entropy, across three substrates:
       g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, and dual-vacancy graphene.}
   \end{minipage}
+  \end{flushright}
 \end{table}
 
 % Supplementary Table 4: DFT calculated final state energies for adsorbates supported on g-c3n4
@@ -799,8 +801,9 @@ In this case, the first term depends solely on the descriptors, while the second
 \label{supp_table13:scaling_params}
   \caption{Adsorption free energy scaling relation parameters
     determined by the hybrid descriptor method.}
+  \center
   \small
-  \begin{tabularx}{0.8\textwidth}{@{}l *{3}{X} @{}}
+  \begin{tabularx}{0.75\textwidth}{@{}l *{3}{X} @{}}
     \toprule
     Adsorbate             & $a_Z$   & $b_Z$   & $c_Z$    \\
     \midrule
@@ -815,9 +818,13 @@ In this case, the first term depends solely on the descriptors, while the second
 
   \smallskip
 
-  \footnotesize\textit{Note:} $a_{Z}$, $b_{Z}$ and $c_{Z}$ correspond
-    to coefficients for $G_{\text{ads}}\text{CO}$, $G_{\text{ads}}\text{OH}$
-    and constant terms, where $Z$ stands for the adsorbed species of interest.
+  \begin{flushright}
+    \begin{minipage}{\textwidth}
+      \footnotesize\textit{Note:} $a_{Z}$, $b_{Z}$ and $c_{Z}$ correspond
+      to coefficients for $G_{\text{ads}}\text{CO}$, $G_{\text{ads}}\text{OH}$
+      and constant terms, where $Z$ stands for the adsorbed species of interest.
+  \end{minipage}
+  \end{flushright}
 \end{table}
 
 % SI Figure 10: Improvement in R2 from hybrid-descriptor method
@@ -840,7 +847,8 @@ In this case, the first term depends solely on the descriptors, while the second
   \caption{Performance comparison of hybrid descriptor and single
     descriptor for linear scaling relations.}
   \small
-  \begin{tabularx}{0.9\textwidth}{@{}l *{3}{X} @{}}
+  \center
+  \begin{tabularx}{0.75\textwidth}{@{}l *{3}{X} @{}}
     \toprule
     \multirow{2}{*}{Adsorbate} & Hybrid Descriptor $R^2$ & Single Descriptor $R^2$ & \multirow{2}{*}{$R^2$} \\
                                & (Optimal CO Ratio)      & Reference Species       &                        \\
