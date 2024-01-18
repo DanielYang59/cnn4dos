@@ -156,7 +156,8 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 \label{supp_table18:cnn_mae}
   \caption{Prediction mean absolute errors of the CNN model.}
   \small
-  \begin{tabularx}{\textwidth}{@{}lXX@{}}
+  \center
+  \begin{tabularx}{0.75\textwidth}{@{}lXX@{}}
     \toprule
     Adsorbate             & Original dataset (eV)  & Augmented dataset (eV)  \\
     \midrule
@@ -174,12 +175,16 @@ This corresponds to 4000 sampling points across the energy range, 9 eDOS orbital
 
   \smallskip
 
-  \footnotesize\textit{Note:} The same CNN model, trained on the
-    augmented dataset, was used for all predictions. The term ``original dataset''
-    refers to evaluations conducted on the original dataset without any augmented data;
-    it does not imply the use of a different CNN model trained solely on the original dataset.
-    Similarly, ``augmented dataset'' refers to evaluations on the dataset with
-    both original data and augment data, not a distinct model.
+  \begin{flushright}
+  \begin{minipage}{\textwidth}
+    \footnotesize\textit{Note:} The same CNN model, trained on the
+      augmented dataset, was used for all predictions. The term ``original dataset''
+      refers to evaluations conducted on the original dataset without any augmented data;
+      it does not imply the use of a different CNN model trained solely on the original dataset.
+      Similarly, ``augmented dataset'' refers to evaluations on the dataset with
+      both original data and augment data, not a distinct model.
+  \end{minipage}
+  \end{flushright}
 \end{table}
 
 \subsection{Occlusion experiment}
