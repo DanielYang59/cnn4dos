@@ -1,8 +1,4 @@
 
 check abbr. for chemicals , for example BN(boron nitride)?
 
-Figure: "Note that TeX/LaTeX can only include (encapsulated) PostScript (.ps or .eps), figures directly. Other formats are not supported in native (La)TeX. See Useful Software for figure conversion tools. If you are making use of PDFLaTeX you may embed your .pdf, .png, .jpg figures using the same mechanisms. Please note that arXiv does not perform "on the fly" figure file conversion during tex processing (i.e. "-eps-converted-to.pdf" files being present in your source directory). You must perform such conversion yourself, before uploading, updating any effected inclusion command. This process ensures that you have examined the results of any figure conversion to ensure that the figures still contain scientifically correct information and that arXiv is not responsible for the scientific accuracy of your figures."
-
-SI section 2.2 don't start in new page (adjust figure size and positioning)
-
 ensure that all authors consent to the article being submitted(https://info.arxiv.org/help/prep.html).
