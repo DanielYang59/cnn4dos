@@ -1,3 +1,70 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[affil-it]{authblk}
+\usepackage[english]{babel}
+\usepackage{bookmark}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{cleveref}
+\usepackage{datetime2}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{multirow}
+\usepackage{natbib}
+\usepackage{nicematrix}
+\usepackage{tablefootnote}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{xr}
+
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{Equation}{Equations}
+\captionsetup{labelfont=bf}
+
+\captionsetup[table]{justification=justified, singlelinecheck=false}
+
+\externaldocument{main}
+
+\begin{document}
+\pdfoutput=1
+
+\title{Supporting Information for:  \\
+Convolutional Neural Networks and Volcano Plots:
+Screening and Prediction of Two-Dimensional Single-Atom Catalysts for CO\textsubscript{2} Reduction Reactions}
+
+\author[1]{Haoyu Yang}
+\author[2]{Juanli Zhao}
+\author[3]{Qiankun Wang}
+\author[2]{Bin Liu}
+\author[4]{Wei Luo}
+\author[1,*]{Ziqi Sun}
+\author[5,*]{Ting Liao}
+
+\affil[1]{School of Chemistry and Physics, Queensland University of Technology,
+George Street, Brisbane, QLD 4000, Australia}
+\affil[2]{School of Materials Science and Engineering, Shanghai University, Shanghai, China}
+\affil[3]{School of Computer Science and Engineering, Southeast University, Nanjing, China}
+\affil[4]{College of Materials Science and Engineering, Institute of Functional Materials,
+Donghua University, Shanghai, China}
+\affil[5]{School of Mechanical Medical and Process Engineering, Queensland University of Technology,
+George Street, Brisbane, QLD 4000, Australia}
+\affil[*]{Corresponding author: ziqi.sun@qut.edu.au}
+\affil[*]{Corresponding author: t3.liao@qut.edu.au}
+
+\date{January 27, 2024}
+
+\maketitle
+
+
+\newpage
 % SI Section One: Additional details on DFT calculations
 % Tables are formatted following: https://tex.stackexchange.com/questions/254254/how-to-set-figures-and-tables-captions-in-apa-style-without-using-apa6-class
 
@@ -932,3 +999,437 @@ In addition to the selectivity volcano plot featured in the main text, we provid
   \caption{\textbf{Limiting potential periodic table for monolayer C\textsubscript{2}N.}}
   \label{supp_fig17:C2N_ptable}
 \end{figure}
+
+\newpage
+% SI Section Two: Additional details on Machine Learning
+
+\section{Additional details on machine learning method}
+
+\subsection{d-band center and adsorption energy relations}
+\label{supp_sec3.1_dband_eads}
+
+% SI Figure 18: d-band venter vs adsorption energy scatter plot
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{supp_fig18_d-band_eads.png}
+  \caption{\textbf{Scatter plot of d-Band Center and Adsorption Energy Relationships.}
+  This figure delineates the relationship between d-band center and adsorption energies for
+  various species: (\textbf{a}) CO\textsubscript{2}, (\textbf{b}) COOH, (\textbf{c}) CO,
+  (\textbf{d}) CHO, (\textbf{e}) CH\textsubscript{2}O, (\textbf{f}) OCH\textsubscript{3},
+  (\textbf{g}) O, and (\textbf{h}) OH.
+  Data from all six substrates investigated in this study are included.}
+  \label{supp_fig18:dband_vs_eads}
+\end{figure}
+
+\subsection{Feature correlation analysis}
+\label{supp_sec3.2_feature_corr}
+
+\cref{supp_fig19:pairwise_eads_des} displays the pairwise relationships between CO adsorption energy
+and its four most correlated descriptors: d-band center (spin-up) $\delta\epsilon_{\text{d}}\uparrow$,
+lattice parameter $\gamma$, vacuum level $E_\text{vac}$, and electronegativity
+on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation analysis.
+\cref{supp_table15:descriptor_notations} lists notations for elementary descriptors and electronic descriptors.
+
+% SI Figure 19: Pairwise plot of adsorption energy vs key descriptors
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{supp_fig19_pairwise_eads_des.png}
+  \caption{\textbf{Pairwise Plot of Adsorption Energy and Key Descriptors.}
+  This chart displays the pairwise relationships between CO adsorption energy and
+  its four most correlated descriptors: d-band center (spin-up) $\delta\epsilon_{\text{d}}\uparrow$,
+  lattice parameter $\gamma$, vacuum level $E_\text{vac}$, and electronegativity
+  on the Allen scale $\chi_\text{Allen}$, identified by Kendall rank correlation analysis.
+  Data from all six substrates investigated in this study are included.}
+  \label{supp_fig19:pairwise_eads_des}
+\end{figure}
+
+% Supplementary Table 15: Notations for elementary descriptors and electronic descriptors
+\begin{table}[htbp]
+\label{supp_table15:descriptor_notations}
+  \caption{Notations for elementary descriptors and electronic descriptors.}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{llll}
+      \toprule
+      \multicolumn{2}{c}{Elementary Descriptors}       & \multicolumn{2}{c}{Electronic Descriptors}            \\
+      \midrule
+      $R$            & atomic radius                   & $\alpha$, $\beta$, $\gamma$  & lattice parameters     \\
+      $E_\text{ea}$  & electron affinity               & $\Phi_{\text{DFT}}$    & DFT calculated work function \\
+      $\Phi$         & work function                   & $E_\text{vac}$         & vacuum level                 \\
+      $\chi_\text{Allen}$, $\chi_\text{P}$, $\chi_\text{RevP}$
+      & \parbox[t]{4cm}{electronegativity in Allen, Pauling and revised Pauling scales}
+      & $E_\text{g}$, $E_\text{g}\uparrow$, $E_\text{g}\uparrow$
+      & \parbox[t]{4cm}{average, spin-up and spin-down band gaps}                                              \\
+      $A_\text{r}$   & relative atomic mass            & $e_\text{d}$           & number of d-electrons        \\
+      $E_\text{i}$   & ionization energy & $\delta\epsilon_{\text{d}}\uparrow$  & d-band centre (spin-up)      \\
+      $G$            & group number                    & $W_\text{d}$           & d-band width                 \\
+      $P$            & period number                   & $e_{\text{Bader}}$     & Bader charge                 \\
+      $V$            & number of valence electrons     &                        &                              \\
+      \bottomrule
+    \end{tabular}
+  }
+\end{table}
+
+\subsection{Input pipeline construction}
+\label{supp_sec3.3_input_pipeline}
+
+The format of the 2D array for the eDOS is naturally well-suited for use as neural network inputs.
+In this study, the array adopts a shape of [numSamplings, numOrbitals, numChannels], as illustrated in \cref{supp_fig20:input_dos}.
+Here, ``numSamplings'' represents the number of data points sampled across the energy spectrum,
+``numOrbitals'' denotes the number of DOS orbitals,
+and ``numChannels'' indicates the number of atomic channels.
+
+% SI Figure 20: Representation of the input eDOS data structure
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.3\textwidth]{supp_fig20_input_dos.png}
+  \caption{\textbf{Schematic representation of the input eDOS data structure.}}
+  \label{supp_fig20:input_dos}
+\end{figure}
+
+For practical purposes, certain spatial hierarchies are expected to remain invariant,
+such as the energy range over which the eDOS is sampled.
+In this work, we maintain a consistent energy range of -14 eV to 6 eV,
+sampled at a density of 50 \si{\text{points} \cdot \text{eV}^{-1}}.
+In addition to maintaining a fixed energy range,
+the following steps are taken to standardize the input eDOS data:
+  1.	For atoms lacking d-electrons, the eDOS is zero-padded.
+  2.	f-orbital eDOS data are excluded.
+  3.	The eDOS of adsorbates is zero-padded along the Channels axis to align with the adsorbate that contains the maximum number of atoms, which, in this study, is the *OCH\textsubscript{3} species. This padded eDOS is then appended to the metal eDOS.
+
+As a result of these preprocessing steps, the input eDOS arrays consistently have a shape of [4000, 9, 6].
+This corresponds to 4000 sampling points across the energy range, 9 eDOS orbitals, and 6 atomic channels.
+
+\subsection{Hyperparameter tuning for CNN}
+\label{supp_sec3.4_hyperparam}
+
+% Supplementary Table 16: The hyperparameter search space
+\begin{table}[htbp]
+\label{supp_table16:hyperparam_space}
+  \caption{The hyperparameter search space.}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lll}
+      \toprule
+      Hyperparameter& Search Space              & Description                                                       \\
+      \midrule
+      learningRate  & [10\textsuperscript{-4}, 10\textsuperscript{-2}], log scale & Learning rate of Adam \cite{kingma2017adam} optimizer \\
+      dropoutRate   & [0, 1]                    & Dropout rate                                                      \\
+      root\_fc0     & 128, 256, 512             & Output dimensionality of 1\textsuperscript{st} fully connected layer in root           \\
+      root\_fc1     & 256, 512, 1024, 2048      & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root           \\
+      root\_act     & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in root             \\
+      kernelSize    & [2, 32]                   & Width of the convolution window                                   \\
+      numFilters    & [8, 64]                   & Number of filters in the convolution                              \\
+      numConvLayers & [1, 16]                   & Number of convolution layers                                      \\
+      numConvBlocks & [1, 16]                   & Number of convolution blocks                                      \\
+      br\_fc0       & 16, 32, 64, 128, 256, 512 & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch      \\
+      br\_fc1       & 8, 16, 32, 64, 128, 256   & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch      \\
+      br\_act       & ``tanh'', ``relu'', ``sigmoid'' & Activation function of fully connected layers in branch           \\
+      \bottomrule
+    \end{tabular}
+  }
+\end{table}
+
+% Supplementary Table 17: Optimal hyperparameters identified with Hyperband algorithm
+\begin{table}[htbp]
+\label{supp_table17:opt_hyperparam}
+  \caption{Optimal hyperparameters identified with Hyperband algorithm.}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lll}
+      \toprule
+      Hyperparameter& Optimal Value & Description                                              \\
+      \midrule
+      learningRate  & $10^{-3}$ & Learning rate of Adam \cite{kingma2017adam} optimizer                              \\
+      dropoutRate   & 0.3       & Dropout rate                                                 \\
+      root\_fc0     & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in root   \\
+      root\_fc1     & 512       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in root   \\
+      root\_act     & ``relu''    & Activation function of fully connected layers in root        \\
+      kernelSize    & 10        & Width of convolution window                                  \\
+      numFilters    & 17        & Number of filters in the convolution                         \\
+      numConvLayers & 3         & Number of convolution layers                                 \\
+      numConvBlocks & 1         & Number of convolution blocks                                 \\
+      br\_fc0       & 256       & Output dimensionality of 1\textsuperscript{st} fully connected layer in branch \\
+      br\_fc1       & 128       & Output dimensionality of 2\textsuperscript{nd} fully connected layer in branch \\
+      br\_act       & ``tanh''    & Activation function of fully connected layers in branch      \\
+      \bottomrule
+    \end{tabular}
+  }
+\end{table}
+
+% Supplementary Table 18: Prediction MAEs of the CNN model
+\begin{table}[htbp]
+\label{supp_table18:cnn_mae}
+  \caption{Prediction mean absolute errors of the CNN model.}
+  \small
+  \center
+  \begin{tabularx}{0.75\textwidth}{@{}lXX@{}}
+    \toprule
+    Adsorbate             & Original dataset (eV)  & Augmented dataset (eV)  \\
+    \midrule
+    CO\textsubscript{2}   & 0.0447                 & 0.0336                  \\
+    COOH                  & 0.0436                 & 0.0581                  \\
+    CO                    & 0.0402                 & 0.0402                  \\
+    CHO                   & 0.0614                 & 0.0778                  \\
+    CH\textsubscript{2}O  & 0.0553                 & 0.0632                  \\
+    OCH\textsubscript{3}  & 0.0605                 & 0.0636                  \\
+    O                     & 0.1135                 & 0.1081                  \\
+    OH                    & 0.0547                 & 0.0602                  \\
+    H                     & 0.0703                 & 0.0646                  \\
+    \bottomrule
+  \end{tabularx}
+
+  \smallskip
+
+  \begin{flushright}
+  \begin{minipage}{\textwidth}
+    \footnotesize\textit{Note:} The same CNN model, trained on the
+      augmented dataset, was used for all predictions. The term ``original dataset''
+      refers to evaluations conducted on the original dataset without any augmented data;
+      it does not imply the use of a different CNN model trained solely on the original dataset.
+      Similarly, ``augmented dataset'' refers to evaluations on the dataset with
+      both original data and augment data, not a distinct model.
+  \end{minipage}
+  \end{flushright}
+\end{table}
+
+\subsection{Occlusion experiment}
+\label{supp_sec3.5_occlusion}
+
+% SI Figure 21: Illustration of the eDOS occlusion experiment
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{supp_fig21_occlusion.png}
+  \caption{\textbf{Illustration of the eDOS occlusion experiment.}
+  This figure demonstrates the step-by-step process of the occlusion experiment.
+  The input eDOS array first undergoes zero-padded, and then a masker of width ``width'' is applied,
+  resulting in an occlusion array that preserves the shape of the input array.}
+  \label{supp_fig21:occlusion}
+\end{figure}
+
+% SI Figure 22: Occlusion experiment with a masker width of 1
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig22_occl_wid1.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``1''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig22:occl_wid1}
+\end{figure}
+
+% SI Figure 23: Occlusion experiment with a masker width of 3
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig23_occl_wid3.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``3''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig23:occl_wid3}
+\end{figure}
+
+% SI Figure 24: Occlusion experiment with a masker width of 5
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig24_occl_wid5.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``5''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig24:occl_wid5}
+\end{figure}
+
+% SI Figure 25: Occlusion experiment with a masker width of 11
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig25_occl_wid11.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``11''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig25:occl_wid11}
+\end{figure}
+
+% SI Figure 26: Occlusion experiment with a masker width of 21
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig26_occl_wid21.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``21''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig26:occl_wid21}
+\end{figure}
+
+% SI Figure 27: Occlusion experiment with a masker width of 31
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig27_occl_wid31.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``31''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig27:occl_wid31}
+\end{figure}
+
+% SI Figure 28: Occlusion experiment with a masker width of 41
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig28_occl_wid41.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``41''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig28:occl_wid41}
+\end{figure}
+
+% SI Figure 29: Occlusion experiment with a masker width of 51
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{supp_fig29_occl_wid51.png}
+  \caption{\textbf{Occlusion Experiment with a masker width of ``51''.}
+  This figure shows an occlusion experiment on the Ge atom in
+  the initial state of CO adsorption on Ge@g-C\textsubscript{3}N\textsubscript{4}.}
+  \label{supp_fig29:occl_wid51}
+\end{figure}
+
+\subsection{Shifting experiment}
+\label{supp_sec3.6_shifting}
+
+% SI Figure 30: Illustration of the eDOS shifting experiment
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{supp_fig30_shifting.png}
+  \caption{\textbf{Illustration of the eDOS shifting experiment.}
+  This figure illustrates the sequential stages of the shifting experiment.
+  Initially, the input eDOS array is shifted along the Energy axis.
+  Subsequently, it undergoes zero-padding and cropping,
+  ensuring a consistent shape based on the shifting direction, to match the input eDOS array.
+  The resulting shifted array is then processed by the CNN model to
+  assess the disturbance in adsorption energy caused by the shifting operation.}
+  \label{supp_fig30:shifting}
+\end{figure}
+
+% SI Figure 31: Shifting experiment on p orbital
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\textwidth]{supp_fig31_p_shifting.png}
+  \caption{\textbf{Shifting experiment on p orbital.}
+  Effect of orbital shifting on CO adsorption energy, predicted by the CNN model,
+  for single metal atom catalysts supported on g-C\textsubscript{3}N\textsubscript{4}.
+  The perturbations caused by shifting of entire p orbital are presented.
+  The shifting step size corresponds to the energy resolution of the eDOS, set at 0.005 eV in this study.
+  A positive eDOS shift indicates a shift towards higher energy levels, and vice versa.}
+  \label{supp_fig31:p_shifting}
+\end{figure}
+
+
+\newpage
+% SI Section Three: Other Additional Information
+
+\section{Other additional information}
+\label{supp_sec4_env}
+
+\subsection{Additional information on machine learning environment}
+\label{supp_sec4.1_ml_env}
+
+The hyperparameter optimization for the proposed CNN model was performed using NVIDIA\textsuperscript{\textregistered} V100 Tensor Core GPUs,
+courtesy of the Australian National Computational Infrastructure's (NCI) HPC Gadi system.
+The HyperBand algorithm \cite{li2018hyperband}, as implemented in
+KerasTuner \cite{omalley2019kerastuner}, facilitated the tuning process.
+
+% Supplementary Table 19: Packages in the DL env
+\begin{table}[htbp]
+\label{supp_table19:pack_dl_env}
+  \caption{Core packages in the deep learning environment.}
+  \small
+  \center
+  \begin{tabularx}{0.9\textwidth}{@{}l *{3}{X} @{}}
+    \toprule
+    Name                 & Version  & Build                         & Channel      \\
+    \midrule
+    conda                & 4.13.0   & py39h06a4308\textunderscore0  & anaconda     \\
+    cuda-nvcc            & 11.8.89  & 0                             & nvidia       \\
+    cuda-toolkit         & 11.8.0   & 0                             & nvidia       \\
+    cudatoolkit          & 11.6.0   & habf752d\textunderscore9      & nvidia       \\
+    ipykernel            & 6.9.1    & py39h06a4308\textunderscore0  & anaconda     \\
+    ipython              & 7.34.0   & pypi\textunderscore0          & pypi         \\
+    jupyter\_client      & 7.2.2    & py39h06a4308\textunderscore0  & anaconda     \\
+    jupyterlab           & 3.4.4    & py39h06a4308\textunderscore0  & anaconda     \\
+    keras                & 2.9.0    & pypi\textunderscore0          & pypi         \\
+    keras-preprocessing  & 1.1.2    & pypi\textunderscore0          & pypi         \\
+    keras-tuner          & 1.3.5    &                               & pypi         \\
+    matplotlib           & 3.5.1    & py39h06a4308\textunderscore1  & anaconda     \\
+    numpy                & 1.22.4   & pypi\textunderscore0          & pypi         \\
+    pandas               & 1.3.4    & py39h8c16a72\textunderscore0  & anaconda     \\
+    python               & 3.9.12   & h12debd9\textunderscore1      & anaconda     \\
+    scikit-learn         & 1.1.1    & py39h6a678d5\textunderscore0  & anaconda     \\
+    scipy                & 1.8.1    & py39hddc5342\textunderscore3  & conda-forge  \\
+    tensorboard          & 2.9.1    & pypi\textunderscore0          & pypi         \\
+    tensorflow           & 2.9.3    & pypi\textunderscore0          & pypi         \\
+    tensorflow-gpu       & 2.9.3    & pypi\textunderscore0          & pypi         \\
+    xlrd                 & 2.0.1    & pyhd3eb1b0\textunderscore0    & anaconda     \\
+    yaml                 & 0.2.5    & h7b6447c\textunderscore0      & anaconda     \\
+    \bottomrule
+  \end{tabularx}
+
+  \smallskip
+
+  \begin{flushright}
+  \begin{minipage}{\textwidth}
+    \footnotesize\textit{Note:} The complete list of packages is
+      provided along with the source code.
+  \end{minipage}
+  \end{flushright}
+\end{table}
+
+\subsection{Additional information on data analysis and visualization environment}
+\label{supp_sec4.2_vis_env}
+
+Data analysis and visualization tasks were executed on an Apple MacBook Air featuring an octa-core M2 chip.
+For accuracy, the TensorFlow-Metal plugin for Mac-based GPU acceleration was deliberately excluded,
+as it could potentially yield erroneous CNN model predictions.
+
+The illustrations of CNN architecture displayed in \cref{main_fig1:pipeline} of the main text,
+as well as \cref{supp_fig21:occlusion} and \cref{supp_fig30:shifting},
+were obtained from the GitHub repository dair-ai/ml-visuals \cite{Saravia_ML_Visuals_2021}.
+Blender was used to create and render the visual representation of the
+catalyst analysis pipeline shown in \cref{main_fig1:pipeline} of the main text.
+
+% Supplementary Table 20: Packages in data analysis and vis env
+\begin{table}[htbp]
+\label{supp_table20:pack_vis_env}
+  \caption{Core packages in data analysis and visualization environment.}
+  \small
+  \center
+  \begin{tabularx}{0.9\textwidth}{@{}l *{3}{X} @{}}
+    \toprule
+    Name              & Version  & Build                     & Channel  \\
+    \midrule
+    bokeh             & 3.2.2    & pypi\textunderscore0      & pypi     \\
+    colorcet          & 3.0.1    & pypi\textunderscore0      & pypi     \\
+    heatmapz          & 0.0.4    & pypi\textunderscore0      & pypi     \\
+    keras             & 2.13.1   & pypi\textunderscore0      & pypi     \\
+    keras-tuner       & 1.3.5    & pypi\textunderscore0      & pypi     \\
+    matplotlib        & 3.7.2    & pypi\textunderscore0      & pypi     \\
+    numpy             & 1.24.3   & pypi\textunderscore0      & pypi     \\
+    pandas            & 2.0.3    & pypi\textunderscore0      & pypi     \\
+    python            & 3.11.4   & hb885b13\textunderscore0  &          \\
+    pyyaml            & 6.0.1    & pypi\textunderscore0      & pypi     \\
+    scikit-learn      & 1.3.0    & pypi\textunderscore0      & pypi     \\
+    scipy             & 1.11.1   & pypi\textunderscore0      & pypi     \\
+    seaborn           & 0.12.2   & pypi\textunderscore0      & pypi     \\
+    tensorboard       & 2.13.0   & pypi\textunderscore0      & pypi     \\
+    tensorflow        & 2.13.0   & pypi\textunderscore0      & pypi     \\
+    tensorflow-macos  & 2.13.0   & pypi\textunderscore0      & pypi     \\
+    \bottomrule
+  \end{tabularx}
+
+  \smallskip
+
+  \begin{flushright}
+  \begin{minipage}{\textwidth}
+    \footnotesize\textit{Note:} The complete list of packages
+      is provided along with the source code.
+  \end{minipage}
+  \end{flushright}
+\end{table}
+
+
+% References
+\newpage
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
