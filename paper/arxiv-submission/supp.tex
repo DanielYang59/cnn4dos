@@ -1,0 +1,58 @@
+% Journal Paper Supporting Information Header
+
+% Document Class and Packages
+\documentclass[a4paper, 12pt]{article}
+
+% Import packages
+\usepackage{amsmath}
+\usepackage{array}  % Required for m{} column type
+\usepackage[affil-it]{authblk}
+\usepackage[english]{babel}
+\usepackage{bookmark}
+\usepackage{booktabs}  % For better horizontal lines
+\usepackage{caption}  % To customize captions
+\usepackage{cleveref}  % Define Figure/Table cross-ref headers
+\usepackage{datetime2}
+\usepackage{enumitem}
+\usepackage{geometry}  % Adjust page geometry if needed
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{multirow}
+\usepackage{natbib}
+\usepackage{nicematrix}
+\usepackage{tablefootnote}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usepackage{xr}  % external cross-ref
+
+% Define Figure/Table/Equation cross-reference headers
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{Equation}{Equations}
+\captionsetup{labelfont=bf}
+
+% Justify SI table captions
+\captionsetup[table]{justification=justified, singlelinecheck=false}
+
+\externaldocument{main}  % for cross-ref
+
+\begin{document}
+\pdfoutput=1  % declare PDFLaTeX processing
+
+\input{supp_1_head.tex}  % Title
+\newpage
+\input{supp_2_dft.tex}  % DFT
+\newpage
+\input{supp_3_ml.tex}  % Machine Learning
+\newpage
+\input{supp_4_others.tex}
+
+% References
+\newpage
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
