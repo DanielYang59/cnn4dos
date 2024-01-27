@@ -1,18 +1,15 @@
-% Journal Paper Main Text Header
 
-% Document Class and Packages
 \documentclass[a4paper, 12pt, titlepage]{article}
 
-% Import packages
 \usepackage{amsmath}
-\usepackage{array}  % Required for m{} column type
+\usepackage{array}
 \usepackage{bookmark}
-\usepackage{booktabs}  % For better horizontal lines
-\usepackage{caption}  % To customize captions
-\usepackage{cleveref}  % Define Figure/Table cross-ref headers
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{cleveref}
 \usepackage{datetime2}
 \usepackage{enumitem}
-\usepackage{geometry}  % Adjust page geometry if needed
+\usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{multirow}
@@ -21,24 +18,23 @@
 \usepackage{tablefootnote}
 \usepackage{textcomp}
 \usepackage{siunitx}
-\usepackage{xr}  % external cross-ref
+\usepackage{xr}
 \usepackage[affil-it]{authblk}
 \usepackage[english]{babel}
 \usepackage[version=4]{mhchem}
 
-% Define Figure/Table/Equation cross-reference headers
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
 \crefname{equation}{Equation}{Equations}
-\captionsetup{labelfont=bf}  % make caption label bold
+\captionsetup{labelfont=bf}
 
-\externaldocument{supp}  % for cross-ref
+\externaldocument{supp}
 
 \begin{document}
-\pdfoutput=1  % declare PDFLaTeX processing
+\pdfoutput=1
 
 \newpage
-\input{main_1_head.tex}  % Title and Author Information
+\input{main_1_head.tex}
 \newpage
 \input{main_2_abstract.tex}
 \newpage
@@ -53,15 +49,12 @@
 
 \appendix
 \newpage
-\input{main_6_appendix.tex}  % Appendix
+\input{main_6_appendix.tex}
 
-% Bibliography
 \newpage
 \bibliographystyle{plain}
 \bibliography{references}
 
 \end{document}
 
-
-% Notes:
-% Table formatted to APA format following: https://tex.stackexchange.com/questions/681466/annotation-for-table-following-the-apa-style
+\typeout{get arXiv to do 4 passes: Label(s) may have changed. Rerun}
