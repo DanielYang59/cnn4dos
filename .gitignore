@@ -26,7 +26,7 @@ z-cluster-visualize
 *.alg
 *.aux
 *.bak
-*.bbl
+# *.bbl  # ArXiv: https://trevorcampbell.me/html/arxiv.html
 *.bcf
 *.blg
 *.brf
