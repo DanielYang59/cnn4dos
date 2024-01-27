@@ -3,6 +3,7 @@
 __pycache__
 p4vasp.log
 .vscode/
+.idea/
 
 
 # Temperarily cached labels and features numpy array for model training
