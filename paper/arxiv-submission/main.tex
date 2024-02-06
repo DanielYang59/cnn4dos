@@ -446,11 +446,17 @@
 \section{Methods}
 
     \subsection{DFT calculations}
-    Spin-polarized density functional theory calculations were performed using the Vienna Ab initio Simulation Package (VASP) version 5.4.4 \cite{kresse1996efficient, kresse1996efficiency, kresse1993ab} to optimize geometries and determine the electronic structure.
-    The Perdew-Burke-Ernzerhof (PBE) functional \cite{kresse1996efficient} within the generalized gradient approximation (GGA) \cite{perdew1996generalized} was utilized to describe the electron-ion interactions and electronic exchange correlations.
+    Spin-polarized density functional theory calculations were performed using
+    the Vienna Ab initio Simulation Package (VASP) version 5.4.4 \cite{kresse1996efficient, kresse1996efficiency, kresse1993ab}
+    to optimize geometries and determine the electronic structure.
+    The Perdew-Burke-Ernzerhof (PBE) functional \cite{kresse1996efficient} within
+    the generalized gradient approximation (GGA) \cite{perdew1996generalized}
+    was utilized to describe the electron-ion interactions and electronic exchange correlations.
     Kohn-Shan equations were approached employing a plane-wave basis set with a cut-off energy of 440 eV.
-    Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of ($2\times2\times1$) until the force on each atom fell below \SI{0.02}{\electronvolt\per\angstrom}.
-    Electronic structure calculations utilized denser K-point meshes of ($3\times3\times1$) and employed self-consistent field (SCF) methods.
+    Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of ($2\times2\times1$)
+    until the force on each atom fell below \SI{0.02}{\electronvolt\per\angstrom}.
+    Electronic structure calculations utilized denser K-point meshes of ($3\times3\times1$)
+    and employed self-consistent field (SCF) methods.
 
 
     \subsection{Catalyst models}
@@ -461,7 +467,9 @@
     To prevent interactions between adjacent images along the z-axis, vacuum layers of 15 \text{\AA} were introduced.
 
     \subsection{CO\texorpdfstring{\textsubscript{2}}{2}RR pathway}
-    The C1 production CO\textsubscript{2}RR pathway, as initially described by Peterson et al. \cite{peterson2010copper} and later confirmed by Jiao et al. \cite{jiao2017molecular} for g-C\textsubscript{3}N\textsubscript{4} based SACs, involves the following elementary steps.
+    The C1 production CO\textsubscript{2}RR pathway, as initially described by Peterson et al. \cite{peterson2010copper}
+    and later confirmed by Jiao et al. \cite{jiao2017molecular} for
+    g-C\textsubscript{3}N\textsubscript{4} based SACs, involves the following elementary steps.
     Asterisks (*) indicate species adsorbed on the SAC surfaces:
 
     \begin{align}
@@ -477,16 +485,20 @@
 
 
     \subsection{Free energy calculations}
-    Free energies were computed from electronic energies by considering thermal corrections, incorporating normal mode analysis of all degrees of freedom of adsorbates.
+    Free energies were computed from electronic energies by considering thermal corrections,
+    incorporating normal mode analysis of all degrees of freedom of adsorbates.
     The free energy $\textit{G}$ was calculated using the formula:
     \begin{align}
     G = E + E_{\text{ZPE}} - TS  \label{main_eq9:free_energy}
     \end{align}
 
-    where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy, $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin, and $\textit{S}$ stands for entropy.
+    where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy,
+    $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin,
+    and $\textit{S}$ stands for entropy.
     Detailed information regarding these corrections can be found in Supplementary \cref{supp_sec2.3_energies}.
 
-    The computational hydrogen electrode (CHE) model \cite{peterson2010copper, norskov2004origin} was employed to introduce potential dependence.
+    The computational hydrogen electrode (CHE) model \cite{peterson2010copper, norskov2004origin}
+    was employed to introduce potential dependence.
     At the reference electrode surface, the reaction
     \begin{align}
     \ce{1/2H2_{(g)}  <-> H+ + e-}  \label{main_eq10:che}
@@ -495,22 +507,30 @@
     \begin{align}
     \mu(\mathrm{H}^+) + \mu(e^-) = \frac{1}{2}\mu(\mathrm{H}_{2(\mathrm{g})}) - eU  \label{main_eq11:che_potential}
     \end{align}
-    For the external potential $\textit{U}$ applied, the change in free energy ($\Delta \textit{G}$) was determined using the equation:
+    For the external potential $\textit{U}$ applied, the change in free energy ($\Delta \textit{G}$)
+    was determined using the equation:
     \begin{align}
     \Delta G_n(U) = \Delta G_n(U=0) + neU  \label{main_eq12:ext_potential_che}
     \end{align}
-    Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external potential applied, $\textit{n}$ represents the number of proton-electron pairs transferred, and $\textit{e}$ denotes the elementary charge.
+    Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external potential applied,
+    $\textit{n}$ represents the number of proton-electron pairs transferred,
+    and $\textit{e}$ denotes the elementary charge.
 
 
     \subsection{Hybrid descriptor for volcano plots}
-    Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary \cref{supp_fig10:r2_hyb_des} and Supplementary \cref{supp_table13:scaling_params}.
-    Comprehensive analyses are presented Supplementary \cref{supp_sec2.5_scaling}. This leads to the formulation of the scaling relation:
+    Hybrid descriptors incorporate both descriptors within a single equation,
+    enhancing the accuracy of scaling relationship with minimal computational overhead,
+    as demonstrated in Supplementary \cref{supp_fig10:r2_hyb_des} and Supplementary \cref{supp_table13:scaling_params}.
+    Comprehensive analyses are presented Supplementary \cref{supp_sec2.5_scaling}.
+    This leads to the formulation of the scaling relation:
     \begin{align}
     G_{\text{ads}} Z =
     k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z  \label{main_eq13:scaling_relation}
     \end{align}
-    Here, $\theta$ represents the mixing ratio of the CO descriptor, $\textit{Z}$ denotes any adsorbate, and $\textit{k}$ and $\textit{c}_{Z}$ are adsorbate-specific scaling parameters.
-    The optimal mixing ratio $\theta$ is determined through iterative exploration across the range, utilizing a step length of 0.01.
+    Here, $\theta$ represents the mixing ratio of the CO descriptor, $\textit{Z}$ denotes any adsorbate,
+    and $\textit{k}$ and $\textit{c}_{Z}$ are adsorbate-specific scaling parameters.
+    The optimal mixing ratio $\theta$ is determined through iterative exploration across the range,
+    utilizing a step length of 0.01.
 
     \ref{main_eq13:scaling_relation} could be simplified to a more general form:
     \begin{align}
@@ -519,45 +539,67 @@
     \end{align}
     Here, $a_Z$, $b_Z$, $c_Z$ are adsorbate-specific parameters.
 
-    Consequently, the limiting potential $\textit{U}_{L}$ is entirely determined by two descriptors through the following equation:
+    Consequently, the limiting potential $\textit{U}_{L}$ is entirely determined
+    by two descriptors through the following equation:
     \begin{align}
     U_L = -\frac{\max\{ \Delta G_i \}}{e}  \label{main_eq15:limiting_potential}
     \end{align}
     Where $\Delta G_{i}$ represents the free energy change of reaction step i.
 
-    This approach simplifies the theoretical performance assessment of any catalyst within the scope of our research to only two descriptors: $G_{\textit{ads} \, \textit{CO}}$ and $G_{\textit{ads} \, \textit{OH}}$.
+    This approach simplifies the theoretical performance assessment of any catalyst
+    within the scope of our research to only two descriptors:
+    $G_{\textit{ads} \, \textit{CO}}$ and $G_{\textit{ads} \, \textit{OH}}$.
     This method offers a visual representation of the high-dimensional optimization challenge.
-    To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of limiting potentials across the descriptor value ranges.
+    To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of
+    limiting potentials across the descriptor value ranges.
     At each grid point, the limiting potential is computed using \cref{main_eq15:limiting_potential}.
 
 
     \subsection{CNN architecture and hyperparameter tuning}
-    We designed our CNN architecture drawing inspiration from its successful implementation in tasks involving electrocardiogram signal classification \cite{weimann2021transfer}, as illustrated in \cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c.
-    This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals while ensuring a reduced memory footprint.
+    We designed our CNN architecture drawing inspiration from its successful implementation in
+    tasks involving electrocardiogram signal classification \cite{weimann2021transfer},
+    as illustrated in \cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c.
+    This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals
+    while ensuring a reduced memory footprint.
 
     The effectiveness of neural network models is intricately tied to the choice of hyperparameters.
-    To identify the optimal set of hyperparameters, we employed Hyperband \cite{li2018hyperband}, a modern and parallelizable bandit-based optimization algorithm.
-    The search space for hyperparameters is detailed in Supplementary \cref{supp_table16:hyperparam_space}, and the resulting optimal hyperparameters are presented in Supplementary \cref{supp_table17:opt_hyperparam}.
+    To identify the optimal set of hyperparameters, we employed Hyperband \cite{li2018hyperband},
+    a modern and parallelizable bandit-based optimization algorithm.
+    The search space for hyperparameters is detailed in Supplementary \cref{supp_table16:hyperparam_space},
+    and the resulting optimal hyperparameters are presented in Supplementary \cref{supp_table17:opt_hyperparam}.
 
 
     \subsection{Data augmentation and CNN model training}
-    To enhance the generalizability and robustness of the our CNN model, and achieve comprehensive coverage of the chemical space \cite{DBLP:journals/corr/abs-2112-12542}, we applied data augmentation techniques to the initial dataset using the following procedures:
-        - In addition to the designated ``initial state'' of the adsorption process, where the adsorbate positioned 6.5 \text{\AA} above the supported single metal atom, five intermediate images were interpolated. These images were distributed between the initial and final states at a spacing of 0.5 \text{\AA}, starting from the initial state side.
-        - A diverse set of smearing techniques was employed to determine of partial occupancies $f_{nk}$, including the tetrahedron method \cite{blochl1994improved} and the Gaussian method. For the Gaussian method, the smearing width was varied within the range of 0.01 eV to 0.1 eV. This careful selection of methods was made to guarantee reliable and consistent predictions of adsorption energies from the model, regardless of the smearing technique used.
+    To enhance the generalizability and robustness of the our CNN model,
+    and achieve comprehensive coverage of the chemical space \cite{DBLP:journals/corr/abs-2112-12542},
+    we applied data augmentation techniques to the initial dataset using the following procedures:
+        - In addition to the designated ``initial state'' of the adsorption process,
+        where the adsorbate positioned 6.5 \text{\AA} above the supported single metal atom,
+        five intermediate images were interpolated.
+        These images were distributed between the initial and final states at a spacing of 0.5 \text{\AA},
+        starting from the initial state side.
+        - A diverse set of smearing techniques was employed to determine of partial occupancies $f_{nk}$,
+        including the tetrahedron method \cite{blochl1994improved} and the Gaussian method.
+        For the Gaussian method, the smearing width was varied within the range of 0.01 eV to 0.1 eV.
+        This careful selection of methods was made to guarantee reliable and consistent predictions
+        of adsorption energies from the model, regardless of the smearing technique used.
 
-    The augmented dataset comprises 12,312 samples, with adsorption energies having a standard deviation of 1.8117 eV and a variance of 3.2821 eV\textsubscript{2}.
-    Twenty percent of these samples were allocated to the validation set. Throughout the training process, a batch size of 64 was employed to ensure a balanced learning dynamic.
+    The augmented dataset comprises 12,312 samples, with adsorption energies having
+    a standard deviation of 1.8117 eV and a variance of 3.2821 eV\textsubscript{2}.
+    Twenty percent of these samples were allocated to the validation set.
+    Throughout the training process, a batch size of 64 was employed to ensure a balanced learning dynamic.
 
 
     \subsection{eDOS occlusion experiments}
-    Supplementary \cref{supp_fig21:occlusion} visually illustrates the eDOS occlusion experiment methodology.
-    To maintain consistent shapes, zero-padding was applied to the input eDOS arrays.
-    Focusing on understanding the influence of metals on adsorption behavior,
-    a masker with dimensions [width, 1, 1] was employed along the metal channel
-    to eliminate cross-orbital interactions.
+    Supplementary \cref{supp_fig21:occlusion} visually illustrates the eDOS occlusion
+    experiment methodology. To maintain consistent shapes, zero-padding was applied to the
+    input eDOS arrays. Focusing on understanding the influence of metals on
+    adsorption behavior, a masker with dimensions [width, 1, 1] was employed along
+    the metal channel to eliminate cross-orbital interactions.
     Here, ``width'' denotes the masker width, and detailed explanations for determining the width
     are provided in Supplementary \cref{supp_sec3.5_occlusion}.
-    Through recursive application of these maskers, variations in predicted adsorption energies from the CNN model were recorded, generating an occlusion array.
+    Through recursive application of these maskers, variations in predicted
+    adsorption energies from the CNN model were recorded, generating an occlusion array.
 
 
     \subsection{eDOS shifting experiments}
@@ -565,19 +607,30 @@
     In this study, the initial electronic density of states underwent controlled shifting along the energy axis.
     This protocol ranges from -1 eV to 1 eV, with a step length of 0.005 eV per image.
     To maintain a uniform energy window, each image underwent cropping and padding procedures.
-    The resulted output arrays took the form of [400, 1] arrays for simultaneous orbital shifting and [400, 9] arrays for individual orbital shifting.
+    The resulted output arrays took the form of [400, 1] arrays for simultaneous orbital shifting
+    and [400, 9] arrays for individual orbital shifting.
     The energy range for shifting was chosen to induce a moderate disturbance to adsorption energy.
 
 
     \subsection{Chemical bond analysis and real-space wavefunction visualization}
-    COHP analysis was performed using the Local-Orbital Basis Suite Towards Electronic-Structure Reconstruction (LOBSTER) package  \cite{deringer2011crystal, koga1999analytical, nelson2020lobster, maintz2013analytic, dronskowski1993crystal} version 4.1.0, with the GGA-PBE wavefunctions fitted by S. Maintz \cite{koga1999analytical, maintz2016lobster}.
+    COHP analysis was performed using the Local-Orbital Basis Suite Towards
+    Electronic-Structure Reconstruction (LOBSTER) package
+    \cite{deringer2011crystal, koga1999analytical, nelson2020lobster, maintz2013analytic, dronskowski1993crystal} version 4.1.0,
+    with the GGA-PBE wavefunctions fitted by S. Maintz \cite{koga1999analytical, maintz2016lobster}.
     A Gaussian smearing for energy integration was employed with a broadening width of 0.05 eV.
-    The quantification of bonding strength between the single metal atom and the substrate was achieved through the summation of interactions with neighboring atoms within a range of 0.5 \text{\AA} to 5.0 \text{\AA} from the single metal atom.
-    Orbitals of interest were confirmed through band-structure analysis, and real-space wavefunctions were subsequently visualized using VASPKIT \cite{wang2021vaspkit} and VESTA \cite{momma2008vesta}.
+    The quantification of bonding strength between the single metal atom and the substrate
+    was achieved through the summation of interactions with neighboring atoms
+    within a range of 0.5 \text{\AA} to 5.0 \text{\AA} from the single metal atom.
+    Orbitals of interest were confirmed through band-structure analysis,
+    and real-space wavefunctions were subsequently visualized using VASPKIT \cite{wang2021vaspkit}
+    and VESTA \cite{momma2008vesta}.
 
     \subsection{Machine learning and data analysis environment}
-    The CNN model was implemented using TensorFlow \cite{abadi2016tensorflow}, and hyperparameter optimization was conducted using the Hyperband \cite{li2018hyperband} algorithm via KerasTuner \cite{omalley2019kerastuner}.
-    For a more detailed overview of our machine learning setup and data analysis environment, please refer to Supplementary \cref{supp_sec4_env}.
+    The CNN model was implemented using TensorFlow \cite{abadi2016tensorflow},
+    and hyperparameter optimization was conducted using the Hyperband \cite{li2018hyperband} algorithm
+    via KerasTuner \cite{omalley2019kerastuner}.
+    For a more detailed overview of our machine learning setup and data analysis environment,
+    please refer to Supplementary \cref{supp_sec4_env}.
 
 
 % Code/Data Availability, Acknowledgements, Author Contributions and Competing Interests
