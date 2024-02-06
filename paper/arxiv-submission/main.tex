@@ -23,6 +23,8 @@
 \usepackage[english]{babel}
 \usepackage[version=4]{mhchem}
 
+\DeclareSIUnit\angstrom{\text {Å}}
+
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
 \crefname{equation}{Equation}{Equations}
@@ -447,7 +449,7 @@
     Spin-polarized density functional theory calculations were performed using the Vienna Ab initio Simulation Package (VASP) version 5.4.4 \cite{kresse1996efficient, kresse1996efficiency, kresse1993ab} to optimize geometries and determine the electronic structure.
     The Perdew-Burke-Ernzerhof (PBE) functional \cite{kresse1996efficient} within the generalized gradient approximation (GGA) \cite{perdew1996generalized} was utilized to describe the electron-ion interactions and electronic exchange correlations.
     Kohn-Shan equations were approached employing a plane-wave basis set with a cut-off energy of 440 eV.
-    Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of ($2\times2\times1$) until the force on each atom fell below 0.02 eV/\(\mathrm{\AA}^{-1}\).
+    Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of ($2\times2\times1$) until the force on each atom fell below \SI{0.02}{\electronvolt\per\angstrom}.
     Electronic structure calculations utilized denser K-point meshes of ($3\times3\times1$) and employed self-consistent field (SCF) methods.
 
 
