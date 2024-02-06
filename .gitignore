@@ -24,7 +24,7 @@ z-cluster-visualize
 *.acn
 *.acr
 *.alg
-*.aux
+# *.aux  # need to import supplement.aux in main.tex
 *.bak
 # *.bbl  # ArXiv: https://trevorcampbell.me/html/arxiv.html
 *.bcf
