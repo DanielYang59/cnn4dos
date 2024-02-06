@@ -1,4 +1,4 @@
-% Build recipe file
+% Main Build Recipe File
 \documentclass[a4paper, 12pt, titlepage]{article}
 
 
@@ -21,17 +21,18 @@
 \usepackage{nicematrix}
 \usepackage{rerunfilecheck}
 \usepackage{tablefootnote}
+\usepackage{tabularx}
 \usepackage{textcomp}
 \usepackage{siunitx}
 
 
-\DeclareSIUnit\angstrom{\text {Å}}
-
+\bibliographystyle{plain}
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
 \crefname{equation}{Equation}{Equations}
 \captionsetup{labelfont=bf}
 \captionsetup[table]{justification=justified, singlelinecheck=false}
+\DeclareSIUnit\angstrom{\text {Å}}
 
 
 \begin{document}
@@ -41,12 +42,15 @@
 \input{main.tex}
 
 \newpage
-\bibliographystyle{plain}
 \bibliography{references}
 
 
 % Supplementary Information
-% \input{supplement.tex}
+\newpage
+\input{supplement.tex}
+
+\newpage
+\bibliography{references}
 
 
 \end{document}
