@@ -220,11 +220,6 @@ Georg Kresse and J{\"u}rgen Hafner.
 \newblock Ab initio molecular dynamics for liquid metals.
 \newblock {\em Physical review B}, 47(1):558, 1993.
 
-\bibitem{krizhevsky2012imagenet}
-Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E Hinton.
-\newblock Imagenet classification with deep convolutional neural networks.
-\newblock {\em Advances in neural information processing systems}, 25, 2012.
-
 \bibitem{kusada2019emergence}
 Kohei Kusada, Dongshuang Wu, Tomokazu Yamamoto, Takaaki Toriyama, Syo
   Matsumura, Wei Xie, Michihisa Koyama, Shogo Kawaguchi, Yoshiki Kubota, and
