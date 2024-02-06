@@ -8,6 +8,14 @@ Mart{\'\i}n Abadi, Paul Barham, Jianmin Chen, Zhifeng Chen, Andy Davis, Jeffrey
 \newblock In {\em 12th USENIX symposium on operating systems design and
   implementation (OSDI 16)}, pages 265--283, 2016.
 
+\bibitem{abild2007scaling}
+Frank Abild-Pedersen, Jeff Greeley, Felix Studt, Jan Rossmeisl, Ture~R Munter,
+  Poul~Georg Moses, Egill Skulason, Thomas Bligaard, and Jens~Kehlet
+  N{\o}rskov.
+\newblock Scaling properties of adsorption energies for hydrogen-containing
+  molecules on transition-metal surfaces.
+\newblock {\em Physical review letters}, 99(1):016105, 2007.
+
 \bibitem{balandin1969modern}
 AA~Balandin.
 \newblock Modern state of the multiplet theor of heterogeneous catalysis.
@@ -90,6 +98,13 @@ Richard Dronskowski and Peter~E Bl{\"o}chl.
   visualization of chemical bonding in solids based on density-functional
   calculations.
 \newblock {\em The Journal of Physical Chemistry}, 97(33):8617--8624, 1993.
+
+\bibitem{durand2011structure}
+William~J Durand, Andrew~A Peterson, Felix Studt, Frank Abild-Pedersen, and
+  Jens~K N{\o}rskov.
+\newblock Structure effects on the energetics of the electrochemical reduction
+  of co2 by copper surfaces.
+\newblock {\em Surface Science}, 605(15-16):1354--1359, 2011.
 
 \bibitem{feaster2017understanding}
 Jeremy~T Feaster, Chuan Shi, Etosha~R Cave, Toru Hatsukade, David~N Abram,
@@ -181,6 +196,10 @@ Seiji Kajita, Nobuko Ohba, Ryosuke Jinnouchi, and Ryoji Asahi.
 Maurice~G Kendall.
 \newblock A new measure of rank correlation.
 \newblock {\em Biometrika}, 30(1/2):81--93, 1938.
+
+\bibitem{kingma2017adam}
+Diederik~P. Kingma and Jimmy Ba.
+\newblock Adam: A method for stochastic optimization, 2017.
 
 \bibitem{kirklin2015open}
 Scott Kirklin, James~E Saal, Bryce Meredig, Alex Thompson, Jeff~W Doak,
@@ -284,6 +303,12 @@ Ryky Nelson, Christina Ertural, Janine George, Volker~L Deringer, Geoffroy
   density-functional theory.
 \newblock {\em Journal of Computational Chemistry}, 41(21):1931--1940, 2020.
 
+\bibitem{nie2014reaction}
+Xiaowa Nie, Wenjia Luo, Michael~J Janik, and Aravind Asthagiri.
+\newblock Reaction mechanisms of co2 electrochemical reduction on cu (1 1 1)
+  determined with density functional theory.
+\newblock {\em Journal of catalysis}, 312:108--122, 2014.
+
 \bibitem{norskov2011density}
 Jens~K N{\o}rskov, Frank Abild-Pedersen, Felix Studt, and Thomas Bligaard.
 \newblock Density functional theory in surface chemistry and catalysis.
@@ -336,6 +361,11 @@ Wenhao Ren, Xin Tan, Wanfeng Yang, Chen Jia, Shumao Xu, Kaixue Wang, Sean~C
   electroreduction of co2.
 \newblock {\em Angewandte Chemie International Edition}, 58(21):6972--6976,
   2019.
+
+\bibitem{Saravia_ML_Visuals_2021}
+Elvis Saravia.
+\newblock {ML Visuals}.
+\newblock {\em https://github.com/dair-ai/ml-visuals}, December 2021.
 
 \bibitem{savage2022breaking}
 Neil Savage.
