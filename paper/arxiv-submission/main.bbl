@@ -366,9 +366,8 @@ Hari Thirumalai and John~R Kitchin.
 
 \bibitem{tran2015learning}
 Du~Tran, Lubomir Bourdev, Rob Fergus, Lorenzo Torresani, and Manohar Paluri.
-\newblock Learning spatiotemporal features with 3d convolutional networks.
-\newblock In {\em Proceedings of the IEEE international conference on computer
-  vision}, pages 4489--4497, 2015.
+\newblock Learning spatiotemporal features with 3d convolutional networks,
+  2015.
 
 \bibitem{wang2018heterogeneous}
 Aiqin Wang, Jun Li, and Tao Zhang.
@@ -394,11 +393,12 @@ Kuba Weimann and Tim~OF Conrad.
 \newblock {\em Scientific reports}, 11(1):5251, 2021.
 
 \bibitem{wellendorff2015benchmark}
-Jess Wellendorff, Trent~L Silbaugh, Delfina Garcia-Pintos, Jens~K N{\o}rskov,
-  Thomas Bligaard, Felix Studt, and Charles~T Campbell.
+Jess Wellendorff, Trent~L. Silbaugh, Delfina Garcia-Pintos, Jens~K. Nørskov,
+  Thomas Bligaard, Felix Studt, and Charles~T. Campbell.
 \newblock A benchmark database for adsorption bond energies to transition metal
   surfaces and comparison to selected dft functionals.
 \newblock {\em Surface Science}, 640:36--44, 2015.
+\newblock Reactivity Concepts at Surfaces: Coupling Theory with Experiment.
 
 \bibitem{DBLP:journals/corr/abs-2112-12542}
 Yutong Xie, Ziqiao Xu, Jiaqi Ma, and Qiaozhu Mei.
