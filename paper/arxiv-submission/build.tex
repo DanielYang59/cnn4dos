@@ -26,7 +26,6 @@
 \usepackage{siunitx}
 
 
-\bibliographystyle{plain}
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
 \crefname{equation}{Equation}{Equations}
@@ -41,17 +40,17 @@
 % Main Text
 \input{main.tex}
 
-\newpage
-\bibliography{references}
-
 
 % Supplementary Information
 \newpage
 \input{supplement.tex}
 
+
+% Bibliography
 \newpage
+\bibliographystyle{plain}
 \bibliography{references}
 
 
 \end{document}
-% End of Recipe
+% End of Recipe File
