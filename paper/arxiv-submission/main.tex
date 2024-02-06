@@ -3,6 +3,8 @@
 
 \usepackage{amsmath}
 \usepackage{array}
+\usepackage[affil-it]{authblk}
+\usepackage[english]{babel}
 \usepackage{bookmark}
 \usepackage{booktabs}
 \usepackage{caption}
@@ -12,17 +14,16 @@
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage[version=4]{mhchem}
 \usepackage{multirow}
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
 \usepackage{nicematrix}
 \usepackage{rerunfilecheck}
 \usepackage{tablefootnote}
 \usepackage{textcomp}
 \usepackage{siunitx}
 \usepackage{xr}
-\usepackage[affil-it]{authblk}
-\usepackage[english]{babel}
-\usepackage[version=4]{mhchem}
+
 
 \DeclareSIUnit\angstrom{\text {Å}}
 
@@ -145,7 +146,7 @@
     rendering manual crafting inadequate \cite{han2021single, thirumalai2018investigating}.
     To streamline this featurization process, we employed CNNs,
     which autonomously derive a hierarchical representation directly from the eDOS
-    \cite{tran2015learning, socher2012convolutional, NIPS2012_c399862ds}.
+    \cite{tran2015learning, socher2012convolutional, NIPS2012_c399862d}.
     This approach accurately maps to the activity space, negating the need for manual crafting of descriptors
     and providing a more efficient method to understand and
     establish the structure-mechanism-activity relationship for electrochemical reactions.
