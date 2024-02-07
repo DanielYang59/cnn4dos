@@ -1,5 +1,7 @@
 # MPhil Research Project at QUT: Adsorption Energy Prediction from Electronic Density of States with Convolutional Neural Networks
 
+[![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876) [![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
+
 ## Overview
 
 This repository contains the code, data and resources to support my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT), titled "*Descriptor-guided screening and understanding of 2D substrate supported single atomic CO `<sub>`2 `</sub>`RR electrocalysts*" and co-supervised by [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) and [Prof. Ziqi Sun](https://www.qut.edu.au/about/our-people/academic-profiles/ziqi.sun). The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
