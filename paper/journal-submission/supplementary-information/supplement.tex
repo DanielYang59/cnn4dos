@@ -24,7 +24,9 @@
 \usepackage{tabularx}
 \usepackage{textcomp}
 \usepackage{siunitx}
+\usepackage{xr}
 
+\externaldocument{../manuscript-text/main}
 
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
@@ -35,13 +37,12 @@
 
 
 \begin{document}
-\pdfoutput=1
 
 
 % SI Title
 \title{Supporting Information for:  \\
-Convolutional Neural Networks and Volcano Plots:
-Screening and Prediction of Two-Dimensional Single-Atom Catalysts for CO\textsubscript{2} Reduction Reactions}
+  Convolutional Neural Networks and Volcano Plots:
+  Screening and Prediction of Two-Dimensional Single-Atom Catalysts for CO\textsubscript{2} Reduction Reactions}
 
 \author[1]{Haoyu Yang}
 \author[2]{Juanli Zhao}
@@ -1426,4 +1427,12 @@ catalyst analysis pipeline shown in \cref{main_fig1:pipeline} of the main text.
   \end{flushright}
 \end{table}
 
+
+% SI Bibliography
+\newpage
+\bibliographystyle{plain}
+\bibliography{supp_references}
+
+
+\end{document}
 % End of Supplementary Information
