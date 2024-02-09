@@ -24,24 +24,24 @@
 \usepackage{tabularx}
 \usepackage{textcomp}
 \usepackage{siunitx}
+\usepackage{xr}
 
+\externaldocument{../supplementary-information/supplement}
 
 \crefname{figure}{Figure}{Figures}
 \crefname{table}{Table}{Tables}
 \crefname{equation}{Equation}{Equations}
 \captionsetup{labelfont=bf}
-\captionsetup[table]{justification=justified, singlelinecheck=false}
 \DeclareSIUnit\angstrom{\text {Å}}
 
 
 \begin{document}
-\pdfoutput=1
 
 
 % Title, Authors and Affiliations
 \title{Convolutional Neural Networks and Volcano Plots:
-Screening and Prediction of Two-Dimensional Single-Atom Catalysts
-for CO\textsubscript{2} Reduction Reactions}
+    Screening and Prediction of Two-Dimensional Single-Atom Catalysts
+    for CO\textsubscript{2} Reduction Reactions}
 
 \author[1]{Haoyu Yang}
 \author[2]{Juanli Zhao}
@@ -683,7 +683,7 @@ George Street, Brisbane, QLD 4000, Australia}
 % Bibliography
 \newpage
 \bibliographystyle{plain}
-\bibliography{references}
+\bibliography{main_references}
 
 
 \end{document}
