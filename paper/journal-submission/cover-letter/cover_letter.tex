@@ -39,7 +39,35 @@
 
 \section{Importance and appropriateness for submission}
 
+\noindent \textbf{High Predictive Accuracy:} \\
+    Our computational model demonstrates accuracy in predicting the adsorption energies
+    of various CO2RR and HER adsorbates on single-atom catalysts (SACs),
+    achieving a mean absolute error (MAE) at the 0.1 eV level.
+    Our eDOS occlusion and shifting experiments elucidate the orbitalwise contributions
+    to adsorption behavior and potential changes resulting from
+    electronic density of states (eDOS) disturbances.
+    The chemical meaningfulness of our predictions is validated through
+    crystal orbital Hamilton population (COHP) analysis. \\
 
+\noindent \textbf{Versatile Predictive Model:} \\
+    Our convolutional neural network (CNN) model offers distinct advantages.
+    Firstly, it does not rely on species-specific parameters,
+    making it applicable beyond CO2RR to a wide range of electrochemical reduction reactions.
+    Secondly, our model requires only the eDOS of supported single metal atoms and adsorbates,
+    eliminating the need for substrate-specific parameters
+    and significantly reducing memory footprint.
+    Additionally, utilizing a multi-branched CNN architecture further reduced
+    the model's memory footprint. \\
+
+\noindent \textbf{Improved Linear Scaling Relations:} \\
+    We present revised linear scaling relations that reduce scaling errors
+    with limited computational overhead.
+    This advancement paves the way for the generation of accurate volcano plots. \\
+
+\noindent \textbf{Efficient Catalyst Screening Pipeline:} \\
+    Our screening pipeline integrates volcano plots to predict directions
+    for optimization, and eDOS shifting experiments to identify methods
+    for achieving predicted volcano plot outcomes.
 
 
 \section{Reviewers and exclusion of referees}
