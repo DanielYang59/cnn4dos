@@ -13,10 +13,11 @@ This project investigated the CO<sub>2</sub> reduction to CH<sub>4</sub> reactio
 ## Highlights
 
 - High prediction accuracy (MAE around 0.1 eV) for various intermediates, and free of intermediate-specific parameters.
-- Minimal input data demand (only eDOS from supported single metal atom and adsorbate, not the entire catalyst).
-- Enhanced model interpretability with occlusion experiments and shifting experiments.
+- Reduced input data demand (only eDOS from supported single metal atom and adsorbate, instead of the entire catalyst).
+- Enhanced model interpretability with eDOS occlusion experiments and eDOS shifting experiments.
 - Physical meaningfulness confirmed by crystal orbital Hamilton population (COHP) analysis.
-- Shifting experiments could potentially couple with volcano plots to improve existing candidates.
+- eDOS shifting experiments could potentially couple with volcano plots to improve existing candidates.
+- Hybrid-descriptor method towards improved scaling relations accuracy with limited computational overhead.
 
 ## TODOs
 
@@ -38,9 +39,7 @@ If you find this work beneficial, kindly consider citing [my MPhil Thesis](https
              doi = {10.5204/thesis.eprints.241290},
         keywords = {Adsorption Energy, CO2 Reduction Reaction, Convolutional Neural Network, Density Functional Theory, Descriptor, Electronic Density of States, Linear Scaling Relation, Limiting Potential, Single-Atom Catalyst, Two-Dimensional}
 }
-```
 
-```
 @misc{yang2024convolutional,
       title={Convolutional Neural Networks and Volcano Plots: Screening and Prediction of Two-Dimensional Single-Atom Catalysts},
       author={Haoyu Yang and Juanli Zhao and Qiankun Wang and Bin Liu and Wei Luo and Ziqi Sun and Ting Liao},
