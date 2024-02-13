@@ -4,7 +4,7 @@
 
 ## Overview
 
-This repository contains the code, data and resources to support my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT), titled "*Descriptor-guided screening and understanding of 2D substrate supported single atomic CO `<sub>`2 `</sub>`RR electrocalysts*" and co-supervised by [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) and [Prof. Ziqi Sun](https://www.qut.edu.au/about/our-people/academic-profiles/ziqi.sun). The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
+This repository contains the code, data and resources to support my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT), titled "*Descriptor-guided screening and understanding of 2D substrate supported single atomic CO<sub>2</sub>RR electrocalysts*" and co-supervised by [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) and [Prof. Ziqi Sun](https://www.qut.edu.au/about/our-people/academic-profiles/ziqi.sun). The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
 
 ## Description
 
