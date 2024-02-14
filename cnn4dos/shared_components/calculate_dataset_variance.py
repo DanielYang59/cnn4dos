@@ -5,14 +5,14 @@
 training_dir = "../1-model-and-training/1-hyper-tune"
 
 
-import numpy as np
+import sys
 from pathlib import Path
+
+import numpy as np
 import yaml
 
-import sys
 sys.path.append(training_dir)
 from lib.dataset import Dataset
-
 
 if __name__ == "__main__":
     # Load configs
@@ -30,17 +30,22 @@ if __name__ == "__main__":
     augmentations = cfg["species"]["augmentations"]
     spin = cfg["species"]["spin"]
 
-
     # Load dataset
     dataFetcher = Dataset()
 
     ## Load feature
-    dataFetcher.load_feature(feature_dir,
-                             substrates, adsorbates,
-                             centre_atoms,
-                             states={"is", },
-                             spin=spin,
-                             load_augment=load_augmentation, augmentations=augmentations)
+    dataFetcher.load_feature(
+        feature_dir,
+        substrates,
+        adsorbates,
+        centre_atoms,
+        states={
+            "is",
+        },
+        spin=spin,
+        load_augment=load_augmentation,
+        augmentations=augmentations,
+    )
 
     ## Load labels
     dataFetcher.load_label(label_dir)

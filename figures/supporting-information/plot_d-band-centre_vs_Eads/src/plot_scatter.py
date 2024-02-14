@@ -6,7 +6,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 
-def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.png", dpi=300):
+def plot_scatter(
+    x, y, labels, colors=None, show=False, savename="d-band-Eads.png", dpi=300
+):
     """Plot scatter for d-band centre vs adsorption energy relationship.
 
     Args:
@@ -27,7 +29,6 @@ def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.pn
     else:
         assert len(x) == len(colors)
 
-
     # Create scatter plot
     mpl.rcParams.update(mpl.rcParamsDefault)
     mpl.rcParams["axes.linewidth"] = 2.5
@@ -38,7 +39,6 @@ def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.pn
     # Set legend
     plt.legend()
 
-
     # # Set x/y axis labels
     # plt.xlabel("d-Band Centre (eV)", fontsize=18)
     # plt.ylabel("Adsorption Energy (eV)", fontsize=16)
@@ -46,12 +46,11 @@ def plot_scatter(x, y, labels, colors=None, show=False, savename="d-band-Eads.pn
     plt.xlim(-15, 5)
 
     # Set x/y tick label sizes
-    plt.xticks(range(-15, 10, 5),fontsize=18)
+    plt.xticks(range(-15, 10, 5), fontsize=18)
     plt.yticks(fontsize=18)
 
     # Set x/y tick length and thickness
     plt.tick_params("both", length=5, width=2.5, which="major")
-
 
     # Show and save figure
     plt.tight_layout()

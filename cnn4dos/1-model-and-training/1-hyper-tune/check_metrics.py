@@ -3,11 +3,10 @@
 
 
 import io
-import keras_tuner
 import sys
 
+import keras_tuner
 from hp_model import hp_model
-
 
 # Main Loop
 if __name__ == "__main__":
@@ -20,8 +19,7 @@ if __name__ == "__main__":
         objective="val_mean_absolute_error",
         directory="hp_search",
         project_name="best_model",
-        )
-
+    )
 
     # Create a StringIO buffer to capture output
     output_buffer = io.StringIO()
@@ -38,7 +36,6 @@ if __name__ == "__main__":
     summary_string = output_buffer.getvalue()
     # Close the buffer
     output_buffer.close()
-
 
     # Parse metrics into dict
     metric_dict = {}

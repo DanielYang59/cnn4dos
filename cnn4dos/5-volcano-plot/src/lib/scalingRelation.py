@@ -1,7 +1,7 @@
 """Calculate adsorption energy linear scaling relations."""
 
-
 import warnings
+
 import numpy as np
 from scipy import stats
 
@@ -53,10 +53,10 @@ class scalingRelation:
             # Test mixing ratio
             mixing_ratio_test_result = {}
             for ratio in range(101):
-                mixing_ratio_test_result[
-                    ratio
-                ] = self.__fit_all_adsorbates_with_given_ratio(
-                    ratios=[ratio, 100 - ratio],
+                mixing_ratio_test_result[ratio] = (
+                    self.__fit_all_adsorbates_with_given_ratio(
+                        ratios=[ratio, 100 - ratio],
+                    )
                 )
 
             # Add mixing ratio test results to attrib

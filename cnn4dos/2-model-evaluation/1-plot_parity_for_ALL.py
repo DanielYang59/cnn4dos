@@ -1,22 +1,21 @@
 """Plot parity for all adsorbates in a single plot."""
 
-
 model_dir = "../1-model-and-training/2-best-model"
 
 
-from matplotlib import rcParams
-from matplotlib.patches import PathPatch
+import os
+import sys
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import numpy as np
-import os
-
-from pathlib import Path
 import seaborn as sns
 import statsmodels.api as sm
-from sklearn.metrics import r2_score
-import sys
 import tensorflow as tf
 import yaml
+from matplotlib import rcParams
+from matplotlib.patches import PathPatch
+from sklearn.metrics import r2_score
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 rcParams["font.family"] = "sans-serif"
@@ -24,7 +23,6 @@ rcParams["font.sans-serif"] = ["Arial"]
 
 sys.path.append(model_dir)
 from lib.dataset import Dataset
-
 
 if __name__ == "__main__":
     # Load configs

@@ -1,9 +1,9 @@
 """Generate eDOS shifted arrays."""
 
-
-import numpy as np
 import warnings
 from typing import List
+
+import numpy as np
 
 
 class ShiftGenerator:

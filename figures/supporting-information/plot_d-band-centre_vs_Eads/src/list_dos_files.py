@@ -27,7 +27,6 @@ def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"
     assert isinstance(adsorbates, list)
     assert isinstance(substrates, list)
 
-
     # Get all DOS files
     dos_files = []
     for sub in substrates:
@@ -35,9 +34,10 @@ def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"
             dos_file_pattern = os.path.join(dos_dir, sub, ads, "*", dos_file_name)
             matches = glob.glob(dos_file_pattern)
             if not matches:
-                raise ValueError(f"No matched DOS found for pattern {dos_file_pattern}.")
+                raise ValueError(
+                    f"No matched DOS found for pattern {dos_file_pattern}."
+                )
             dos_files.extend(matches)
-
 
     return dos_files
 
@@ -47,7 +47,16 @@ if __name__ == "__main__":
 
     dos_files = list_dos_files(
         dos_dir="../../0-dataset/feature_DOS",
-        adsorbates=["3-CO_is", ],
-        substrates = ["g-C3N4", "nitrogen-graphene", "vacant-graphene", "C2N", "BN", "BP"],
+        adsorbates=[
+            "3-CO_is",
+        ],
+        substrates=[
+            "g-C3N4",
+            "nitrogen-graphene",
+            "vacant-graphene",
+            "C2N",
+            "BN",
+            "BP",
+        ],
     )
     print(dos_files)

@@ -7,22 +7,25 @@ This module was taken from: https://github.com/arosen93/ptable_trends, and only 
 """
 
 
+import warnings
+from typing import List
+
+import colorcet
 from bokeh.io import export_png
 from bokeh.io import show as show_
-from bokeh.models import BasicTicker, ColorBar, ColumnDataSource, LinearColorMapper, NumeralTickFormatter
+from bokeh.models import (BasicTicker, ColorBar, ColumnDataSource,
+                          LinearColorMapper, NumeralTickFormatter)
 from bokeh.plotting import figure
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge
-import colorcet
 from matplotlib import rcParams
+from matplotlib.cm import ScalarMappable, coolwarm, turbo
 from matplotlib.colors import Normalize, to_hex
-from matplotlib.cm import coolwarm, ScalarMappable, turbo
 from pandas import options
-from typing import List
-import warnings
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
+
 
 def plot_periodic_table(
     limiting_potential_dict: dict,
@@ -47,7 +50,6 @@ def plot_periodic_table(
     cbar_location: tuple = (0, 0),  # location of colorbar
     cbar_range: dict = None,
 ) -> figure:
-
     """
     Plot a heatmap over the periodic table of elements.
 
@@ -131,7 +133,6 @@ def plot_periodic_table(
     data_elements = [i.split("-")[-1] for i in limiting_potential_dict.keys()]
     data = list(limiting_potential_dict.values())
 
-
     period_label.append("blank")
     period_label.append("La")
     period_label.append("Ac")
@@ -152,8 +153,7 @@ def plot_periodic_table(
 
     # Define matplotlib and bokeh color map
     color_mapper = LinearColorMapper(
-        palette=bokeh_palette,
-        low=min(data), high=max(data)
+        palette=bokeh_palette, low=min(data), high=max(data)
     )
     norm = Normalize(vmin=min(data), vmax=max(data))
     color_scale = ScalarMappable(norm=norm, cmap=cmap).to_rgba(data, alpha=None)
@@ -226,10 +226,8 @@ def plot_periodic_table(
     )
     p.text(x=x, y=y, text="atomic_number", text_font_size="11pt", **text_props)
 
-
     # Hide grid lines
     p.grid.grid_line_color = None
-
 
     # Add colorbar
     color_bar = ColorBar(
@@ -238,13 +236,12 @@ def plot_periodic_table(
         location=cbar_location,  # position of the colorbar
         orientation="vertical",
         scale_alpha=alpha,
-
         # Label and tick settings
         major_label_text_font_size=f"{cbar_fontsize}pt",
         label_standoff=cbar_standoff,
         ticker=BasicTicker(desired_num_ticks=5),
         formatter=NumeralTickFormatter(format="0.0"),  # keep one decimal place
-        )
+    )
 
     color_bar.major_tick_line_color = "black"  # set ticks to black
     color_bar.major_tick_out = 10  # set ticks outwards
@@ -262,7 +259,6 @@ def plot_periodic_table(
 
     ## Put colorbar to the right of the plot
     p.add_layout(color_bar, "right")
-
 
     # Output and show plot
     if output_filename:

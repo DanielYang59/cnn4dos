@@ -15,14 +15,14 @@ def format_mol_name(string):
         str: formatted name
 
     """
-    pattern = r'\d+'
+    pattern = r"\d+"
     numbers = re.findall(pattern, string)
 
     for num in numbers:
-        num_subscript = ''
+        num_subscript = ""
         for digit in num:
-            num_subscript += f'$_\mathregular{{{digit}}}$'
-        string = string.replace(num, f'{num_subscript}')
+            num_subscript += f"$_\mathregular{{{digit}}}$"
+        string = string.replace(num, f"{num_subscript}")
 
     return string
 

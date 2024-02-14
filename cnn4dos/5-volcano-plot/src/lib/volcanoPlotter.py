@@ -1,17 +1,16 @@
 """Main plotter for volcano plot."""
 
-
 import math
-import matplotlib as mpl
-from matplotlib import rcParams
-from matplotlib.colors import BoundaryNorm
-from matplotlib.colors import ListedColormap
-from matplotlib.colors import LinearSegmentedColormap
-from matplotlib.lines import Line2D
-import matplotlib.pyplot as plt
-import numpy as np
 import warnings
 from typing import Tuple
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import rcParams
+from matplotlib.colors import (BoundaryNorm, LinearSegmentedColormap,
+                               ListedColormap)
+from matplotlib.lines import Line2D
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
@@ -27,7 +26,7 @@ class volcanoPlotter:
         adsorption_free_energies,
         dpi=300,
         *args,
-        **kwargs
+        **kwargs,
     ):
         # Update attrib
         self.scaling_relations = scaling_relations
@@ -187,9 +186,7 @@ class volcanoPlotter:
                 "boron nitride ",
                 "black phosphorous",
             ],
-        ).get_frame().set_boxstyle(
-            "Round", pad=0.2, rounding_size=2
-        )
+        ).get_frame().set_boxstyle("Round", pad=0.2, rounding_size=2)
         # use round cornered (ref: https://stackoverflow.com/questions/62972429/how-to-change-legend-edges-from-round-to-sharp-corners)
 
         # Add labels for selected samples
@@ -231,7 +228,10 @@ class volcanoPlotter:
         line_color = "#8F00FF"
         line_style = (
             0,
-            (1, 1.5),  # (offset, (on_off_seq)) (ref: https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html)
+            (
+                1,
+                1.5,
+            ),  # (offset, (on_off_seq)) (ref: https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html)
         )
 
         plt.plot(
@@ -277,10 +277,8 @@ class volcanoPlotter:
         plt.text(-0.75, -0.4, "VII", fontsize=font_size)
 
     def __generate_free_energy_change_mesh(
-        self,
-        reaction_name,
-        density=(400, 400)
-        ) -> dict:
+        self, reaction_name, density=(400, 400)
+    ) -> dict:
         """Generate 2D free energy change mesh for plotting.
 
         Args:
@@ -398,9 +396,11 @@ class volcanoPlotter:
         free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
 
         # Generate limiting potential mesh
-        self.limiting_potential_mesh, _ = self.__generate_limiting_potential_and_RDS_mesh(
-            free_energy_change_mesh, reaction_name
+        self.limiting_potential_mesh, _ = (
+            self.__generate_limiting_potential_and_RDS_mesh(
+                free_energy_change_mesh, reaction_name
             )
+        )
 
         # Create plt object
         mpl.rcParams.update(mpl.rcParamsDefault)  # reset rcParams to default

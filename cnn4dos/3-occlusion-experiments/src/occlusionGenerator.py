@@ -1,8 +1,8 @@
 """Generate occlusion arrays."""
 
+import warnings
 
 import numpy as np
-import warnings
 
 
 class occlusionGenerator:

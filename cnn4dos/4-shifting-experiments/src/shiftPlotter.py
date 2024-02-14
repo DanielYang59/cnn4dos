@@ -1,11 +1,11 @@
 """Plot eDOS shifting experiments results."""
 
-
-from matplotlib import rcParams
-import matplotlib.pyplot as plt
-from mendeleev import element
-import numpy as np
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import rcParams
+from mendeleev import element
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]

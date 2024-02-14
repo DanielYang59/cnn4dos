@@ -1,15 +1,15 @@
 """Occlusion experiments plotter: line mode and heatmap mode."""
 
+import os
+import warnings
+from pathlib import Path
+from typing import Tuple
 
 import matplotlib as mpl
-from matplotlib import rcParams
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
-import os
-from pathlib import Path
-import warnings
-from typing import Tuple
+from matplotlib import rcParams
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]

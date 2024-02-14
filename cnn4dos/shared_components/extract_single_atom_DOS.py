@@ -6,16 +6,16 @@ spin = "up"
 working_dir = "."
 
 
-import numpy as np
 import os
 from pathlib import Path
+
+import numpy as np
 
 
 def extract_DOS(source_dir, atom_index, spin="up"):
     # Check args
     assert spin in {"up", "down", "both"}
     assert isinstance(atom_index, int) and atom_index >= 1
-
 
     # Load spin up DOS
     if spin in {"up", "both"}:
@@ -51,5 +51,4 @@ if __name__ == "__main__":
     # Loop through folders in working dir
     if (working_dir / f"dos_{spin}.npy").exists():
         # Extract DOS
-        extract_DOS(source_dir=working_dir,
-                      atom_index=atom_index, spin=spin)
+        extract_DOS(source_dir=working_dir, atom_index=atom_index, spin=spin)

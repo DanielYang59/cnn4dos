@@ -3,6 +3,7 @@
 
 
 import os
+
 import pandas as pd
 
 
@@ -38,7 +39,6 @@ def load_limiting_potential(path, substrate, name_col=0, potential_col=1):
             names.append(name.split("_")[-1])
             potentials.append(float(row[potential_col]))
 
-
     if not names:
         raise ValueError(f"No match found for substrate {substrate}.")
     else:
@@ -47,5 +47,7 @@ def load_limiting_potential(path, substrate, name_col=0, potential_col=1):
 
 # Test area
 if __name__ == "__main__":
-    load_limiting_potential(path="../../../5-volcano-plot/src/test/debug_results/diff_limiting_potential.csv",
-                            substrate="g-C3N4")
+    load_limiting_potential(
+        path="../../../5-volcano-plot/src/test/debug_results/diff_limiting_potential.csv",
+        substrate="g-C3N4",
+    )

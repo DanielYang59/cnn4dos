@@ -3,6 +3,7 @@
 
 
 import os
+
 import pandas as pd
 
 
@@ -20,7 +21,6 @@ def load_fermi_level(dosFile, fermi_level_dir):
     # Check args
     assert os.path.isdir(fermi_level_dir)
 
-
     # Unpack info from DOS file name
     ## substrate name
     substrate = dosFile.split(os.sep)[-4]
@@ -34,10 +34,11 @@ def load_fermi_level(dosFile, fermi_level_dir):
     ## metal name
     metal = dosFile.split(os.sep)[-2]
 
-
     # Load fermi level csv file
     assert os.path.isdir(fermi_level_dir)
-    fermi_level_df = pd.read_csv(os.path.join(fermi_level_dir, f"{substrate}-{state}.csv"), index_col=0)
+    fermi_level_df = pd.read_csv(
+        os.path.join(fermi_level_dir, f"{substrate}-{state}.csv"), index_col=0
+    )
 
     # Locate desired fermi level
     return fermi_level_df.loc[metal, adsorbate]

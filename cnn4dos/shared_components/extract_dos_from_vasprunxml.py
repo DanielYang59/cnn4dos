@@ -10,9 +10,10 @@ working_dir = "."
 spin = "up"  # DEBUG
 
 
-import numpy as np
 import os
 from pathlib import Path
+
+import numpy as np
 
 
 def get_total_atom(poscarfile):
@@ -77,6 +78,7 @@ def dos_extractor(folder, spin):
 
     # Import vasprun.xml
     from xml.etree import ElementTree
+
     dos_tree = ElementTree.parse(file)
     dos_root = dos_tree.getroot()
 
@@ -93,7 +95,9 @@ def dos_extractor(folder, spin):
         dos_down = []
 
         # find dos data position
-        for atom in dos_root[8][-2][-1][0][-1]:  # 8-calculation; -2-dos; -1-partial; 0-array; -1-set
+        for atom in dos_root[8][-2][-1][0][
+            -1
+        ]:  # 8-calculation; -2-dos; -1-partial; 0-array; -1-set
             # Spin up
             spin_up_dos = [i.text.strip() for i in atom[0]]
             ## Convert each line to np array
@@ -102,7 +106,9 @@ def dos_extractor(folder, spin):
             # Spin down
             spin_down_dos = [i.text.strip() for i in atom[1]]
             ## Convert each line to np array
-            spin_down_dos = np.array([[float(j) for j in i.split()] for i in spin_down_dos])
+            spin_down_dos = np.array(
+                [[float(j) for j in i.split()] for i in spin_down_dos]
+            )
 
             # Append DOS data to list
             dos_up.append(spin_up_dos)
@@ -114,7 +120,9 @@ def dos_extractor(folder, spin):
 
     # Write DOS to numpy array
     if ispin == "1":
-        return ValueError("None spin polarised analysis currently not supported!")  # DEBUG
+        return ValueError(
+            "None spin polarised analysis currently not supported!"
+        )  # DEBUG
 
     else:  # ISPIN = 2
         if spin in {"up", "both"}:
@@ -127,7 +135,9 @@ def dos_extractor(folder, spin):
 
 if __name__ == "__main__":
     # Check core files (POSCAR and vasprun.xml)
-    if os.path.exists(os.path.join(working_dir, "POSCAR")) and os.path.exists(os.path.join(working_dir, "vasprun.xml")):
+    if os.path.exists(os.path.join(working_dir, "POSCAR")) and os.path.exists(
+        os.path.join(working_dir, "vasprun.xml")
+    ):
         # Get total number of atoms from POSCAR
         atom_num = get_total_atom(os.path.join(working_dir, "POSCAR"))
 
@@ -135,4 +145,4 @@ if __name__ == "__main__":
         dos_extractor(working_dir, spin=spin)
 
     else:
-        print(f"POSCAR or vasprun.xml not found in \"{working_dir}\"")
+        print(f'POSCAR or vasprun.xml not found in "{working_dir}"')

@@ -1,8 +1,10 @@
 #!/bin/usr/python3
 # -*- coding: utf-8 -*-
 
-import numpy as np
 import warnings
+
+import numpy as np
+
 
 class DOSProcessor:
     def __init__(self, dos_array: np.ndarray):
@@ -22,7 +24,9 @@ class DOSProcessor:
         numSamplings, numOrbitals, _ = dos_array.shape
 
         if numSamplings <= 500:
-            warnings.warn("The number of samplings is not greater than 500, please double-check if DOS is in correct shape.")
+            warnings.warn(
+                "The number of samplings is not greater than 500, please double-check if DOS is in correct shape."
+            )
 
         if numOrbitals not in {1, 4, 9, 16}:
             raise ValueError("numOrbitals must be one of {1, 4, 9, 16}")

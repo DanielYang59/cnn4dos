@@ -3,10 +3,11 @@
 
 
 import os
+import warnings
+
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import normalize
-import warnings
 
 
 class Dataset:
@@ -20,11 +21,23 @@ class Dataset:
         adsorbates (list):
 
     """
+
     def __init__(self) -> None:
         pass
 
-
-    def load_feature(self, path, substrates, adsorbates, centre_atoms, states=("is", "fs"), spin="up", load_augment=False, augmentations=None, keysep=":", remove_ghost=False):
+    def load_feature(
+        self,
+        path,
+        substrates,
+        adsorbates,
+        centre_atoms,
+        states=("is", "fs"),
+        spin="up",
+        load_augment=False,
+        augmentations=None,
+        keysep=":",
+        remove_ghost=False,
+    ):
         """Load DOS dataset feature from given list of dirs.
 
         Args:
@@ -75,7 +88,6 @@ class Dataset:
         self.substrates = substrates
         self.adsorbates = adsorbates
 
-
         # Import DOS as numpy array
         feature_data = {}
         for sub in substrates:
@@ -91,11 +103,26 @@ class Dataset:
 
                     # Loop through all directories to load DOS
                     for folder in os.listdir(directory):
-                        if os.path.isdir(os.path.join(directory, folder)) and (os.path.exists(os.path.join(directory, folder, f"dos_up_{centre_atom_index}.npy")) or os.path.exists(os.path.join(directory, folder, f"dos_down_{centre_atom_index}.npy"))):
+                        if os.path.isdir(os.path.join(directory, folder)) and (
+                            os.path.exists(
+                                os.path.join(
+                                    directory, folder, f"dos_up_{centre_atom_index}.npy"
+                                )
+                            )
+                            or os.path.exists(
+                                os.path.join(
+                                    directory,
+                                    folder,
+                                    f"dos_down_{centre_atom_index}.npy",
+                                )
+                            )
+                        ):
                             # Do augmentation distance check for augmented data
-                            if sub.endswith("_aug") and folder.split("_")[-1] not in augmentations:
+                            if (
+                                sub.endswith("_aug")
+                                and folder.split("_")[-1] not in augmentations
+                            ):
                                 continue
-
 
                             # Compile dict key as "{substrate}{keysep}{adsorbate}{keysep}{state}"
                             key = f"{sub}{keysep}{ads}{keysep}{state}{keysep}{folder}"
@@ -103,14 +130,39 @@ class Dataset:
                             # Parse data as numpy array into dict
                             ## Load spin up
                             if spin == "up":
-                                arr = np.load(os.path.join(directory, folder, f"dos_up_{centre_atom_index}.npy"))
+                                arr = np.load(
+                                    os.path.join(
+                                        directory,
+                                        folder,
+                                        f"dos_up_{centre_atom_index}.npy",
+                                    )
+                                )
                             elif spin == "down":
-                                arr = np.load(os.path.join(directory, folder, f"dos_down_{centre_atom_index}.npy"))
+                                arr = np.load(
+                                    os.path.join(
+                                        directory,
+                                        folder,
+                                        f"dos_down_{centre_atom_index}.npy",
+                                    )
+                                )
                             else:  # load both spin-up and down
-                                arr_up = np.load(os.path.join(directory, folder, f"dos_up_{centre_atom_index}.npy"))  # (NEDOS, numOrbital)
-                                arr_down = np.load(os.path.join(directory, folder, f"dos_down_{centre_atom_index}.npy")) # (NEDOS, numOrbital)
-                                arr = np.stack([arr_up, arr_down], axis=2)  # (NEDOS, numOrbital, 2)
-
+                                arr_up = np.load(
+                                    os.path.join(
+                                        directory,
+                                        folder,
+                                        f"dos_up_{centre_atom_index}.npy",
+                                    )
+                                )  # (NEDOS, numOrbital)
+                                arr_down = np.load(
+                                    os.path.join(
+                                        directory,
+                                        folder,
+                                        f"dos_down_{centre_atom_index}.npy",
+                                    )
+                                )  # (NEDOS, numOrbital)
+                                arr = np.stack(
+                                    [arr_up, arr_down], axis=2
+                                )  # (NEDOS, numOrbital, 2)
 
                             # Zero out first point along NEDOS axis to remove "ghost state"
                             if remove_ghost:
@@ -119,12 +171,10 @@ class Dataset:
                             # Update dict value
                             feature_data[key] = arr  # shape (NEDOS, numOrbital)
 
-
         # Update attrib
         self.feature = feature_data
         self.numFeature = len(feature_data)
         self.featureKeySep = keysep
-
 
     def scale_feature(self, mode):
         """Scale feature arrays.
@@ -151,7 +201,9 @@ class Dataset:
 
                 for channel_index in range(arr.shape[2]):
                     if mode == "normalization":
-                        channel = normalize(arr[:, :, channel_index], axis=0, norm="max")
+                        channel = normalize(
+                            arr[:, :, channel_index], axis=0, norm="max"
+                        )
                     elif mode == "standardization":
                         raise RuntimeError("Still working on.")
 
@@ -160,7 +212,6 @@ class Dataset:
                 # Update dataset
                 scaled_arr = np.stack(scaled_arr, axis=2)
                 self.feature[key] = scaled_arr
-
 
     def load_label(self, label_dir):
         """Load labels based on names of feature files.
@@ -176,25 +227,27 @@ class Dataset:
         labels_source = {}
         for file in os.listdir(label_dir):
             if file.endswith(".csv") and not file.startswith("."):
-                labels_source[file.replace(".csv", "")] = pd.read_csv(os.path.join(label_dir, file))
-
+                labels_source[file.replace(".csv", "")] = pd.read_csv(
+                    os.path.join(label_dir, file)
+                )
 
         # Fetch label from source dict
         labels = {}
-        for key in self.feature:  # key is "{substrate}{keysep}{adsorbate}{keysep}{state}"
+        for (
+            key
+        ) in self.feature:  # key is "{substrate}{keysep}{adsorbate}{keysep}{state}"
             # Unpack key
             substrate, adsorbate, state, project = key.split(self.featureKeySep)
 
             # Find label from dataframe
             df = labels_source[f"{substrate}_{state}"]
-            df.index = df.iloc[:, 0] # set first column as headers
+            df.index = df.iloc[:, 0]  # set first column as headers
             try:
                 labels[key] = float(df.loc[project][adsorbate])
             except KeyError:
-                raise KeyError(f"Label for key:\"{key}\" not found.")
+                raise KeyError(f'Label for key:"{key}" not found.')
 
         self.label = labels
-
 
     def append_adsorbate_DOS(self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"):
         """Append adsorbate DOS to metal DOS.
@@ -215,7 +268,9 @@ class Dataset:
             mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, dos_name))
 
             # Append to original DOS
-            arr = np.expand_dims(arr, axis=0)  # reshape original DOS from (4000, 9) to (1, 4000, 9)
+            arr = np.expand_dims(
+                arr, axis=0
+            )  # reshape original DOS from (4000, 9) to (1, 4000, 9)
             arr = np.concatenate([arr, mol_dos_arr])
 
             # Swap (6, 4000, 9) to (4000, 9, 6)

@@ -1,13 +1,13 @@
 """Plot -COHP and occlusion experiment result (Co dxz/dxy orbitals)."""
 
+import warnings
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import MaxNLocator
-import warnings
-from pathlib import Path
 
 
 def setup_matplotlib():

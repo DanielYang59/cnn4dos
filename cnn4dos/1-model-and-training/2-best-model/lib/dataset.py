@@ -2,10 +2,11 @@
 
 
 import os
+import warnings
+
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import normalize
-import warnings
 
 
 class Dataset:

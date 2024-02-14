@@ -23,4 +23,3 @@ python3 keras-tuner.py > "tuner_$(date +"%Y_%m_%d_%H_%M").log" 2>&1
 
 # Request interactive GPU
 # qsub -I -q gpuvolta -lwd,walltime=1:00:00,ngpus=1,ncpus=12,mem=96GB,jobfs=1GB,storage=gdata/iu57+gdata/v88+gdata/dk92
-

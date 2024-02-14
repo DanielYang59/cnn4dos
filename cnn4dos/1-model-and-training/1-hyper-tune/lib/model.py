@@ -22,25 +22,40 @@ def cnn_for_dos(input_shape, drop_out_rate):
         branch_input = tf.keras.layers.Reshape(target_shape=(4000, 1, 6))(branch_input)
 
         # 1st Conv layer
-        conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(branch_input)
-        conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(conv_1)
-        conv_1 = tf.keras.layers.Conv2D(16, (8, 1), (2, 1), activation="relu", padding="same")(conv_1)
+        conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(
+            branch_input
+        )
+        conv_1 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(
+            conv_1
+        )
+        conv_1 = tf.keras.layers.Conv2D(
+            16, (8, 1), (2, 1), activation="relu", padding="same"
+        )(conv_1)
         conv_1 = tf.keras.layers.Dropout(drop_out_rate)(conv_1)
 
-
         # 2nd Conv layer
-        conv_2 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(conv_1)
-        conv_2 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(conv_2)
-        conv_2 = tf.keras.layers.Conv2D(16, (8, 1), (2, 1), activation="relu", padding="same")(conv_2)
+        conv_2 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(
+            conv_1
+        )
+        conv_2 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(
+            conv_2
+        )
+        conv_2 = tf.keras.layers.Conv2D(
+            16, (8, 1), (2, 1), activation="relu", padding="same"
+        )(conv_2)
         conv_2 = tf.keras.layers.Dropout(drop_out_rate)(conv_2)
 
-
         # 3rd Conv layer
-        conv_3 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(conv_2)
-        conv_3 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(conv_3)
-        conv_3 = tf.keras.layers.Conv2D(16, (8, 1), (2, 1), activation="relu", padding="same")(conv_3)
+        conv_3 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(
+            conv_2
+        )
+        conv_3 = tf.keras.layers.Conv2D(16, (3, 1), activation="relu", padding="same")(
+            conv_3
+        )
+        conv_3 = tf.keras.layers.Conv2D(
+            16, (8, 1), (2, 1), activation="relu", padding="same"
+        )(conv_3)
         conv_output = tf.keras.layers.Dropout(drop_out_rate)(conv_3)
-
 
         ## Flatten and dense
         conv_flat = tf.keras.layers.Flatten()(conv_output)
@@ -67,10 +82,20 @@ def cnn_for_dos(input_shape, drop_out_rate):
     branch_output_7 = branch((master_input[:, :, 7]), drop_out_rate=drop_out_rate)
     branch_output_8 = branch((master_input[:, :, 8]), drop_out_rate=drop_out_rate)
 
-
     # Concatenate branch outputs
-    concat_output = tf.keras.layers.Concatenate(axis=-1)([branch_output_0, branch_output_1, branch_output_2, branch_output_3, branch_output_4, branch_output_5, branch_output_6, branch_output_7, branch_output_8])
-
+    concat_output = tf.keras.layers.Concatenate(axis=-1)(
+        [
+            branch_output_0,
+            branch_output_1,
+            branch_output_2,
+            branch_output_3,
+            branch_output_4,
+            branch_output_5,
+            branch_output_6,
+            branch_output_7,
+            branch_output_8,
+        ]
+    )
 
     # Master output layer
     master_flat = tf.keras.layers.Flatten()(concat_output)
@@ -78,7 +103,8 @@ def cnn_for_dos(input_shape, drop_out_rate):
     master_output = tf.keras.layers.Dense(16)(master_output)
     master_output = tf.keras.layers.Dense(1)(master_output)
 
-    return tf.keras.Model(inputs=master_input,
-                           outputs=master_output,
-                           name="CNN4DOS",
-                           )
+    return tf.keras.Model(
+        inputs=master_input,
+        outputs=master_output,
+        name="CNN4DOS",
+    )

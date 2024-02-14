@@ -1,18 +1,18 @@
 """Calculate reaction for volcano plotter."""
 
-
 import numpy as np
 
 from .dataLoader import dataLoader
 
 
 class reactionCalculator:
-    def __init__(self,
-                 adsorption_energy_scaling_relation,
-                 adsorbate_energy_file,
-                 reaction_pathway_file,
-                 external_potential=0.0
-                 ):
+    def __init__(
+        self,
+        adsorption_energy_scaling_relation,
+        adsorbate_energy_file,
+        reaction_pathway_file,
+        external_potential=0.0,
+    ):
         """Calculate scaling relations for reaction.
 
         Args:
@@ -137,33 +137,46 @@ class reactionCalculator:
 if __name__ == "__main__":
     # Set args
     path = "../../../0-dataset/label_adsorption_energy"
-    substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
+    substrates = [
+        "g-C3N4_is",
+        "nitrogen-graphene_is",
+        "vacant-graphene_is",
+        "C2N_is",
+        "BN_is",
+        "BP_is",
+    ]
     adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     # Loading adsorption energy
     from dataLoader import dataLoader
+
     test_loader = dataLoader()
     test_loader.load_adsorption_energy(path, substrates, adsorbates)
 
-    test_loader.calculate_adsorption_free_energy(correction_file="../../data/corrections_thermal.csv")
+    test_loader.calculate_adsorption_free_energy(
+        correction_file="../../data/corrections_thermal.csv"
+    )
 
     # Calculate adsorption energy linear scaling relations
     from scalingRelation import scalingRelation
+
     calculator = scalingRelation(
         adsorption_energy_dict=test_loader.adsorption_free_energy,
         descriptors=("3-CO", "8-OH"),
         mixing_ratios="AUTO",
         verbose=False,
-        remove_ads_prefix=True
-        )
+        remove_ads_prefix=True,
+    )
 
     # Test reaction energy scaling relations calculator
     reaction_calculator = reactionCalculator(
         adsorption_energy_scaling_relation=calculator.fitting_paras,
         adsorbate_energy_file="../../data/energy_adsorbate.csv",
         reaction_pathway_file="../../data/reaction_pathway.json",
-        external_potential=0.17
-        )
+        external_potential=0.17,
+    )
 
-    co2rr_para = reaction_calculator.calculate_reaction_scaling_relations(name="CO2RR_CH4")
+    co2rr_para = reaction_calculator.calculate_reaction_scaling_relations(
+        name="CO2RR_CH4"
+    )
     print(co2rr_para)

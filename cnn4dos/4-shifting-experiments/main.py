@@ -1,16 +1,15 @@
 """eDOS shifting experiment main."""
 
-
 import os
+import sys
 from pathlib import Path
+
 import numpy as np
 import tensorflow as tf
-from tqdm import tqdm
-import sys
-
 from src.shiftGenerator import ShiftGenerator
 from src.shiftPlotter import ShiftPlotter
 from src.utilities import get_folders_in_dir
+from tqdm import tqdm
 
 sys.path.append("../shared_components/src")
 from cnnPredictor import CNNPredictor

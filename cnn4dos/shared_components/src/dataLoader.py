@@ -1,10 +1,12 @@
 #!/bin/usr/python3
 # -*- coding: utf-8 -*-
 
+import warnings
+from pathlib import Path
+
 import numpy as np
 import yaml
-from pathlib import Path
-import warnings
+
 
 class DataLoader:
 
@@ -28,12 +30,14 @@ class DataLoader:
         if not config_path.exists():
             raise FileNotFoundError(f"The specified file {config_path} does not exist.")
 
-        with open(config_path, 'r') as f:
+        with open(config_path, "r") as f:
             config = yaml.safe_load(f)
 
         return config
 
-    def load_and_preprocess_adsorbate_dos(self, filepath: str, max_adsorbate_channels: int) -> np.ndarray:
+    def load_and_preprocess_adsorbate_dos(
+        self, filepath: str, max_adsorbate_channels: int
+    ) -> np.ndarray:
         """
         Load and preprocess the adsorbate DOS array.
 
@@ -74,7 +78,9 @@ class DataLoader:
             raise ValueError("Number of channels exceeds the maximum allowed.")
         elif numChannels < max_adsorbate_channels:
             pad_width = max_adsorbate_channels - numChannels
-            adsorbate_dos = np.pad(adsorbate_dos, ((0, 0), (0, 0), (0, pad_width)), 'constant')
+            adsorbate_dos = np.pad(
+                adsorbate_dos, ((0, 0), (0, 0), (0, pad_width)), "constant"
+            )
 
         return adsorbate_dos
 
@@ -101,7 +107,9 @@ class DataLoader:
 
         unshifted_dos = np.load(filepath)
         numSamplings, numOrbitals = unshifted_dos.shape
-        unshifted_dos = np.expand_dims(unshifted_dos, axis=-1)  # Reshape to (numSamplings, numOrbitals, 1)
+        unshifted_dos = np.expand_dims(
+            unshifted_dos, axis=-1
+        )  # Reshape to (numSamplings, numOrbitals, 1)
 
         if numOrbitals not in {1, 4, 9, 16}:
             raise ValueError("numOrbitals must be one of {1, 4, 9, 16}")

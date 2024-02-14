@@ -1,15 +1,13 @@
 """Volcano plotter main."""
 
-
 import os
 from pathlib import Path
-import yaml
 
+import yaml
 from src.lib.dataLoader import dataLoader
 from src.lib.reactionCalculator import reactionCalculator
 from src.lib.scalingRelation import scalingRelation
 from src.lib.volcanoPlotter import volcanoPlotter
-
 
 if __name__ == "__main__":
     # Load configs
@@ -47,8 +45,8 @@ if __name__ == "__main__":
         descriptors=(descriptor_x, descriptor_y),
         mixing_ratios="AUTO",
         verbose=True,
-        remove_ads_prefix=True
-        )
+        remove_ads_prefix=True,
+    )
 
     # Print linear fitting parameters of free energy
     print(calculator.fitting_paras)
@@ -59,12 +57,14 @@ if __name__ == "__main__":
         adsorbate_energy_file=adsorbate_energy_file,
         reaction_pathway_file=reaction_pathway_file,
         external_potential=external_potential,
-        )
+    )
 
     reaction_scaling_relations = {
-        "CO2RR_CH4": reaction_calculator.calculate_reaction_scaling_relations(name="CO2RR_CH4"),
-        "HER": reaction_calculator.calculate_reaction_scaling_relations(name="HER")
-        }
+        "CO2RR_CH4": reaction_calculator.calculate_reaction_scaling_relations(
+            name="CO2RR_CH4"
+        ),
+        "HER": reaction_calculator.calculate_reaction_scaling_relations(name="HER"),
+    }
 
     # Initialize volcano plotter
     plotter = volcanoPlotter(
@@ -74,28 +74,30 @@ if __name__ == "__main__":
         descriptors=(descriptor_x, descriptor_y),
         adsorption_free_energies=loader.adsorption_free_energy,
         markers=markers,
-        )
+    )
 
     # Generate CO2RR limiting potential volcano plot
     plotter.plot_limiting_potential(
         reaction_name="CO2RR_CH4",
         label_selection=label_selection,
         savename=os.path.join("figures", "limiting_potential_CO2RR_CH4.png"),
-        show=False
-        )
+        show=False,
+    )
 
     # Generate rate determining step plot
     plotter.plot_rds(
         reaction_name="CO2RR_CH4",
         savename=os.path.join("figures", "RDS_CO2RR_CH4.png"),
-        show=False)
+        show=False,
+    )
 
     # Generate selectivity volcano plot
     plotter.plot_selectivity(
         reaction_names={"main": "CO2RR_CH4", "comp": "HER"},
         label_selection=label_selection,
         savename=os.path.join("figures", "selectivity.png"),
-        show=False)
+        show=False,
+    )
 
     # # Plot limiting potential for HER
     # plotter.plot_limiting_potential(

@@ -16,10 +16,11 @@ src_dos_name = "example_dos_up.npy"
 orbital_names = ["s", "py", "pz", "px", "dxy", "dyz", "dz2", "dxz", "dx2-y2"]
 
 
+import os
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 
 
 def plot_line(x_coords, arr, savedir):
@@ -45,7 +46,7 @@ def plot_line(x_coords, arr, savedir):
 
     # Set x/y axis labels
     ## Ref: https://matplotlib.org/stable/tutorials/text/mathtext.html
-    mpl.rcParams['mathtext.default'] = 'regular'  # do not use Italic as default
+    mpl.rcParams["mathtext.default"] = "regular"  # do not use Italic as default
     fig.supxlabel("E-E$_f$ (eV)", fontsize=18)
     fig.supylabel("DOS (states/eV)", fontsize=18)
 
@@ -64,20 +65,19 @@ if __name__ == "__main__":
     assert isinstance(energy_step, int)
     assert isinstance(e_fermi, (int, float))
 
-
     # Import DOS array
     src_dos = np.load(os.path.join(working_dir, src_dos_name))
 
     # Check DOS array
     if src_dos.shape[1] > 9:
-        print(f"Caution! Expected DOS in shape (NEDOS, orbital), found shape ({src_dos.shape[0]}, {src_dos.shape[1]})")
-
+        print(
+            f"Caution! Expected DOS in shape (NEDOS, orbital), found shape ({src_dos.shape[0]}, {src_dos.shape[1]})"
+        )
 
     # Generate x coordinates
     energy_array = np.linspace(energy_start, energy_end, energy_step)
     ## Subtract fermi level
     energy_array = energy_array - e_fermi
-
 
     # Plot original DOS as line
     plot_line(energy_array, src_dos, savedir=working_dir)

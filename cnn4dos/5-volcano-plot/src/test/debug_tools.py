@@ -1,13 +1,13 @@
 """Debug tools for volcano plotter."""
 
-
-import copy
 import contextlib
-import numpy as np
+import copy
 import os
-import pandas as pd
 import sys
 import warnings
+
+import numpy as np
+import pandas as pd
 
 sys.path.append("..")
 from lib.dataLoader import dataLoader
@@ -73,8 +73,7 @@ class volcanoDebugger:
         self.scaling_relations = calculator.fitting_paras
 
     def __calculate_adsorption_energy_from_scaling_relation(
-        self,
-        fitting_paras
+        self, fitting_paras
     ) -> pd.DataFrame:
         """Calculate adsorption (free) energy from scaling relations.
 

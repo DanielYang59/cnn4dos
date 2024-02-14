@@ -30,7 +30,6 @@ def plot_mixing_ratio(x, y, savename):
 
     plt.xlim([0, 100])
 
-
     plt.tight_layout()
     plt.savefig(savename, dpi=300)
 

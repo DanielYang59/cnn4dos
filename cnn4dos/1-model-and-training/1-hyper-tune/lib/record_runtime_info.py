@@ -5,9 +5,10 @@
 import json
 import logging
 import platform
-import psutil
 import socket
 import subprocess
+
+import psutil
 
 
 def record_python_package_ver(logfile="python_package_ver.log"):
@@ -21,7 +22,9 @@ def record_python_package_ver(logfile="python_package_ver.log"):
 
     """
     # Get all installed Python packages
-    result = subprocess.run(["pip", "freeze"], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    result = subprocess.run(["pip", "freeze"], stdout=subprocess.PIPE).stdout.decode(
+        "utf-8"
+    )
 
     # Write results to log file
     with open(logfile, mode="w") as f:
@@ -48,7 +51,7 @@ def record_system_info(logfile="sys_info.log"):
         info["architecture"] = platform.machine()
         info["hostname"] = socket.gethostname()
         info["processor"] = platform.processor()
-        info["ram"] = str(round(psutil.virtual_memory().total / (1024.0 ** 3))) + " GB"
+        info["ram"] = str(round(psutil.virtual_memory().total / (1024.0**3))) + " GB"
     except Exception as e:
         logging.exception(e)
 

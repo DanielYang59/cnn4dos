@@ -1,25 +1,24 @@
 """Main for eDOS occlusion experiments."""
 
-
 import os
-from pathlib import Path
-import numpy as np
-from tqdm import tqdm
-import tensorflow as tf
 import sys
+from pathlib import Path
+
+import numpy as np
+import tensorflow as tf
+from tqdm import tqdm
 
 # Modify sys.path for shared components
 root_dir = Path(__file__).parent
 shared_components_dir = root_dir / "../shared_components/src"
 sys.path.append(str(shared_components_dir.resolve()))
 
-from src.occlusionGenerator import occlusionGenerator
-from src.occlusionPlotter import OcclusionPlotter
-from src.utilities import get_fermi_level
-
 from cnnPredictor import CNNPredictor
 from dataLoader import DataLoader
 from dosProcessor import DOSProcessor
+from src.occlusionGenerator import occlusionGenerator
+from src.occlusionPlotter import OcclusionPlotter
+from src.utilities import get_fermi_level
 
 
 def main():

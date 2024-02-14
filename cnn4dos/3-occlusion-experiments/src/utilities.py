@@ -1,9 +1,9 @@
 """Utilities for eDOS occlusion."""
 
-
-import pandas as pd
 from pathlib import Path
 from typing import Tuple
+
+import pandas as pd
 
 
 def get_properties_from_path(working_dir: Path) -> Tuple[str, str, str, str]:

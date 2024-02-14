@@ -2,19 +2,19 @@
 # -*- coding: utf-8 -*-
 
 
-import numpy as np
 import os
 
+import numpy as np
+
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-from sklearn.metrics import r2_score
 import sys
-import tensorflow as tf
-from tensorflow import keras
 import warnings
+
+import tensorflow as tf
 import yaml
-
 from lib.dataset import Dataset
-
+from sklearn.metrics import r2_score
+from tensorflow import keras
 
 # Main Loop
 if __name__ == "__main__":
