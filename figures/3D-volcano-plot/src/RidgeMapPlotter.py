@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 # https://github.com/ColCarroll/ridge_map
+
 
 from ridge_map import FontManager, RidgeMap
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 import pandas as pd
+
 
 class RidgeMapPlotter:
     def __init__(self, coordinates, font_url, show_plot=False, cmap='ocean', interpolate=False):

@@ -1,10 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Create 2D/3D ridge plots."""
+
 # Plotted with: https://github.com/ColCarroll/ridge_map
+
 
 from pathlib import Path
 
 from src.RidgeMapPlotter import RidgeMapPlotter
+
 
 def main():
     plotter = RidgeMapPlotter(
@@ -25,6 +27,7 @@ def main():
         filename=Path("figures") / "2D_volcano.png",
         alpha=1.0
         )
+
 
 if __name__ == '__main__':
     main()
