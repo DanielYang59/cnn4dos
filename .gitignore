@@ -12,6 +12,7 @@ p4vasp.log
 # Virtual envs
 .conda
 .venv
+conda
 venv
 
 
