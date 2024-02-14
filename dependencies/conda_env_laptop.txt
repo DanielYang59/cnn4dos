@@ -1,5 +1,5 @@
-# packages in environment at /Users/yang/opt/anaconda3/envs/tensorflow:
-#
+# Conda env on laptop
+
 # Name                    Version                   Build  Channel
 absl-py                   1.4.0                    pypi_0    pypi
 astunparse                1.6.3                    pypi_0    pypi
