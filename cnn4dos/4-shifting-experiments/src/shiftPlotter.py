@@ -1,4 +1,5 @@
-"""Plot eDOS shifting experiments results."""
+"""Plot eDOS shifting experiments results as heatmap."""
+
 
 from pathlib import Path
 

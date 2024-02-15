@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Utility script for calculation dataset variance."""
 
 
 training_dir = "../1-model-and-training/1-hyper-tune"
@@ -14,15 +13,16 @@ import yaml
 sys.path.append(training_dir)
 from lib.dataset import Dataset
 
+
 if __name__ == "__main__":
     # Load configs
     with open(Path(training_dir) / "config.yaml") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
 
-    ## paths
+    # paths
     feature_dir = Path("../0-dataset/feature_DOS")
     label_dir = Path("../0-dataset/label_adsorption_energy")
-    ## species
+    # species
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
     centre_atoms = cfg["species"]["centre_atoms"]
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     # Load dataset
     dataFetcher = Dataset()
 
-    ## Load feature
+    # Load feature
     dataFetcher.load_feature(
         feature_dir,
         substrates,
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         augmentations=augmentations,
     )
 
-    ## Load labels
+    # Load labels
     dataFetcher.load_label(label_dir)
     label = np.array(list(dataFetcher.label.values()))
 

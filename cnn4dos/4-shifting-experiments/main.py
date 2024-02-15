@@ -1,4 +1,5 @@
-"""eDOS shifting experiment main."""
+"""Perform eDOS shifting experiment."""
+
 
 import os
 import sys

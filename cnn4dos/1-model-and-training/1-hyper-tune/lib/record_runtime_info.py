@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Utility script to recording system/Python env information."""
 
 
 import json

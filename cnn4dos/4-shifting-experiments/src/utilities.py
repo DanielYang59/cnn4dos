@@ -1,5 +1,4 @@
-#!/bin/usr/python3
-# -*- coding: utf-8 -*-
+"""Utility scripts for eDOS shifting experiments."""
 
 
 from pathlib import Path

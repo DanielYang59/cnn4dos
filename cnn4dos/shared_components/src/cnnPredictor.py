@@ -1,5 +1,5 @@
-#!/bin/usr/python3
-# -*- coding: utf-8 -*-
+"""Infer with pre-trained CNN model."""
+
 
 from pathlib import Path
 

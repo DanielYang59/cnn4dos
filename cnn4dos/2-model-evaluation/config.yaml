@@ -1,4 +1,4 @@
-##### Config File for CNN Training #####
+# Config File for CNN Training
 
 path:
   feature_dir: "../0-dataset/feature_DOS"

@@ -1,17 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-DOS extraction script for CNN training.
-Extract PDOS of ALL atoms from vasprun.xml.
-"""
+"""Extract pDOS of all atoms from vasprun.xml, for CNN training."""
 
 
 working_dir = "."
-spin = "up"  # DEBUG
+spin = "up"
 
 
 import os
-from pathlib import Path
 
 import numpy as np
 

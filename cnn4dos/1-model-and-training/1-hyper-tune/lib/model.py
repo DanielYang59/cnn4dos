@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Definition of the multi-branch CNN model."""
 
 
 import tensorflow as tf

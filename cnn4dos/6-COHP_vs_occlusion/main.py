@@ -1,4 +1,5 @@
-"""Plot -COHP and occlusion experiment result (Co dxz/dxy orbitals)."""
+"""Plot COHP and eDOS occlusion experiment result (of Co dxz/dxy orbitals)."""
+
 
 import warnings
 from pathlib import Path

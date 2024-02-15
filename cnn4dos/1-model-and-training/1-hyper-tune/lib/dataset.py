@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Load and manipulate eDOS dataset for CNN."""
 
 
 import os

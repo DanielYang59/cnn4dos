@@ -1,5 +1,5 @@
-#!/bin/usr/python3
-# -*- coding: utf-8 -*-
+"""Load eDOS from numpy array."""
+
 
 import warnings
 from pathlib import Path

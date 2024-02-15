@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Visualize extracted DOS array, expect shape (NEDOS, numOrbitals)
-
-"""
+"""Visualize extracted DOS array, expect shape (NEDOS, numOrbitals)."""
 
 
 e_fermi = 0  # WARNING!

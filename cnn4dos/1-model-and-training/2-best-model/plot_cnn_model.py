@@ -1,13 +1,9 @@
 """Plot CNN model architecture."""
 
-model_dir = "model"
-
-
-import os
 
 import tensorflow as tf
 
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+model_dir = "model"
 
 
 if __name__ == "__main__":

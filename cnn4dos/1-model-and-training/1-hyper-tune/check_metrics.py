@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Check metrics for an already finished Keras-tuner run."""
 
 
 import io
@@ -7,6 +6,7 @@ import sys
 
 import keras_tuner
 from hp_model import hp_model
+
 
 # Main Loop
 if __name__ == "__main__":

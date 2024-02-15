@@ -1,4 +1,5 @@
-"""Generate occlusion arrays."""
+"""Generate eDOS occlusion arrays."""
+
 
 import warnings
 

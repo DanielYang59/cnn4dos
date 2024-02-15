@@ -1,5 +1,5 @@
-#!/bin/usr/python3
-# -*- coding: utf-8 -*-
+"""Utility script for eDOS preprocess: remove ghost states."""
+
 
 import warnings
 

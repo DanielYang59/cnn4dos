@@ -1,4 +1,5 @@
-"""Main for eDOS occlusion experiments."""
+"""Perform eDOS occlusion experiments."""
+
 
 import os
 import sys
@@ -92,7 +93,7 @@ def main():
     if config["occlusion"]["save_predictions"]:
         np.save(Path(os.getcwd()) / "occlusion_predictions.npy", predictions)
 
-    # # (Optional) Load local predictions
+    # # (Optional) Load cached local predictions
     # predictions = np.load(Path(os.getcwd()) / "occlusion_predictions.npy")
 
     # Step 5: Read fermi level and plot occlusion

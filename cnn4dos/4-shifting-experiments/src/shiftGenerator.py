@@ -1,5 +1,6 @@
 """Generate eDOS shifted arrays."""
 
+
 import warnings
 from typing import List
 

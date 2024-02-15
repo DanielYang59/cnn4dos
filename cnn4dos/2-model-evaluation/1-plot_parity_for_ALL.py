@@ -1,6 +1,4 @@
-"""Plot parity for all adsorbates in a single plot."""
-
-model_dir = "../1-model-and-training/2-best-model"
+"""Create parity plot for all adsorbates in a single plot."""
 
 
 import os
@@ -17,12 +15,12 @@ from matplotlib import rcParams
 from matplotlib.patches import PathPatch
 from sklearn.metrics import r2_score
 
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
 
-sys.path.append(model_dir)
+sys.path.append("../1-model-and-training/2-best-model")
 from lib.dataset import Dataset
+
 
 if __name__ == "__main__":
     # Load configs

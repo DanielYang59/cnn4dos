@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Extract pDOS from the numpy array of a selected atom."""
 
 
 spin = "up"

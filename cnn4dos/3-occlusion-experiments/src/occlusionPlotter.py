@@ -1,4 +1,5 @@
-"""Occlusion experiments plotter: line mode and heatmap mode."""
+"""eDOS occlusion experiments plotter: line mode and heatmap mode."""
+
 
 import os
 import warnings

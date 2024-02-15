@@ -1,11 +1,8 @@
 """Save best CNN model."""
 
-import os
 
 import keras_tuner
 from hp_model import hp_model
-
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 
 # Main Loop

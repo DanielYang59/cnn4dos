@@ -1,12 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Utility script for getting the prediction metrics of CNN model."""
 
 
 import os
 
 import numpy as np
 
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import sys
 import warnings
 
@@ -15,6 +13,7 @@ import yaml
 from lib.dataset import Dataset
 from sklearn.metrics import r2_score
 from tensorflow import keras
+
 
 # Main Loop
 if __name__ == "__main__":
