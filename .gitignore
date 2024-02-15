@@ -16,6 +16,10 @@ conda
 venv
 
 
+# Dataset
+!dataset/README.md
+
+
 # Cached labels and features for model training
 labels.npy
 features.npy
