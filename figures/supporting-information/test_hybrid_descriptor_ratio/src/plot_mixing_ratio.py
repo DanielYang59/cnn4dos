@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot mixing ratio for hybrid descriptor test."""
 
 
 import matplotlib as mpl

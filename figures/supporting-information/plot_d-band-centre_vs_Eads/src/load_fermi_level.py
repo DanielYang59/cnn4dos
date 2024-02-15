@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Parse name from eDOS path and load fermi level from csv file."""
 
 
 import os
@@ -8,31 +7,24 @@ import pandas as pd
 
 
 def load_fermi_level(dosFile, fermi_level_dir):
-    """Load fermi level based on DOS file path.
+    """Load fermi level based on eDOS file path.
 
     Args:
-        dosFile (str): DOS file path
+        dosFile (str): eDOS file path
         fermi_level_dir (str): fermi level csv files storage directory
 
     Attrib:
-        fermi_level (float): fermi level of selected DOS array
+        fermi_level (float): fermi level of selected eDOS array
 
     """
     # Check args
     assert os.path.isdir(fermi_level_dir)
 
-    # Unpack info from DOS file name
-    ## substrate name
-    substrate = dosFile.split(os.sep)[-4]
-
-    ## state name
-    state = dosFile.split(os.sep)[-3].split("_")[-1]
-
-    ## Adsorbate name
-    adsorbate = dosFile.split(os.sep)[-3].split("_")[0]
-
-    ## metal name
-    metal = dosFile.split(os.sep)[-2]
+    # Unpack info from eDOS file name
+    substrate = dosFile.split(os.sep)[-4]  # substrate name
+    state = dosFile.split(os.sep)[-3].split("_")[-1]  # state name
+    adsorbate = dosFile.split(os.sep)[-3].split("_")[0]  # adsorbate name
+    metal = dosFile.split(os.sep)[-2]  # metal name
 
     # Load fermi level csv file
     assert os.path.isdir(fermi_level_dir)

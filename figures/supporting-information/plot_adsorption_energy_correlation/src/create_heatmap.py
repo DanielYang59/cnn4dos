@@ -1,5 +1,4 @@
-"""
-I did not write this module, but took it from somewhere from the Internet.
+"""I did not write this module, but took it from somewhere from the Internet.
 Sadly I cannot remember the original author.  --Haoyu Yang.
 """
 

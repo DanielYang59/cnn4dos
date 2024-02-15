@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot descriptior Kendall correlation matrix."""
 
 
 import os
@@ -8,6 +7,7 @@ from pathlib import Path
 import yaml
 from src.descriptors import Descriptors
 from src.plot_correlation import plot_correlation
+
 
 if __name__ == "__main__":
     # Load configs

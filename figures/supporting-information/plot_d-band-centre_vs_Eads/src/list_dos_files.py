@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Utility script to list all matched eDOS .npy files in selected dir."""
 
 
 import glob
@@ -7,19 +6,19 @@ import os
 
 
 def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"):
-    """List all DOS files based on adsorbate and substrate name.
+    """List all eDOS files based on adsorbate and substrate name.
 
     Args:
-        dos_dir (str): DOS file directory
+        dos_dir (str): eDOS file directory
         adsorbates (list): list of adsorbates to search
         substrates (list): list of substrates to search
-        dos_file_name (str, optional): DOS file name pattern. Defaults to "dos_up_*.npy".
+        dos_file_name (str, optional): eDOS file name pattern. Defaults to "dos_up_*.npy".
 
     Raises:
-        ValueError: if DOS filename pattern has no match
+        ValueError: if eDOS filename pattern has no match
 
     Returns:
-        list: all matched DOS files
+        list: all matched eDOS files
 
     """
     # Check args
@@ -27,7 +26,7 @@ def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"
     assert isinstance(adsorbates, list)
     assert isinstance(substrates, list)
 
-    # Get all DOS files
+    # Get all eDOS files
     dos_files = []
     for sub in substrates:
         for ads in adsorbates:
@@ -35,7 +34,7 @@ def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"
             matches = glob.glob(dos_file_pattern)
             if not matches:
                 raise ValueError(
-                    f"No matched DOS found for pattern {dos_file_pattern}."
+                    f"No matched eDOS found for pattern {dos_file_pattern}."
                 )
             dos_files.extend(matches)
 

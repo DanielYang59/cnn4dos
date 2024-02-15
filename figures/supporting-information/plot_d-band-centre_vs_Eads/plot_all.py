@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot d-band-center vs adsorption energy relationship for all adsorbates."""
 
 
 import os

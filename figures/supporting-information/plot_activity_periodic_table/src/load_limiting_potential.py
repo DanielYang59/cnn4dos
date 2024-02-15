@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Load limiting potentials from csv file for plotting."""
 
 
 import os

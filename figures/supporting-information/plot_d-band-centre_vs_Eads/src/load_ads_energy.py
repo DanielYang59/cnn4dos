@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Utility script for getting adsorption energy from pd datasheet based on name pattern."""
 
 
 import os

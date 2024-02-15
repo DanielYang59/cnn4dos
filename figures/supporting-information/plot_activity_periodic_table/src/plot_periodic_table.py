@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-
-"""
-This module was taken from: https://github.com/arosen93/ptable_trends, and only minor adjustment was made by myself.  --Haoyu Yang.
+"""This module was taken from: https://github.com/arosen93/ptable_trends,
+and only minor adjustment was made by myself.  --Haoyu Yang.
 """
 
 

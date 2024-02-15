@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Test and plot mixing ratio for hybrid descriptor method
+for linear scaling relations.
+"""
 
 
 import os
@@ -12,6 +13,7 @@ sys.path.insert(0, "../../5-volcano-plot/src/lib")
 from dataLoader import dataLoader
 from scalingRelation import scalingRelation
 from src.plot_mixing_ratio import plot_mixing_ratio
+
 
 if __name__ == "__main__":
     # Load configs

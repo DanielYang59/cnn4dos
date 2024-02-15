@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot correlation coefficients as a heatmap matrix."""
 
 
 import matplotlib.pyplot as plt

@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Load and preprocess descriptor data for plotting."""
 
 
 from pathlib import Path

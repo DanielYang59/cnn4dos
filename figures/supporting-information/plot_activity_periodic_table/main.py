@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot theoretical activity heatmap on periodic table."""
+
+# TODO: use pymatviz instead?
 
 
 import os

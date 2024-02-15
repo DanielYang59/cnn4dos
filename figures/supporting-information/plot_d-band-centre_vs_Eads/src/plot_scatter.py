@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot scatter for d-band centre vs adsorption energy relationship."""
 
 
 import matplotlib as mpl
@@ -33,8 +32,6 @@ def plot_scatter(
     mpl.rcParams.update(mpl.rcParamsDefault)
     mpl.rcParams["axes.linewidth"] = 2.5
     plt.scatter(x, y, c="darkblue")
-    # for i in range(len(x)):
-    #     plt.scatter(x[i], y[i], c=colors[i], label=labels[i])
 
     # Set legend
     plt.legend()

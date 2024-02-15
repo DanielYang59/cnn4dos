@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Plot adsorption energy correlation matrix."""
 
 
 import os
@@ -10,6 +9,7 @@ import seaborn as sns
 from src.create_heatmap import corrplot
 from src.format_mol_name import format_mol_name
 from src.generate_corr_matrix import generate_corr_matrix
+
 
 if __name__ == "__main__":
     # Generate correlation matrix
