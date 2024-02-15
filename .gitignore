@@ -17,6 +17,7 @@ venv
 
 
 # Dataset
+dataset/*
 !dataset/README.md
 
 
