@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     energy_range = cfg["calculation"]["energy_range"]
 
-    # Work on all DOS files
+    # Work on all eDOS files
     d_band_centres = []
     adsorption_energies = []
     labels = []

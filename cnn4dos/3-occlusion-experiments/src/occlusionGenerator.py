@@ -24,7 +24,7 @@ class occlusionGenerator:
             dos_array (np.ndarray): The original Density of States (DOS) array.
             occlusion_width (int): The width of the occlusion window. Actual width is `occlusion_width * dos_calculation_resolution`.
             occlusion_step (int): The step size for moving the occlusion window. Actual step size is `occlusion_step * dos_calculation_resolution`.
-            dos_calculation_resolution (float): The resolution for DOS calculations.
+            dos_calculation_resolution (float): The resolution for eDOS calculations.
 
         Raises:
             ValueError: When input values are not as expected.
@@ -94,24 +94,24 @@ class occlusionGenerator:
         self, dos: np.ndarray, orbital_index: int, start_index: int, width: int
     ) -> np.ndarray:
         """
-        Occlude a region in a given DOS array along a specified orbital.
+        Occlude a region in a given eDOS array along a specified orbital.
 
         Args:
-            dos (np.ndarray): The original DOS array.
+            dos (np.ndarray): The original eDOS array.
             orbital_index (int): The index of the orbital to be occluded.
             start_index (int): The starting index for the occlusion.
             width (int): The width of the occlusion region.
 
         Returns:
-            np.ndarray: The occluded DOS array, maintaining the same shape as the original DOS array.
+            np.ndarray: The occluded eDOS array, maintaining the same shape as the original eDOS array.
         """
-        # Zero-padding the DOS array
+        # Zero-padding the eDOS array
         padded_dos = self._apply_padding(np.copy(dos), "pad")
 
-        # Occlude the DOS array
+        # Occlude the eDOS array
         padded_dos[start_index : start_index + width, orbital_index] = 0.0
 
-        # Crop the DOS array to its original shape
+        # Crop the eDOS array to its original shape
         cropped_occluded_dos = self._apply_padding(padded_dos, "crop")
 
         assert dos.shape == cropped_occluded_dos.shape
@@ -119,8 +119,8 @@ class occlusionGenerator:
 
     def generate_occlusion_arrays(self) -> np.ndarray:
         """
-        Generate a series of occlusion DOS arrays, where each array is created
-        by occluding a region in the original DOS array (not going across orbitals).
+        Generate a series of occlusion eDOS arrays, where each array is created
+        by occluding a region in the original eDOS array (not going across orbitals).
 
         Returns:
             np.ndarray: An array of shape (num_occlusions, numOrbitals), each

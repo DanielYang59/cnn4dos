@@ -23,11 +23,11 @@ class ShiftGenerator:
         Initialize the ShiftGenerator.
 
         Args:
-            dos_array (np.ndarray): The pre-processed DOS array of shape (numSamplings, numOrbitals, 1).
+            dos_array (np.ndarray): The pre-processed eDOS array of shape (numSamplings, numOrbitals, 1).
             shifting_range (list): A list containing the start and end of the shifting range.
             shifting_step (float): The step length for each shift.
             shifting_orbitals (list): A list containing the indices of the orbitals to be shifted.
-            dos_calculation_resolution (float): The energy resolution along the numSamplings axis of the DOS array.
+            dos_calculation_resolution (float): The energy resolution along the numSamplings axis of the eDOS array.
 
         Raises:
             ValueError: If the shape of dos_array is not as expected, or if shifting parameters are not valid.
@@ -90,10 +90,10 @@ class ShiftGenerator:
 
     def generate_shifted_arrays(self) -> List[np.ndarray]:
         """
-        Generate a series of shifted DOS arrays.
+        Generate a series of shifted eDOS arrays.
 
         Returns:
-            list: A list of shifted DOS arrays.
+            list: A list of shifted eDOS arrays.
         """
         start, end = self.shifting_range
         shift_values = np.arange(start, end + self.shift_step, self.shift_step)

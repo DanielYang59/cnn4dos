@@ -8,23 +8,23 @@ import numpy as np
 class DOSProcessor:
     def __init__(self, dos_array: np.ndarray):
         """
-        Initialize the DOSProcessor with a pre-loaded DOS array.
+        Initialize the DOSProcessor with a pre-loaded eDOS array.
 
         Args:
-            dos_array (np.ndarray): A pre-loaded DOS array with shape (numSamplings, numOrbitals, 1).
+            dos_array (np.ndarray): A pre-loaded eDOS array with shape (numSamplings, numOrbitals, 1).
 
         Raises:
-            TypeError: If the given DOS array is not a numpy array.
-            ValueError: If the shape of the given DOS array is not as expected, or if numSamplings <= 500, or if numOrbitals not in {1, 4, 9, 16}.
+            TypeError: If the given eDOS array is not a numpy array.
+            ValueError: If the shape of the given eDOS array is not as expected, or if numSamplings <= 500, or if numOrbitals not in {1, 4, 9, 16}.
         """
         if not isinstance(dos_array, np.ndarray):
-            raise TypeError("The given DOS array must be a numpy array.")
+            raise TypeError("The given eDOS array must be a numpy array.")
 
         numSamplings, numOrbitals, _ = dos_array.shape
 
         if numSamplings <= 500:
             warnings.warn(
-                "The number of samplings is not greater than 500, please double-check if DOS is in correct shape."
+                "The number of samplings is not greater than 500, please double-check if eDOS is in correct shape."
             )
 
         if numOrbitals not in {1, 4, 9, 16}:
@@ -40,7 +40,7 @@ class DOSProcessor:
             remove_ghost (bool, optional): If True, sets the first values (index 0) along the numOrbitals axis to 0.0.
 
         Returns:
-            np.ndarray: DOS array with ghost states removed, if specified. Shape remains (numSamplings, numOrbitals, 1).
+            np.ndarray: eDOS array with ghost states removed, if specified. Shape remains (numSamplings, numOrbitals, 1).
         """
         if remove_ghost:
             self.dos_array[0, :] = 0.0

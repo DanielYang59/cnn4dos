@@ -1,4 +1,4 @@
-"""Visualize extracted DOS array, expect shape (NEDOS, numOrbitals)."""
+"""Visualize extracted eDOS array, expect shape (NEDOS, numOrbitals)."""
 
 e_fermi = 0  # WARNING!
 
@@ -19,10 +19,10 @@ import numpy as np
 
 
 def plot_line(x_coords, arr, savedir):
-    """Plot DOS as lines.
+    """Plot eDOS as lines.
 
     Args:
-        arr (np.ndarray): DOS array to be plotted, expect shape in (NEDOS, orbital)
+        arr (np.ndarray): eDOS array to be plotted, expect shape in (NEDOS, orbital)
         savedir (str): directory where generated figure will be stored
 
     """
@@ -60,13 +60,13 @@ if __name__ == "__main__":
     assert isinstance(energy_step, int)
     assert isinstance(e_fermi, (int, float))
 
-    # Import DOS array
+    # Import eDOS array
     src_dos = np.load(os.path.join(working_dir, src_dos_name))
 
-    # Check DOS array
+    # Check eDOS array
     if src_dos.shape[1] > 9:
         print(
-            f"Caution! Expected DOS in shape (NEDOS, orbital), found shape ({src_dos.shape[0]}, {src_dos.shape[1]})"
+            f"Caution! Expected eDOS in shape (NEDOS, orbital), found shape ({src_dos.shape[0]}, {src_dos.shape[1]})"
         )
 
     # Generate x coordinates
@@ -74,5 +74,5 @@ if __name__ == "__main__":
     ## Subtract fermi level
     energy_array = energy_array - e_fermi
 
-    # Plot original DOS as line
+    # Plot original eDOS as line
     plot_line(energy_array, src_dos, savedir=working_dir)

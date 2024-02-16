@@ -17,24 +17,24 @@ def extract_DOS(source_dir, atom_index, spin="up"):
 
     # Load spin up DOS
     if spin in {"up", "both"}:
-        # Load source DOS array
+        # Load source eDOS array
         source_arr = np.load(source_dir / "dos_up.npy")
 
-        # Extract selected atom DOS (spd only)
+        # Extract selected atom eDOS (spd only)
         target_arr = source_arr[atom_index - 1, :, 1:10]
 
-        # Write new DOS array
+        # Write new eDOS array
         np.save((source_dir / f"dos_up_{atom_index}.npy"), target_arr)
 
     # Load spin down DOS
     if spin in {"down", "both"}:
-        # Load source DOS array
+        # Load source eDOS array
         source_arr = np.load(source_dir / "dos_down.npy")
 
-        # Extract selected atom DOS (spd only)
+        # Extract selected atom eDOS (spd only)
         target_arr = source_arr[atom_index - 1, :, 1:10]
 
-        # Write new DOS array
+        # Write new eDOS array
         np.save((source_dir / f"dos_down_{atom_index}.npy"), target_arr)
 
 

@@ -9,10 +9,10 @@ from sklearn.preprocessing import normalize
 
 
 class Dataset:
-    """Dataset class for loading and manipulating DOS dataset for Deep Learning.
+    """Dataset class for loading and manipulating eDOS dataset for Deep Learning.
 
     Attributes:
-        feature (dict): DOS feature, key is "{substrate}{keysep}{adsorbate}{keysep}is/fs", value is DOS array
+        feature (dict): eDOS feature, key is "{substrate}{keysep}{adsorbate}{keysep}is/fs", value is eDOS array
         numFeature (int): total number of samples
         featureKeySep (str): separator used in dict keys
         substrates (list):
@@ -36,14 +36,14 @@ class Dataset:
         keysep=":",
         remove_ghost=False,
     ):
-        """Load DOS dataset feature from given list of dirs.
+        """Load eDOS dataset feature from given list of dirs.
 
         Args:
             path (Path): path to dataset dir
             substrates (list): list of substrates to load
             adsorbates (list): list of adsorbates to load
             centre_atoms (dict): centre atom index dict (index starts from 1)
-            filename (str): name of the DOS file under each dir
+            filename (str): name of the eDOS file under each dir
             keysep (str): separator for dir and project name in dataset dict
             states (tuple): list of states, "is" for initial state, "fs" for final state
             spin (str): load spin "up" or "down" DOS, or "both"
@@ -52,9 +52,9 @@ class Dataset:
             remove_ghost (bool): remove ghost state (first point of NEDOS)
 
         Notes:
-            1. DOS array in (NEDOS, orbital) shape
+            1. eDOS array in (NEDOS, orbital) shape
             2. feature dict key is "{substrate}{keysep}{adsorbate}{keysep}is/fs" (is for initial state, fs for final state)
-            3. Spin up DOS should be named "dos_up.npy", down "dos_down.npy"
+            3. Spin up eDOS should be named "dos_up.npy", down "dos_down.npy"
 
         """
         # Check args
@@ -86,7 +86,7 @@ class Dataset:
         self.substrates = substrates
         self.adsorbates = adsorbates
 
-        # Import DOS as numpy array
+        # Import eDOS as numpy array
         feature_data = {}
         for sub in substrates:
             # Get centre atom index from dict
@@ -245,10 +245,10 @@ class Dataset:
         self.label = labels
 
     def append_adsorbate_DOS(self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"):
-        """Append adsorbate DOS to metal DOS.
+        """Append adsorbate eDOS to metal DOS.
 
         Args:
-            adsorbate_dos_dir (str): adsorbate DOS directory.
+            adsorbate_dos_dir (str): adsorbate eDOS directory.
             dos_name (str, optional): name of adsorbate DOS. Defaults to "dos_up_adsorbate.npy".
 
         """
@@ -265,7 +265,7 @@ class Dataset:
             # Append to original DOS
             arr = np.expand_dims(
                 arr, axis=0
-            )  # reshape original DOS from (4000, 9) to (1, 4000, 9)
+            )  # reshape original eDOS from (4000, 9) to (1, 4000, 9)
             arr = np.concatenate([arr, mol_dos_arr])
 
             # Swap (6, 4000, 9) to (4000, 9, 6)

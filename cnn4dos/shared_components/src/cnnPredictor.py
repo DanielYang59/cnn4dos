@@ -39,11 +39,11 @@ class CNNPredictor:
         self, dos_array: np.ndarray, adsorbate_dos_array: np.ndarray
     ) -> np.ndarray:
         """
-        Make predictions based on the DOS and adsorbate DOS arrays.
+        Make predictions based on the eDOS and adsorbate eDOS arrays.
 
         Args:
-            dos_array (np.ndarray): The processed DOS array of shape (numSamplings, numOrbitals, 1).
-            adsorbate_dos_array (np.ndarray): The processed adsorbate DOS array of shape (numSamplings, numOrbitals, max_adsorbate_channels).
+            dos_array (np.ndarray): The processed eDOS array of shape (numSamplings, numOrbitals, 1).
+            adsorbate_dos_array (np.ndarray): The processed adsorbate eDOS array of shape (numSamplings, numOrbitals, max_adsorbate_channels).
 
         Returns:
             np.ndarray: The prediction array.
@@ -54,14 +54,14 @@ class CNNPredictor:
 
         # Check shapes
         if dos_array.shape[-1] != 1:
-            raise ValueError("The last dimension (numChannels) of DOS array must be 1.")
+            raise ValueError("The last dimension (numChannels) of eDOS array must be 1.")
 
         if dos_array.shape[:-1] != adsorbate_dos_array.shape[:-1]:
             raise ValueError(
                 "The shapes of dos_array and adsorbate_dos_array must match in the first two dimensions."
             )
 
-        # Append adsorbate DOS array to DOS array along the numChannels axis
+        # Append adsorbate eDOS array to eDOS array along the numChannels axis
         combined_array = np.concatenate([dos_array, adsorbate_dos_array], axis=-1)
 
         # Make predictions with CNN model

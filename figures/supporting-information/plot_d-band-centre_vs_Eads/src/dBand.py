@@ -25,7 +25,7 @@ class dBand:
         assert isinstance(energy_range, (list, tuple)) and len(energy_range) == 2
         self.energy_range = energy_range
 
-        # Load DOS from file
+        # Load eDOS from file
         self.__load_dos(dosFile, fileType)
 
         self.nedos = self.dos_array.shape[0]
@@ -69,7 +69,7 @@ class dBand:
             return "NA"  # metals without d electrons
 
     def __calculate_band_centre(self, single_dos_orbital, energy_array):
-        """Calculate band centre of a single DOS orbital.
+        """Calculate band centre of a single eDOS orbital.
 
         Args:
             single_dos_orbital (np.ndarray): merged five orbitals of d-band
@@ -85,7 +85,7 @@ class dBand:
             "Legacy d-band centre calculation method is deprecated. Please use moment-based method."
         )
 
-        # Check DOS shape
+        # Check eDOS shape
         assert single_dos_orbital.ndim == 1
 
         # Calculate band centre
@@ -102,17 +102,17 @@ class dBand:
         return numerator / denominator
 
     def __load_dos(self, dosFile, fileType):
-        """Load DOS file to numpy array, expecting DOS in shape (NEDOS, numOrbitals).
+        """Load eDOS file to numpy array, expecting eDOS in shape (NEDOS, numOrbitals).
 
         Args:
-            dosFile (str): path to DOS file
-            fileType (str): DOS file type
+            dosFile (str): path to eDOS file
+            fileType (str): eDOS file type
 
         Attrib:
-            dos_array (np.ndarray): DOS array in shape (NEDOS, numOrbitals)
+            dos_array (np.ndarray): eDOS array in shape (NEDOS, numOrbitals)
 
         """
-        # Load DOS file
+        # Load eDOS file
         if fileType == "numpy":
             dos_array = np.load(dosFile)
 
@@ -120,29 +120,29 @@ class dBand:
             # Covert to numpy array (if fileType isn't numpy array)
             pass
 
-        # Check DOS array shape
+        # Check eDOS array shape
         numOrbitals = dos_array.shape[1]
         if numOrbitals not in {1, 4, 9, 16}:
             raise ValueError(
-                f'Illegal number of DOS orbitals "{numOrbitals}" found! Expecting DOS in shape (NEDOS, numOrbitals).'
+                f'Illegal number of eDOS orbitals "{numOrbitals}" found! Expecting eDOS in shape (NEDOS, numOrbitals).'
             )
         if dos_array.ndim != 2:
-            raise ValueError("Expecting DOS in shape (NEDOS, numOrbitals).")
+            raise ValueError("Expecting eDOS in shape (NEDOS, numOrbitals).")
 
         assert isinstance(dos_array, np.ndarray)
         self.dos_array = dos_array
 
     def __take_d_band(self):
-        """Take d-band from DOS array.
+        """Take d-band from eDOS array.
 
         Attrib:
-            d_band_array (np.ndarray): d-band DOS array in shape (NEDOS, 5)
+            d_band_array (np.ndarray): d-band eDOS array in shape (NEDOS, 5)
 
         """
         # Check attrib
         assert hasattr(self, "dos_array")
 
-        # Take d orbitals from DOS array
+        # Take d orbitals from eDOS array
         if self.numOrbitals in {1, 4}:
             d_band = np.zeros(
                 (self.nedos, 5)

@@ -33,7 +33,7 @@ def get_total_atom(poscarfile):
 
 
 def dos_extractor(folder, spin):
-    """Extractor DOS from vasprun.xml from given folder.
+    """Extractor eDOS from vasprun.xml from given folder.
 
     Args:
         folder (str): name of folder to work on.
@@ -78,7 +78,7 @@ def dos_extractor(folder, spin):
     # Decide if spin polarized from "ISPIN" tag
     ispin = read_ispin_from_vaspxml(dos_root)
 
-    # Begin to export DOS data from vasprun.xml
+    # Begin to export eDOS data from vasprun.xml
     if ispin == "1":
         return ValueError("None spin polarised analysis currently not supported!")
 
@@ -103,7 +103,7 @@ def dos_extractor(folder, spin):
                 [[float(j) for j in i.split()] for i in spin_down_dos]
             )
 
-            # Append DOS data to list
+            # Append eDOS data to list
             dos_up.append(spin_up_dos)
             dos_down.append(spin_down_dos)
 
@@ -111,7 +111,7 @@ def dos_extractor(folder, spin):
         dos_up = np.array(dos_up)
         dos_down = np.array(dos_down)
 
-    # Write DOS to numpy array
+    # Write eDOS to numpy array
     if ispin == "1":
         return ValueError(
             "None spin polarised analysis currently not supported!"
@@ -134,7 +134,7 @@ if __name__ == "__main__":
         # Get total number of atoms from POSCAR
         atom_num = get_total_atom(os.path.join(working_dir, "POSCAR"))
 
-        # Run DOS extractor
+        # Run eDOS extractor
         dos_extractor(working_dir, spin=spin)
 
     else:

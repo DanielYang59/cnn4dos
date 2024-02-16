@@ -48,7 +48,7 @@ def main():
         print(f"Processing folder {folder.name} ({i + 1} out of {len(folders)})...")
         dos_file_path = folder / config["shifting"]["dos_array_name"]
 
-        # a. Load DOS array with DOSProcessor
+        # a. Load eDOS array with DOSProcessor
         unshifted_dos = data_loader.load_unshifted_dos(dos_file_path)
         dos_processor = DOSProcessor(unshifted_dos)
         processed_dos = dos_processor.remove_ghost_state()
@@ -69,7 +69,7 @@ def main():
             prediction = cnn_predictor.predict(shifted_dos, adsorbate_dos)
             predictions.append(prediction)
 
-        # d. Feed the unshifted DOS array into the CNN model for a reference point
+        # d. Feed the unshifted eDOS array into the CNN model for a reference point
         ref_prediction = cnn_predictor.predict(processed_dos, adsorbate_dos)
 
         # Subtract ref_prediction from each prediction

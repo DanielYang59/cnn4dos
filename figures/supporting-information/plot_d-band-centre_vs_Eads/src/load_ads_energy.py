@@ -6,10 +6,10 @@ import pandas as pd
 
 
 def load_ads_energy(dosFile, ads_energy_dir):
-    """Load adsorption energy from DOS file name.
+    """Load adsorption energy from eDOS file name.
 
     Args:
-        dosFile (str): DOS file name
+        dosFile (str): eDOS file name
         ads_energy_dir (str): adsorption energy directory
 
     Returns:
@@ -20,7 +20,7 @@ def load_ads_energy(dosFile, ads_energy_dir):
     assert os.path.exists(dosFile)
     assert os.path.isdir(ads_energy_dir)
 
-    # Unpack DOS file name
+    # Unpack eDOS file name
     substrate = dosFile.split(os.sep)[-4]
     adsorbate = dosFile.split(os.sep)[-3].split("_")[0]
     state = dosFile.split(os.sep)[-3].split("_")[-1]

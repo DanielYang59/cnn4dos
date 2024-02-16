@@ -228,7 +228,7 @@ class OcclusionPlotter:
             plt.show()
 
     def plot_line(self, orbitals: list = ["s", "p", "d"], show: bool = False) -> None:
-        """Plot DOS line charts for specified orbitals.
+        """Plot eDOS line charts for specified orbitals.
 
         Args:
             orbitals (list): List of orbitals to plot. Default is ["s", "p", "d"].

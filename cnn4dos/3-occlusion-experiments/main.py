@@ -33,7 +33,7 @@ def main():
         config["occlusion"]["max_adsorbate_channels"],
     )
 
-    # Step 2: Load original DOS in shape (numSamplings, numOrbitals, 1) and remove ghost state
+    # Step 2: Load original eDOS in shape (numSamplings, numOrbitals, 1) and remove ghost state
     unshifted_dos = data_loader.load_unshifted_dos(
         Path(os.getcwd()) / config["occlusion"]["dos_array_name"]
     )
