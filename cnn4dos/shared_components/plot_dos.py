@@ -21,7 +21,8 @@ def plot_line(x_coords, arr, savedir):
     """Plot eDOS as lines.
 
     Args:
-        arr (np.ndarray): eDOS array to be plotted, expect shape in (NEDOS, orbital)
+        arr (np.ndarray): eDOS array to be plotted, expect
+            shape in (NEDOS, orbital)
         savedir (str): directory where generated figure will be stored
 
     """
@@ -39,8 +40,8 @@ def plot_line(x_coords, arr, savedir):
         ax.plot(x_coords, orbital_arr, color="black")
 
     # Set x/y axis labels
-    ## Ref: https://matplotlib.org/stable/tutorials/text/mathtext.html
-    mpl.rcParams["mathtext.default"] = "regular"  # do not use Italic as default
+    # Ref: https://matplotlib.org/stable/tutorials/text/mathtext.html
+    mpl.rcParams["mathtext.default"] = "regular"  # do not use Italic
     fig.supxlabel("E-E$_f$ (eV)", fontsize=18)
     fig.supylabel("DOS (states/eV)", fontsize=18)
 
@@ -70,7 +71,7 @@ if __name__ == "__main__":
 
     # Generate x coordinates
     energy_array = np.linspace(energy_start, energy_end, energy_step)
-    ## Subtract fermi level
+    # Subtract fermi level
     energy_array = energy_array - e_fermi
 
     # Plot original eDOS as line

@@ -19,13 +19,14 @@ def format_mol_name(string):
     for num in numbers:
         num_subscript = ""
         for digit in num:
-            num_subscript += f"$_\mathregular{{{digit}}}$"
+            num_subscript += rf"$_\mathregular{{{digit}}}$"
         string = string.replace(num, f"{num_subscript}")
 
     return string
 
 
-# Example usage
-example_name = "CO2"
-formatted_name = format_mol_name(example_name)
-print(formatted_name)
+if __name__ == "__main__":
+    # Example usage
+    example_name = "CO2"
+    formatted_name = format_mol_name(example_name)
+    print(formatted_name)

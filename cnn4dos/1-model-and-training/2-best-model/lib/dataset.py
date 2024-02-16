@@ -1,4 +1,4 @@
-"""Dataset class for loading and manipulating eDOS dataset for CNN."""
+"""Load and manipulate eDOS dataset for CNN."""
 
 import os
 import warnings
@@ -9,15 +9,16 @@ from sklearn.preprocessing import normalize
 
 
 class Dataset:
-    """Dataset class for loading and manipulating eDOS dataset for Deep Learning.
+    """Dataset class for loading and manipulating eDOS dataset.
 
     Attributes:
-        feature (dict): eDOS feature, key is "{substrate}{keysep}{adsorbate}{keysep}is/fs", value is eDOS array
+        feature (dict): eDOS feature,
+            key is "{substrate}{keysep}{adsorbate}{keysep}is/fs",
+            value is eDOS array
         numFeature (int): total number of samples
         featureKeySep (str): separator used in dict keys
         substrates (list):
         adsorbates (list):
-
     """
 
     def __init__(self) -> None:
@@ -39,26 +40,30 @@ class Dataset:
         """Load eDOS dataset feature from given list of dirs.
 
         Args:
-            path (str): path to dataset dir
+            path (Path): path to dataset dir
             substrates (list): list of substrates to load
             adsorbates (list): list of adsorbates to load
             centre_atoms (dict): centre atom index dict (index starts from 1)
             filename (str): name of the eDOS file under each dir
             keysep (str): separator for dir and project name in dataset dict
-            states (tuple): list of states, "is" for initial state, "fs" for final state
+            states (tuple): list of states, "is" for initial state,
+                "fs" for final state
             spin (str): load spin "up" or "down" DOS, or "both"
-            load_augment (bool): load augmentation data or not, augmented substrate should end with "_aug"
+            load_augment (bool): load augmentation data or not,
+                augmented substrate should end with "_aug"
             augmentations (list): list of augmentation distances
             remove_ghost (bool): remove ghost state (first point of NEDOS)
 
         Notes:
             1. eDOS array in (NEDOS, orbital) shape
-            2. feature dict key is "{substrate}{keysep}{adsorbate}{keysep}is/fs" (is for initial state, fs for final state)
+            2. feature dict key is
+                "{substrate}{keysep}{adsorbate}{keysep}is/fs"
+                (is for initial state, fs for final state)
             3. Spin up eDOS should be named "dos_up.npy", down "dos_down.npy"
 
         """
         # Check args
-        assert os.path.isdir(path)
+        assert path.is_dir()
         assert isinstance(substrates, list)
         assert isinstance(adsorbates, list)
         assert isinstance(centre_atoms, dict)
@@ -96,14 +101,15 @@ class Dataset:
                 for state in states:
                     # Compile path
                     directory = os.path.join(path, sub, f"{ads}_{state}")
-                    assert os.path.isdir(directory), f'Path "{directory}" not found.'
+                    assert os.path.isdir(directory)
 
                     # Loop through all directories to load DOS
                     for folder in os.listdir(directory):
                         if os.path.isdir(os.path.join(directory, folder)) and (
                             os.path.exists(
                                 os.path.join(
-                                    directory, folder, f"dos_up_{centre_atom_index}.npy"
+                                    directory, folder,
+                                    f"dos_up_{centre_atom_index}.npy"
                                 )
                             )
                             or os.path.exists(
@@ -121,7 +127,8 @@ class Dataset:
                             ):
                                 continue
 
-                            # Compile dict key as "{substrate}{keysep}{adsorbate}{keysep}{state}"
+                            # Compile dict key as:
+                            # "{substrate}{keysep}{adsorbate}{keysep}{state}"
                             key = f"{sub}{keysep}{ads}{keysep}{state}{keysep}{folder}"
 
                             # Parse data as numpy array into dict
@@ -161,12 +168,13 @@ class Dataset:
                                     [arr_up, arr_down], axis=2
                                 )  # (NEDOS, numOrbital, 2)
 
-                            # Zero out first point along NEDOS axis to remove "ghost state"
+                            # Remove "ghost state": zero out first point
                             if remove_ghost:
                                 arr[0] = 0.0
 
                             # Update dict value
-                            feature_data[key] = arr  # shape (NEDOS, numOrbital)
+                            # shape (NEDOS, numOrbital)
+                            feature_data[key] = arr
 
         # Update attrib
         self.feature = feature_data
@@ -184,13 +192,30 @@ class Dataset:
 
         """
         # Check args
-        assert mode in {"normalization", "none"}
+        assert mode in {"normalization", "none", "standardization"}
 
-        # Loop through dataset and perform scaling
-        for key, arr in self.feature.items():
-            if mode == "normalization":
-                # Perform normalize
-                self.feature[key] = normalize(arr, axis=0, norm="max")
+        # Skip "none" mode
+        if mode != "none":
+            # Loop through dataset and perform scaling
+            for key, arr in self.feature.items():
+                # Perform scaling for each channel
+                # expect shape in (NEDOS, numOrbitals, numChannels)
+                assert len(arr.shape) == 3
+                scaled_arr = []
+
+                for channel_index in range(arr.shape[2]):
+                    if mode == "normalization":
+                        channel = normalize(
+                            arr[:, :, channel_index], axis=0, norm="max"
+                        )
+                    elif mode == "standardization":
+                        raise RuntimeError("Still working on.")
+
+                    scaled_arr.append(channel)
+
+                # Update dataset
+                scaled_arr = np.stack(scaled_arr, axis=2)
+                self.feature[key] = scaled_arr
 
     def load_label(self, label_dir) -> None:
         """Load labels based on names of feature files.
@@ -214,7 +239,8 @@ class Dataset:
         labels = {}
         for (
             key
-        ) in self.feature:  # key is "{substrate}{keysep}{adsorbate}{keysep}{state}"
+            # key format "{substrate}{keysep}{adsorbate}{keysep}{state}"
+        ) in self.feature:
             # Unpack key
             substrate, adsorbate, state, project = key.split(self.featureKeySep)
 
@@ -229,13 +255,16 @@ class Dataset:
         self.label = labels
 
     def append_adsorbate_DOS(
-        self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"
-    ) -> None:
+        self,
+        adsorbate_dos_dir,
+        dos_name="dos_up_adsorbate.npy"
+            ) -> None:
         """Append adsorbate eDOS to metal DOS.
 
         Args:
             adsorbate_dos_dir (str): adsorbate eDOS directory.
-            dos_name (str, optional): name of adsorbate DOS. Defaults to "dos_up_adsorbate.npy".
+            dos_name (str, optional): name of adsorbate DOS.
+                Defaults to "dos_up_adsorbate.npy".
 
         """
         # Check args
@@ -246,7 +275,9 @@ class Dataset:
             # Get adsorbate name
             mol_name = key.split(":")[1]
             # Load adsorbate DOS
-            mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, dos_name))
+            mol_dos_arr = np.load(
+                os.path.join(adsorbate_dos_dir, mol_name, dos_name)
+            )
 
             # Append to original DOS
             arr = np.expand_dims(
@@ -257,6 +288,5 @@ class Dataset:
             # Swap (6, 4000, 9) to (4000, 9, 6)
             arr = np.swapaxes(arr, 0, 1)
             arr = np.swapaxes(arr, 1, 2)
-
             # Update feature dict
             self.feature[key] = arr

@@ -16,10 +16,12 @@ class reactionCalculator:
         """Calculate scaling relations for reaction.
 
         Args:
-            adsorption_energy_scaling_relation (dict): adsorption energy scaling relations dict
+            adsorption_energy_scaling_relation (dict):
+                adsorption energy scaling relations dict
             adsorbate_energy_file (str): path to adsorbate energy csv file
             reaction_pathway_file (str): path to reaction pathway json file
-            external_potential (float, optional): applied external potential. Defaults to 0.0.
+            external_potential (float, optional): applied external potential.
+                Defaults to 0.0.
 
         """
         # Update attrib
@@ -44,7 +46,8 @@ class reactionCalculator:
             KeyError: if species entry not found
 
         Returns:
-            np.ndarray: parameter array in [descriptor_x_para, descriptor_y_para, constant]
+            np.ndarray: parameter array in
+                [descriptor_x_para, descriptor_y_para, constant]
 
         """
         # Check args
@@ -60,7 +63,8 @@ class reactionCalculator:
 
             # Proton-electron pairs (PEP)
             elif species == "PEP":
-                pep_energy = 0.5 * self.adsorbate_energy["H2"] - self.external_potential
+                pep_energy = 0.5 * self.adsorbate_energy["H2"] \
+                    - self.external_potential
                 paras += [0, 0, num * pep_energy]
 
             # Adsorbed species
@@ -71,19 +75,24 @@ class reactionCalculator:
                 if species in self.adsorbate_energy:
                     paras += [0, 0, num * self.adsorbate_energy[species]]
                 else:
-                    raise KeyError(f"Cannot find free energy entry for {species}.")
+                    raise KeyError(
+                        f"Cannot find free energy entry for {species}."
+                    )
 
                 # Add scaling relation parameters
                 paras += num * self.adsorption_energy_scaling_relation[species]
 
             # non-adsorbate species (free species)
             else:
-                species = species.split("_")[0]  # remove physical state suffix (_g, _l)
+                # remove physical state suffix (_g, _l)
+                species = species.split("_")[0]
 
                 if species in self.adsorbate_energy:
                     paras += [0, 0, num * self.adsorbate_energy[species]]
                 else:
-                    raise KeyError(f"Cannot find free energy entry for {species}.")
+                    raise KeyError(
+                        f"Cannot find free energy entry for {species}."
+                    )
 
         return paras
 
@@ -91,10 +100,12 @@ class reactionCalculator:
         """Calculate scaling relation parameters for one reaction step.
 
         Args:
-            equation (dict): reaction step dict, keys are {"reactions", "products"}
+            equation (dict): reaction step dict,
+                keys are {"reactions", "products"}
 
         Returns:
-            np.ndarray: parameter array in [descriptor_x_para, descriptor_y_para, constant]
+            np.ndarray: parameter array in
+                [descriptor_x_para, descriptor_y_para, constant]
 
         """
         # Check args
@@ -108,7 +119,8 @@ class reactionCalculator:
         return products_paras - reactants_paras
 
     def calculate_reaction_scaling_relations(self, name):
-        """Calculate scaling relations for a selected reaction and external potential.
+        """Calculate scaling relations for a selected reaction
+            and external potential.
 
         Args:
             name (str): name of reaction to calculate
@@ -145,11 +157,12 @@ if __name__ == "__main__":
         "BN_is",
         "BP_is",
     ]
-    adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
+    adsorbates = [
+                  "2-COOH", "3-CO", "4-CHO", "5-CH2O",
+                  "6-OCH3", "7-O", "8-OH", "11-H"
+                    ]
 
     # Loading adsorption energy
-    from dataLoader import dataLoader
-
     test_loader = dataLoader()
     test_loader.load_adsorption_energy(path, substrates, adsorbates)
 
@@ -158,7 +171,7 @@ if __name__ == "__main__":
     )
 
     # Calculate adsorption energy linear scaling relations
-    from scalingRelation import scalingRelation
+    from .scalingRelation import scalingRelation
 
     calculator = scalingRelation(
         adsorption_energy_dict=test_loader.adsorption_free_energy,

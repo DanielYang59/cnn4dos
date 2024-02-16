@@ -8,13 +8,8 @@ from typing import List
 import colorcet
 from bokeh.io import export_png
 from bokeh.io import show as show_
-from bokeh.models import (
-    BasicTicker,
-    ColorBar,
-    ColumnDataSource,
-    LinearColorMapper,
-    NumeralTickFormatter,
-)
+from bokeh.models import (BasicTicker, ColorBar, ColumnDataSource,
+                          LinearColorMapper, NumeralTickFormatter)
 from bokeh.plotting import figure
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge

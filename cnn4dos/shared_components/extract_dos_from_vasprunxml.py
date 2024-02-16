@@ -79,7 +79,7 @@ def dos_extractor(folder, spin):
 
     # Begin to export eDOS data from vasprun.xml
     if ispin == "1":
-        return ValueError("None spin polarised analysis currently not supported!")
+        return ValueError("None spin polarised analysis not supported now.")
 
     else:  # ISPIN = 2
         # create empty list
@@ -92,12 +92,14 @@ def dos_extractor(folder, spin):
         ]:  # 8-calculation; -2-dos; -1-partial; 0-array; -1-set
             # Spin up
             spin_up_dos = [i.text.strip() for i in atom[0]]
-            ## Convert each line to np array
-            spin_up_dos = np.array([[float(j) for j in i.split()] for i in spin_up_dos])
+            # Convert each line to np array
+            spin_up_dos = np.array(
+                [[float(j) for j in i.split()] for i in spin_up_dos]
+            )
 
             # Spin down
             spin_down_dos = [i.text.strip() for i in atom[1]]
-            ## Convert each line to np array
+            # Convert each line to np array
             spin_down_dos = np.array(
                 [[float(j) for j in i.split()] for i in spin_down_dos]
             )
@@ -114,7 +116,7 @@ def dos_extractor(folder, spin):
     if ispin == "1":
         return ValueError(
             "None spin polarised analysis currently not supported!"
-        )  # DEBUG
+        )
 
     else:  # ISPIN = 2
         if spin in {"up", "both"}:

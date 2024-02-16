@@ -50,4 +50,4 @@ if __name__ == "__main__":
 
     # Calculate and print variance
     print(f"A total of {dataFetcher.numFeature} samples loaded.")
-    print(f"Standard deviation is {np.std(label)}, variance is {np.var(label)}.")
+    print(f"Standard deviation: {np.std(label)}, variance: {np.var(label)}.")

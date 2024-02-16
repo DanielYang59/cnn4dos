@@ -69,8 +69,8 @@ def main():
         ax.yaxis.set_major_locator(MaxNLocator(5))
 
     # Set x/y axis labels
-    fig.supxlabel("$E-E_\mathrm{f}$ (eV)", fontsize=20)
-    ax1.set_ylabel("$\Delta\mathit{E}_{\mathrm{ads}}$ (eV)", fontsize=20)
+    fig.supxlabel(r"$E-E_\mathrm{f}$ (eV)", fontsize=20)
+    ax1.set_ylabel(r"$\Delta\mathit{E}_{\mathrm{ads}}$ (eV)", fontsize=20)
     ax3.set_ylabel("-COHP", fontsize=20)
 
     ax1.yaxis.set_label_coords(-0.3, 0.5)

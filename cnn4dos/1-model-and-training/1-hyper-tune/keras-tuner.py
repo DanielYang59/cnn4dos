@@ -19,7 +19,8 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 if __name__ == "__main__":
     # Print GPU info
     print(
-        "Num GPUs Available: ", len(tf.config.experimental.list_physical_devices("GPU"))
+        "Num GPUs Available: ",
+        len(tf.config.experimental.list_physical_devices("GPU"))
     )
     print("Device name: ", tf.test.gpu_device_name())
 
@@ -28,12 +29,12 @@ if __name__ == "__main__":
     np.random.seed(0)
 
     # Load configs
-    with open("config.yaml") as ymlfile:
+    with open("config.yaml", encoding="utf-8") as ymlfile:
         cfg = yaml.safe_load(ymlfile)
-    ## paths
+    # paths
     feature_dir = Path(cfg["path"]["feature_dir"])
     label_dir = Path(cfg["path"]["label_dir"])
-    ## species
+    # species
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]
     centre_atoms = cfg["species"]["centre_atoms"]
@@ -41,7 +42,7 @@ if __name__ == "__main__":
     load_augmentation = cfg["species"]["load_augmentation"]
     augmentations = cfg["species"]["augmentations"]
     spin = cfg["species"]["spin"]
-    ## model training
+    # model training
     preprocessing = cfg["model_training"]["preprocessing"]
     remove_ghost = cfg["model_training"]["remove_ghost"]
     batch_size = cfg["model_training"]["batch_size"]
@@ -52,7 +53,9 @@ if __name__ == "__main__":
     # Load features(DOS) and labels from cached file to save time
     if os.path.exists("features.npy") and os.path.exists("labels.npy"):
         warnings.warn(
-            "Warning! features/labels load from cached file. Tags changed after cache generation in config.yaml might not take effect."
+            ("Warning! features/labels load from cached file. "
+             "Tags changed after cache generation in config.yaml "
+             "might not take effect.")
         )
         features = tf.convert_to_tensor(np.load("features.npy"))
         labels = tf.convert_to_tensor(np.load("labels.npy"))
@@ -78,7 +81,7 @@ if __name__ == "__main__":
             augmentations=augmentations,
         )
 
-        ## Take subset
+        # Take subset
         if sample_size == "ALL":
             print(f"A total of {dataFetcher.numFeature} samples loaded.")
         elif isinstance(sample_size, int) and sample_size >= 1:
@@ -88,13 +91,13 @@ if __name__ == "__main__":
         else:
             raise ValueError('sample_size should be "ALL" or an interger.')
 
-        ## Append molecule DOS
+        # Append molecule DOS
         if append_adsorbate_dos:
             dataFetcher.append_adsorbate_DOS(
                 adsorbate_dos_dir=os.path.join(feature_dir, "adsorbate-DOS")
             )
 
-        ## Preprocess feature (DOS)
+        # Preprocess feature (DOS)
         dataFetcher.scale_feature(mode=preprocessing)
 
         # Load label
@@ -110,9 +113,11 @@ if __name__ == "__main__":
         sys.exit()
 
     dataset = tf.data.Dataset.from_tensor_slices((features, labels))
-    dataset = dataset.shuffle(buffer_size=total_sample, reshuffle_each_iteration=False)
+    dataset = dataset.shuffle(
+        buffer_size=total_sample, reshuffle_each_iteration=False
+    )
 
-    ## Take a subset if required
+    # Take a subset if required
     if sample_size != "ALL":
         dataset = dataset.take(sample_size)
 
@@ -151,7 +156,8 @@ if __name__ == "__main__":
                 monitor="val_mean_absolute_error", patience=25
             ),
             tf.keras.callbacks.ReduceLROnPlateau(
-                monitor="val_mean_absolute_error", patience=10, factor=0.5, min_lr=1e-7
+                monitor="val_mean_absolute_error",
+                patience=10, factor=0.5, min_lr=1e-7
             ),
         ],
     )

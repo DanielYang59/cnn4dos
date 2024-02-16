@@ -12,9 +12,9 @@ from src.utilities import get_folders_in_dir
 from tqdm import tqdm
 
 sys.path.append("../shared_components/src")
-from cnnPredictor import CNNPredictor
-from dataLoader import DataLoader
-from dosProcessor import DOSProcessor
+from cnnPredictor import CNNPredictor  # noqa: E402
+from dataLoader import DataLoader  # noqa: E402
+from dosProcessor import DOSProcessor  # noqa: E402
 
 
 def main():
@@ -34,7 +34,9 @@ def main():
     )
 
     # Load the CNN model
-    cnn_model = tf.keras.models.load_model(Path(config["path"]["cnn_model_path"]))
+    cnn_model = tf.keras.models.load_model(
+        Path(config["path"]["cnn_model_path"])
+    )
 
     # Create an instance of CNNPredictor
     cnn_predictor = CNNPredictor(loaded_model=cnn_model)
@@ -45,7 +47,7 @@ def main():
 
     # Step 3: Loop through each folder
     for i, folder in enumerate(tqdm(folders, desc="Processing folders")):
-        print(f"Processing folder {folder.name} ({i + 1} out of {len(folders)})...")
+        print(f"Processing folder {folder.name} ({i + 1} of {len(folders)})")
         dos_file_path = folder / config["shifting"]["dos_array_name"]
 
         # a. Load eDOS array with DOSProcessor
@@ -56,7 +58,7 @@ def main():
         # b. Generate shifting arrays with ShiftGenerator
         shift_gen = ShiftGenerator(
             processed_dos,
-            dos_calculation_resolution=config["shifting"]["dos_calculation_resolution"],
+            dos_calculation_resolution=config["shifting"]["dos_calculation_resolution"],  # noqa: E501
             shifting_range=config["shifting"]["shifting_range"],
             shifting_step=config["shifting"]["shifting_step"],
             shifting_orbitals=config["shifting"]["shifting_orbitals"],
@@ -69,7 +71,8 @@ def main():
             prediction = cnn_predictor.predict(shifted_dos, adsorbate_dos)
             predictions.append(prediction)
 
-        # d. Feed the unshifted eDOS array into the CNN model for a reference point
+        # d. Feed the unshifted eDOS array into the CNN model
+        # as a reference point
         ref_prediction = cnn_predictor.predict(processed_dos, adsorbate_dos)
 
         # Subtract ref_prediction from each prediction
@@ -85,7 +88,7 @@ def main():
         prediction_save_path = (
             prediction_save_base
             / last_part_of_working_dir
-            / f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}"
+            / f"shifting_range_{config['shifting']['shifting_range']}-shifting_step_{config['shifting']['shifting_step']}-orbital_{config['shifting']['shifting_orbitals']}"  # noqa: E501
             / folder.name
         )
         prediction_save_path.mkdir(parents=True, exist_ok=True)
@@ -95,7 +98,9 @@ def main():
 
     # Step 4: Plot
     plotter = ShiftPlotter(all_predictions, config)
-    plotter.plot(save_dir=f"figures{os.sep}{str(working_dir).split(os.sep)[-1]}")
+    plotter.plot(
+        save_dir=f"figures{os.sep}{str(working_dir).split(os.sep)[-1]}"
+    )
 
 
 if __name__ == "__main__":

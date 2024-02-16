@@ -12,8 +12,10 @@ def get_fermi_level(working_dir: str, fermi_level_source: str) -> float:
 
     Parameters:
         working_dir (str): The working directory path as a string.
-            The expected path format: .../some_folder/{substrate}_{adsorbate}_{state}/{metal}
-            Where state should be 'is' for initial state or 'fs' for final state.
+            The expected path format:
+            .../some_folder/{substrate}_{adsorbate}_{state}/{metal}
+            Where state should be 'is' for initial state and
+            'fs' for final state.
             For example: .../some_folder/Si_CO2_is/Al
 
     Returns:
@@ -30,7 +32,8 @@ def get_fermi_level(working_dir: str, fermi_level_source: str) -> float:
 
     df = pd.read_csv(csv_file, index_col=0)
 
-    # Generate a temporary list of adsorbate column names to search for the corresponding adsorbate.
+    # Generate a temporary list of adsorbate column names to
+    # search for the corresponding adsorbate.
     adsorbate_columns = [i.split("-")[-1] for i in list(df.columns)]
 
     if adsorbate not in adsorbate_columns:
@@ -48,12 +51,14 @@ def get_properties_from_path(working_dir: Path) -> Tuple[str, str, str, str]:
 
     Parameters:
         working_dir (Path): The working directory path.
-        The expected path format: .../some_folder/{substrate}_{adsorbate}_{state}/{metal}
-        Where state should be 'is' for initial state or 'fs' for final state.
+        The expected path format:
+            .../some_folder/{substrate}_{adsorbate}_{state}/{metal}
+        Where state should be 'is' for initial state and 'fs' for final state.
         For example: .../some_folder/Si_CO2_is/Al
 
     Returns:
-        tuple: A tuple containing substrate name, adsorbate name, state, and metal name.
+        tuple: A tuple containing substrate name, adsorbate name,
+            state, and metal name.
     """
     parts = working_dir.parts
     substrate, adsorbate, state = parts[-2].split("_")

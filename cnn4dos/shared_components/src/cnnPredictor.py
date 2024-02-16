@@ -13,7 +13,8 @@ class CNNPredictor:
 
         Args:
             model_path (str, optional): The file path to the saved Keras model.
-            loaded_model (tf.keras.Model, optional): An already loaded Keras model.
+            loaded_model (tf.keras.Model, optional): An already loaded
+                Keras model.
 
         Raises:
             ValueError: If both model_path and loaded_model are provided.
@@ -21,7 +22,7 @@ class CNNPredictor:
 
         if model_path and loaded_model:
             raise ValueError(
-                "You can either provide a model_path or a loaded_model, not both."
+                "You can provide model_path or loaded_model, not both."
             )
 
         if model_path:
@@ -33,7 +34,7 @@ class CNNPredictor:
             self.model = loaded_model
 
         else:
-            raise ValueError("Either model_path or loaded_model should be provided.")
+            raise ValueError("model_path or loaded_model should be provided.")
 
     def predict(
         self, dos_array: np.ndarray, adsorbate_dos_array: np.ndarray
@@ -42,8 +43,11 @@ class CNNPredictor:
         Make predictions based on the eDOS and adsorbate eDOS arrays.
 
         Args:
-            dos_array (np.ndarray): The processed eDOS array of shape (numSamplings, numOrbitals, 1).
-            adsorbate_dos_array (np.ndarray): The processed adsorbate eDOS array of shape (numSamplings, numOrbitals, max_adsorbate_channels).
+            dos_array (np.ndarray): The processed eDOS array of
+                shape (numSamplings, numOrbitals, 1).
+            adsorbate_dos_array (np.ndarray): The processed adsorbate eDOS
+                array of shape
+                (numSamplings, numOrbitals, max_adsorbate_channels).
 
         Returns:
             np.ndarray: The prediction array.
@@ -64,7 +68,9 @@ class CNNPredictor:
             )
 
         # Append adsorbate eDOS array to eDOS array along the numChannels axis
-        combined_array = np.concatenate([dos_array, adsorbate_dos_array], axis=-1)
+        combined_array = np.concatenate(
+            [dos_array, adsorbate_dos_array], axis=-1
+        )
 
         # Make predictions with CNN model
         predictions = self.model.predict(

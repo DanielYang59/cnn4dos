@@ -20,20 +20,25 @@ class OcclusionPlotter:
     Class to generate occlusion heatmaps from predictions.
 
     Attributes:
-        predictions_file (np.ndarray): Path to the file containing occlusion predictions.
+        predictions_file (np.ndarray): Path to the file containing
+            occlusion predictions.
         orbital_names (list): List of names for orbitals.
         fermi_level (float): The Fermi energy level.
         dos_energy_range (list): Energy range for density of states (DOS).
         plot_energy_range (list): Energy range for the plot.
     """
 
-    def __init__(self, predictions: np.ndarray, config: dict, fermi_level: float):
+    def __init__(
+        self, predictions: np.ndarray,
+        config: dict, fermi_level: float
+    ):
         """
         Initialize the OcclusionPlotter with the given parameters.
 
         Parameters:
             predictions (np.ndarray): the predictions numpy array.
-            config (dict): Configuration dictionary for occlusion plot settings.
+            config (dict): Configuration dictionary for occlusion
+                plot settings.
             fermi_level (float): The Fermi energy level.
         """
         assert isinstance(predictions, np.ndarray)
@@ -50,17 +55,19 @@ class OcclusionPlotter:
         """Validate the given energy ranges."""
         if self.dos_energy_range[0] >= self.dos_energy_range[1]:
             raise ValueError(
-                "In dos_energy_range, the start energy should be smaller than the end energy."
+                "eDOS start energy should be smaller than end energy."
             )
         if self.plot_energy_range[0] >= self.plot_energy_range[1]:
             raise ValueError(
-                "In plot_energy_range, the start energy should be smaller than the end energy."
+                "energy start should be smaller than the end energy."
             )
         if (
             self.plot_energy_range[0] < self.dos_energy_range[0]
             or self.plot_energy_range[1] > self.dos_energy_range[1]
         ):
-            raise ValueError("plot_energy_range should be within dos_energy_range.")
+            raise ValueError(
+                "plot_energy_range should be within dos_energy_range."
+            )
 
     def _take_orbitals(
         self, original_predictions, orbitals, names
@@ -70,11 +77,13 @@ class OcclusionPlotter:
 
         Parameters:
             original_predictions (np.ndarray): The original prediction data.
-            orbitals (list): List containing the orbital types ("s", "p", "d", "f").
+            orbitals (list): List containing the orbital types
+                ("s", "p", "d", "f").
             names (list): List containing the orbital names.
 
         Returns:
-            tuple: The filtered prediction data and the corresponding orbital names.
+            tuple: The filtered prediction data and the corresponding
+                orbital names.
         """
         # Define a dictionary to map orbital types to indices
         orbital_indices = {
@@ -118,27 +127,32 @@ class OcclusionPlotter:
         Plot the heatmap for occlusion predictions.
 
         Parameters:
-            orbitals (list, optional): List of orbitals to consider. Defaults to ["s", "p", "d"].
-            colormap (str, optional): The colormap for the heatmap. Defaults to "viridis".
-            show (bool, optional): Whether to show the plot or not. Defaults to False.
+            orbitals (list, optional): List of orbitals to consider.
+                Defaults to ["s", "p", "d"].
+            colormap (str, optional): The colormap for the heatmap.
+                Defaults to "viridis".
+            show (bool, optional): Whether to show the plot or not.
+                Defaults to False.
         """
         # Load predictions
         predictions = self.predictions
 
         # Take requested orbitals
         array, names = self._take_orbitals(
-            predictions, orbitals, names=self.config["plotting"]["orbital_names"]
+            predictions, orbitals,
+            names=self.config["plotting"]["orbital_names"]
         )
         if orbitals != ["d"]:
             warnings.warn(
                 "This script is intended to work for d orbital only.\
-                          Other selection may generate unsatisfactory figures."
+                Other selection may generate unsatisfactory figures."
             )
 
         # Create figure and axis
         subplot_vspacing = 0.2  # vertical spacing between subplots
         fig, axs = plt.subplots(
-            array.shape[1], sharex=False, figsize=(10, 6 + (5 * subplot_vspacing))
+            array.shape[1], sharex=False,
+            figsize=(10, 6 + (5 * subplot_vspacing))
         )
 
         # Get min/max values of occlusion array (for a symmetric colorbar)
@@ -177,13 +191,15 @@ class OcclusionPlotter:
             ax.set_xlim(self.config["plotting"]["plot_energy_range"])
             ax.set_xticks(np.arange(-10, 5 + 2.5, 2.5))
             ax.tick_params(
-                axis="both", which="major", labelsize=20, width=2.5, length=5
+                axis="both", which="major",
+                labelsize=20, width=2.5, length=5
             )
 
             # Add orbital names to the right
             ax.yaxis.set_label_position("right")
             ax.set_ylabel(
-                names[index], rotation=0, fontsize=36, loc="center", labelpad=48
+                names[index], rotation=0, fontsize=36,
+                loc="center", labelpad=48
             )
 
             # Set border thickness to 2
@@ -205,10 +221,10 @@ class OcclusionPlotter:
             axs[i].set_yticks([])
 
         # Set x/y axis labels
-        # TODO: increase fontsize further would lead to overlap
+        # Increase fontsize further would lead to overlap
         mpl.rcParams["mathtext.default"] = "regular"  # non-Italic
-        fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=36, x=0.35)
-        fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=36)
+        fig.supxlabel(r"$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=36, x=0.35)
+        fig.supylabel(r"$\Delta\mathit{E}_{ads}$ (eV)", fontsize=36)
         fig.subplots_adjust(bottom=0.12)  # adjust x-axis title position
 
         # Add colorbar
@@ -227,11 +243,14 @@ class OcclusionPlotter:
         if show:
             plt.show()
 
-    def plot_line(self, orbitals: list = ["s", "p", "d"], show: bool = False) -> None:
+    def plot_line(
+        self, orbitals: list = ["s", "p", "d"], show: bool = False
+    ) -> None:
         """Plot eDOS line charts for specified orbitals.
 
         Args:
-            orbitals (list): List of orbitals to plot. Default is ["s", "p", "d"].
+            orbitals (list): List of orbitals to plot.
+                Default is ["s", "p", "d"].
             show (bool): Whether to show the plot. Default is False.
         """
 
@@ -242,7 +261,10 @@ class OcclusionPlotter:
         )
 
         # Generate subplots
-        fig, axs = plt.subplots(len(selected_names), sharex=True, figsize=(10, 15))
+        fig, axs = plt.subplots(
+            len(selected_names), sharex=True,
+            figsize=(10, 15)
+        )
 
         # Plotting Settings
         mpl.rcParams["mathtext.default"] = "regular"  # Non-italic as default
@@ -252,7 +274,8 @@ class OcclusionPlotter:
             dos_energy_range[1] - self.fermi_level,
         ]
         energy_array = np.linspace(
-            shifted_dos_range[0], shifted_dos_range[1], filtered_predictions.shape[0]
+            shifted_dos_range[0], shifted_dos_range[1],
+            filtered_predictions.shape[0]
         )
 
         # Plot lines for each selected orbital
@@ -262,7 +285,8 @@ class OcclusionPlotter:
             ax.set_xlim(self.config["plotting"]["plot_energy_range"])
             ax.set_xticks(np.arange(-10, 5 + 2.5, 2.5))
             ax.tick_params(
-                axis="both", which="major", labelsize=16, width=2.5, length=5
+                axis="both", which="major",
+                labelsize=16, width=2.5, length=5
             )
 
             # Set border thickness to 2
@@ -279,8 +303,8 @@ class OcclusionPlotter:
             )
 
         # Add super labels
-        fig.supxlabel("$\mathit{E}\ -\ \mathit{E}_f$ (eV)", fontsize=24)
-        fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=24)
+        fig.supxlabel(r"$\mathit{E}\ -\ \mathit{E}_f$ (eV)", fontsize=24)
+        fig.supylabel(r"$\Delta\mathit{E}_{ads}$ (eV)", fontsize=24)
 
         # Save the plot
         plt.savefig(Path.cwd() / "occlusion_line.png", dpi=300)
@@ -291,7 +315,9 @@ class OcclusionPlotter:
 
 # Test area
 if __name__ == "__main__":
-    test_predictions = np.load("../data/g-C3N4_CO_is/4-Co/occlusion_predictions.npy")
+    test_predictions = np.load(
+        "../data/g-C3N4_CO_is/4-Co/occlusion_predictions.npy"
+    )
     test_config = {
         "plotting": {
             "dos_energy_range": [-14, 6],
@@ -319,4 +345,6 @@ if __name__ == "__main__":
     plotter.plot_heatmap(
         orbitals=test_config["plotting"]["heatmap_orbitals"], show=True
     )
-    plotter.plot_line(orbitals=test_config["plotting"]["line_orbitals"], show=True)
+    plotter.plot_line(
+        orbitals=test_config["plotting"]["line_orbitals"], show=True
+    )

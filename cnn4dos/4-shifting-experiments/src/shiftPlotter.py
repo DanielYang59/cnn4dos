@@ -55,27 +55,34 @@ class ShiftPlotter:
             self.all_predictions.keys(),
             key=lambda x: elements_order.index(get_element_from_key(x)),
         )
-        self.all_predictions = {k: self.all_predictions[k] for k in sorted_keys}
+        self.all_predictions = {
+            k: self.all_predictions[k] for k in sorted_keys
+        }
 
     def plot(self, colormap="magma", save_dir="figures") -> None:
         """
         Generate a plot based on the provided shift and prediction data.
 
         Parameters:
-            colormap (str, optional): The colormap to use for the plot. Defaults to 'magma'.
-            save_dir (str, optional): Directory where to save the figure. Defaults to "figures".
+            colormap (str, optional): The colormap to use for the plot.
+                Defaults to 'magma'.
+            save_dir (str, optional): Directory where to save the figure.
+                Defaults to "figures".
 
         Returns:
             None: The function saves the plot as a PNG file and displays it.
         """
         # Generate shift_energy_array dynamically
         shift_energy_array = np.arange(
-            self.shift_range[0], self.shift_range[1] + self.shift_step, self.shift_step
+            self.shift_range[0],
+            self.shift_range[1] + self.shift_step,
+            self.shift_step
         )
 
         # Calculate global vmin and vmax for a symmetric colorbar
         vmax = max(
-            abs(np.max(prediction)) for prediction in self.all_predictions.values()
+            abs(np.max(prediction))
+            for prediction in self.all_predictions.values()
         )
         vmin = -vmax
 
@@ -84,7 +91,9 @@ class ShiftPlotter:
         if len(self.all_predictions) == 1:
             axs = [axs]  # Make it a list of one axs object
 
-        for index, (folder_name, prediction) in enumerate(self.all_predictions.items()):
+        for index, (folder_name, prediction) in enumerate(
+            self.all_predictions.items()
+        ):
             ax = axs[index]
             y = np.expand_dims(
                 prediction, axis=0
@@ -107,7 +116,8 @@ class ShiftPlotter:
             ax.set_yticks([])  # Hide y labels
             element_name = str(folder_name).split("/")[-1].split("-")[-1]
             ax.set_ylabel(
-                element_name, rotation=0, fontsize=16, loc="bottom", labelpad=30
+                element_name, rotation=0, fontsize=16,
+                loc="bottom", labelpad=30
             )  # Set y title
 
             # Hide top/left/right frames
@@ -117,7 +127,10 @@ class ShiftPlotter:
 
         # Add colorbar
         cb = fig.colorbar(im, ax=axs)
-        cb.set_label("$\Delta\mathit{E}_{\mathrm{ads}}\ \mathrm{(eV)}$", fontsize=16)
+        cb.set_label(
+            r"$\Delta\mathit{E}_{\mathrm{ads}}\ \mathrm{(eV)}$",
+            fontsize=16
+        )
         cb.ax.tick_params(labelsize=10, width=2)  # set ticks
         cb.outline.set_visible(False)  # hide border
 
@@ -131,6 +144,6 @@ class ShiftPlotter:
         save_dir.mkdir(parents=True, exist_ok=True)
         plt.savefig(
             save_dir
-            / f"shift_experiment_{self.shift_range[0]}_{self.shift_range[1]}_{self.shift_step}_{self.shifting_orbitals}.png",
+            / f"shift_experiment_{self.shift_range[0]}_{self.shift_range[1]}_{self.shift_step}_{self.shifting_orbitals}.png",  # noqa: E501
             dpi=600,
         )

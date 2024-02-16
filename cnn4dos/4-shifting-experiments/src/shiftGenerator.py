@@ -23,14 +23,19 @@ class ShiftGenerator:
         Initialize the ShiftGenerator.
 
         Args:
-            dos_array (np.ndarray): The pre-processed eDOS array of shape (numSamplings, numOrbitals, 1).
-            shifting_range (list): A list containing the start and end of the shifting range.
+            dos_array (np.ndarray): The pre-processed eDOS array of
+                shape (numSamplings, numOrbitals, 1).
+            shifting_range (list): A list containing the start and end
+                of the shifting range.
             shifting_step (float): The step length for each shift.
-            shifting_orbitals (list): A list containing the indices of the orbitals to be shifted.
-            dos_calculation_resolution (float): The energy resolution along the numSamplings axis of the eDOS array.
+            shifting_orbitals (list): A list containing the indices
+                of the orbitals to be shifted.
+            dos_calculation_resolution (float): The energy resolution
+                along the numSamplings axis of the eDOS array.
 
         Raises:
-            ValueError: If the shape of dos_array is not as expected, or if shifting parameters are not valid.
+            ValueError: If the shape of dos_array is not as expected,
+                or if shifting parameters are not valid.
         """
         # Check the shape of dos_array
         numSamplings, numOrbitals, numChannels = dos_array.shape
@@ -42,29 +47,33 @@ class ShiftGenerator:
             raise ValueError("numChannels must be 1")
 
         if dos_calculation_resolution <= 0:
-            raise ValueError("DOS calculation resolution must be greater than zero.")
+            raise ValueError(
+                "DOS calculation resolution must be greater than zero."
+            )
 
         # Check shifting parameters
         start, end = shifting_range
         if start >= end:
             raise ValueError(
-                "The start of the shifting range should be smaller than the end."
+                "Start of shifting range must be smaller than the end."
             )
         if shifting_step <= 0:
             raise ValueError("shift_step should be greater than zero.")
         if not self._is_multiple_of(number=(end - start), base=shifting_step):
             raise ValueError(
-                "The shifting range (end - start) should be a multiple of shift_step."
+                "Shifting range must be a multiple of shift_step."
             )
         if len(set(shifting_orbitals)) != len(shifting_orbitals):
-            raise ValueError("Duplicate orbital indices found in shifting_orbitals.")
+            raise ValueError(
+                "Duplicate orbital indices found in shifting_orbitals."
+            )
         if any((idx < 0 or idx >= numOrbitals) for idx in shifting_orbitals):
             raise ValueError(
                 f"Invalid orbital indices in shifting_orbitals. Valid range is [0, {numOrbitals-1}]"
             )
         if not self._is_multiple_of(shifting_step, dos_calculation_resolution):
             raise ValueError(
-                "shifting_step must be a multiple of dos_calculation_resolution."
+                "shift step must be a multiple of dos_calculation_resolution."
             )
 
         self.dos_array = dos_array
@@ -103,7 +112,8 @@ class ShiftGenerator:
             # Create a copy to store the shifted array
             shifted_dos = np.copy(self.dos_array)
 
-            # Calculate the number of indices to shift based on dos_calculation_resolution
+            # Calculate the number of indices to shift based on
+            # dos_calculation_resolution
             num_indices_to_shift = int(
                 abs(shift_value) / self.dos_calculation_resolution
             )
@@ -118,9 +128,13 @@ class ShiftGenerator:
                 if np.isclose(shift_value, 0, atol=1e-9):  # shift_value ~ 0
                     shifted_data = shifted_dos[:, orbital_idx, :]
                 elif shift_value > 0:
-                    shifted_data = shifted_dos[:-num_indices_to_shift, orbital_idx, :]
+                    shifted_data = (
+                        shifted_dos[:-num_indices_to_shift, orbital_idx, :]
+                    )
                 else:  # shift_value < 0
-                    shifted_data = shifted_dos[num_indices_to_shift:, orbital_idx, :]
+                    shifted_data = (
+                        shifted_dos[num_indices_to_shift:, orbital_idx, :]
+                    )
 
                 # Next, perform the zero-padding
                 padding = np.zeros((num_indices_to_shift, 1))

@@ -9,9 +9,9 @@ import yaml
 
 sys.path.insert(0, "../../5-volcano-plot/src/lib")
 
-from dataLoader import dataLoader
-from scalingRelation import scalingRelation
-from src.plot_mixing_ratio import plot_mixing_ratio
+from dataLoader import dataLoader  # noqa: E402
+from scalingRelation import scalingRelation  # noqa: E402
+from src.plot_mixing_ratio import plot_mixing_ratio  # noqa: E402
 
 if __name__ == "__main__":
     # Load configs
@@ -28,9 +28,13 @@ if __name__ == "__main__":
 
     # Loading adsorption energy
     loader = dataLoader()
-    loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
+    loader.load_adsorption_energy(
+        adsorption_energy_path, substrates, adsorbates
+    )
 
-    loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
+    loader.calculate_adsorption_free_energy(
+        correction_file=thermal_correction_file
+    )
 
     # Calculate adsorption energy linear scaling relations
     calculator = scalingRelation(

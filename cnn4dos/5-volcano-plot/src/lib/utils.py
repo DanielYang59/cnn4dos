@@ -9,8 +9,11 @@ def stack_adsorption_energy_dict(
     """Stack adsorption energies from different substrates vertically.
 
     Args:
-        add_prefix_to_rowname (bool, optional): add substrate to row name as prefix. Defaults to True.
-        remove_prefix_from_colname (bool, optional): remove prefix from colname (adsorbate name), for example "2-" in "2-COOH". Defaults to False.
+        add_prefix_to_rowname (bool, optional):
+            add substrate to row name as prefix. Defaults to True.
+        remove_prefix_from_colname (bool, optional):
+            remove prefix from colname (adsorbate name),
+            for example "2-" in "2-COOH". Defaults to False.
 
     """
     # Check args

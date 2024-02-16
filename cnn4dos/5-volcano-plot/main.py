@@ -35,9 +35,13 @@ if __name__ == "__main__":
 
     # Loading adsorption energy
     loader = dataLoader()
-    loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
+    loader.load_adsorption_energy(
+        adsorption_energy_path, substrates, adsorbates
+    )
 
-    loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
+    loader.calculate_adsorption_free_energy(
+        correction_file=thermal_correction_file
+    )
 
     # Calculate adsorption energy linear scaling relations
     calculator = scalingRelation(
@@ -63,7 +67,9 @@ if __name__ == "__main__":
         "CO2RR_CH4": reaction_calculator.calculate_reaction_scaling_relations(
             name="CO2RR_CH4"
         ),
-        "HER": reaction_calculator.calculate_reaction_scaling_relations(name="HER"),
+        "HER": reaction_calculator.calculate_reaction_scaling_relations(
+            name="HER"
+        ),
     }
 
     # Initialize volcano plotter

@@ -16,16 +16,20 @@ class dataLoader:
         """
 
     def calculate_adsorption_free_energy(self, correction_file) -> None:
-        """Calculate adsorption free energy from DFT adsorption energy, by adding thermal corrections to adsorption energies.
+        """Calculate adsorption free energy from DFT adsorption energy,
+            by adding thermal corrections to adsorption energies.
 
         Args:
             correction_file (str): thermal correction csv file path
 
          Attrib:
-            adsorption_free_energy (dict): dict of adsorption free energies in pd.DataFrame, key is substrate name
+            adsorption_free_energy (dict): dict of adsorption free energies
+                in pd.DataFrame, key is substrate name
 
         Notes:
-            1. thermal correction (ZPE and entropy) of free adsorbates and clean substrates would be ignored, e.g. GadsCO2 = EadsCO2 + ZPE*CO2 - TS*CO2
+            thermal correction (ZPE and entropy) of free adsorbates
+                and clean substrates would be ignored,
+                e.g. GadsCO2 = EadsCO2 + ZPE*CO2 - TS*CO2
 
         """
         # Check args
@@ -63,7 +67,8 @@ class dataLoader:
             adsorbates (list): list of adsorbates to be loaded
 
         Attrib:
-            adsorption_energy (dict): dict of adsorption energies in pd.DataFrame, key is substrate name
+            adsorption_energy (dict): dict of adsorption energies in
+                pd.DataFrame, key is substrate name
 
         """
         # Check args
@@ -73,9 +78,9 @@ class dataLoader:
 
         # Load adsorption energy by substrate
         self.adsorption_energy = {
-            sub: pd.read_csv(os.path.join(path, f"{sub}.csv"), index_col=0).loc[
-                :, adsorbates
-            ]  # apply adsorbate filter
+            sub: pd.read_csv(
+                os.path.join(path, f"{sub}.csv"), index_col=0
+            ).loc[:, adsorbates]  # apply adsorbate filter
             for sub in substrates
         }
 
