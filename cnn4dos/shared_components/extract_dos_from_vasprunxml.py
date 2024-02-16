@@ -1,6 +1,5 @@
 """Extract pDOS of all atoms from vasprun.xml, for CNN training."""
 
-
 working_dir = "."
 spin = "up"
 

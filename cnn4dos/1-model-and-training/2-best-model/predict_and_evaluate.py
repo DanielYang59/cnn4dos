@@ -1,19 +1,15 @@
 """Utility script for getting the prediction metrics of CNN model."""
 
-
 import os
-
-import numpy as np
-
 import sys
 import warnings
 
+import numpy as np
 import tensorflow as tf
 import yaml
 from lib.dataset import Dataset
 from sklearn.metrics import r2_score
 from tensorflow import keras
-
 
 # Main Loop
 if __name__ == "__main__":

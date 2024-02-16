@@ -1,6 +1,5 @@
 """Create parity plot for each adsorbate in individual plots."""
 
-
 import copy
 import os
 import sys
@@ -20,7 +19,6 @@ rcParams["font.sans-serif"] = ["Arial"]
 
 sys.path.append("../1-model-and-training/2-best-model")
 from lib.dataset import Dataset
-
 
 if __name__ == "__main__":
     # Load configs

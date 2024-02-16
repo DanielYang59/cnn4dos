@@ -1,6 +1,5 @@
 """Volcano plotter main."""
 
-
 import os
 from pathlib import Path
 
@@ -9,7 +8,6 @@ from src.lib.dataLoader import dataLoader
 from src.lib.reactionCalculator import reactionCalculator
 from src.lib.scalingRelation import scalingRelation
 from src.lib.volcanoPlotter import volcanoPlotter
-
 
 if __name__ == "__main__":
     # Load configs

@@ -1,6 +1,5 @@
 """Plot d-band-center vs adsorption energy relationship for each adsorbate."""
 
-
 import os
 
 import yaml
@@ -8,7 +7,6 @@ from src.dBand import dBand
 from src.list_dos_files import list_dos_files
 from src.load_ads_energy import load_ads_energy
 from src.plot_scatter import plot_scatter
-
 
 if __name__ == "__main__":
     # Load configs

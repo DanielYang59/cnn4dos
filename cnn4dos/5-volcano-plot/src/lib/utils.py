@@ -1,6 +1,5 @@
 """Utility scripts for volcano plotter."""
 
-
 import pandas as pd
 
 

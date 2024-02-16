@@ -1,6 +1,5 @@
 """Debug tools for volcano plotter."""
 
-
 import contextlib
 import copy
 import os

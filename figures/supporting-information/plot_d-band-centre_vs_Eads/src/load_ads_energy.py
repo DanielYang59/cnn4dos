@@ -1,6 +1,5 @@
 """Utility script for getting adsorption energy from pd datasheet based on name pattern."""
 
-
 import os
 
 import pandas as pd

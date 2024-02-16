@@ -2,7 +2,6 @@
 and only minor adjustment was made by myself.  --Haoyu Yang.
 """
 
-
 import warnings
 from typing import List
 

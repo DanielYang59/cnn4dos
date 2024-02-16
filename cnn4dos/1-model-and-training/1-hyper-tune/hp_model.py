@@ -1,11 +1,9 @@
 """Definition of the hypermodel."""
 
-
 import tensorflow as tf
 
 
 def hp_model(hp, input_shape=(4000, 9, 6)):
-
     def branch(branch_input, drop_out_rate, numFilters=16):
         """Each branch of the CNN network.
 

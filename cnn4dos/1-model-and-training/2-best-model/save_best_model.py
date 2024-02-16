@@ -1,9 +1,7 @@
 """Save best CNN model."""
 
-
 import keras_tuner
 from hp_model import hp_model
-
 
 # Main Loop
 if __name__ == "__main__":

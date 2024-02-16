@@ -1,6 +1,5 @@
 """Main runner of Keras-tuner."""
 
-
 import os
 
 import keras_tuner
@@ -16,7 +15,6 @@ import tensorflow as tf
 import yaml
 from hp_model import hp_model
 from lib.dataset import Dataset
-
 
 # Main Loop
 if __name__ == "__main__":

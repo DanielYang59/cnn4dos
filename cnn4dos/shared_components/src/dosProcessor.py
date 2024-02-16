@@ -1,6 +1,5 @@
 """Utility script for eDOS preprocess: remove ghost states."""
 
-
 import warnings
 
 import numpy as np

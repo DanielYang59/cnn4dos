@@ -1,6 +1,5 @@
 """Utility scripts for eDOS occlusion experiments."""
 
-
 from pathlib import Path
 from typing import Tuple
 

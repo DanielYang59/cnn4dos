@@ -1,6 +1,5 @@
 """Plot pairwise plots."""
 
-
 import seaborn as sns
 from matplotlib import rcParams
 

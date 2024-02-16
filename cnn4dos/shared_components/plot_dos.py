@@ -1,6 +1,5 @@
 """Visualize extracted DOS array, expect shape (NEDOS, numOrbitals)."""
 
-
 e_fermi = 0  # WARNING!
 
 working_dir = "."

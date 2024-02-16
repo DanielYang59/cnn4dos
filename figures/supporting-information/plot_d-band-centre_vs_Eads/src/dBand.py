@@ -1,6 +1,5 @@
 """Calculate d-band center."""
 
-
 import os
 import warnings
 

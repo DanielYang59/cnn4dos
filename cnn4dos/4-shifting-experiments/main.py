@@ -1,6 +1,5 @@
 """Perform eDOS shifting experiment."""
 
-
 import os
 import sys
 from pathlib import Path

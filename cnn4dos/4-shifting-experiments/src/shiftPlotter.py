@@ -1,6 +1,5 @@
 """Plot eDOS shifting experiments results as heatmap."""
 
-
 from pathlib import Path
 
 import matplotlib.pyplot as plt

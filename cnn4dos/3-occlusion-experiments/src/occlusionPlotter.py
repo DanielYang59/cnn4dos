@@ -1,6 +1,5 @@
 """eDOS occlusion experiments plotter: line mode and heatmap mode."""
 
-
 import os
 import warnings
 from pathlib import Path

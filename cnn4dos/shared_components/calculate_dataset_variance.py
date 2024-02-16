@@ -1,6 +1,5 @@
 """Utility script for calculation dataset variance."""
 
-
 training_dir = "../1-model-and-training/1-hyper-tune"
 
 
@@ -12,7 +11,6 @@ import yaml
 
 sys.path.append(training_dir)
 from lib.dataset import Dataset
-
 
 if __name__ == "__main__":
     # Load configs

@@ -1,6 +1,5 @@
 """Plot scatter for d-band centre vs adsorption energy relationship."""
 
-
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 

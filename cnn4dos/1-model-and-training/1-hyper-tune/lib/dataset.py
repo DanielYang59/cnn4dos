@@ -1,6 +1,5 @@
 """Load and manipulate eDOS dataset for CNN."""
 
-
 import os
 import warnings
 
@@ -95,7 +94,6 @@ class Dataset:
 
             for ads in adsorbates:
                 for state in states:
-
                     # Compile path
                     directory = os.path.join(path, sub, f"{ads}_{state}")
                     assert os.path.isdir(directory)
@@ -190,10 +188,8 @@ class Dataset:
 
         # Skip "none" mode
         if mode != "none":
-
             # Loop through dataset and perform scaling
             for key, arr in self.feature.items():
-
                 # Perform scaling for each channel
                 assert len(arr.shape) == 3  # expect (NEDOS, numOrbitals, numChannels)
                 scaled_arr = []

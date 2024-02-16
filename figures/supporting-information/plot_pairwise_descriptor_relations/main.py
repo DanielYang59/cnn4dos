@@ -1,13 +1,11 @@
 """Plot pairwise descriptor relations."""
 
-
 import os
 from pathlib import Path
 
 import yaml
 from src.descriptors import Descriptors
 from src.pairplot import PairPlot
-
 
 if __name__ == "__main__":
     # Load configs

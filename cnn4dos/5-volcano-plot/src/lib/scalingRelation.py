@@ -1,6 +1,5 @@
 """Calculate adsorption energy linear scaling relations."""
 
-
 import warnings
 
 import numpy as np

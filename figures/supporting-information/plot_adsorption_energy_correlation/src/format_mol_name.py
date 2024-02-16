@@ -1,6 +1,5 @@
 """Format molecule names to allow subscripts."""
 
-
 import re
 
 

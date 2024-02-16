@@ -1,6 +1,5 @@
 """Plot correlation coefficients as a heatmap matrix."""
 
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -71,8 +70,9 @@ def heatmap(x, y, **kwargs):
     if "color_range" in kwargs:
         color_min, color_max = kwargs["color_range"]
     else:
-        color_min, color_max = min(color), max(
-            color
+        color_min, color_max = (
+            min(color),
+            max(color),
         )  # Range of values that will be mapped to the palette, i.e. min and max possible correlation
 
     if "size" in kwargs:
@@ -139,7 +139,7 @@ def heatmap(x, y, **kwargs):
         marker=marker,
         s=[value_to_size(v) for v in size],
         c=marker_color,
-        **kwargs_pass_on
+        **kwargs_pass_on,
     )
 
     ax.set_xticks([v for k, v in x_to_num.items()])

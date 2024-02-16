@@ -1,6 +1,5 @@
 """Parse name from eDOS path and load fermi level from csv file."""
 
-
 import os
 
 import pandas as pd

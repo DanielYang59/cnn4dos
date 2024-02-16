@@ -1,6 +1,5 @@
 """Infer with pre-trained CNN model."""
 
-
 from pathlib import Path
 
 import numpy as np
@@ -8,7 +7,6 @@ import tensorflow as tf
 
 
 class CNNPredictor:
-
     def __init__(self, model_path=None, loaded_model=None):
         """
         Initialize the CNNPredictor class.

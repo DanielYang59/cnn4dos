@@ -1,11 +1,9 @@
 """Definition of the multi-branch CNN model."""
 
-
 import tensorflow as tf
 
 
 def cnn_for_dos(input_shape, drop_out_rate):
-
     def branch(branch_input, drop_out_rate):
         """Each branch of the CNN network.
 

@@ -1,6 +1,5 @@
 """Perform eDOS occlusion experiments."""
 
-
 import os
 import sys
 from pathlib import Path

@@ -2,7 +2,6 @@
 for linear scaling relations.
 """
 
-
 import os
 import sys
 
@@ -13,7 +12,6 @@ sys.path.insert(0, "../../5-volcano-plot/src/lib")
 from dataLoader import dataLoader
 from scalingRelation import scalingRelation
 from src.plot_mixing_ratio import plot_mixing_ratio
-
 
 if __name__ == "__main__":
     # Load configs

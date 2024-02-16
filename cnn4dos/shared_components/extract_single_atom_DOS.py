@@ -1,6 +1,5 @@
 """Extract pDOS from the numpy array of a selected atom."""
 
-
 spin = "up"
 working_dir = "."
 

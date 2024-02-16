@@ -1,6 +1,5 @@
 """Load and preprocess descriptor data for plotting."""
 
-
 from pathlib import Path
 
 import pandas as pd

@@ -1,6 +1,5 @@
 """Plot d-band-center vs adsorption energy relationship for all adsorbates."""
 
-
 import os
 
 import yaml

@@ -1,6 +1,5 @@
 """Plot mixing ratio for hybrid descriptor test."""
 
-
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 

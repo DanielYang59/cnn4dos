@@ -1,6 +1,5 @@
 """Plot CNN model architecture."""
 
-
 import tensorflow as tf
 
 model_dir = "model"

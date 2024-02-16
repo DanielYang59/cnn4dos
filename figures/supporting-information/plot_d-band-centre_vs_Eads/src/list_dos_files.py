@@ -1,6 +1,5 @@
 """Utility script to list all matched eDOS .npy files in selected dir."""
 
-
 import glob
 import os
 
@@ -43,7 +42,6 @@ def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"
 
 # Test area
 if __name__ == "__main__":
-
     dos_files = list_dos_files(
         dos_dir="../../0-dataset/feature_DOS",
         adsorbates=[

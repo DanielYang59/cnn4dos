@@ -1,6 +1,5 @@
 """Data loader for volcano plotter."""
 
-
 import json
 import os
 

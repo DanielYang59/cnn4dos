@@ -1,6 +1,5 @@
 """Generate eDOS occlusion arrays."""
 
-
 import warnings
 
 import numpy as np

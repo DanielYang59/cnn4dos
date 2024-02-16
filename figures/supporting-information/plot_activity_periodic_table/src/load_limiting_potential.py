@@ -1,6 +1,5 @@
 """Load limiting potentials from csv file for plotting."""
 
-
 import os
 
 import pandas as pd

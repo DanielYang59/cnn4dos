@@ -1,6 +1,5 @@
 """Utility script to recording system/Python env information."""
 
-
 import json
 import logging
 import platform

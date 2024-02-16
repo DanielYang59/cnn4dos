@@ -1,6 +1,5 @@
 """Load eDOS from numpy array."""
 
-
 import warnings
 from pathlib import Path
 
@@ -9,7 +8,6 @@ import yaml
 
 
 class DataLoader:
-
     def __init__(self):
         pass
 

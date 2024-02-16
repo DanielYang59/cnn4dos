@@ -1,6 +1,5 @@
 """Generate correlation matrix."""
 
-
 import sys
 
 import yaml

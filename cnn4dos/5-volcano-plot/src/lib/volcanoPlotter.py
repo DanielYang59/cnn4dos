@@ -1,6 +1,5 @@
 """Main plotter for volcano plot."""
 
-
 import math
 import warnings
 from typing import Tuple
@@ -9,8 +8,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import rcParams
-from matplotlib.colors import (BoundaryNorm, LinearSegmentedColormap,
-                               ListedColormap)
+from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.lines import Line2D
 
 rcParams["font.family"] = "sans-serif"
@@ -397,10 +395,11 @@ class volcanoPlotter:
         free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
 
         # Generate limiting potential mesh
-        self.limiting_potential_mesh, _ = (
-            self.__generate_limiting_potential_and_RDS_mesh(
-                free_energy_change_mesh, reaction_name
-            )
+        (
+            self.limiting_potential_mesh,
+            _,
+        ) = self.__generate_limiting_potential_and_RDS_mesh(
+            free_energy_change_mesh, reaction_name
         )
 
         # Create plt object
