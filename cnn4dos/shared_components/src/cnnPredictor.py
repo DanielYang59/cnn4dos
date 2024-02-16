@@ -54,7 +54,9 @@ class CNNPredictor:
 
         # Check shapes
         if dos_array.shape[-1] != 1:
-            raise ValueError("The last dimension (numChannels) of eDOS array must be 1.")
+            raise ValueError(
+                "The last dimension (numChannels) of eDOS array must be 1."
+            )
 
         if dos_array.shape[:-1] != adsorbate_dos_array.shape[:-1]:
             raise ValueError(

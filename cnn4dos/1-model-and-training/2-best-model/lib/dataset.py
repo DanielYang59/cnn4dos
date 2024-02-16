@@ -1,6 +1,5 @@
 """Dataset class for loading and manipulating eDOS dataset for CNN."""
 
-
 import os
 import warnings
 
@@ -174,7 +173,7 @@ class Dataset:
         self.numFeature = len(feature_data)
         self.featureKeySep = keysep
 
-    def scale_feature(self, mode) - None:
+    def scale_feature(self, mode) -> None:
         """Scale feature arrays.
 
         Args:
@@ -230,9 +229,7 @@ class Dataset:
         self.label = labels
 
     def append_adsorbate_DOS(
-        self,
-        adsorbate_dos_dir,
-        dos_name="dos_up_adsorbate.npy"
+        self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"
     ) -> None:
         """Append adsorbate eDOS to metal DOS.
 

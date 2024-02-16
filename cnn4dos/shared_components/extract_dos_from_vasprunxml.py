@@ -1,12 +1,11 @@
 """Extract pDOS of all atoms from vasprun.xml, for CNN training."""
 
-working_dir = "."
-spin = "up"
-
-
 import os
 
 import numpy as np
+
+working_dir = "."
+spin = "up"
 
 
 def get_total_atom(poscarfile):

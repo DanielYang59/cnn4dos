@@ -14,11 +14,12 @@ from matplotlib import rcParams
 from matplotlib.patches import PathPatch
 from sklearn.metrics import r2_score
 
+model_dir = "../1-model-and-training/2-best-model"
+sys.path.append(model_dir)
+from lib.dataset import Dataset  # noqa: E402
+
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
-
-sys.path.append("../1-model-and-training/2-best-model")
-from lib.dataset import Dataset
 
 if __name__ == "__main__":
     # Load configs

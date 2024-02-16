@@ -1,12 +1,12 @@
 """Plot pairwise plots."""
 
+import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
 from matplotlib import rcParams
 
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Arial"]
-import matplotlib.pyplot as plt
-import pandas as pd
 
 
 class PairPlot:

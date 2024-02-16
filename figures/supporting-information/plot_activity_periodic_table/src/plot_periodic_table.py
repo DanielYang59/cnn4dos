@@ -162,7 +162,7 @@ def plot_periodic_table(
             elements.symbol.str.lower() == data_element.lower()
         ]
         # detect if element entry is empty
-        if element_entry.empty == False:
+        if element_entry.empty is False:
             element_index = element_entry.index[0]
         else:
             warnings.warn("Invalid chemical symbol: " + data_element)

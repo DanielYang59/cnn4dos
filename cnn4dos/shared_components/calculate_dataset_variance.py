@@ -1,16 +1,15 @@
 """Utility script for calculation dataset variance."""
 
-training_dir = "../1-model-and-training/1-hyper-tune"
-
-
 import sys
 from pathlib import Path
 
 import numpy as np
 import yaml
 
+training_dir = "../1-model-and-training/1-hyper-tune"
+
 sys.path.append(training_dir)
-from lib.dataset import Dataset
+from lib.dataset import Dataset  # noqa: E402
 
 if __name__ == "__main__":
     # Load configs

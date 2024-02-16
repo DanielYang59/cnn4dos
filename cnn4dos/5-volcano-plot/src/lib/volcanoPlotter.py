@@ -2,13 +2,14 @@
 
 import math
 import warnings
-from typing import Tuple
+from typing import Optional, Tuple
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import rcParams
 from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
 
 rcParams["font.family"] = "sans-serif"
@@ -430,7 +431,7 @@ class volcanoPlotter:
         self.__set_figure_style(plt, fig)
 
         # Add colorbar
-        cbar = self.__add_colorbar(
+        _cbar = self.__add_colorbar(
             fig,
             contour,
             cblabel="Limiting Potential (V)",
@@ -502,7 +503,7 @@ class volcanoPlotter:
 
         norm = plt.Normalize(vmin=1, vmax=len(colors) + 1)
 
-        contour = plt.contourf(
+        _contour = plt.contourf(
             self.xx,
             self.yy,
             rds_mesh,
@@ -602,7 +603,7 @@ class volcanoPlotter:
         self.__set_figure_style(plt, fig)
 
         # Add colorbar
-        cbar = self.__add_colorbar(
+        _cbar = self.__add_colorbar(
             fig,
             contour,
             cblabel="ΔLimiting Potential (V)",

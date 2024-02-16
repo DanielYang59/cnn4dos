@@ -1,20 +1,19 @@
 """Main runner of Keras-tuner."""
 
 import os
-
-import keras_tuner
-import numpy as np
-
-os.environ["TF_GPU_THREAD_MODE"] = "gpu_private"
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import sys
 import warnings
 from pathlib import Path
 
+import keras_tuner
+import numpy as np
 import tensorflow as tf
 import yaml
 from hp_model import hp_model
 from lib.dataset import Dataset
+
+os.environ["TF_GPU_THREAD_MODE"] = "gpu_private"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 # Main Loop
 if __name__ == "__main__":

@@ -1,13 +1,12 @@
 """Extract pDOS from the numpy array of a selected atom."""
 
-spin = "up"
-working_dir = "."
-
-
 import os
 from pathlib import Path
 
 import numpy as np
+
+spin = "up"
+working_dir = "."
 
 
 def extract_DOS(source_dir, atom_index, spin="up"):

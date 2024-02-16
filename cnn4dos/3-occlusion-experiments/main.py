@@ -13,12 +13,13 @@ root_dir = Path(__file__).parent
 shared_components_dir = root_dir / "../shared_components/src"
 sys.path.append(str(shared_components_dir.resolve()))
 
-from cnnPredictor import CNNPredictor
-from dataLoader import DataLoader
-from dosProcessor import DOSProcessor
-from src.occlusionGenerator import occlusionGenerator
-from src.occlusionPlotter import OcclusionPlotter
-from src.utilities import get_fermi_level
+# TODO: need a fix for ruff warning than suppressing
+from cnnPredictor import CNNPredictor  # noqa: E402
+from dataLoader import DataLoader  # noqa: E402
+from dosProcessor import DOSProcessor  # noqa: E402
+from src.occlusionGenerator import occlusionGenerator  # noqa: E402
+from src.occlusionPlotter import OcclusionPlotter  # noqa: E402
+from src.utilities import get_fermi_level  # noqa: E402
 
 
 def main():

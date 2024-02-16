@@ -1,5 +1,11 @@
 """Visualize extracted eDOS array, expect shape (NEDOS, numOrbitals)."""
 
+import os
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+
 e_fermi = 0  # WARNING!
 
 working_dir = "."
@@ -9,13 +15,6 @@ energy_step = 4000
 
 src_dos_name = "example_dos_up.npy"
 orbital_names = ["s", "py", "pz", "px", "dxy", "dyz", "dz2", "dxz", "dx2-y2"]
-
-
-import os
-
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 def plot_line(x_coords, arr, savedir):
