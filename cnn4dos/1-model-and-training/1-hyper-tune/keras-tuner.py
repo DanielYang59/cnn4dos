@@ -19,8 +19,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 if __name__ == "__main__":
     # Print GPU info
     print(
-        "Num GPUs Available: ",
-        len(tf.config.experimental.list_physical_devices("GPU"))
+        "Num GPUs Available: ", len(tf.config.experimental.list_physical_devices("GPU"))
     )
     print("Device name: ", tf.test.gpu_device_name())
 
@@ -53,9 +52,11 @@ if __name__ == "__main__":
     # Load features(DOS) and labels from cached file to save time
     if os.path.exists("features.npy") and os.path.exists("labels.npy"):
         warnings.warn(
-            ("Warning! features/labels load from cached file. "
-             "Tags changed after cache generation in config.yaml "
-             "might not take effect.")
+            (
+                "Warning! features/labels load from cached file. "
+                "Tags changed after cache generation in config.yaml "
+                "might not take effect."
+            )
         )
         features = tf.convert_to_tensor(np.load("features.npy"))
         labels = tf.convert_to_tensor(np.load("labels.npy"))
@@ -113,9 +114,7 @@ if __name__ == "__main__":
         sys.exit()
 
     dataset = tf.data.Dataset.from_tensor_slices((features, labels))
-    dataset = dataset.shuffle(
-        buffer_size=total_sample, reshuffle_each_iteration=False
-    )
+    dataset = dataset.shuffle(buffer_size=total_sample, reshuffle_each_iteration=False)
 
     # Take a subset if required
     if sample_size != "ALL":
@@ -156,8 +155,7 @@ if __name__ == "__main__":
                 monitor="val_mean_absolute_error", patience=25
             ),
             tf.keras.callbacks.ReduceLROnPlateau(
-                monitor="val_mean_absolute_error",
-                patience=10, factor=0.5, min_lr=1e-7
+                monitor="val_mean_absolute_error", patience=10, factor=0.5, min_lr=1e-7
             ),
         ],
     )

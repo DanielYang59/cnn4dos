@@ -1,5 +1,5 @@
 """I did not write this module, but took it from somewhere from the Internet.
-Sadly I cannot remember the original author.  --Haoyu Yang.
+Sadly I cannot remember the original source.  --Haoyu Yang.
 """
 
 import matplotlib.pyplot as plt
@@ -16,9 +16,9 @@ def heatmap(x, y, **kwargs):
         if color_min == color_max:
             return palette[-1]
         else:
-            val_position = float((val - color_min)) / (
-                color_max - color_min
-            )  # position of value in the input range, relative to the length of the input range
+            # position of value in the input range,
+            # relative to the length of the input range
+            val_position = float((val - color_min)) / (color_max - color_min)
             val_position = min(
                 max(val_position, 0), 1
             )  # bound the position between 0 and 1
@@ -31,9 +31,9 @@ def heatmap(x, y, **kwargs):
         if size_min == size_max:
             return 1 * size_scale
         else:
-            val_position = (val - size_min) * 0.99 / (
-                size_max - size_min
-            ) + 0.01  # position of value in the input range, relative to the length of the input range
+            # position of value in the input range,
+            # relative to the length of the input range
+            val_position = (val - size_min) * 0.99 / (size_max - size_min) + 0.01
             val_position = min(
                 max(val_position, 0), 1
             )  # bound the position between 0 and 1
@@ -55,10 +55,12 @@ def heatmap(x, y, **kwargs):
     if "color_range" in kwargs:
         color_min, color_max = kwargs["color_range"]
     else:
+        # Range of values that will be mapped to the palette,
+        # i.e. min and max possible correlation
         color_min, color_max = (
             min(color),
             max(color),
-        )  # Range of values that will be mapped to the palette, i.e. min and max possible correlation
+        )
 
     if "size" in kwargs:
         size = kwargs["size"]
@@ -84,7 +86,8 @@ def heatmap(x, y, **kwargs):
         y_names = [t for t in sorted(set([v for v in y]))]
     y_to_num = {p[1]: p[0] for p in enumerate(y_names)}
 
-    plot_grid = plt.GridSpec(1, 15, hspace=0.2, wspace=0.1)  # Setup a 1x10 grid
+    # Setup a 1x15 grid
+    plot_grid = plt.GridSpec(1, 15, hspace=0.2, wspace=0.1)
     ax = plt.subplot(
         plot_grid[:, :-1]
     )  # Use the left 14/15ths of the grid for the main plot
@@ -114,7 +117,8 @@ def heatmap(x, y, **kwargs):
     marker_color = []
     for v in color:
         if v == 1:  # value at diagonal
-            marker_color.append((0.75, 0.75, 0.75))  # RGB value of blocks at diagonal
+            # RGB value of blocks at diagonal
+            marker_color.append((0.75, 0.75, 0.75))
         else:
             marker_color.append(value_to_color(v))
 
@@ -151,7 +155,7 @@ def heatmap(x, y, **kwargs):
 
     #  Add color legend on the right side of the plot
     if color_min < color_max:
-        ax = plt.subplot(plot_grid[:, -1])  # Use the rightmost column of the plot
+        ax = plt.subplot(plot_grid[:, -1])  # Use the rightmost column
         col_x = [0] * len(palette)  # Fixed x coordinate for the bars
         bar_y = np.linspace(
             color_min, color_max, n_colors
@@ -166,9 +170,7 @@ def heatmap(x, y, **kwargs):
             color=palette,
             linewidth=0,
         )
-        ax.set_xlim(
-            1, 2
-        )  # Bars are going from 0 to 5, so lets crop the plot somewhere in the middle
+        ax.set_xlim(1, 2)  # Bars are going from 0 to 5, so crop the plot in the middle
         ax.set_facecolor("white")  # Make background white
         ax.set_xticks([])  # Remove horizontal ticks
         ax.set_yticks(
@@ -186,7 +188,6 @@ def corrplot(data, size_scale=500, marker="s"):
         corr["y"],
         color=corr["value"],
         color_range=[-1, 1],
-        #  palette=sns.color_palette("coolwarm_r", 256),
         palette=sns.color_palette("plasma_r", 256),
         size=corr["value"].abs(),
         size_range=[0, 1],

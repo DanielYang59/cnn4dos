@@ -63,8 +63,7 @@ class reactionCalculator:
 
             # Proton-electron pairs (PEP)
             elif species == "PEP":
-                pep_energy = 0.5 * self.adsorbate_energy["H2"] \
-                    - self.external_potential
+                pep_energy = 0.5 * self.adsorbate_energy["H2"] - self.external_potential
                 paras += [0, 0, num * pep_energy]
 
             # Adsorbed species
@@ -75,9 +74,7 @@ class reactionCalculator:
                 if species in self.adsorbate_energy:
                     paras += [0, 0, num * self.adsorbate_energy[species]]
                 else:
-                    raise KeyError(
-                        f"Cannot find free energy entry for {species}."
-                    )
+                    raise KeyError(f"Cannot find free energy entry for {species}.")
 
                 # Add scaling relation parameters
                 paras += num * self.adsorption_energy_scaling_relation[species]
@@ -90,9 +87,7 @@ class reactionCalculator:
                 if species in self.adsorbate_energy:
                     paras += [0, 0, num * self.adsorbate_energy[species]]
                 else:
-                    raise KeyError(
-                        f"Cannot find free energy entry for {species}."
-                    )
+                    raise KeyError(f"Cannot find free energy entry for {species}.")
 
         return paras
 
@@ -157,10 +152,7 @@ if __name__ == "__main__":
         "BN_is",
         "BP_is",
     ]
-    adsorbates = [
-                  "2-COOH", "3-CO", "4-CHO", "5-CH2O",
-                  "6-OCH3", "7-O", "8-OH", "11-H"
-                    ]
+    adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     # Loading adsorption energy
     test_loader = dataLoader()

@@ -109,8 +109,7 @@ class Dataset:
                         if os.path.isdir(os.path.join(directory, folder)) and (
                             os.path.exists(
                                 os.path.join(
-                                    directory, folder,
-                                    f"dos_up_{centre_atom_index}.npy"
+                                    directory, folder, f"dos_up_{centre_atom_index}.npy"
                                 )
                             )
                             or os.path.exists(
@@ -256,10 +255,8 @@ class Dataset:
         self.label = labels
 
     def append_adsorbate_DOS(
-        self,
-        adsorbate_dos_dir,
-        dos_name="dos_up_adsorbate.npy"
-            ) -> None:
+        self, adsorbate_dos_dir, dos_name="dos_up_adsorbate.npy"
+    ) -> None:
         """Append adsorbate eDOS to metal DOS.
 
         Args:
@@ -276,9 +273,7 @@ class Dataset:
             # Get adsorbate name
             mol_name = key.split(":")[1]
             # Load adsorbate DOS
-            mol_dos_arr = np.load(
-                os.path.join(adsorbate_dos_dir, mol_name, dos_name)
-            )
+            mol_dos_arr = np.load(os.path.join(adsorbate_dos_dir, mol_name, dos_name))
 
             # Append to original DOS
             arr = np.expand_dims(

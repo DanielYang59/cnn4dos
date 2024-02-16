@@ -42,9 +42,11 @@ if __name__ == "__main__":
     # Load features(DOS) and labels from cached file to save time
     if os.path.exists("features.npy") and os.path.exists("labels.npy"):
         warnings.warn(
-            ("Warning! features/labels load from cached file. "
-             "Tags changed after cache generation in config.yaml"
-             " might not take effect.")
+            (
+                "Warning! features/labels load from cached file. "
+                "Tags changed after cache generation in config.yaml"
+                " might not take effect."
+            )
         )
         features = tf.convert_to_tensor(np.load("features.npy"))
         labels = tf.convert_to_tensor(np.load("labels.npy"))

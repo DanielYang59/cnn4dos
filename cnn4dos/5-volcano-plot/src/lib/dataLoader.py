@@ -78,9 +78,9 @@ class dataLoader:
 
         # Load adsorption energy by substrate
         self.adsorption_energy = {
-            sub: pd.read_csv(
-                os.path.join(path, f"{sub}.csv"), index_col=0
-            ).loc[:, adsorbates]  # apply adsorbate filter
+            sub: pd.read_csv(os.path.join(path, f"{sub}.csv"), index_col=0).loc[
+                :, adsorbates
+            ]  # apply adsorbate filter
             for sub in substrates
         }
 

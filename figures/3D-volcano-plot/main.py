@@ -8,7 +8,7 @@ from .src.RidgeMapPlotter import RidgeMapPlotter  # type: ignore
 def main() -> None:
     plotter = RidgeMapPlotter(
         coordinates=(-156.250305, 18.890695, -154.714966, 20.275080),
-        font_url="https://github.com/google/fonts/blob/main/ofl/uncialantiqua/UncialAntiqua-Regular.ttf?raw=true",
+        font_url="https://github.com/google/fonts/blob/main/ofl/uncialantiqua/UncialAntiqua-Regular.ttf?raw=true",  # noqa: E501
         show_plot=False,
         cmap="coolwarm",
         interpolate=False,

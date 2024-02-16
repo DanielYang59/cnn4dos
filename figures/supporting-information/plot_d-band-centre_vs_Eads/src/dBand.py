@@ -76,13 +76,17 @@ class dBand:
             energy_array (np.ndarray): energy array referred to fermi level
 
         Notes:
-            1. This method is deprecated. Use the more general "__calculate_band_moment" method instead whenever possible.
-            2. Ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
+            1. This method is deprecated. Use the more general
+                "__calculate_band_moment" method instead whenever possible.
+            2. Ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/  # noqa: E501
 
         """
         # Warning
         warnings.warn(
-            "Legacy d-band centre calculation method is deprecated. Please use moment-based method."
+            (
+                "Legacy d-band centre calculation method is deprecated. "
+                "Please use moment-based method."
+            )
         )
 
         # Check eDOS shape
@@ -102,7 +106,8 @@ class dBand:
         return numerator / denominator
 
     def __load_dos(self, dosFile, fileType):
-        """Load eDOS file to numpy array, expecting eDOS in shape (NEDOS, numOrbitals).
+        """Load eDOS file to numpy array, expecting eDOS in
+            shape (NEDOS, numOrbitals).
 
         Args:
             dosFile (str): path to eDOS file
@@ -124,7 +129,10 @@ class dBand:
         numOrbitals = dos_array.shape[1]
         if numOrbitals not in {1, 4, 9, 16}:
             raise ValueError(
-                f'Illegal number of eDOS orbitals "{numOrbitals}" found! Expecting eDOS in shape (NEDOS, numOrbitals).'
+                (
+                    f'Illegal number of eDOS orbitals "{numOrbitals}" found!'
+                    "Expecting eDOS in shape (NEDOS, numOrbitals)."
+                )
             )
         if dos_array.ndim != 2:
             raise ValueError("Expecting eDOS in shape (NEDOS, numOrbitals).")
@@ -158,15 +166,21 @@ class dBand:
         self.d_band_array = d_band
 
     def calculate_d_band_centre(self, merge_suborbitals=True, verbose=False):
-        """Calculate d-band centre as the 1st order moment (reference to fermi level).
+        """Calculate d-band centre as the 1st order moment
+            referenced to fermi level.
 
         Args:
-            merge_suborbitals (bool, optional): sum five d-suborbitals. Defaults to False.
+            merge_suborbitals (bool, optional): sum five d-suborbitals.
+                Defaults to False.
             verbose (bool, optional): verbose. Defaults to False.
 
         Notes:
-            1. The d-band center was calculated as the first moment of the projected d-band density of states on the surface atoms referenced to the Fermi level, and the mean squared d-band width was calculated as the second moment.(J. Chem. Phys. 120 (2004) 10240)".
-            2. ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/
+            1. The d-band center was calculated as the first moment of the
+                projected d-band density of states on the surface atoms
+                referenced to the Fermi level, and the mean squared
+                d-band width was calculated as the second moment.
+                (J. Chem. Phys. 120 (2004) 10240)".
+            2. ref: https://sites.psu.edu/anguyennrtcapstone/example-calculation/how-to-calculate-the-d-band-center/  # noqa: E501
             3. ref: http://theory.cm.utexas.edu/forum/viewtopic.php?t=649
 
         Returns:
@@ -177,7 +191,7 @@ class dBand:
         energy_array = np.linspace(
             self.energy_range[0], self.energy_range[1], self.nedos
         )
-        ## Refer to fermi level
+        # Refer to fermi level
         energy_array -= self.fermi_level
 
         # Merge d-band suborbitals
@@ -197,14 +211,17 @@ class dBand:
         return d_band_centre
 
     def calculate_d_band_width(self, merge_suborbitals=True, verbose=False):
-        """Calculate d-band width as the 2nd order moment (reference to fermi level).
+        """Calculate d-band width as the 2nd order moment
+            referenced to fermi level.
 
         Args:
-            merge_suborbitals (bool, optional): sum five d-suborbitals. Defaults to False.
+            merge_suborbitals (bool, optional): sum five d-suborbitals.
+                Defaults to False.
             verbose (bool, optional): verbose. Defaults to False.
 
         Notes:
-            1. The mean squared d-band width was calculated as the second moment.(J. Chem. Phys. 120 (2004) 10240)".
+            The mean squared d-band width was calculated as the
+                second moment.(J. Chem. Phys. 120 (2004) 10240)".
 
         Returns:
             np.float64: _description_
@@ -214,7 +231,7 @@ class dBand:
         energy_array = np.linspace(
             self.energy_range[0], self.energy_range[1], self.nedos
         )
-        ## Refer to fermi level
+        # Refer to fermi level
         energy_array -= self.fermi_level
 
         # Merge d-band suborbitals
@@ -236,7 +253,9 @@ class dBand:
 
 # Test area
 if __name__ == "__main__":
-    example_dos_file = "../../0-dataset/feature_DOS/g-C3N4/3-CO_is/4-Co/dos_up_57.npy"
+    example_dos_file = (
+        "../../0-dataset/feature_DOS/g-C3N4/3-CO_is/4-Co/dos_up_57.npy"  # noqa: E501
+    )
     d_band = dBand(
         dosFile=example_dos_file,
         fileType="numpy",

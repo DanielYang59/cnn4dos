@@ -43,14 +43,11 @@ class volcanoDebugger:
 
         # Load DFT adsorption energy
         loader.load_adsorption_energy(
-            path=adsorption_energy_file,
-            substrates=substrates, adsorbates=adsorbates
+            path=adsorption_energy_file, substrates=substrates, adsorbates=adsorbates
         )
 
         # Calculate adsorption free energy
-        loader.calculate_adsorption_free_energy(
-            correction_file=thermal_correction_file
-        )
+        loader.calculate_adsorption_free_energy(correction_file=thermal_correction_file)
 
         self.adsorption_energy = loader.adsorption_energy
         self.adsorption_free_energy = loader.adsorption_free_energy
@@ -145,9 +142,7 @@ class volcanoDebugger:
 
         # Calculate adsorption energy difference DataFrame
         diff_df = predicted_df - true_df
-        diff_df.to_csv(
-            os.path.join(self.debug_dir, "diff_adsorption_free_energy.csv")
-        )
+        diff_df.to_csv(os.path.join(self.debug_dir, "diff_adsorption_free_energy.csv"))
 
         # Calculate mean absolute error (MAE)
         all_results = {}
@@ -233,8 +228,7 @@ class volcanoDebugger:
                 # Proton-electron pairs (PEP)
                 elif species == "PEP":
                     pep_energy = (
-                        0.5 * self.adsorbate_free_energy["H2"]
-                        - self.external_potential
+                        0.5 * self.adsorbate_free_energy["H2"] - self.external_potential
                     )
                     free_energy_constant_part += num * pep_energy
 
@@ -315,8 +309,7 @@ class volcanoDebugger:
                     )
 
                 # Add constant energy (adsorbate energy)
-                energy_change_df += product_constant_energy \
-                    - reactant_constant_energy
+                energy_change_df += product_constant_energy - reactant_constant_energy
 
                 free_energy_changes[step_index] = energy_change_df
 
@@ -376,8 +369,7 @@ class volcanoDebugger:
             free_energy_changes = {}
             for step_index, paras in free_energy_scaling_relation.items():
                 free_energy_changes[step_index] = (
-                    descriptor_x * paras[0]
-                    + descriptor_y * paras[1] + paras[2]
+                    descriptor_x * paras[0] + descriptor_y * paras[1] + paras[2]
                 )
 
             # Pack free energy change dict to DataFrame
@@ -412,9 +404,7 @@ class volcanoDebugger:
         else:
             return calculate_limiting_potential_from_scaling_relation()
 
-    def calculate_adsorption_free_energy_MAE(
-        self, mixing_ratios="AUTO"
-    ) -> None:
+    def calculate_adsorption_free_energy_MAE(self, mixing_ratios="AUTO") -> None:
         """Calculate adsorption free energy MAE predicted by scaling relations.
 
         Args:
@@ -473,8 +463,7 @@ class volcanoDebugger:
         )
 
         # Calculate limiting potential difference
-        limiting_potential_diff = direct_limiting_potential \
-            - scaling_limiting_potential
+        limiting_potential_diff = direct_limiting_potential - scaling_limiting_potential
 
         # Write data to file
         df = pd.concat(
@@ -498,9 +487,7 @@ class volcanoDebugger:
 
         # Calculate limiting potential MAE
         limiting_potential_mae = limiting_potential_diff.abs().mean()
-        print(
-            f"imiting potential MAE is {limiting_potential_mae:.4f} eV."
-        )
+        print(f"imiting potential MAE is {limiting_potential_mae:.4f} eV.")
 
         return limiting_potential_mae
 
@@ -514,10 +501,7 @@ class volcanoDebugger:
         """
         # Output adsorption free energy to csf files
         for sub, df in self.adsorption_free_energy.items():
-            df.to_csv(os.path.join(
-                self.debug_dir,
-                f"adsorption_free_energy_{sub}.csv"
-            ))
+            df.to_csv(os.path.join(self.debug_dir, f"adsorption_free_energy_{sub}.csv"))
 
 
 # Test area

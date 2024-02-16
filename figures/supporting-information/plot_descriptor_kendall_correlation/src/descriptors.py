@@ -55,13 +55,18 @@ class Descriptors:
         self.electronic_descriptor = pd.read_csv(path)
 
     def __merge_descriptors(self):
-        """Merge adsorption energy, element descriptors and electronic descriptors."""
+        """Merge adsorption energy, element descriptors
+        and electronic descriptors.
+        """
         # Check substrates of adsorption energy and electronic descriptors
         if not self.adsorption_energy["substrate"].equals(
             self.electronic_descriptor["substrate"]
         ):
             raise ValueError(
-                "Substrate lists in adsorption energy and electronic descriptors don't match."
+                (
+                    "Substrate lists in adsorption energy and "
+                    "electronic descriptors don't match."
+                )
             )
 
         # Check metals of adsorption energy and electronic descriptors
@@ -69,7 +74,10 @@ class Descriptors:
             self.electronic_descriptor["metal"]
         ):
             raise ValueError(
-                "Metal lists in adsorption energy and electronic descriptors don't match."
+                (
+                    "Metal lists in adsorption energy and "
+                    "electronic descriptors don't match."
+                )
             )
 
         # Duplicate element descriptors
@@ -78,12 +86,15 @@ class Descriptors:
             [self.element_descriptor] * numSubstrates, ignore_index=True
         )
 
-        ## Check metal order
+        # Check metal order
         if not [i.split("-")[0] for i in dup_element_descriptor["metal"]] != list(
             self.adsorption_energy["metal"]
         ):
             raise ValueError(
-                "Metal lists in adsorption energy and elementary descriptors don't match."
+                (
+                    "Metal lists in adsorption energy and elementary "
+                    "descriptors don't match."
+                )
             )
 
         # Merge three descriptors

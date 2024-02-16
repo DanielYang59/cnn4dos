@@ -47,9 +47,7 @@ class scalingRelation:
         self._stacked_adsorption_energy_df = stack_adsorption_energy_dict(
             adsorption_energy_dict
         )
-        self.adsorbates = list(
-            self._stacked_adsorption_energy_df.columns.values
-        )
+        self.adsorbates = list(self._stacked_adsorption_energy_df.columns.values)
 
         # Automatic mixing ratio fitting
         if mixing_ratios == "AUTO":
@@ -72,9 +70,7 @@ class scalingRelation:
 
         # Constant mixing ratio fitting
         else:
-            self.best_mixing_ratios = {
-                ads: mixing_ratios[0] for ads in self.adsorbates
-            }
+            self.best_mixing_ratios = {ads: mixing_ratios[0] for ads in self.adsorbates}
 
         # Perform linear fitting with the best ratios
         self.__fit_with_best_ratios()
@@ -180,14 +176,10 @@ class scalingRelation:
             ratio = self.best_mixing_ratios[ads]
             assert 0 <= ratio <= 100
             descriptor_x = np.copy(
-                np.array(
-                    self._stacked_adsorption_energy_df[self.descriptors[0]]
-                )
+                np.array(self._stacked_adsorption_energy_df[self.descriptors[0]])
             )
             descriptor_y = np.copy(
-                np.array(
-                    self._stacked_adsorption_energy_df[self.descriptors[1]]
-                )
+                np.array(self._stacked_adsorption_energy_df[self.descriptors[1]])
             )
 
             hybrid_descriptor_array = (
@@ -226,9 +218,7 @@ class scalingRelation:
 
             # Warn user if R2 score is too low
             if result.rvalue < 0.75:
-                warnings.warn(
-                    f"Low R2 for adsorbate {ads} of {result.rvalue}."
-                )
+                warnings.warn(f"Low R2 for adsorbate {ads} of {result.rvalue}.")
 
 
 # Test area
@@ -236,13 +226,14 @@ if __name__ == "__main__":
     # Set args
     path = "../../../0-dataset/label_adsorption_energy"
     substrates = [
-        "g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is",
-        "C2N_is", "BN_is", "BP_is",
+        "g-C3N4_is",
+        "nitrogen-graphene_is",
+        "vacant-graphene_is",
+        "C2N_is",
+        "BN_is",
+        "BP_is",
     ]
-    adsorbates = [
-        "2-COOH", "3-CO", "4-CHO", "5-CH2O",
-        "6-OCH3", "7-O", "8-OH", "11-H"
-    ]
+    adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     # Loading adsorption energy
     from dataLoader import dataLoader

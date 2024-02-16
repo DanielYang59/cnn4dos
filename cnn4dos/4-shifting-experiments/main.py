@@ -34,9 +34,7 @@ def main():
     )
 
     # Load the CNN model
-    cnn_model = tf.keras.models.load_model(
-        Path(config["path"]["cnn_model_path"])
-    )
+    cnn_model = tf.keras.models.load_model(Path(config["path"]["cnn_model_path"]))
 
     # Create an instance of CNNPredictor
     cnn_predictor = CNNPredictor(loaded_model=cnn_model)
@@ -58,7 +56,9 @@ def main():
         # b. Generate shifting arrays with ShiftGenerator
         shift_gen = ShiftGenerator(
             processed_dos,
-            dos_calculation_resolution=config["shifting"]["dos_calculation_resolution"],  # noqa: E501
+            dos_calculation_resolution=config["shifting"][
+                "dos_calculation_resolution"
+            ],  # noqa: E501
             shifting_range=config["shifting"]["shifting_range"],
             shifting_step=config["shifting"]["shifting_step"],
             shifting_orbitals=config["shifting"]["shifting_orbitals"],
@@ -98,9 +98,7 @@ def main():
 
     # Step 4: Plot
     plotter = ShiftPlotter(all_predictions, config)
-    plotter.plot(
-        save_dir=f"figures{os.sep}{str(working_dir).split(os.sep)[-1]}"
-    )
+    plotter.plot(save_dir=f"figures{os.sep}{str(working_dir).split(os.sep)[-1]}")
 
 
 if __name__ == "__main__":

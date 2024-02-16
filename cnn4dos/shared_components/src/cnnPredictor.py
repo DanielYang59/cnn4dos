@@ -21,9 +21,7 @@ class CNNPredictor:
         """
 
         if model_path and loaded_model:
-            raise ValueError(
-                "You can provide model_path or loaded_model, not both."
-            )
+            raise ValueError("You can provide model_path or loaded_model, not both.")
 
         if model_path:
             self.model = tf.keras.models.load_model(Path(model_path) / "model")
@@ -68,9 +66,7 @@ class CNNPredictor:
             )
 
         # Append adsorbate eDOS array to eDOS array along the numChannels axis
-        combined_array = np.concatenate(
-            [dos_array, adsorbate_dos_array], axis=-1
-        )
+        combined_array = np.concatenate([dos_array, adsorbate_dos_array], axis=-1)
 
         # Make predictions with CNN model
         predictions = self.model.predict(

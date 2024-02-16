@@ -31,9 +31,9 @@ def heatmap(x, y, **kwargs):
         if color_min == color_max:
             return palette[-1]
         else:
-            val_position = float((val - color_min)) / (
-                color_max - color_min
-            )  # position of value in the input range, relative to the length of the input range
+            # position of value in the input range,
+            # relative to the length of the input range
+            val_position = float((val - color_min)) / (color_max - color_min)
             val_position = min(
                 max(val_position, 0), 1
             )  # bound the position betwen 0 and 1
@@ -46,9 +46,9 @@ def heatmap(x, y, **kwargs):
         if size_min == size_max:
             return 1 * size_scale
         else:
-            val_position = (val - size_min) * 0.99 / (
-                size_max - size_min
-            ) + 0.01  # position of value in the input range, relative to the length of the input range
+            # position of value in the input range,
+            # relative to the length of the input range
+            val_position = (val - size_min) * 0.99 / (size_max - size_min) + 0.01
             val_position = min(
                 max(val_position, 0), 1
             )  # bound the position betwen 0 and 1
@@ -70,10 +70,12 @@ def heatmap(x, y, **kwargs):
     if "color_range" in kwargs:
         color_min, color_max = kwargs["color_range"]
     else:
+        # Range of values that will be mapped to the palette,
+        # i.e. min and max possible correlation
         color_min, color_max = (
             min(color),
             max(color),
-        )  # Range of values that will be mapped to the palette, i.e. min and max possible correlation
+        )
 
     if "size" in kwargs:
         size = kwargs["size"]
@@ -129,7 +131,8 @@ def heatmap(x, y, **kwargs):
     marker_color = []
     for v in color:
         if v == 1:  # value at diagonal
-            marker_color.append((0.75, 0.75, 0.75))  # RGB value of blocks at diagonal
+            # RGB value of blocks at diagonal
+            marker_color.append((0.75, 0.75, 0.75))
         else:
             marker_color.append(value_to_color(v))
 
@@ -166,7 +169,7 @@ def heatmap(x, y, **kwargs):
 
     # Add colorbar on the right side of the plot
     if color_min < color_max:
-        ax = plt.subplot(plot_grid[:, -1])  # Use the rightmost column of the plot
+        ax = plt.subplot(plot_grid[:, -1])  # Use the rightmost column
         col_x = [0] * len(palette)  # Fixed x coordinate for the bar
         bar_y = np.linspace(
             color_min, color_max, n_colors

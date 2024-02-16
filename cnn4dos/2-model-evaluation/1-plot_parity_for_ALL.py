@@ -107,10 +107,7 @@ if __name__ == "__main__":
     g.ax_joint.set_facecolor("#DAD9EB")  # background color
 
     # Add y=x line
-    g.ax_joint.axline(
-        (0, 0), slope=1, zorder=1, color="#E69A8DFF",
-        linewidth=8
-    )
+    g.ax_joint.axline((0, 0), slope=1, zorder=1, color="#E69A8DFF", linewidth=8)
 
     # Plot scatter
     # Ref: https://www.youtube.com/watch?v=t3G078DWXBM
@@ -146,10 +143,7 @@ if __name__ == "__main__":
 
     top_poly = g.ax_marg_x.fill_between(top_x, 0, top_y, color="none")
     top_img.set_clip_path(
-        PathPatch(
-            top_poly.get_paths()[0],
-            transform=g.ax_marg_x.transData
-        )
+        PathPatch(top_poly.get_paths()[0], transform=g.ax_marg_x.transData)
     )
     g.ax_marg_x.set_ylim(0.0, 0.25)  # increase height
 

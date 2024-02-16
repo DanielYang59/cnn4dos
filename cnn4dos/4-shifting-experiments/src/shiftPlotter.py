@@ -55,9 +55,7 @@ class ShiftPlotter:
             self.all_predictions.keys(),
             key=lambda x: elements_order.index(get_element_from_key(x)),
         )
-        self.all_predictions = {
-            k: self.all_predictions[k] for k in sorted_keys
-        }
+        self.all_predictions = {k: self.all_predictions[k] for k in sorted_keys}
 
     def plot(self, colormap="magma", save_dir="figures") -> None:
         """
@@ -74,15 +72,12 @@ class ShiftPlotter:
         """
         # Generate shift_energy_array dynamically
         shift_energy_array = np.arange(
-            self.shift_range[0],
-            self.shift_range[1] + self.shift_step,
-            self.shift_step
+            self.shift_range[0], self.shift_range[1] + self.shift_step, self.shift_step
         )
 
         # Calculate global vmin and vmax for a symmetric colorbar
         vmax = max(
-            abs(np.max(prediction))
-            for prediction in self.all_predictions.values()
+            abs(np.max(prediction)) for prediction in self.all_predictions.values()
         )
         vmin = -vmax
 
@@ -91,9 +86,7 @@ class ShiftPlotter:
         if len(self.all_predictions) == 1:
             axs = [axs]  # Make it a list of one axs object
 
-        for index, (folder_name, prediction) in enumerate(
-            self.all_predictions.items()
-        ):
+        for index, (folder_name, prediction) in enumerate(self.all_predictions.items()):
             ax = axs[index]
             y = np.expand_dims(
                 prediction, axis=0
@@ -116,8 +109,7 @@ class ShiftPlotter:
             ax.set_yticks([])  # Hide y labels
             element_name = str(folder_name).split("/")[-1].split("-")[-1]
             ax.set_ylabel(
-                element_name, rotation=0, fontsize=16,
-                loc="bottom", labelpad=30
+                element_name, rotation=0, fontsize=16, loc="bottom", labelpad=30
             )  # Set y title
 
             # Hide top/left/right frames
@@ -127,10 +119,7 @@ class ShiftPlotter:
 
         # Add colorbar
         cb = fig.colorbar(im, ax=axs)
-        cb.set_label(
-            r"$\Delta\mathit{E}_{\mathrm{ads}}\ \mathrm{(eV)}$",
-            fontsize=16
-        )
+        cb.set_label(r"$\Delta\mathit{E}_{\mathrm{ads}}\ \mathrm{(eV)}$", fontsize=16)
         cb.ax.tick_params(labelsize=10, width=2)  # set ticks
         cb.outline.set_visible(False)  # hide border
 

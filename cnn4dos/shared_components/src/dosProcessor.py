@@ -26,9 +26,7 @@ class DOSProcessor:
         numSamplings, numOrbitals, _ = dos_array.shape
 
         if numSamplings <= 500:
-            warnings.warn(
-                "Number of samplings is not greater than 500."
-            )
+            warnings.warn("Number of samplings is not greater than 500.")
 
         if numOrbitals not in {1, 4, 9, 16}:
             raise ValueError("numOrbitals must be one of {1, 4, 9, 16}")

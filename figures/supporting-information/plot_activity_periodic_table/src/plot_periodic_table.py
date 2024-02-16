@@ -125,7 +125,7 @@ def plot_periodic_table(
             period_label.remove(str(pr))
 
     # Unpack limiting potential dict
-    data_elements = [i.split("-")[-1] for i in limiting_potential_dict.keys()]
+    data_elements = [key.split("-")[-1] for key in limiting_potential_dict]
     data = list(limiting_potential_dict.values())
 
     period_label.append("blank")
@@ -243,16 +243,16 @@ def plot_periodic_table(
     color_bar.major_tick_in = 0
     color_bar.major_tick_line_width = 2.5  # set ticks thickness
 
-    ## Set colorbar value range
+    # Set colorbar value range
     if cbar_range is not None:
         color_mapper.low = cbar_range["low"]
         color_mapper.high = cbar_range["high"]
 
-    ## Set colorbar height
+    # Set colorbar height
     if cbar_height is not None:
         color_bar.height = cbar_height
 
-    ## Put colorbar to the right of the plot
+    # Put colorbar to the right of the plot
     p.add_layout(color_bar, "right")
 
     # Output and show plot

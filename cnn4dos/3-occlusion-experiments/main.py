@@ -49,7 +49,9 @@ def main():
         dos_array=processed_dos,
         occlusion_width=config["occlusion"]["occlusion_width"],
         occlusion_step=config["occlusion"]["occlusion_step"],
-        dos_calculation_resolution=config["occlusion"]["dos_calculation_resolution"],  # noqa: E501
+        dos_calculation_resolution=config["occlusion"][
+            "dos_calculation_resolution"
+        ],  # noqa: E501
     )
     occlusion_arrays = generator.generate_occlusion_arrays()
     print("Occlusion arrays generated.")
@@ -73,10 +75,7 @@ def main():
     numOrbitals = occlusion_arrays.shape[1]  # Number of orbitals
 
     # Initialize tqdm progress bar
-    with tqdm(
-        total=num_occlusions * numOrbitals,
-        desc="Making Predictions"
-    ) as pbar:
+    with tqdm(total=num_occlusions * numOrbitals, desc="Making Predictions") as pbar:
         for i in range(num_occlusions):  # Loop over the number of occlusions
             for j in range(numOrbitals):  # Loop over each orbital
                 occluded_array = np.expand_dims(
@@ -106,7 +105,8 @@ def main():
     # Step 5: Read fermi level and plot occlusion
     fermi_level = get_fermi_level(
         working_dir=os.getcwd(),
-        fermi_level_source=root_dir / Path(config["path"]["fermi_level_source"])  # noqa: E501
+        fermi_level_source=root_dir
+        / Path(config["path"]["fermi_level_source"]),  # noqa: E501
     )
 
     plotter = OcclusionPlotter(predictions, config, fermi_level)

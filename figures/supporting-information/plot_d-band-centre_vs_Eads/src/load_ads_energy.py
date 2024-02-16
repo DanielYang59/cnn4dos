@@ -1,4 +1,6 @@
-"""Utility script for getting adsorption energy from pd datasheet based on name pattern."""
+"""Utility script for getting adsorption energy from pd datasheet
+based on name pattern.
+"""
 
 import os
 

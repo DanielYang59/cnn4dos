@@ -9,9 +9,7 @@ import subprocess
 import psutil
 
 
-def record_python_package_ver(
-    logfile="python_package_ver.log"
-) -> None:
+def record_python_package_ver(logfile="python_package_ver.log") -> None:
     """Record Python package versions to file.
 
     Args:
@@ -24,9 +22,9 @@ def record_python_package_ver(
 
     """
     # Get all installed Python packages
-    result = subprocess.run(
-        ["pip", "freeze"], stdout=subprocess.PIPE
-    ).stdout.decode("utf-8")
+    result = subprocess.run(["pip", "freeze"], stdout=subprocess.PIPE).stdout.decode(
+        "utf-8"
+    )
 
     # Write results to log file
     with open(logfile, mode="w") as f:

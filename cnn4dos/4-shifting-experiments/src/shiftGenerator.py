@@ -47,26 +47,18 @@ class ShiftGenerator:
             raise ValueError("numChannels must be 1")
 
         if dos_calculation_resolution <= 0:
-            raise ValueError(
-                "DOS calculation resolution must be greater than zero."
-            )
+            raise ValueError("DOS calculation resolution must be greater than zero.")
 
         # Check shifting parameters
         start, end = shifting_range
         if start >= end:
-            raise ValueError(
-                "Start of shifting range must be smaller than the end."
-            )
+            raise ValueError("Start of shifting range must be smaller than the end.")
         if shifting_step <= 0:
             raise ValueError("shift_step should be greater than zero.")
         if not self._is_multiple_of(number=(end - start), base=shifting_step):
-            raise ValueError(
-                "Shifting range must be a multiple of shift_step."
-            )
+            raise ValueError("Shifting range must be a multiple of shift_step.")
         if len(set(shifting_orbitals)) != len(shifting_orbitals):
-            raise ValueError(
-                "Duplicate orbital indices found in shifting_orbitals."
-            )
+            raise ValueError("Duplicate orbital indices found in shifting_orbitals.")
         if any((idx < 0 or idx >= numOrbitals) for idx in shifting_orbitals):
             raise ValueError(
                 f"Invalid orbital indices in shifting_orbitals. Valid range is [0, {numOrbitals-1}]"
@@ -128,13 +120,9 @@ class ShiftGenerator:
                 if np.isclose(shift_value, 0, atol=1e-9):  # shift_value ~ 0
                     shifted_data = shifted_dos[:, orbital_idx, :]
                 elif shift_value > 0:
-                    shifted_data = (
-                        shifted_dos[:-num_indices_to_shift, orbital_idx, :]
-                    )
+                    shifted_data = shifted_dos[:-num_indices_to_shift, orbital_idx, :]
                 else:  # shift_value < 0
-                    shifted_data = (
-                        shifted_dos[num_indices_to_shift:, orbital_idx, :]
-                    )
+                    shifted_data = shifted_dos[num_indices_to_shift:, orbital_idx, :]
 
                 # Next, perform the zero-padding
                 padding = np.zeros((num_indices_to_shift, 1))

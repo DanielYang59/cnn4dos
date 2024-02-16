@@ -11,7 +11,8 @@ def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"
         dos_dir (str): eDOS file directory
         adsorbates (list): list of adsorbates to search
         substrates (list): list of substrates to search
-        dos_file_name (str, optional): eDOS file name pattern. Defaults to "dos_up_*.npy".
+        dos_file_name (str, optional): eDOS file name pattern.
+            Defaults to "dos_up_*.npy".
 
     Raises:
         ValueError: if eDOS filename pattern has no match

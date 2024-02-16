@@ -26,9 +26,7 @@ class DataLoader:
         """
         config_path = Path(config_path)
         if not config_path.exists():
-            raise FileNotFoundError(
-                f"The specified file {config_path} does not exist."
-            )
+            raise FileNotFoundError(f"The specified file {config_path} does not exist.")
 
         with open(config_path, "r") as f:
             config = yaml.safe_load(f)
@@ -61,9 +59,7 @@ class DataLoader:
         """
         filepath = Path(filepath)
         if not filepath.exists():
-            raise FileNotFoundError(
-                f"The specified file {filepath} does not exist."
-            )
+            raise FileNotFoundError(f"The specified file {filepath} does not exist.")
 
         adsorbate_dos = np.load(filepath)
         adsorbate_dos = np.transpose(adsorbate_dos, (1, 2, 0))
@@ -112,9 +108,7 @@ class DataLoader:
         """
         filepath = Path(filepath)
         if not filepath.exists():
-            raise FileNotFoundError(
-                f"The specified file {filepath} does not exist."
-            )
+            raise FileNotFoundError(f"The specified file {filepath} does not exist.")
 
         unshifted_dos = np.load(filepath)
         numSamplings, numOrbitals = unshifted_dos.shape

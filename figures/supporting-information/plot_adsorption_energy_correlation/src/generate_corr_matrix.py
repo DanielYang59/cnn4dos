@@ -6,8 +6,8 @@ import yaml
 
 sys.path.insert(0, "../../5-volcano-plot/src/lib")
 
-from dataLoader import dataLoader
-from utils import stack_adsorption_energy_dict
+from dataLoader import dataLoader  # noqa: E402
+from utils import stack_adsorption_energy_dict  # noqa: E402
 
 
 def generate_corr_matrix(config_file, corr_type="pearson"):
@@ -15,7 +15,8 @@ def generate_corr_matrix(config_file, corr_type="pearson"):
 
     Args:
         config_file (str): path to config file
-        corr_type (str, optional): method of correlation calculation. Defaults to "pearson".
+        corr_type (str, optional): method of correlation calculation.
+            Defaults to "pearson".
 
     Returns:
         pd.DataFrame: correlation coefficient DataFrame

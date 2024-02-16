@@ -93,9 +93,7 @@ def dos_extractor(folder, spin):
             # Spin up
             spin_up_dos = [i.text.strip() for i in atom[0]]
             # Convert each line to np array
-            spin_up_dos = np.array(
-                [[float(j) for j in i.split()] for i in spin_up_dos]
-            )
+            spin_up_dos = np.array([[float(j) for j in i.split()] for i in spin_up_dos])
 
             # Spin down
             spin_down_dos = [i.text.strip() for i in atom[1]]
@@ -114,9 +112,7 @@ def dos_extractor(folder, spin):
 
     # Write eDOS to numpy array
     if ispin == "1":
-        return ValueError(
-            "None spin polarised analysis currently not supported!"
-        )
+        return ValueError("None spin polarised analysis currently not supported!")
 
     else:  # ISPIN = 2
         if spin in {"up", "both"}:

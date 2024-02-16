@@ -16,9 +16,7 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
         """
 
         # Reshape (None, 4000, 6) to (None, 4000, 1, 6)
-        conv_x = tf.keras.layers.Reshape(
-            target_shape=(4000, 1, 6)
-        )(branch_input)
+        conv_x = tf.keras.layers.Reshape(target_shape=(4000, 1, 6))(branch_input)
 
         # Dynamic amount of ConV blocks
         for _i in range(hp_branch_numConvBlocks):
@@ -55,7 +53,8 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
             hp_branch_dense_units, activation=hp_branch_dense_activation_func
         )(conv_flat)
         branch_output = tf.keras.layers.Dense(
-            hp_branch_dense_units / 2, activation=hp_branch_dense_activation_func  # noqa: E501
+            hp_branch_dense_units / 2,
+            activation=hp_branch_dense_activation_func,  # noqa: E501
         )(branch_output)
         branch_output = tf.keras.layers.Dense(1)(branch_output)
 
@@ -73,15 +72,11 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
     hp_drop_out_rate = hp.Fixed("hp_drop_out_rate", value=0.3)
 
     # Master Layer
-    hp_master_1st_dense_units = hp.Choice(
-        "hp_master_1st_dense_units", [128, 256, 512]
-    )
+    hp_master_1st_dense_units = hp.Choice("hp_master_1st_dense_units", [128, 256, 512])
     hp_master_2nd_dense_units = hp.Choice(
         "hp_master_2nd_dense_units", [256, 512, 1024, 2048]
     )
-    hp_master_3rd_dense_layer = hp.Boolean(
-        "hp_master_3rd_dense_layer", default=False
-    )
+    hp_master_3rd_dense_layer = hp.Boolean("hp_master_3rd_dense_layer", default=False)
     # hp_master_activation_function = hp.Choice(
     #     "hp_master_act_func", ["tanh", "relu", "sigmoid"]
     # )
@@ -205,8 +200,7 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
 
     if hp_master_3rd_dense_layer:
         master_output = tf.keras.layers.Dense(
-            hp_master_2nd_dense_units / 4,
-            activation=hp_master_activation_function
+            hp_master_2nd_dense_units / 4, activation=hp_master_activation_function
         )(master_output)
 
     master_output = tf.keras.layers.Dense(1)(master_output)
@@ -220,9 +214,7 @@ def hp_model(hp, input_shape=(4000, 9, 6)):
 
     # Compile model
     model.compile(
-        optimizer=tf.keras.optimizers.legacy.Adam(
-            learning_rate=hp_learning_rate
-        ),
+        optimizer=tf.keras.optimizers.legacy.Adam(learning_rate=hp_learning_rate),
         # optimizer=tf.keras.optimizers.experimental.RMSprop(
         #     learning_rate=hp_learning_rate
         # ),

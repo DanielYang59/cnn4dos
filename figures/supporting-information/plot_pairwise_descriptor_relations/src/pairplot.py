@@ -22,7 +22,8 @@ class PairPlot:
                select only specific descriptors
 
         Args:
-            descriptors (list): descriptors to plot (most correlated determined by Kendall coefficients)
+            descriptors (list): descriptors to plot (most
+                correlated determined by Kendall coefficients)
 
         """
         # Drop metal/substrate name columns for plotting
@@ -37,14 +38,18 @@ class PairPlot:
         # Take selected descriptors only
         self.data = self.data.loc[:, descriptors]
 
-    def plot_pairplot(self, descriptors, descriptor_symbol_dict, savename, show=False):
+    def plot_pairplot(
+        self, descriptors, descriptor_symbol_dict, savename, show=False
+    ) -> None:
         """Generate pairwise relations plot.
 
         Args:
-            descriptors (list): most correlated descriptors determined by Kendall correlation coefficient
+            descriptors (list): most correlated descriptors determined
+                by Kendall correlation coefficient
             descriptor_symbol_dict(dict):
             savename (Path): name of figure
-            show (bool, optional): show figure during plotting. Defaults to True.
+            show (bool, optional): show figure during plotting.
+                Defaults to True.
 
         Notes:
             Ref: https://seaborn.pydata.org/generated/seaborn.pairplot.html

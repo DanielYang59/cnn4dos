@@ -109,9 +109,7 @@ class volcanoPlotter:
             # Calculate distance to maximum
             distances = []
             for i, _ in enumerate(x_list):
-                distances.append(
-                    math.hypot(x_coord - x_list[i], y_coord - y_list[i])
-                )
+                distances.append(math.hypot(x_coord - x_list[i], y_coord - y_list[i]))
 
             # Scale distance to get alpha values
             alphas = (distances - np.min(distances)) / (
@@ -133,12 +131,8 @@ class volcanoPlotter:
 
         # Compile marker list
         assert len(self.markers) == len(self.adsorption_free_energies)
-        marker_dict = dict(
-            zip(self.adsorption_free_energies.keys(), self.markers)
-        )
-        markers = [
-            marker_dict["_".join(name.split("_")[:2])] for name in name_list
-        ]
+        marker_dict = dict(zip(self.adsorption_free_energies.keys(), self.markers))
+        markers = [marker_dict["_".join(name.split("_")[:2])] for name in name_list]
 
         # Calculate alpha (transparency) based on distance to maximum value
         alphas = calculate_scatter_alpha(x_list, y_list)
@@ -158,28 +152,22 @@ class volcanoPlotter:
         warnings.warn("Legend is manually inserted.")
 
         marker_circle = Line2D(
-            [], [], color="#1f77b4", marker="o",
-            linestyle="None", markersize=10
+            [], [], color="#1f77b4", marker="o", linestyle="None", markersize=10
         )
         marker_triangle = Line2D(
-            [], [], color="#1f77b4", marker="^",
-            linestyle="None", markersize=10
+            [], [], color="#1f77b4", marker="^", linestyle="None", markersize=10
         )
         marker_square = Line2D(
-            [], [], color="#1f77b4", marker="s",
-            linestyle="None", markersize=10
+            [], [], color="#1f77b4", marker="s", linestyle="None", markersize=10
         )
         marker_diamond = Line2D(
-            [], [], color="#1f77b4", marker="D",
-            linestyle="None", markersize=10
+            [], [], color="#1f77b4", marker="D", linestyle="None", markersize=10
         )
         marker_plus = Line2D(
-            [], [], color="#1f77b4", marker="P",
-            linestyle="None", markersize=10
+            [], [], color="#1f77b4", marker="P", linestyle="None", markersize=10
         )
         marker_star = Line2D(
-            [], [], color="#1f77b4", marker="*",
-            linestyle="None", markersize=10
+            [], [], color="#1f77b4", marker="*", linestyle="None", markersize=10
         )
 
         plt.legend(
@@ -249,7 +237,7 @@ class volcanoPlotter:
                 1,
                 1.5,
             ),  # (offset, (on_off_seq)) ref: https://matplotlib.org/stable/
-                # gallery/lines_bars_and_markers/linestyles.html)
+            # gallery/lines_bars_and_markers/linestyles.html)
         )
 
         plt.plot(
@@ -373,9 +361,7 @@ class volcanoPlotter:
 
         return limiting_potential_mesh, rds_mesh
 
-    def __set_figure_style(
-            self, plt, fig=None
-            ) -> Tuple[plt, Optional[Figure]]:
+    def __set_figure_style(self, plt, fig=None) -> Tuple[plt, Optional[Figure]]:
         """Set figure-wide styles.
 
         Args:
@@ -420,9 +406,7 @@ class volcanoPlotter:
 
         """
         # Generate free energy change mesh for selected reaction
-        free_energy_change_mesh = self.__generate_free_energy_change_mesh(
-            reaction_name
-        )
+        free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
 
         # Generate limiting potential mesh
         (
@@ -499,9 +483,7 @@ class volcanoPlotter:
 
         """
         # Generate free energy change mesh for selected reaction
-        free_energy_change_mesh = self.__generate_free_energy_change_mesh(
-            reaction_name
-        )
+        free_energy_change_mesh = self.__generate_free_energy_change_mesh(reaction_name)
 
         # Generate RDS mesh
         _, rds_mesh = self.__generate_limiting_potential_and_RDS_mesh(
@@ -527,10 +509,7 @@ class volcanoPlotter:
         self.__set_figure_style(plt, fig)
 
         # Create background contour plot
-        colors = [
-            "blue", "green", "yellow", "orange",
-            "red", "purple", "brown", "gray"
-        ]
+        colors = ["blue", "green", "yellow", "orange", "red", "purple", "brown", "gray"]
         cmap = LinearSegmentedColormap.from_list(
             "custom_colormap", colors, N=len(colors)
         )
@@ -683,10 +662,7 @@ if __name__ == "__main__":
         "BN_is",
         "BP_is",
     ]
-    adsorbates = [
-        "2-COOH", "3-CO", "4-CHO", "5-CH2O",
-        "6-OCH3", "7-O", "8-OH", "11-H"
-    ]
+    adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
 
     descriptor_x = "3-CO"
     descriptor_y = "8-OH"
@@ -699,9 +675,7 @@ if __name__ == "__main__":
     from .dataLoader import dataLoader
 
     loader = dataLoader()
-    loader.load_adsorption_energy(
-        adsorption_energy_path, substrates, adsorbates
-    )
+    loader.load_adsorption_energy(adsorption_energy_path, substrates, adsorbates)
 
     loader.calculate_adsorption_free_energy(
         correction_file=Path("../../data/corrections_thermal.csv")
@@ -732,9 +706,7 @@ if __name__ == "__main__":
         "CO2RR_CH4": reaction_calculator.calculate_reaction_scaling_relations(
             name="CO2RR_CH4"
         ),
-        "HER": reaction_calculator.calculate_reaction_scaling_relations(
-            name="HER"
-        ),
+        "HER": reaction_calculator.calculate_reaction_scaling_relations(name="HER"),
     }
 
     # Initialize volcano plotter
