@@ -33,19 +33,14 @@ class DOSProcessor:
 
         self.dos_array = dos_array
 
-    def remove_ghost_state(self, remove_ghost: bool = False) -> np.ndarray:
+    def remove_ghost_state(self) -> np.ndarray:
         """
         Optionally remove ghost states from the Density of States (DOS) array.
-
-        Args:
-            remove_ghost (bool, optional): If True, sets the first
-                values (index 0) along the numOrbitals axis to 0.0.
 
         Returns:
             np.ndarray: eDOS array with ghost states removed, if specified.
                 Shape remains (numSamplings, numOrbitals, 1).
         """
-        if remove_ghost:
-            self.dos_array[0, :] = 0.0
+        self.dos_array[0, :] = 0.0
 
         return self.dos_array
