@@ -3,29 +3,69 @@ data, for VASP jobs.
 """
 
 import itertools
-from pathlib import Path
-import numpy as np
 import warnings
+from pathlib import Path
 
+import numpy as np
 from pymatgen.io.vasp import Vasprun
 
 from cnn4dos.utils import Orbitals, Spins
 
 
 class eDOS:
-    """Handle eletronic density of states (eDOS) as numpy array.
-    """
+    """Handle eletronic density of states (eDOS) as numpy array."""
 
     def __init__(self, shape: tuple[int] = None) -> None:
-        pass
+        self.expected_shape = shape  # TODO
+
+    def _check_shape(self) -> bool:
+        """Check if the shape of the eDOS array matches the expected shape.
+
+        Returns:
+            bool: Whether the shape matches the expected shape.
+
+        Notes:
+            If the expected shape is not set, a warning is issued,
+                and the function returns False.
+        """
+
+        if self.expected_shape is None:
+            warnings.warn("Cannot check eDOS shape without expected shape.")
+            return False
+
+        elif self.array.shape == self.expected_shape:
+            return True
+
+        else:
+            return False
+
+    def from_array(self, filename: Path) -> None:
+        """Load eDOS directly from numpy array file.
+
+        Parameters:
+            filename (Path): The path to the numpy array file.
+
+        Returns:
+            None
+
+        Raises:
+            Warning: If the file extension is not '.npy'.
+        """
+
+        # Check file extension
+        if filename.suffix != ".npy":
+            warnings.warn("eDOS file extension is not .npy.")
+
+        # Load eDOS array
+        self.array = np.load(filename)
 
     def from_vasprun(
         self,
         filename: Path,
         atoms: list[int],
         orbitals: list[str],
-        spins: list[str] = ["up", "down"]
-    ) -> np.ndarray:
+        spins: list[str] = ["up", "down"],
+    ) -> None:
         """Load eDOS from vasprun.xml for a VASP run.
 
         Parameters:
@@ -35,7 +75,7 @@ class eDOS:
             spins (list[str], optional): The list of spin strings.
                 Defaults to ["up", "down"].
 
-        Returns:
+        Notes:
             np.ndarray: The eDOS array in shape:
                 (len(atoms), len(orbitals), len(spins), NEDOS), where NEDOS
                 is the VASP INCAR tag (number of grid points).
@@ -57,19 +97,13 @@ class eDOS:
         total_atoms = len(vasprun.atomic_symbols)
 
         if not all(
-            isinstance(atom, int)
-            and atom in range(total_atoms) for atom in atoms
-                ):
-            raise ValueError(
-                f"atom index must be int in range [0, {total_atoms - 1}]"
-            )
+            isinstance(atom, int) and atom in range(total_atoms) for atom in atoms
+        ):
+            raise ValueError(f"atom index must be int in range [0, {total_atoms - 1}]")
         if len(set(atoms)) != len(atoms):
             raise ValueError("Duplicate atoms not allowed.")
 
-        if not all(
-            isinstance(orb, str)
-            and orb in Orbitals for orb in orbitals
-                ):
+        if not all(isinstance(orb, str) and orb in Orbitals for orb in orbitals):
             raise ValueError("Invalid orbital found.")
         if len(set(orbitals)) != len(orbitals):
             raise ValueError("Duplicate orbitals not allowed.")
@@ -88,38 +122,72 @@ class eDOS:
             arr = pdos[atom][Orbitals[orb]][Spins[spin]]
             results.append(arr)
 
-        return np.array(results).reshape(
+        self.array = np.array(results).reshape(
             len(atoms), len(orbitals), len(spins), *results[0].shape
         )
 
-    def from_array(self, filename: Path) -> np.ndarray:
-        """Load eDOS directly from numpy array file.
+    def preprocess(self, method: str, axis: int) -> None:
+        # TODO:
+
+        if method == "normalize":
+            pass
+
+        elif method == "standardize":
+            pass
+
+        else:
+            raise ValueError(f"Unsupported proprocess method {method}.")
+
+    def remove_ghost_states(self, axis: int, indexes: list[int]) -> None:
+        """Remove ghost states from eDOS.
+
+        During the calculation of eDOS, we observed that in certain cases,
+        there is a significant spike occurring exclusively at the 0th point of
+        the entire eDOS. We have verified the unreality of this spike by
+        adjusting the energy windows; while the original spike disappears,
+        a new spike emerges at the new 0th position.
+
+        Although the exact cause of this phenomenon remains unknown,
+        we have decided to remove it. Its presence would complicate data
+        preprocessing tasks such as normalization and standardization.
+
+        """
+        # Check axis
+        if not (isinstance(axis, int) and axis in range(len(self.array.shape))):
+            raise ValueError(f"Invalid axis {axis}.")
+
+        # Check indexes
+        # TODO:
+
+        # Remove ghost states by setting corresponding values to zero
+        # self.array[0, :] = 0.0
+
+    def swap_axes(self, axis1: int, axis2: int) -> None:
+        """Swap the axes of the eDOS array.
 
         Parameters:
-            filename (Path): The path to the numpy array file.
+            axis1 (int): The first axis to be swapped.
+            axis2 (int): The second axis to be swapped.
 
         Returns:
-            np.ndarray: The eDOS array loaded from the numpy array file.
+            None
 
-        Raises:
-            Warning: If the file extension is not '.npy'.
+        Notes:
+            For example, if you have an array with shape (a, b),
+            calling swap_axes(arr, 0, 1) will result in the array's
+            shape being transformed to (b, a).
         """
 
-        # Check file extension
-        if filename.suffix != ".npy":
-            warnings.warn("eDOS file extension is not .npy.")
+        self.array = np.swapaxes(self.array, axis1, axis2)
 
-        # Load eDOS array
-        return np.load(filename)
+    def to_array(self, filename: Path) -> None:
+        """Save eDOS array to a numpy array file (.npy).
 
-    def to_array(self):
-        pass
+        Parameters:
+            filename (Path): The path to save the numpy array file.
 
-    def remove_ghost_state(self):
-        pass
+        Returns:
+            None
+        """
 
-    def swap_axes(self):
-        pass
-
-    def check_shape(self):
-        pass
+        np.save(filename, self.array)

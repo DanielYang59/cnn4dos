@@ -1,6 +1,5 @@
 """Utility scripts and globally useful variables."""
 
-
 from pathlib import Path
 
 from pymatgen.electronic_structure.core import Orbital, Spin
@@ -18,10 +17,7 @@ Orbitals = {
     "dyz": Orbital(5),
     "dz2": Orbital(6),
     "dxz": Orbital(7),
-    "dx2": Orbital(8)
+    "dx2": Orbital(8),
 }
 
-Spins = {
-    "up": Spin.up,
-    "down": Spin.down
-}
+Spins = {"up": Spin.up, "down": Spin.down}
