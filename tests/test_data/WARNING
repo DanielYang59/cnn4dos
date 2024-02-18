@@ -1,0 +1,8 @@
+This folder contains test data for cnn4dos.
+
+However, these tests are designed to fulfill testing objectives while minimizing disk space usage.
+
+Consequently, the data may not represent physically meaningful structures
+or employ VASP parameters that are relevant in real-world scenarios.
+
+Therefore, it is advised not to utilize this data for real-world tasks.
