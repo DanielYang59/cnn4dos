@@ -1,0 +1,48 @@
+# cnn4dos test data: spin-polarize eDOS calculation.
+
+!-------------------- System ---------------------------------------!
+NPAR       = 8
+ENCUT      = 400
+ISMEAR     = 0 ; SIGMA = 0.05
+ALGO       = Normal
+
+!-------------------- Electronic Density of States ----------------!
+NEDOS      = 100
+LORBIT     = 11
+EMIN       = -15
+EMAX       =  5
+
+!-------------------- Precision ------------------------------------!
+LREAL      = Auto
+ISYM       = 0
+
+!-------------------- Optimizations --------------------------------!
+ISIF       = 2
+IBRION     = -1
+
+# Ionic Steps
+POTIM      = 0.3
+EDIFFG     = -0.03
+NSW        = 0
+
+# Electronic Steps
+EDIFF      = 1E-4
+NELM       = 100
+
+!-------------------- Magnetism -----------------------------------!
+ISPIN      = 2
+BMIX     = 0.0001
+AMIX     = 0.05
+
+
+!-------------------- Corrections ---------------------------------!
+IVDW     = 12
+
+
+!-------------------- Input-Output file Control -------------------!
+# Input Files
+ISTART   = 0
+
+# Output Files
+LCHARG     = .FALSE.
+LWAVE      = .FALSE.
