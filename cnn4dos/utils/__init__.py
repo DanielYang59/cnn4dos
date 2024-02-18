@@ -1,5 +1,12 @@
+"""Utility scripts and globally useful variables."""
+
+
+from pathlib import Path
 
 from pymatgen.electronic_structure.core import Orbital, Spin
+
+# Root directory of the package
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Define orbitals and spins globally
 Orbitals = {
