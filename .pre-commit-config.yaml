@@ -2,7 +2,7 @@ ci:
   autofix_prs: false
   autoupdate_schedule: quarterly
 
-exclude: 'examples'
+exclude: '(examples|figures)/.*'
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
