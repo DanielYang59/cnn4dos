@@ -28,3 +28,8 @@ features.npy
 
 # Occlusion and perturbation experiment images
 perturbation_line.png
+
+
+# TODO:
+# Ignore test files
+dos-example/
