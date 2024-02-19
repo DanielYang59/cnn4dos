@@ -10,7 +10,7 @@ from cnn4dos.data.eDOS import eDOS
 from cnn4dos.utils import ROOT_DIR
 
 # Define test variables
-test_data_dir = ROOT_DIR / "tests" / "test_data"
+test_data_dir = ROOT_DIR / "tests" / "test_data" / "hea_edos_spin_polarized"
 
 atoms = [0, 15]
 orbitals = ["s", "py", "pz", "px", "dxy", "dyz", "dz2", "dxz", "dx2"]
@@ -52,7 +52,7 @@ class Test_eDOS:
         edos = eDOS()
 
         edos.from_vasprun(
-            filename=test_data_dir / "edos-spin-polarized" / "vasprun.xml",
+            filename=test_data_dir / "vasprun.xml",
             atoms=atoms,
             orbitals=orbitals,
             spins=spins,
@@ -73,7 +73,7 @@ class Test_eDOS:
 
         with pytest.raises(ValueError, match=re.escape(expected_error)):
             edos.from_vasprun(
-                filename=test_data_dir / "edos-spin-polarized" / "vasprun.xml",
+                filename=test_data_dir / "vasprun.xml",
                 atoms=invalid_atoms,
                 orbitals=["s", "px"],
                 spins=["up", "down"],
@@ -94,7 +94,7 @@ class Test_eDOS:
 
         with pytest.raises(ValueError, match=expected_error):
             edos.from_vasprun(
-                filename=test_data_dir / "edos-spin-polarized" / "vasprun.xml",
+                filename=test_data_dir / "vasprun.xml",
                 atoms=[0, 15],
                 orbitals=invalid_orbitals,
                 spins=["up", "down"],
@@ -112,7 +112,7 @@ class Test_eDOS:
 
         with pytest.raises(ValueError, match=expected_error):
             edos.from_vasprun(
-                filename=test_data_dir / "edos-spin-polarized" / "vasprun.xml",
+                filename=test_data_dir / "vasprun.xml",
                 atoms=[0, 15],
                 orbitals=["s", "px"],
                 spins=invalid_spins,
