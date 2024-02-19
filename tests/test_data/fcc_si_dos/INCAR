@@ -1,0 +1,6 @@
+# From: https://www.vasp.at/wiki/index.php/Fcc_Si_DOS
+System = fcc Si 
+# ICHARG = 11 #charge read file
+ENCUT  =    240
+ISMEAR = -5 #tetrahedron
+LORBIT = 11
