@@ -22,6 +22,7 @@ def get_fermi_level(path: Path, digits: int = 4) -> float:
     Raises:
         FileNotFoundError: If no file containing the Fermi level is found.
     """
+
     # Compile possible files to search
     vasprun_file = path / "vasprun.xml"
     outcar_file = path / "OUTCAR"
