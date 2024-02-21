@@ -10,6 +10,7 @@ def convert_atom_selection(
     sel_index_start: int = 1,
     range_delimiter: str = "-",
     allow_duplicate: bool = False,
+    sort: bool = True
 ) -> list[int]:
     """Convert mixed-typed atom selections to a list of indices.
 
@@ -24,6 +25,8 @@ def convert_atom_selection(
             a range of atom indices in "2-5". Defaults to '-'.
         allow_duplicate (bool, optional): Whether duplicate indices are
             allowed in the selections. Defaults to False.
+        sort (bool, optional): Whether the return indexes would be sorted.
+            Defaults to True.
 
     Returns:
         list[int]: A list of indices representing the selected atoms.
@@ -50,21 +53,21 @@ def convert_atom_selection(
         if isinstance(item, int):
             atom_indices.append(item - sel_index_start)
 
-        # Element symbol like "Fe"
-        elif isinstance(item, str) and range_delimiter in item:
-            matches = [i for i, ele in enumerate(atom_list) if ele == item]
-            if not matches:
-                raise IndexError(f"Didn't find match for {item}.")
-            atom_indices.extend(matches)
-
         # Index range like "1-10"
-        elif isinstance(item, str) and range_delimiter not in item:
+        elif isinstance(item, str) and range_delimiter in item:
             # Split and check range selection
             parts = [int(i) - sel_index_start for i in item.split(range_delimiter)]
             if len(parts) != 2 or parts[0] >= parts[1]:
                 raise ValueError(f"Invalid range selection {item}.")
 
             atom_indices.extend(list(range(parts[0], parts[1] + 1)))
+
+        # Element symbol like "Fe"
+        elif isinstance(item, str) and range_delimiter not in item:
+            matches = [i for i, ele in enumerate(atom_list) if ele == item]
+            if not matches:
+                raise IndexError(f"Didn't find match for {item}.")
+            atom_indices.extend(matches)
 
         else:
             raise ValueError("Expect selections as a list of str or int.")
@@ -78,5 +81,9 @@ def convert_atom_selection(
 
     elif any(index < 0 or index >= len(atom_list) for index in atom_indices):
         raise ValueError("Atom selection out of bound.")
+
+    # Sort if requested
+    if sort:
+        atom_indices.sort()
 
     return atom_indices
