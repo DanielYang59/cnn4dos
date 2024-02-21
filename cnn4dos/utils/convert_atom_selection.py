@@ -10,7 +10,7 @@ def convert_atom_selection(
     sel_index_start: int = 1,
     range_delimiter: str = "-",
     allow_duplicate: bool = False,
-    sort: bool = True
+    sort: bool = True,
 ) -> list[int]:
     """Convert mixed-typed atom selections to a list of indices.
 
@@ -54,7 +54,7 @@ def convert_atom_selection(
 
     # Wrap single item as a list
     if isinstance(selections, (str, int)):
-        selections = [selections, ]
+        selections = [selections]
 
     # Perform itemwise conversion
     atom_indices = []
