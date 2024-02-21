@@ -29,7 +29,7 @@ class Test_eDOS:
 
     def test_from_array_and_to_array(self) -> None:
         # Create test numpy array with expected shape
-        test_arr = np.random.rand(*expected_shape)
+        test_arr = np.ones(expected_shape)
         test_filename = test_data_dir / ".temp_test_arr.npy"
 
         edos = eDOS()
@@ -119,7 +119,7 @@ class Test_eDOS:
             )
 
     def test_swap_axes(self) -> None:
-        original_arr = np.random.rand(*expected_shape)
+        original_arr = np.ones(expected_shape)
         edos = eDOS()
         edos.array = np.copy(original_arr)
 
