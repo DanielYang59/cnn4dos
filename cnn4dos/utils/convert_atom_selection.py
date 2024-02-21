@@ -84,12 +84,9 @@ def convert_atom_selection(
 
     # Check for duplicate and out-of-bound index
     if len(set(atom_indices)) != len(atom_indices):
-        if allow_duplicate:
-            warnings.warn("Duplicate found in atom indexes.")
+        warnings.warn("Duplicate found in atom indexes.")
+        if not allow_duplicate:
             atom_indices = list(set(atom_indices))
-
-        else:
-            raise ValueError("Duplicate found and not allowed.")
 
     elif any(index < 0 or index >= len(atom_list) for index in atom_indices):
         raise ValueError("Atom selection out of bound.")
