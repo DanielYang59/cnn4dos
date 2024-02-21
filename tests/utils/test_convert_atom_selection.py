@@ -2,7 +2,7 @@
 
 import pytest
 
-from cnn4dos.utils.convert_atom_selection import convert_atom_selection as cas
+from cnn4dos.utils import convert_atom_selection as cas
 
 # TODO: move global var definition inside test class
 atom_list = ["Fe", "Fe", "Co", "Co", "Ni", "Ni", "Fe", "Fe"]
