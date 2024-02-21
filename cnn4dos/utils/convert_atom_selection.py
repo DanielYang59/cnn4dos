@@ -46,6 +46,10 @@ def convert_atom_selection(
     if sel_index_start not in {0, 1}:
         raise ValueError("Index must start from either 0 or 1.")
 
+    # Wrap single item as a list
+    if isinstance(selections, (str, int)):
+        selections = [selections, ]
+
     # Perform itemwise conversion
     atom_indices = []
     for item in selections:
