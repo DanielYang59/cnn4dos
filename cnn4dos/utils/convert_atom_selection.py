@@ -32,9 +32,15 @@ def convert_atom_selection(
         list[int]: A list of indices representing the selected atoms.
 
     Raises:
-        ValueError: If duplicate indices are found in the selections and
-            allow_duplicate is False, or if any index in the selections
-            is out of range.
+        IndexError: If selection contains invalid element symbol.
+        ValueError: If any index in the selections is out of range.
+        ValueError: If sel_index_start is not 0 or 1.
+        ValueError: If range selection is invalid.
+        ValueError: If item in selections is not str or int.
+        TypeError: If the selections argument is not a string or a list of strings.
+
+    Warns:
+        UserWarning: If duplicate indices are found in the selections and allow_duplicate is False.
 
     Note:
         The output index starts from 0.
@@ -78,10 +84,9 @@ def convert_atom_selection(
 
     # Check for duplicate and out-of-bound index
     if len(set(atom_indices)) != len(atom_indices):
+        warnings.warn("Duplicate found in atom indexes.")
         if allow_duplicate:
-            warnings.warn("Duplicate found in atom indexes.")
-        else:
-            raise ValueError("Duplicate not allowed in atom indexes.")
+            atom_indices = list(set(atom_indices))
 
     elif any(index < 0 or index >= len(atom_list) for index in atom_indices):
         raise ValueError("Atom selection out of bound.")
