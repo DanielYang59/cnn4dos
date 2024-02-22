@@ -92,7 +92,7 @@ class Edos:
             warnings.warn("Cannot check eDOS shape without expected shape.")
             return False
 
-        elif self.array.shape == self.expected_shape:
+        elif self.edos_arr.shape == self.expected_shape:
             return True
 
         else:
@@ -116,7 +116,7 @@ class Edos:
             warnings.warn("eDOS file extension is not .npy.")
 
         # Load eDOS array
-        self.array = np.load(filename)
+        self.edos_arr = np.load(filename)
 
     def from_vasprun(
         self,
@@ -186,7 +186,7 @@ class Edos:
             arr = pdos[atom][Orbitals[orb]][Spins[spin]]
             results.append(arr)
 
-        self.array = np.array(results).reshape(
+        self.edos_arr = np.array(results).reshape(
             len(atoms), len(orbitals), len(spins), *results[0].shape
         )
 
@@ -218,17 +218,17 @@ class Edos:
         # Check arg: width
         if not isinstance(width, int) or width <= 0:
             raise ValueError("Removing width should be a positive integer.")
-        elif width > self.array.shape[e_axis]:
+        elif width > self.edos_arr.shape[e_axis]:
             raise ValueError("Removing width greater than total width.")
 
         # Remove ghost states by setting corresponding values to zero
         # TODO: avoid hard coding
         if e_axis == 0:
-            self.array[:width, :, :] = 0.0
+            self.edos_arr[:width, :, :] = 0.0
         elif e_axis == 1:
-            self.array[:, :width, :] = 0.0
+            self.edos_arr[:, :width, :] = 0.0
         elif e_axis == 2:
-            self.array[:, :, :width] = 0.0
+            self.edos_arr[:, :, :width] = 0.0
         else:
             raise ValueError("Axis index out of range.")
 
@@ -280,7 +280,7 @@ class Edos:
             None
         """
 
-        np.save(filename, self.array)
+        np.save(filename, self.edos_arr)
 
     # def preprocess(self, method: Union[Callable, str], axis: int) -> None:
     #     """Preprocess eDOS array.

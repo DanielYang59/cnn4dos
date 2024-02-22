@@ -95,20 +95,20 @@ class Test_Edos:
         test_filename = self.test_data_dir / ".temp_test_arr.npy"
 
         edos = Edos()
-        edos.array = np.copy(test_arr)
+        edos.edos_arr = np.copy(test_arr)
 
         if test_filename.is_file():
             raise FileExistsError("Test array file already exists.")
 
         else:
             edos.to_array(test_filename)
-            edos.array = np.nan
+            edos.edos_arr = np.nan
             edos.from_array(test_filename)
             Path.unlink(test_filename, missing_ok=False)
 
-            assert np.array_equal(edos.array, test_arr)
+            assert np.array_equal(edos.edos_arr, test_arr)
             # Ensure these two arrays does not share momory location
-            assert not np.shares_memory(edos.array, test_arr)
+            assert not np.shares_memory(edos.edos_arr, test_arr)
 
     def test_from_vasprun_success(self) -> None:
         edos = Edos()
@@ -120,7 +120,7 @@ class Test_Edos:
             spins=self.spins,
         )
 
-        assert edos.array.shape == self.expected_shape
+        assert edos.edos_arr.shape == self.expected_shape
 
     @pytest.mark.parametrize(
         "invalid_atoms, expected_error",
@@ -224,5 +224,29 @@ class Test_Edos:
             edos.reset_axes(invalid_axes)
 
     def test_remove_ghost_states(self) -> None:
-        # TODO:
-        pass
+        edos = Edos(
+            edos_arr=np.ones((3, 4, 5, 6)),
+            axes=("orbital", "energy", "atom", "spin"),
+        )
+
+        edos.remove_ghost_states(width=1)
+
+        assert np.all(edos.edos_arr[:, :1, :, :] == 0.0)
+
+    @pytest.mark.parametrize(
+        "invalid_width, error_msg",
+        [
+            (0, "Removing width should be a positive integer."),
+            (5, "Removing width greater than total width."),
+        ],
+    )
+    def test_remove_ghost_states_invalid_width(
+        self, invalid_width, error_msg
+    ) -> None:
+        with pytest.raises(ValueError, match=error_msg):
+            edos = Edos(
+                edos_arr=np.ones((3, 4, 5, 6)),
+                axes=("orbital", "energy", "atom", "spin"),
+            )
+
+            edos.remove_ghost_states(invalid_width)
