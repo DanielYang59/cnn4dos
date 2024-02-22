@@ -3,10 +3,9 @@ data, for VASP jobs.
 
 # TODO:
 - Check eDOS shape when loading from local numpy array file and vasprun
-- Finish preprocess method
 - Avoid hard coding in remove_ghost_state (energy axis selection)
-- Make sure no copies are made during "remove_ghost_states",
-    "reset_axes" and "preprocess".
+- Make sure no copies are made during "remove_ghost_states" and
+    "reset_axes".
 """
 
 import itertools
@@ -222,7 +221,6 @@ class Edos:
             raise ValueError("Removing width greater than total width.")
 
         # Remove ghost states by setting corresponding values to zero
-        # TODO: avoid hard coding
         if e_axis == 0:
             self.edos_arr[:width, :, :] = 0.0
         elif e_axis == 1:
@@ -281,21 +279,3 @@ class Edos:
         """
 
         np.save(filename, self.edos_arr)
-
-    # def preprocess(self, method: Union[Callable, str], axis: int) -> None:
-    #     """Preprocess eDOS array.
-    #     TODO:
-
-    #     """
-
-    #     if method in {"normalize", "normalise"}:
-    #         pass
-
-    #     elif method in {"standardize", "standardise"}:
-    #         pass
-
-    #     # elif isinstance(method, Callable):
-    #     #     pass
-
-    #     else:
-    #         raise ValueError(f"Unsupported preprocess method {method}.")
