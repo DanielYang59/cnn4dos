@@ -19,7 +19,8 @@ from cnn4dos.data.core import Orbitals, Spins
 
 
 class Edos:
-    """Handle electronic density of states (eDOS) as numpy array.
+    """Handle eDOS as numpy array, default in
+        shape ("orbital", "energy", "atom", "spin").
 
     Parameters:
     - edos_arr (Optional[np.ndarray], optional): The eDOS array.
@@ -27,42 +28,47 @@ class Edos:
     - expected_shape (Optional[tuple[int, int, int]], optional): The expected
         shape of the eDOS array. Defaults to None.
     - axes (tuple[str, str, str], optional): The axes labels for the
-        eDOS array. Defaults to ("orbital", "energy", "atom").
+        eDOS array. Defaults to ("orbital", "energy", "atom", "spin").
 
     Attributes:
-    - edos_arr: The 3D eDOS numpy array (expand_dims if not).
+    - edos_arr: The 4D eDOS numpy array (expand_dims if not).
     - expected_shape: The expected shape of the eDOS array.
     - axes: The axes labels for the eDOS array.
 
     Raises:
-    - ValueError: If the provided `expected_shape` is not a 3-tuple,
+    - ValueError: If the provided `expected_shape` is not a 4-tuple,
         or if the provided `axes` are not a tuple with
-        elements 'orbital', 'energy', and 'atom'.
+        elements 'orbital', 'energy', 'atom' and 'spin'.
     """
 
     def __init__(
         self,
         edos_arr: Optional[np.ndarray] = None,
         expected_shape: Optional[tuple[int, int, int]] = None,
-        axes: tuple[str, str, str] = ("orbital", "energy", "atom"),
+        axes: tuple[str, str, str, str] = (
+            "orbital",
+            "energy",
+            "atom",
+            "spin",
+        ),
     ) -> None:
         # Check arg: edos_arr
         if edos_arr is not None:
-            if not isinstance(edos_arr, np.ndarray) and edos_arr.ndim != 3:
-                raise ValueError("Expect a 3D eDOS numpy array.")
+            if not isinstance(edos_arr, np.ndarray) and edos_arr.ndim != 4:
+                raise ValueError("Expect a 4D eDOS numpy array.")
 
         # Check arg: expected_shape
-        if expected_shape is not None and len(expected_shape) != 3:
-            raise ValueError("Expect a 3D shape.")
+        if expected_shape is not None and len(expected_shape) != 4:
+            raise ValueError("Expect a 4D shape.")
 
         # Check arg: axes
         if (
             not isinstance(axes, tuple)
-            or len(axes) != 3
-            or sorted(axes) != sorted(("orbital", "energy", "atom"))
+            or len(axes) != 4
+            or sorted(axes) != sorted(("orbital", "energy", "atom", "spin"))
         ):
             raise ValueError(
-                "Axes must be a tuple with only 'orbital', 'energy', 'atom'."
+                "Axes should be tuple with only orbital, energy, atom, spin."
             )
 
         self.edos_arr = edos_arr
