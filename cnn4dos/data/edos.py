@@ -54,7 +54,7 @@ class Edos:
     ) -> None:
         # Check arg: edos_arr
         if edos_arr is not None:
-            if not isinstance(edos_arr, np.ndarray) and edos_arr.ndim != 4:
+            if not isinstance(edos_arr, np.ndarray) or edos_arr.ndim != 4:
                 raise ValueError("Expect a 4D eDOS numpy array.")
 
         # Check arg: expected_shape
