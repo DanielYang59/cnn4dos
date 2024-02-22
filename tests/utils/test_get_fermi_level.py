@@ -8,7 +8,7 @@ from cnn4dos.utils import ROOT_DIR, get_fermi_level
 
 
 @pytest.mark.filterwarnings(  # no POTCAR included in test data
-    "ignore", match="No POTCAR file with matching TITEL fields was found"
+    "ignore: No POTCAR file with matching TITEL fields was found"
 )
 class Test_get_fermi_level:
     test_data_dir = ROOT_DIR / "tests" / "test_data" / "fcc_si_dos"
