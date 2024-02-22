@@ -4,8 +4,7 @@ import shutil
 
 import pytest
 
-from cnn4dos.utils import ROOT_DIR
-from cnn4dos.utils import get_fermi_level
+from cnn4dos.utils import ROOT_DIR, get_fermi_level
 
 # Define test variables
 test_data_dir = ROOT_DIR / "tests" / "test_data" / "fcc_si_dos"

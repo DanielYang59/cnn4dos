@@ -9,12 +9,16 @@ atom_list = ["Fe", "Fe", "Co", "Co", "Ni", "Ni", "Fe", "Fe"]
 
 
 class Test_convert_atom_selection:
-
     @pytest.mark.parametrize(
         "selections, expected",
         [
             ("Fe", [0, 1, 6, 7]),
-            (["Fe", ], [0, 1, 6, 7]),
+            (
+                [
+                    "Fe",
+                ],
+                [0, 1, 6, 7],
+            ),
             (["Fe", "Co"], [0, 1, 2, 3, 6, 7]),
         ],
     )
@@ -22,15 +26,27 @@ class Test_convert_atom_selection:
         indexes = cas(
             atom_list=atom_list,
             selections=selections,
-            )
+        )
 
         assert indexes == expected
 
     @pytest.mark.parametrize(
         "selections, expected",
         [
-            (1, [0, ]),
-            ([1, ], [0, ]),
+            (
+                1,
+                [
+                    0,
+                ],
+            ),
+            (
+                [
+                    1,
+                ],
+                [
+                    0,
+                ],
+            ),
             ([1, 2], [0, 1]),
         ],
     )
@@ -38,7 +54,7 @@ class Test_convert_atom_selection:
         indexes = cas(
             atom_list=atom_list,
             selections=selections,
-            )
+        )
 
         assert indexes == expected
 
@@ -46,7 +62,7 @@ class Test_convert_atom_selection:
         indexes = cas(
             atom_list=atom_list,
             selections="1-3",
-            )
+        )
 
         assert indexes == [0, 1, 2]
 
@@ -54,7 +70,7 @@ class Test_convert_atom_selection:
         indexes = cas(
             atom_list=atom_list,
             selections=["Fe", 3, "4-6"],
-            )
+        )
 
         assert indexes == list(range(8))
 
@@ -67,10 +83,8 @@ class Test_convert_atom_selection:
     )
     def test_index_start(self, index_start, expected):
         indexes = cas(
-            atom_list=atom_list,
-            selections=[1, 2],
-            sel_index_start=index_start
-            )
+            atom_list=atom_list, selections=[1, 2], sel_index_start=index_start
+        )
 
         assert indexes == expected
 
@@ -82,11 +96,7 @@ class Test_convert_atom_selection:
         ],
     )
     def test_sort(self, sort, expected):
-        indexes = cas(
-            atom_list=atom_list,
-            selections=["Ni", "Co"],
-            sort=sort
-            )
+        indexes = cas(atom_list=atom_list, selections=["Ni", "Co"], sort=sort)
 
         assert indexes == expected
 
@@ -103,7 +113,7 @@ class Test_convert_atom_selection:
                 atom_list=atom_list,
                 selections=["Co", "3-4"],
                 sort=False,
-                allow_duplicate=allow_dup
+                allow_duplicate=allow_dup,
             )
 
         assert indexes == expected
