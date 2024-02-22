@@ -37,10 +37,12 @@ def convert_atom_selection(
         ValueError: If sel_index_start is not 0 or 1.
         ValueError: If range selection is invalid.
         ValueError: If item in selections is not str or int.
-        TypeError: If the selections argument is not a string or a list of strings.
+        TypeError: If the selections argument is not a string
+            or a list of strings.
 
     Warns:
-        UserWarning: If duplicate indices are found in the selections and allow_duplicate is False.
+        UserWarning: If duplicate indices are found in the selections
+            and allow_duplicate is False.
 
     Note:
         The output index starts from 0.
