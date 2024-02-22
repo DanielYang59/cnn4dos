@@ -5,16 +5,16 @@ from tempfile import TemporaryDirectory
 
 from cnn4dos.utils import list_folders
 
-class Test_list_folders:
 
+class Test_list_folders:
     def test_list_folders(self):
         with TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
 
             folders = [
-                tmp_path / 'folder1',
-                tmp_path / 'folder2',
-                tmp_path / '.hidden_folder',
+                tmp_path / "folder1",
+                tmp_path / "folder2",
+                tmp_path / ".hidden_folder",
             ]
             for folder in folders:
                 folder.mkdir()
@@ -22,7 +22,7 @@ class Test_list_folders:
             result = list_folders(tmp_path)
             assert len(result) == 2
             assert all(folder in result for folder in folders[:2])
-            assert (tmp_path / '.hidden_folder') not in result
+            assert (tmp_path / ".hidden_folder") not in result
 
     def test_must_have(self):
         with TemporaryDirectory() as tmp_dir:
@@ -46,9 +46,9 @@ class Test_list_folders:
             tmp_path = Path(tmp_dir)
 
             folders = [
-                tmp_path / 'folder1',
-                tmp_path / 'folder2',
-                tmp_path / '.hidden_folder',
+                tmp_path / "folder1",
+                tmp_path / "folder2",
+                tmp_path / ".hidden_folder",
             ]
             for folder in folders:
                 folder.mkdir()
