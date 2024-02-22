@@ -5,7 +5,7 @@ from unittest.mock import patch
 import numpy as np
 import pytest
 
-from cnn4dos.utils import plot_edos_1d
+from cnn4dos.plotters import plot_edos_1d
 
 
 class Test_plot_edos_1d:
