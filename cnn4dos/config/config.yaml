@@ -1,0 +1,26 @@
+# Example Config.yaml file
+# TODO: to be finished
+
+path:
+  feature_dir: "path_to_feature"
+  label_dir: "path_to_label"
+
+species:
+  substrates: ["substrate_0", "substrate_1"]
+  adsorbates: ["adsorbate_0", "adsorbate_1"]
+  centre_atoms: {
+    "substrate_0":centre_atom_index_0,
+    "substrate_1":centre_atom_index_1,
+   }
+  append_adsorbate_dos: True
+  load_augmentation: False
+  augmentations: ["0.5", "1.0", "1.5", "2.0", "2.5"]
+  spin: up
+
+model_training:
+  preprocessing: "none"
+  remove_ghost: True
+  batch_size: 64
+  validation_ratio: 0.2
+  epochs: 1000
+  sample_size: "ALL"
