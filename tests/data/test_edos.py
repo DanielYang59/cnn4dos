@@ -27,6 +27,68 @@ class Test_Edos:
 
     expected_shape = (len(atoms), len(orbitals), len(spins), nedos)
 
+    @pytest.mark.parametrize(
+        "edos_arr, expected_shape, axes",
+        [
+            (
+                np.ones((3, 4, 5, 6)),
+                (3, 4, 5, 6),
+                ("orbital", "energy", "atom", "spin"),
+            ),
+            (np.ones((3, 4, 5, 6)), (3, 4, 5, 6), None),
+            (np.ones((3, 4, 5, 6)), None, None),
+        ],
+    )
+    def test_valid_init(self, edos_arr, expected_shape, axes) -> None:
+        Edos(edos_arr, expected_shape, axes)
+
+    @pytest.mark.parametrize(
+        "edos_arr, expected_shape, axes, error_msg",
+        [
+            (
+                np.ones((1, 2, 3)),
+                None,
+                ("orbital", "energy", "atom", "spin"),
+                "Expect a 4D eDOS numpy array.",
+            ),
+            (
+                [1, 2, 3, 4],
+                None,
+                ("orbital", "energy", "atom", "spin"),
+                "Expect a 4D eDOS numpy array.",
+            ),
+            (
+                None,
+                (1, 2, 3),
+                ("orbital", "energy", "atom", "spin"),
+                "Expect a 4D shape.",
+            ),
+            (
+                None,
+                None,
+                ("orbital", "energy", "atom"),
+                "Axes should be tuple with only orbital, energy, atom, spin.",
+            ),
+            (
+                None,
+                None,
+                ("h", "e", "ll", "o"),
+                "Axes should be tuple with only orbital, energy, atom, spin.",
+            ),
+            (
+                None,
+                None,
+                ("atom", "energy", "atom", "spin"),
+                "Axes should be tuple with only orbital, energy, atom, spin.",
+            ),
+        ],
+    )
+    def test_invalid_init(
+        self, edos_arr, expected_shape, axes, error_msg
+    ) -> None:
+        with pytest.raises(ValueError, match=error_msg):
+            Edos(edos_arr=edos_arr, expected_shape=expected_shape, axes=axes)
+
     def test_from_array_and_to_array(self) -> None:
         # Create test numpy array with expected shape
         test_arr = np.ones(self.expected_shape)
@@ -133,4 +195,5 @@ class Test_Edos:
         assert np.array_equal(edos.array, np.swapaxes(original_arr, 0, 2))
 
     def test_remove_ghost_states(self) -> None:
+        # TODO:
         pass
