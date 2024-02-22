@@ -10,7 +10,7 @@ data, for VASP jobs.
 import itertools
 import warnings
 from pathlib import Path
-from typing import Callable, Optional, Union
+from typing import Optional
 
 import numpy as np
 from pymatgen.io.vasp import Vasprun
@@ -19,10 +19,55 @@ from cnn4dos.data.core import Orbitals, Spins
 
 
 class Edos:
-    """Handle electronic density of states (eDOS) as numpy array."""
+    """Handle electronic density of states (eDOS) as numpy array.
 
-    def __init__(self, shape: Optional[tuple[int]] = None) -> None:
-        self.expected_shape = shape
+    Parameters:
+    - edos_arr (Optional[np.ndarray], optional): The eDOS array.
+        Defaults to None, and could be parsed later.
+    - expected_shape (Optional[tuple[int, int, int]], optional): The expected
+        shape of the eDOS array. Defaults to None.
+    - axes (tuple[str, str, str], optional): The axes labels for the
+        eDOS array. Defaults to ("orbital", "energy", "atom").
+
+    Attributes:
+    - edos_arr: The 3D eDOS numpy array (expand_dims if not).
+    - expected_shape: The expected shape of the eDOS array.
+    - axes: The axes labels for the eDOS array.
+
+    Raises:
+    - ValueError: If the provided `expected_shape` is not a 3-tuple,
+        or if the provided `axes` are not a tuple with
+        elements 'orbital', 'energy', and 'atom'.
+    """
+
+    def __init__(
+        self,
+        edos_arr: Optional[np.ndarray] = None,
+        expected_shape: Optional[tuple[int, int, int]] = None,
+        axes: tuple[str, str, str] = ("orbital", "energy", "atom"),
+    ) -> None:
+        # Check arg: edos_arr
+        if edos_arr is not None:
+            if not isinstance(edos_arr, np.ndarray) and edos_arr.ndim != 3:
+                raise ValueError("Expect a 3D eDOS numpy array.")
+
+        # Check arg: expected_shape
+        if expected_shape is not None and len(expected_shape) != 3:
+            raise ValueError("Expect a 3D shape.")
+
+        # Check arg: axes
+        if (
+            not isinstance(axes, tuple)
+            or len(axes) != 3
+            or sorted(axes) != sorted(("orbital", "energy", "atom"))
+        ):
+            raise ValueError(
+                "Axes must be a tuple with only 'orbital', 'energy', 'atom'."
+            )
+
+        self.edos_arr = edos_arr
+        self.axes = axes
+        self.expected_shape = expected_shape
 
     def _check_shape(self) -> bool:
         """Check if the shape of the eDOS array matches the expected shape.
@@ -137,26 +182,8 @@ class Edos:
             len(atoms), len(orbitals), len(spins), *results[0].shape
         )
 
-    def preprocess(self, method: Union[Callable, str], axis: int) -> None:
-        """Preprocess eDOS array.
-        TODO:
-
-        """
-
-        if method in {"normalize", "normalise"}:
-            pass
-
-        elif method in {"standardize", "standardise"}:
-            pass
-
-        # elif isinstance(method, Callable):
-        #     pass
-
-        else:
-            raise ValueError(f"Unsupported preprocess method {method}.")
-
     def remove_ghost_states(self, e_axis: int, width: int = 1) -> None:
-        """Remove ghost states from eDOS array.
+        """Remove ghost states from eDOS array, along energy axis.
 
         During eDOS calculations, we observed that in some cases,
         there is a spike occurring exclusively at the 0th point of
@@ -224,3 +251,21 @@ class Edos:
         """
 
         np.save(filename, self.array)
+
+    # def preprocess(self, method: Union[Callable, str], axis: int) -> None:
+    #     """Preprocess eDOS array.
+    #     TODO:
+
+    #     """
+
+    #     if method in {"normalize", "normalise"}:
+    #         pass
+
+    #     elif method in {"standardize", "standardise"}:
+    #         pass
+
+    #     # elif isinstance(method, Callable):
+    #     #     pass
+
+    #     else:
+    #         raise ValueError(f"Unsupported preprocess method {method}.")
