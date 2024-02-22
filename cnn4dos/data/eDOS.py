@@ -2,8 +2,9 @@
 data, for VASP jobs.
 """
 
-# TODOs:
-# finish remove ghost state and preprocess methods
+# TODO:
+# Finish preprocess method
+# Avoid hard coding in remove_ghost_state (energy axis selection)
 
 import itertools
 import warnings
@@ -147,31 +148,45 @@ class eDOS:
         else:
             raise ValueError(f"Unsupported proprocess method {method}.")
 
-    def remove_ghost_states(self, axis: int, indexes: list[int]) -> None:
-        """Remove ghost states from eDOS.
+    def remove_ghost_states(self, e_axis: int, width: int = 1) -> None:
+        """Remove ghost states from eDOS array.
 
-        During the calculation of eDOS, we observed that in certain cases,
-        there is a significant spike occurring exclusively at the 0th point of
-        the entire eDOS. We have verified the unreality of this spike by
-        adjusting the energy windows; while the original spike disappears,
-        a new spike emerges at the new 0th position.
+        During eDOS calculations, we observed that in some cases,
+        there is a spike occurring exclusively at the 0th point of
+        the entire eDOS along energy axis. We verified the unreality of such
+        spike by sliding the eDOS energy windows; while the original spike
+        disappears, a new spike emerges at the new 0th position.
 
         Although the exact cause of this phenomenon remains unknown,
-        we have decided to remove it. Its presence would complicate data
-        preprocessing tasks such as normalization and standardization.
+        we decided to remove it anyway. Because its presence would yield data
+        preprocessing tricky such as normalization and standardization.
 
+        Parameters:
+        - e_axis (int): The index of the energy axis in the eDOS array.
+        - width (int, optional): The width along energy axis to remove
+            ghost states. Defaults to 1.
+
+        Raises:
+        - ValueError: If the provided axis index is invalid or if the removing
+            width is not a positive integer or exceeds the total eDOS width.
         """
-        # Check axis
-        if not (
-            isinstance(axis, int) and axis in range(len(self.array.shape))
-        ):
-            raise ValueError(f"Invalid axis {axis}.")
 
-        # Check indexes
-        # TODO:
+        # Check arg: width
+        if not isinstance(width, int) or width <= 0:
+            raise ValueError("Removing width should be a positive integer.")
+        elif width > self.array.shape[e_axis]:
+            raise ValueError("Removing width greater than total width.")
 
         # Remove ghost states by setting corresponding values to zero
-        # self.array[0, :] = 0.0
+        # TODO: avoid hard coding
+        if e_axis == 0:
+            self.array[:width, :, :] = 0.0
+        elif e_axis == 1:
+            self.array[:, :width, :] = 0.0
+        elif e_axis == 2:
+            self.array[:, :, :width] = 0.0
+        else:
+            raise ValueError("Axis index out of range.")
 
     def swap_axes(self, axis1: int, axis2: int) -> None:
         """Swap the axes of the eDOS array.
