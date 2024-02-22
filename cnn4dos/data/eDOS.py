@@ -5,20 +5,21 @@ data, for VASP jobs.
 # TODO:
 # Finish preprocess method
 # Avoid hard coding in remove_ghost_state (energy axis selection)
+# Make sure no copies are made during "remove_ghost_states" and "preprocess"
 
 import itertools
 import warnings
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional, Union
 
 import numpy as np
 from pymatgen.io.vasp import Vasprun
 
-from cnn4dos.utils import Orbitals, Spins
+from cnn4dos.data.core import Orbitals, Spins
 
 
 class eDOS:
-    """Handle eletronic density of states (eDOS) as numpy array."""
+    """Handle electronic density of states (eDOS) as numpy array."""
 
     def __init__(self, shape: Optional[tuple[int]] = None) -> None:
         self.expected_shape = shape
@@ -136,17 +137,23 @@ class eDOS:
             len(atoms), len(orbitals), len(spins), *results[0].shape
         )
 
-    def preprocess(self, method: str, axis: int) -> None:
-        # TODO:
+    def preprocess(self, method: Union[Callable, str], axis: int) -> None:
+        """Preprocess eDOS array.
+        TODO:
 
-        if method == "normalize":
+        """
+
+        if method in {"normalize", "normalise"}:
             pass
 
-        elif method == "standardize":
+        elif method in {"standardize", "standardise"}:
             pass
+
+        # elif isinstance(method, Callable):
+        #     pass
 
         else:
-            raise ValueError(f"Unsupported proprocess method {method}.")
+            raise ValueError(f"Unsupported preprocess method {method}.")
 
     def remove_ghost_states(self, e_axis: int, width: int = 1) -> None:
         """Remove ghost states from eDOS array.
