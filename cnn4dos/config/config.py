@@ -1,7 +1,9 @@
 """Handle config yaml file."""
-# TODO: add internal checking mechanisms
+
+# TODO: add internal checking methods
 
 from pathlib import Path
+
 import yaml
 
 
@@ -18,6 +20,6 @@ class Config:
         pass
 
     def read(self) -> dict:
-        with open(self.file, 'r') as file:
+        with open(self.file, "r") as file:
             config = yaml.safe_load(file)
         return config
