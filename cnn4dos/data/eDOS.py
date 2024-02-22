@@ -1,6 +1,10 @@
-"""Utilities for load, manipulate and save electronic density of state (eDOS)
+"""Load, manipulate and save electronic density of state (eDOS)
 data, for VASP jobs.
 """
+
+# TODOs:
+# 1. read config file and check expected shape
+# 2. finish remove ghost state and preprocess methods
 
 import itertools
 import warnings
@@ -99,7 +103,9 @@ class eDOS:
         if not all(
             isinstance(atom, int) and atom in range(total_atoms) for atom in atoms
         ):
-            raise ValueError(f"atom index must be int in range [0, {total_atoms - 1}]")
+            raise ValueError(
+                f"atom index must be int in range [0, {total_atoms - 1}]",
+            )
         if len(set(atoms)) != len(atoms):
             raise ValueError("Duplicate atoms not allowed.")
 

@@ -10,6 +10,7 @@ from cnn4dos.data.eDOS import eDOS
 from cnn4dos.utils import ROOT_DIR
 
 # Define test variables
+# TODO: move global definitions inside test Class
 test_data_dir = ROOT_DIR / "tests" / "test_data" / "hea_edos_spin_polarized"
 
 atoms = [0, 15]
