@@ -6,22 +6,21 @@ import pytest
 
 from cnn4dos.utils import ROOT_DIR, get_fermi_level
 
-# Define test variables
-test_data_dir = ROOT_DIR / "tests" / "test_data" / "fcc_si_dos"
-digits = 4
-
 
 @pytest.mark.filterwarnings(  # no POTCAR included in test data
     "ignore", match="No POTCAR file with matching TITEL fields was found"
 )
 class Test_get_fermi_level:
+    test_data_dir = ROOT_DIR / "tests" / "test_data" / "fcc_si_dos"
+    digits = 4
+
     def test_from_vasprun(self, tmp_path):
         test_dir = tmp_path / "vasprun_test"
         test_dir.mkdir()
 
-        shutil.copy(test_data_dir / "vasprun.xml", test_dir)
+        shutil.copy(self.test_data_dir / "vasprun.xml", test_dir)
 
-        fermi_level = get_fermi_level(test_dir, digits)
+        fermi_level = get_fermi_level(test_dir, self.digits)
 
         assert fermi_level == 9.8951
 
@@ -29,9 +28,9 @@ class Test_get_fermi_level:
         test_dir = tmp_path / "outcar_test"
         test_dir.mkdir()
 
-        shutil.copy(test_data_dir / "OUTCAR", test_dir)
+        shutil.copy(self.test_data_dir / "OUTCAR", test_dir)
 
-        fermi_level = get_fermi_level(test_dir, digits)
+        fermi_level = get_fermi_level(test_dir, self.digits)
 
         assert fermi_level == 9.8951
 
@@ -39,9 +38,9 @@ class Test_get_fermi_level:
         test_dir = tmp_path / "wavecar_test"
         test_dir.mkdir()
 
-        shutil.copy(test_data_dir / "WAVECAR", test_dir)
+        shutil.copy(self.test_data_dir / "WAVECAR", test_dir)
 
-        fermi_level = get_fermi_level(test_dir, digits)
+        fermi_level = get_fermi_level(test_dir, self.digits)
 
         assert fermi_level == 9.8951
 

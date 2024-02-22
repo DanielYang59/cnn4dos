@@ -4,11 +4,10 @@ import pytest
 
 from cnn4dos.utils import convert_atom_selection as cas
 
-# TODO: move global var definition inside test class
-atom_list = ["Fe", "Fe", "Co", "Co", "Ni", "Ni", "Fe", "Fe"]
-
 
 class Test_convert_atom_selection:
+    atom_list = ["Fe", "Fe", "Co", "Co", "Ni", "Ni", "Fe", "Fe"]
+
     @pytest.mark.parametrize(
         "selections, expected",
         [
@@ -24,7 +23,7 @@ class Test_convert_atom_selection:
     )
     def test_convert_ele_name(self, selections, expected):
         indexes = cas(
-            atom_list=atom_list,
+            atom_list=self.atom_list,
             selections=selections,
         )
 
@@ -52,7 +51,7 @@ class Test_convert_atom_selection:
     )
     def test_convert_index(self, selections, expected):
         indexes = cas(
-            atom_list=atom_list,
+            atom_list=self.atom_list,
             selections=selections,
         )
 
@@ -60,7 +59,7 @@ class Test_convert_atom_selection:
 
     def test_convert_index_range(self):
         indexes = cas(
-            atom_list=atom_list,
+            atom_list=self.atom_list,
             selections="1-3",
         )
 
@@ -68,7 +67,7 @@ class Test_convert_atom_selection:
 
     def test_convert_mixing(self):
         indexes = cas(
-            atom_list=atom_list,
+            atom_list=self.atom_list,
             selections=["Fe", 3, "4-6"],
         )
 
@@ -83,7 +82,9 @@ class Test_convert_atom_selection:
     )
     def test_index_start(self, index_start, expected):
         indexes = cas(
-            atom_list=atom_list, selections=[1, 2], sel_index_start=index_start
+            atom_list=self.atom_list,
+            selections=[1, 2],
+            sel_index_start=index_start,
         )
 
         assert indexes == expected
@@ -96,7 +97,9 @@ class Test_convert_atom_selection:
         ],
     )
     def test_sort(self, sort, expected):
-        indexes = cas(atom_list=atom_list, selections=["Ni", "Co"], sort=sort)
+        indexes = cas(
+            atom_list=self.atom_list, selections=["Ni", "Co"], sort=sort
+        )
 
         assert indexes == expected
 
@@ -112,7 +115,7 @@ class Test_convert_atom_selection:
             UserWarning, match="Duplicate found in atom indexes."
         ):
             indexes = cas(
-                atom_list=atom_list,
+                atom_list=self.atom_list,
                 selections=["Co", "3-4"],
                 sort=False,
                 allow_duplicate=allow_dup,
