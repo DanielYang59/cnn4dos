@@ -3,12 +3,12 @@ data, for VASP jobs.
 """
 
 # TODOs:
-# 1. read config file and check expected shape
-# 2. finish remove ghost state and preprocess methods
+# finish remove ghost state and preprocess methods
 
 import itertools
 import warnings
 from pathlib import Path
+from typing import Optional
 
 import numpy as np
 from pymatgen.io.vasp import Vasprun
@@ -19,8 +19,8 @@ from cnn4dos.utils import Orbitals, Spins
 class eDOS:
     """Handle eletronic density of states (eDOS) as numpy array."""
 
-    def __init__(self, shape: tuple[int] = None) -> None:
-        self.expected_shape = shape  # TODO
+    def __init__(self, shape: Optional[tuple[int]] = None) -> None:
+        self.expected_shape = shape
 
     def _check_shape(self) -> bool:
         """Check if the shape of the eDOS array matches the expected shape.
