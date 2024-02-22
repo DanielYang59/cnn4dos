@@ -1,4 +1,4 @@
-"""Pytest unit test for eDOS class."""
+"""Pytest unit test for Edos class."""
 
 import re
 from pathlib import Path
@@ -6,15 +6,15 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from cnn4dos.data.eDOS import eDOS
+from cnn4dos.data import Edos
 from cnn4dos.utils import ROOT_DIR
 
 
 @pytest.mark.filterwarnings(  # no POTCAR included in test data
     "ignore: No POTCAR file with matching TITEL fields was found"
 )
-class Test_eDOS:
-    """Pytest unit test for eDOS class."""
+class Test_Edos:
+    """Pytest unit test for Edos class."""
 
     test_data_dir = (
         ROOT_DIR / "tests" / "test_data" / "hea_edos_spin_polarized"
@@ -32,7 +32,7 @@ class Test_eDOS:
         test_arr = np.ones(self.expected_shape)
         test_filename = self.test_data_dir / ".temp_test_arr.npy"
 
-        edos = eDOS()
+        edos = Edos()
         edos.array = np.copy(test_arr)
 
         if test_filename.is_file():
@@ -49,7 +49,7 @@ class Test_eDOS:
             assert not np.shares_memory(edos.array, test_arr)
 
     def test_from_vasprun_success(self) -> None:
-        edos = eDOS()
+        edos = Edos()
 
         edos.from_vasprun(
             filename=self.test_data_dir / "vasprun.xml",
@@ -71,7 +71,7 @@ class Test_eDOS:
     def test_from_vasprun_invalid_atoms(
         self, invalid_atoms, expected_error
     ) -> None:
-        edos = eDOS()
+        edos = Edos()
 
         with pytest.raises(ValueError, match=re.escape(expected_error)):
             edos.from_vasprun(
@@ -92,7 +92,7 @@ class Test_eDOS:
     def test_from_vasprun_invalid_orbitals(
         self, invalid_orbitals, expected_error
     ) -> None:
-        edos = eDOS()
+        edos = Edos()
 
         with pytest.raises(ValueError, match=expected_error):
             edos.from_vasprun(
@@ -112,7 +112,7 @@ class Test_eDOS:
     def test_from_vasprun_invalid_spins(
         self, invalid_spins, expected_error
     ) -> None:
-        edos = eDOS()
+        edos = Edos()
 
         with pytest.raises(ValueError, match=expected_error):
             edos.from_vasprun(
@@ -124,10 +124,13 @@ class Test_eDOS:
 
     def test_swap_axes(self) -> None:
         original_arr = np.ones(self.expected_shape)
-        edos = eDOS()
+        edos = Edos()
         edos.array = np.copy(original_arr)
 
         edos.swap_axes(0, 2)
 
         assert not np.shares_memory(edos.array, original_arr)
         assert np.array_equal(edos.array, np.swapaxes(original_arr, 0, 2))
+
+    def test_remove_ghost_states(self) -> None:
+        pass
