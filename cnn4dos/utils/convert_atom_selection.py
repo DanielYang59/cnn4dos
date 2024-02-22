@@ -66,7 +66,9 @@ def convert_atom_selection(
         # Index range like "1-10"
         elif isinstance(item, str) and range_delimiter in item:
             # Split and check range selection
-            parts = [int(i) - sel_index_start for i in item.split(range_delimiter)]
+            parts = [
+                int(i) - sel_index_start for i in item.split(range_delimiter)
+            ]
             if len(parts) != 2 or parts[0] >= parts[1]:
                 raise ValueError(f"Invalid range selection {item}.")
 

@@ -108,7 +108,9 @@ class Test_convert_atom_selection:
         ],
     )
     def test_duplicate(self, allow_dup, expected):
-        with pytest.warns(UserWarning, match="Duplicate found in atom indexes."):
+        with pytest.warns(
+            UserWarning, match="Duplicate found in atom indexes."
+        ):
             indexes = cas(
                 atom_list=atom_list,
                 selections=["Co", "3-4"],

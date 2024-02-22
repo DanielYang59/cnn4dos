@@ -69,7 +69,9 @@ class Test_eDOS:
             ([1, 1], "Duplicate atoms not allowed."),
         ],
     )
-    def test_from_vasprun_invalid_atoms(self, invalid_atoms, expected_error) -> None:
+    def test_from_vasprun_invalid_atoms(
+        self, invalid_atoms, expected_error
+    ) -> None:
         edos = eDOS()
 
         with pytest.raises(ValueError, match=re.escape(expected_error)):
@@ -108,7 +110,9 @@ class Test_eDOS:
             (["up", "up"], "Duplicate spins not allowed."),
         ],
     )
-    def test_from_vasprun_invalid_spins(self, invalid_spins, expected_error) -> None:
+    def test_from_vasprun_invalid_spins(
+        self, invalid_spins, expected_error
+    ) -> None:
         edos = eDOS()
 
         with pytest.raises(ValueError, match=expected_error):

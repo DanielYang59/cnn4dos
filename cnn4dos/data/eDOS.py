@@ -101,7 +101,8 @@ class eDOS:
         total_atoms = len(vasprun.atomic_symbols)
 
         if not all(
-            isinstance(atom, int) and atom in range(total_atoms) for atom in atoms
+            isinstance(atom, int) and atom in range(total_atoms)
+            for atom in atoms
         ):
             raise ValueError(
                 f"atom index must be int in range [0, {total_atoms - 1}]",
@@ -109,7 +110,9 @@ class eDOS:
         if len(set(atoms)) != len(atoms):
             raise ValueError("Duplicate atoms not allowed.")
 
-        if not all(isinstance(orb, str) and orb in Orbitals for orb in orbitals):
+        if not all(
+            isinstance(orb, str) and orb in Orbitals for orb in orbitals
+        ):
             raise ValueError("Invalid orbital found.")
         if len(set(orbitals)) != len(orbitals):
             raise ValueError("Duplicate orbitals not allowed.")
@@ -159,7 +162,9 @@ class eDOS:
 
         """
         # Check axis
-        if not (isinstance(axis, int) and axis in range(len(self.array.shape))):
+        if not (
+            isinstance(axis, int) and axis in range(len(self.array.shape))
+        ):
             raise ValueError(f"Invalid axis {axis}.")
 
         # Check indexes

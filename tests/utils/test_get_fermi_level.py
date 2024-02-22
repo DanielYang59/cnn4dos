@@ -50,6 +50,7 @@ class Test_get_fermi_level:
         test_dir.mkdir()
 
         with pytest.raises(
-            FileNotFoundError, match="Cannot find any file containing fermi level."
+            FileNotFoundError,
+            match="Cannot find any file containing fermi level.",
         ):
             get_fermi_level(test_dir / "nonexistent_file")

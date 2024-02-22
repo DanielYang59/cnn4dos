@@ -31,8 +31,12 @@ def list_folders(
     # Find matched folders
     matched_folders = []
     for folder in path.iterdir():
-        if folder.is_dir() and (not ignore_hidden or not folder.name.startswith(".")):
-            if must_have is None or all((folder / file).exists() for file in must_have):
+        if folder.is_dir() and (
+            not ignore_hidden or not folder.name.startswith(".")
+        ):
+            if must_have is None or all(
+                (folder / file).exists() for file in must_have
+            ):
                 matched_folders.append(folder)
 
     return matched_folders
