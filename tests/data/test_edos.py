@@ -184,15 +184,44 @@ class Test_Edos:
                 spins=invalid_spins,
             )
 
-    def test_swap_axes(self) -> None:
-        original_arr = np.ones(self.expected_shape)
-        edos = Edos()
-        edos.array = np.copy(original_arr)
+    def test_reset_axes(self) -> None:
+        edos = Edos(
+            edos_arr=np.ones((3, 4, 5, 6)),
+            axes=("orbital", "energy", "atom", "spin"),
+        )
 
-        edos.swap_axes(0, 2)
+        edos.reset_axes(("spin", "atom", "energy", "orbital"))
 
-        assert not np.shares_memory(edos.array, original_arr)
-        assert np.array_equal(edos.array, np.swapaxes(original_arr, 0, 2))
+        assert edos.edos_arr.shape == (6, 5, 4, 3)  # type: ignore
+
+    def test_reset_axes_same(self) -> None:
+        with pytest.warns(UserWarning, match="Old and new axes are the same."):
+            edos = Edos(
+                edos_arr=np.ones((3, 4, 5, 6)),
+                axes=("orbital", "energy", "atom", "spin"),
+            )
+
+            edos.reset_axes(("orbital", "energy", "atom", "spin"))
+
+    @pytest.mark.parametrize(
+        "invalid_axes",
+        [
+            ("orbital", "energy", "atom"),
+            ("h", "e", "ll", "o"),
+            ("orbital", "energy", "atom", "atom"),
+        ],
+    )
+    def test_reset_axes_invalid_axes(self, invalid_axes) -> None:
+        edos = Edos(
+            edos_arr=np.ones((3, 4, 5, 6)),
+            axes=("orbital", "energy", "atom", "spin"),
+        )
+
+        with pytest.raises(
+            ValueError,
+            match="Axes should be tuple with only orbital, energy, atom, spin.",  # noqa: E501
+        ):
+            edos.reset_axes(invalid_axes)
 
     def test_remove_ghost_states(self) -> None:
         # TODO:

@@ -2,9 +2,11 @@
 data, for VASP jobs.
 
 # TODO:
+- Check eDOS shape when loading from local numpy array file and vasprun
 - Finish preprocess method
 - Avoid hard coding in remove_ghost_state (energy axis selection)
-- Make sure no copies are made during "remove_ghost_states" and "preprocess"
+- Make sure no copies are made during "remove_ghost_states",
+    "reset_axes" and "preprocess".
 """
 
 import itertools
@@ -228,23 +230,43 @@ class Edos:
         else:
             raise ValueError("Axis index out of range.")
 
-    def swap_axes(self, axis1: int, axis2: int) -> None:
-        """Swap the axes of the eDOS array.
+    def reset_axes(self, new_axes: tuple[str, str, str, str]) -> None:
+        """Reset the axes of the eDOS array based on new axes labels.
+            Axes should be tuple with only "orbital",
+            "energy", "atom" and "spin".
 
         Parameters:
-            axis1 (int): The first axis to be swapped.
-            axis2 (int): The second axis to be swapped.
+            new_axes (tuple[str, str, str, str]): The new axes labels.
 
         Returns:
             None
-
-        Notes:
-            For example, if you have an array with shape (a, b),
-            calling swap_axes(arr, 0, 1) will result in the array's
-            shape being transformed to (b, a).
         """
+        # Check new axes
+        if not (
+            isinstance(new_axes, tuple)
+            and len(new_axes) == 4
+            and sorted(new_axes)
+            == sorted(("orbital", "energy", "atom", "spin"))
+        ):
+            raise ValueError(
+                "Axes should be tuple with only orbital, energy, atom, spin."
+            )
 
-        self.array = np.swapaxes(self.array, axis1, axis2)
+        # Reset axes by swapping axies
+        if self.edos_arr is None:
+            raise ValueError("Cannot reset axes where no edos_arr is set.")
+
+        elif new_axes == self.axes:
+            warnings.warn("Old and new axes are the same.")
+
+        else:
+            # Get the permutation required to swap axes based on the new order
+            axis_map = {axis: idx for idx, axis in enumerate(self.axes)}
+            permutation = [axis_map[axis] for axis in new_axes]
+
+            # Apply the permutation
+            self.axes = new_axes
+            self.edos_arr = np.transpose(self.edos_arr, permutation)
 
     def to_array(self, filename: Path) -> None:
         """Save eDOS array to a numpy array file (.npy).
