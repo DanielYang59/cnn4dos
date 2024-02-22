@@ -190,7 +190,7 @@ class Edos:
             len(atoms), len(orbitals), len(spins), *results[0].shape
         )
 
-    def remove_ghost_states(self, e_axis: int, width: int = 1) -> None:
+    def remove_ghost_states(self, width: int = 1) -> None:
         """Remove ghost states from eDOS array, along energy axis.
 
         During eDOS calculations, we observed that in some cases,
@@ -204,7 +204,6 @@ class Edos:
         preprocessing tricky such as normalization and standardization.
 
         Parameters:
-        - e_axis (int): The index of the energy axis in the eDOS array.
         - width (int, optional): The width along energy axis to remove
             ghost states. Defaults to 1.
 
@@ -212,6 +211,9 @@ class Edos:
         - ValueError: If the provided axis index is invalid or if the removing
             width is not a positive integer or exceeds the total eDOS width.
         """
+
+        # Get energy axis index
+        e_axis = self.axes.index("energy")
 
         # Check arg: width
         if not isinstance(width, int) or width <= 0:
