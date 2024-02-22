@@ -44,7 +44,7 @@ class Edos:
     def __init__(
         self,
         edos_arr: Optional[np.ndarray] = None,
-        expected_shape: Optional[tuple[int, int, int]] = None,
+        expected_shape: Optional[tuple[int, int, int, int]] = None,
         axes: tuple[str, str, str, str] = (
             "orbital",
             "energy",
@@ -62,7 +62,7 @@ class Edos:
             raise ValueError("Expect a 4D shape.")
 
         # Check arg: axes
-        if (
+        if axes is not None and (
             not isinstance(axes, tuple)
             or len(axes) != 4
             or sorted(axes) != sorted(("orbital", "energy", "atom", "spin"))
