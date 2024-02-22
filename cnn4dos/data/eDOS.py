@@ -1,11 +1,11 @@
 """Load, manipulate and save electronic density of state (eDOS)
 data, for VASP jobs.
-"""
 
 # TODO:
-# Finish preprocess method
-# Avoid hard coding in remove_ghost_state (energy axis selection)
-# Make sure no copies are made during "remove_ghost_states" and "preprocess"
+- Finish preprocess method
+- Avoid hard coding in remove_ghost_state (energy axis selection)
+- Make sure no copies are made during "remove_ghost_states" and "preprocess"
+"""
 
 import itertools
 import warnings

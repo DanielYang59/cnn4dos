@@ -1,4 +1,6 @@
-"""Global definitions."""
+"""Global definitions.
+TODO: use Pymatgen definition of Orbitals/Spin directly.
+"""
 
 from pymatgen.electronic_structure.core import Orbital, Spin
 
