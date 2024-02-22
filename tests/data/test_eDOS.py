@@ -10,9 +10,8 @@ from cnn4dos.data.eDOS import eDOS
 from cnn4dos.utils import ROOT_DIR
 
 
-# Test starts
 @pytest.mark.filterwarnings(  # no POTCAR included in test data
-    "ignore", match="No POTCAR file with matching TITEL fields was found"
+    "ignore: No POTCAR file with matching TITEL fields was found"
 )
 class Test_eDOS:
     """Pytest unit test for eDOS class."""
