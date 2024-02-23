@@ -97,7 +97,7 @@ class Edos:
         else:
             return False
 
-    def from_array(self, filename: Path) -> None:
+    def from_arr_file(self, filename: Path) -> None:
         """Load eDOS directly from numpy array file.
 
         Parameters:

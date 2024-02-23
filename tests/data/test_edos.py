@@ -89,7 +89,7 @@ class Test_Edos:
         with pytest.raises(ValueError, match=error_msg):
             Edos(edos_arr=edos_arr, expected_shape=expected_shape, axes=axes)
 
-    def test_from_array_and_to_array(self) -> None:
+    def test_from_array_and_to_array_file(self) -> None:
         # Create test numpy array with expected shape
         test_arr = np.ones(self.expected_shape)
         test_filename = self.test_data_dir / ".temp_test_arr.npy"
@@ -103,7 +103,7 @@ class Test_Edos:
         else:
             edos.to_array(test_filename)
             edos.edos_arr = np.nan
-            edos.from_array(test_filename)
+            edos.from_arr_file(test_filename)
             Path.unlink(test_filename, missing_ok=False)
 
             assert np.array_equal(edos.edos_arr, test_arr)
