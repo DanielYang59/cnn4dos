@@ -2,11 +2,10 @@
 data, for VASP jobs.
 
 # TODO:
+- Add unit tests for class properties
 - Consider removing "expected_shape" and enforce strict & consistent shape
 - Check eDOS shape when loading from local numpy array file and vasprun
-- Avoid hard coding in remove_ghost_state (energy axis selection)
-- Make sure no copies are made during "remove_ghost_states" and
-    "reset_axes".
+- Make sure no copies are made during "reset_axes"
 """
 
 import itertools
@@ -87,29 +86,6 @@ class Edos:
         self.edos_arr = edos_arr
         self.axes = axes
         self.expected_shape = expected_shape
-
-    @property
-    def axes(self):
-        """Axis labels (atom/energy/orbital/spin)."""
-        return self.axes
-
-    @axes.setter
-    def axes(self, new_axes: tuple[str, str, str, str]) -> None:
-        if (
-            not isinstance(new_axes, tuple)
-            or len(new_axes) != 4
-            or sorted(new_axes)
-            != sorted(("orbital", "energy", "atom", "spin"))
-        ):
-            raise ValueError(
-                "Axes should be a tuple with only orbital, energy, atom, spin."
-            )
-        self._axes = new_axes
-
-    @property
-    def shape(self):
-        """Shape of eDOS array."""
-        return self.shape
 
     def _check_shape(self) -> bool:
         """Check if the shape of the eDOS array matches the expected shape.
@@ -232,47 +208,6 @@ class Edos:
         self.edos_arr = np.array(results).reshape(
             len(atoms), len(orbitals), len(spins), *results[0].shape
         )
-
-    def remove_ghost_states(self, width: int = 1) -> None:
-        """Remove ghost states from eDOS array, along energy axis.
-
-        During eDOS calculations, we observed that in some cases,
-        there is a spike occurring exclusively at the 0th point of
-        the entire eDOS along energy axis. We verified the unreality of such
-        spike by sliding the eDOS energy windows; while the original spike
-        disappears, a new spike emerges at the new 0th position.
-
-        Although the exact cause of this phenomenon remains unknown,
-        we decided to remove it anyway. Because its presence would yield data
-        preprocessing tricky such as normalization and standardization.
-
-        Parameters:
-        - width (int, optional): The width along energy axis to remove
-            ghost states. Defaults to 1.
-
-        Raises:
-        - ValueError: If the provided axis index is invalid or if the removing
-            width is not a positive integer or exceeds the total eDOS width.
-        """
-
-        # Get energy axis index
-        e_axis = self.axes.index("energy")
-
-        # Check arg: width
-        if not isinstance(width, int) or width <= 0:
-            raise ValueError("Removing width should be a positive integer.")
-        elif width > self.edos_arr.shape[e_axis]:
-            raise ValueError("Removing width greater than total width.")
-
-        # Remove ghost states by setting corresponding values to zero
-        if e_axis == 0:
-            self.edos_arr[:width, :, :] = 0.0
-        elif e_axis == 1:
-            self.edos_arr[:, :width, :] = 0.0
-        elif e_axis == 2:
-            self.edos_arr[:, :, :width] = 0.0
-        else:
-            raise ValueError("Axis index out of range.")
 
     def reset_axes(self, new_axes: tuple[str, str, str, str]) -> None:
         """Reset the axes of the eDOS array based on new axes labels.

@@ -222,31 +222,3 @@ class Test_Edos:
             match="Axes should be tuple with only orbital, energy, atom, spin.",  # noqa: E501
         ):
             edos.reset_axes(invalid_axes)
-
-    def test_remove_ghost_states(self) -> None:
-        edos = Edos(
-            edos_arr=np.ones((3, 4, 5, 6)),
-            axes=("orbital", "energy", "atom", "spin"),
-        )
-
-        edos.remove_ghost_states(width=1)
-
-        assert np.all(edos.edos_arr[:, :1, :, :] == 0.0)
-
-    @pytest.mark.parametrize(
-        "invalid_width, error_msg",
-        [
-            (0, "Removing width should be a positive integer."),
-            (5, "Removing width greater than total width."),
-        ],
-    )
-    def test_remove_ghost_states_invalid_width(
-        self, invalid_width, error_msg
-    ) -> None:
-        with pytest.raises(ValueError, match=error_msg):
-            edos = Edos(
-                edos_arr=np.ones((3, 4, 5, 6)),
-                axes=("orbital", "energy", "atom", "spin"),
-            )
-
-            edos.remove_ghost_states(invalid_width)
