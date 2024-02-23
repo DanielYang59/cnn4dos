@@ -7,7 +7,7 @@ from cnn4dos.utils import ROOT_DIR
 
 
 class Test_config:
-    test_config_file = ROOT_DIR / "cnn4dos" / "config" / "config.yaml"
+    test_config_file = ROOT_DIR / "cnn4dos" / "config" / "config_template.yaml"
     non_existent_config_file = ROOT_DIR / "non_existent_folder" / "config.yaml"
 
     def test_read_config(self) -> None:
