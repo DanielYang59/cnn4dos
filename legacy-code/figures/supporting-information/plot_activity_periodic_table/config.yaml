@@ -1,0 +1,11 @@
+##### Config File for Limiting Potential Periodic Table #####
+
+paths:
+  limiting_potential_file: "../../5-volcano-plot/src/test/debug_results/diff_limiting_potential.csv"
+  data_cols: {"name":0, "limiting_potential":1}
+
+species:
+  substrate: "g-C3N4"
+
+plottings:
+  colorbar_range: {"low":-3.6, "high":-0.8}
