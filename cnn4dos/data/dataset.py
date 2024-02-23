@@ -7,7 +7,7 @@
 
 from typing import Any
 
-from cnn4dos.data import Edos
+from cnn4dos.data.edos import Edos
 
 
 class Sample:
