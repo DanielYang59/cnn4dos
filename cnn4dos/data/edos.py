@@ -2,6 +2,7 @@
 data, for VASP jobs.
 
 # TODO:
+- Consider removing "expected_shape" and enforce strict & consistent shape
 - Check eDOS shape when loading from local numpy array file and vasprun
 - Avoid hard coding in remove_ghost_state (energy axis selection)
 - Make sure no copies are made during "remove_ghost_states" and
@@ -20,8 +21,19 @@ from cnn4dos.data.core import Orbitals, Spins
 
 
 class Edos:
-    """Handle eDOS as numpy array, default in
-        shape ("orbital", "energy", "atom", "spin").
+    """Handle eDOS as numpy array.
+
+    Intro:
+        eDOS is expected to be a 4D array, with axes: "orbital", "energy",
+        "atom", and "spin". Where "orbital" for s/p/d/f orbitals,
+        "energy" for the energy axis, "atom" for atomic channels and "spin"
+        for two spin channels. If your eDOS has a different shape, for example
+        for cases of single atom and single spin of shape (orbital, energy),
+        you would need to expand_dims it to (orbital, energy, 1, 1).
+
+        Meanwhile, as there is currently no standard nomination of eDOS axes,
+        eDOS would carry an "axes" attrib so that you could easily keep track
+        of the axes and adjust them whenever necessary (using reset_axes).
 
     Parameters:
     - edos_arr (Optional[np.ndarray], optional): The eDOS array.
@@ -76,6 +88,29 @@ class Edos:
         self.axes = axes
         self.expected_shape = expected_shape
 
+    @property
+    def axes(self):
+        """Axis labels (atom/energy/orbital/spin)."""
+        return self.axes
+
+    @axes.setter
+    def axes(self, new_axes: tuple[str, str, str, str]) -> None:
+        if (
+            not isinstance(new_axes, tuple)
+            or len(new_axes) != 4
+            or sorted(new_axes)
+            != sorted(("orbital", "energy", "atom", "spin"))
+        ):
+            raise ValueError(
+                "Axes should be a tuple with only orbital, energy, atom, spin."
+            )
+        self._axes = new_axes
+
+    @property
+    def shape(self):
+        """Shape of eDOS array."""
+        return self.shape
+
     def _check_shape(self) -> bool:
         """Check if the shape of the eDOS array matches the expected shape.
 
@@ -96,6 +131,15 @@ class Edos:
 
         else:
             return False
+
+    def get_shape(self, axis_label: str) -> int:
+        """Get shape of certain axis by label."""
+        if axis_label not in {"orbital", "energy", "atom", "spin"}:
+            raise ValueError("Invalid axis label.")
+
+        else:
+            axis_index = self.axes.index(axis_label)
+            return self.edos_arr.shape[axis_index]
 
     def from_arr_file(self, filename: Path) -> None:
         """Load eDOS directly from numpy array file.
