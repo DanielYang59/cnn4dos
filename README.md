@@ -15,7 +15,7 @@
 
 ## Introduction
 
-This project originates from my MPhil research project titled *Descriptor-guided screening and understanding of 2D substrate-supported single-atomic CO2RR electrocatalysts*. In this study, a convolutional neural network (CNN) was developed to predict adsorption energy from electronic density of states (eDOS).
+This project originates from my MPhil research project titled *Descriptor-guided screening and understanding of 2D substrate-supported single-atomic CO<sub>2</sub>RR electrocatalysts*. In this study, a convolutional neural network (CNN) was developed to predict adsorption energy from electronic density of states (eDOS).
 
 ## Manual
 
