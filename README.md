@@ -1,10 +1,10 @@
-# MPhil Research Project at QUT: Adsorption Energy Prediction from Electronic Density of States with Convolutional Neural Networks
+# MPhil Research Project at QUT: Convolutional Neural Networks and Volcano Plots: Screening and Prediction of Two-Dimensional Single-Atom Catalysts
 
 [![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876) [![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
 
 ## Overview
 
-This repository contains the code, data and resources to support my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT), titled "*Descriptor-guided screening and understanding of 2D substrate supported single atomic CO<sub>2</sub>RR electrocalysts*" and co-supervised by [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) and [Prof. Ziqi Sun](https://www.qut.edu.au/about/our-people/academic-profiles/ziqi.sun). The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
+This repository contains the code, data and resources to recreate my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT), titled "*Descriptor-guided screening and understanding of 2D substrate supported single atomic CO<sub>2</sub>RR electrocalysts*" and supervised by [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) and Prof. Ziqi Sun. The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
 
 ## Description
 
@@ -18,15 +18,20 @@ This project investigated the CO<sub>2</sub> reduction to CH<sub>4</sub> reactio
 - Physical meaningfulness confirmed by crystal orbital Hamilton population (COHP) analysis.
 - Shifting experiments could potentially couple with volcano plots to improve existing candidates.
 
-## TODOs
-
-- Cleaning up the code into general and reusable modules.
-
 ## Citation
 
-If you find this work beneficial, kindly consider citing [my MPhil Thesis](https://eprints.qut.edu.au/241290/) (and a Journal Paper is in progress with my supervisory team).
+If you find this work beneficial, kindly consider citing the [arXiv preprint](https://arxiv.org/abs/2402.03876) or [MPhil Thesis](https://eprints.qut.edu.au/241290/) (and a Journal Paper is in progress with my supervisory team).
 
 ```
+@misc{yang2024convolutional,
+      title={Convolutional Neural Networks and Volcano Plots: Screening and Prediction of Two-Dimensional Single-Atom Catalysts},
+      author={Haoyu Yang and Juanli Zhao and Qiankun Wang and Bin Liu and Wei Luo and Ziqi Sun and Ting Liao},
+      year={2024},
+      eprint={2402.03876},
+      archivePrefix={arXiv},
+      primaryClass={cond-mat.mtrl-sci}
+}
+
 @phdthesis{quteprints241290,
           school = {Queensland University of Technology},
           author = {Haoyu Yang},
@@ -46,11 +51,12 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ## Contact and Data Access
 
-If you have **ANY** questions regarding this project, feel free to open a discussion, raise an issue, or contact me directly at [yanghaoyu97@outlook.com](yanghaoyu97@outlook.com).
+If you have any questions regarding this project, feel free to open a discussion, raise an issue, or contact me directly at [yanghaoyu97@outlook.com](yanghaoyu97@outlook.com).
 
-I have provided as much resource data (VASP structures, eDOSs) as possible in this repo. However if you need access to the original VASP input/output files, please reach out to my supervisor [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) in QUT, as the original data is too large (in several TBs) and has been stored in the QUT Remote Data Storage System (RDSS), to which I no longer have access after graduation.
+I have provided as much resource data (VASP structures, eDOSs) as possible in this repo. However if you need access to the original dataset including VASP input/output files, please reach out to my supervisor [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) at QUT, as the original data is too large (in Terabytes) and has been stored/archived in the QUT Remote Data Storage System (RDSS) as per [QUT policy](https://airs.library.qut.edu.au/modules/8/3/), to which I no longer have access after graduation.
 
 ## References
 
 - [My MPhil Thesis](https://eprints.qut.edu.au/241290/)
+- [The arXiv Preprint](https://arxiv.org/abs/2402.03876)
 - [Victor\'s Inspiring work on bimetallic surfaces](https://www.nature.com/articles/s41467-020-20342-6)
