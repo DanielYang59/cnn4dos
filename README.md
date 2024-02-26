@@ -1,8 +1,5 @@
 ## Deep Learning with Electronic Density of States and Scaling Relations
 
-[![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876)
-[![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
-
 > [!WARNING]
 > This branch has been deprecated, and if you
 > come for the code and data to recreate the results for
