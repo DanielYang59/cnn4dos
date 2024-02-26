@@ -3,10 +3,10 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876) [![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
 
 > [!NOTE]
-> The development of the general purpose Python package has been relocated.
-Please kindly step forward to:
+> The development of the general purpose Python package has been relocated.\
+Please kindly step forward to: \
 [ml4dos](https://github.com/DanielYang59/ml4dos) for machine learning for electronic density of states (eDOS)
-or
+or \
 [scaling](https://github.com/DanielYang59/scaling) for working with catalysts scaling relations.
 
 ## Overview
