@@ -2,6 +2,13 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876) [![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
 
+> [!NOTE]
+> The development of the general purpose Python package has been relocated.
+Please kindly step forward to:
+[ml4dos](https://github.com/DanielYang59/ml4dos) for machine learning for electronic density of states (eDOS)
+or
+[scaling](https://github.com/DanielYang59/scaling) for working with catalysts scaling relations.
+
 ## Overview
 
 This repository contains the code, data and resources to recreate my [MPhil research project](https://eprints.qut.edu.au/241290/) at Queensland University of Technology (QUT), titled "*Descriptor-guided screening and understanding of 2D substrate supported single atomic CO<sub>2</sub>RR electrocalysts*" and supervised by [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) and Prof. Ziqi Sun. The project attempted to propose a combined catalyst screening pipeline by predicting & understanding adsorption energy with density of states (DOS) via convolutional neural networks (CNN), and analysing adsorption energy with volcano plots.
