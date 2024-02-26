@@ -7,7 +7,7 @@
 Please kindly step forward to: \
 [ml4dos](https://github.com/DanielYang59/ml4dos): for machine learning for electronic density of states (eDOS)\
 OR \
-[scaling](https://github.com/DanielYang59/scaling): for working with catalysts scaling relations.
+[scaling](https://github.com/DanielYang59/scaling): for working with catalysts scaling relations
 
 ## Overview
 
