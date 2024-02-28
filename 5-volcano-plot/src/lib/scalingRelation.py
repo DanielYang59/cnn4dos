@@ -221,7 +221,7 @@ class scalingRelation:
 # Test area
 if __name__ == "__main__":
     # Set args
-    path = "../../../0-dataset/label_adsorption_energy"
+    path = "../../../dataset/label_adsorption_energy"
     substrates = [
         "g-C3N4_is",
         "nitrogen-graphene_is",

@@ -1,7 +1,7 @@
 ##### Config File for Volcano Plot #####
 
 path:
-  adsorption_energy_path: "../../0-dataset/label_adsorption_energy"
+  adsorption_energy_path: "../../dataset/label_adsorption_energy"
 
 
 species:

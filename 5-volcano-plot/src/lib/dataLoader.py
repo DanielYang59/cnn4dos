@@ -113,7 +113,7 @@ class dataLoader:
 
 # Test area
 if __name__ == "__main__":
-    test_path = "../../../0-dataset/label_adsorption_energy"
+    test_path = "../../../dataset/label_adsorption_energy"
     test_substrates = ["g-C3N4_is", "nitrogen-graphene_is", "vacant-graphene_is", "C2N_is", "BN_is", "BP_is"]
     test_adsorbates = ["2-COOH", "3-CO", "4-CHO", "5-CH2O", "6-OCH3", "7-O", "8-OH", "11-H"]
 

@@ -629,7 +629,7 @@ if __name__ == "__main__":
     from pathlib import Path
 
     # Set args
-    adsorption_energy_path = Path("../../../0-dataset/label_adsorption_energy")
+    adsorption_energy_path = Path("../../../dataset/label_adsorption_energy")
     reaction_pathway_file = Path("../../data/reaction_pathway.json")
     thermal_correction_file = Path("../../data/corrections_thermal.csv")
     adsorbate_energy_file = Path("../../data/energy_adsorbate.csv")

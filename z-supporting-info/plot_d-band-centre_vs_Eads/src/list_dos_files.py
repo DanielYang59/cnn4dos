@@ -46,7 +46,7 @@ def list_dos_files(dos_dir, adsorbates, substrates, dos_file_name="dos_up_*.npy"
 if __name__ == "__main__":
 
     dos_files = list_dos_files(
-        dos_dir="../../0-dataset/feature_DOS",
+        dos_dir="../../dataset/feature_DOS",
         adsorbates=["3-CO_is", ],
         substrates = ["g-C3N4", "nitrogen-graphene", "vacant-graphene", "C2N", "BN", "BP"],
     )

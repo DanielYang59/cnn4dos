@@ -20,8 +20,8 @@ if __name__ == "__main__":
         cfg = yaml.safe_load(ymlfile)
 
     ## paths
-    feature_dir = Path("../0-dataset/feature_DOS")
-    label_dir = Path("../0-dataset/label_adsorption_energy")
+    feature_dir = Path("../dataset/feature_DOS")
+    label_dir = Path("../dataset/label_adsorption_energy")
     ## species
     substrates = cfg["species"]["substrates"]
     adsorbates = cfg["species"]["adsorbates"]

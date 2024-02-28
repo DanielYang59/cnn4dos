@@ -1,7 +1,7 @@
 ##### Config File for Volcano Plot #####
 
 path:
-  adsorption_energy_path: "../../0-dataset/label_adsorption_energy"
+  adsorption_energy_path: "../../dataset/label_adsorption_energy"
   reaction_pathway_file: "../../5-volcano-plot/data/reaction_pathway.json"
   thermal_correction_file: "../../5-volcano-plot/data/corrections_thermal.csv"
   adsorbate_energy_file: "../../5-volcano-plot/data/energy_adsorbate.csv"

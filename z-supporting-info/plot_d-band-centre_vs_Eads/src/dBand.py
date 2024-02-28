@@ -233,9 +233,9 @@ class dBand:
 
 # Test area
 if __name__ == "__main__":
-    example_dos_file = "../../0-dataset/feature_DOS/g-C3N4/3-CO_is/4-Co/dos_up_57.npy"
+    example_dos_file = "../../dataset/feature_DOS/g-C3N4/3-CO_is/4-Co/dos_up_57.npy"
     d_band = dBand(dosFile=example_dos_file, fileType="numpy",
-                   fermi_level_dir="../../0-dataset/z-supporting-info/fermi_level",
+                   fermi_level_dir="../../dataset/z-supporting-info/fermi_level",
                    energy_range=[-14, 6],
                    )
 

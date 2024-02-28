@@ -1,8 +1,8 @@
 ##### Config File for CNN Training #####
 
 path:
-  feature_dir: "../../0-dataset/feature_DOS"
-  label_dir: "../../0-dataset/label_adsorption_energy"
+  feature_dir: "../../dataset/feature_DOS"
+  label_dir: "../../dataset/label_adsorption_energy"
 
 
 species:

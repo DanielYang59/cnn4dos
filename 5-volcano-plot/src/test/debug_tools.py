@@ -509,7 +509,7 @@ if __name__ == "__main__":
         ],
         descriptors=("3-CO", "8-OH"),
         external_potential=0.17,
-        adsorption_energy_file="../../../0-dataset/label_adsorption_energy",
+        adsorption_energy_file="../../../dataset/label_adsorption_energy",
         thermal_correction_file="../../data/corrections_thermal.csv",
         adsorbate_free_energy_file="../../data/energy_adsorbate.csv",
         reaction_pathway_file="../../data/reaction_pathway.json",

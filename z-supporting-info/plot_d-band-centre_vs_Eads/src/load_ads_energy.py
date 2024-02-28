@@ -38,6 +38,6 @@ def load_ads_energy(dosFile, ads_energy_dir):
 # Test area
 if __name__ == "__main__":
     load_ads_energy(
-        dosFile="../../0-dataset/feature_DOS/BP/3-CO_is/4-Zn/dos_up_65.npy",
-        ads_energy_dir="../../0-dataset/label_adsorption_energy",
+        dosFile="../../dataset/feature_DOS/BP/3-CO_is/4-Zn/dos_up_65.npy",
+        ads_energy_dir="../../dataset/label_adsorption_energy",
     )
