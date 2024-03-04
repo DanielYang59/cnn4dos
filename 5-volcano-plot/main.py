@@ -50,12 +50,12 @@ if __name__ == "__main__":
         remove_ads_prefix=True
         )
 
-    # Print linear fitting parameters of free energy
-    print(calculator.fitting_paras)
+    # Print linear regression parameters of free energy
+    print(calculator.regress_paras)
 
     # Calculate reaction energy scaling relations calculator
     reaction_calculator = reactionCalculator(
-        adsorption_energy_scaling_relation=calculator.fitting_paras,
+        adsorption_energy_scaling_relation=calculator.regress_paras,
         adsorbate_energy_file=adsorbate_energy_file,
         reaction_pathway_file=reaction_pathway_file,
         external_potential=external_potential,

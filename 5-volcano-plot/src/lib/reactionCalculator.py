@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
     # Test reaction energy scaling relations calculator
     reaction_calculator = reactionCalculator(
-        adsorption_energy_scaling_relation=calculator.fitting_paras,
+        adsorption_energy_scaling_relation=calculator.regress_paras,
         adsorbate_energy_file="../../data/energy_adsorbate.csv",
         reaction_pathway_file="../../data/reaction_pathway.json",
         external_potential=0.17

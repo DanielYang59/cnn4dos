@@ -70,23 +70,23 @@ class volcanoDebugger:
             remove_ads_prefix=True,
             verbose=True,
         )
-        self.scaling_relations = calculator.fitting_paras
+        self.scaling_relations = calculator.regress_paras
 
     def __calculate_adsorption_energy_from_scaling_relation(
         self,
-        fitting_paras
+        regress_paras
     ) -> pd.DataFrame:
         """Calculate adsorption (free) energy from scaling relations.
 
         Args:
-            fitting_paras (dict): scaling relation parameters.
+            regress_paras (dict): scaling relation parameters.
 
         Returns:
             pd.DataFrame: predicted adsorption energy
 
         """
         # Check arg
-        assert isinstance(fitting_paras, dict)
+        assert isinstance(regress_paras, dict)
 
         # Load true adsorption energy
         true_adsorption_energy = pd.DataFrame.copy(
@@ -102,7 +102,7 @@ class volcanoDebugger:
 
         for ads in true_adsorption_energy:
             # Get corresponding scaling relation paras
-            paras = fitting_paras[ads]
+            paras = regress_paras[ads]
 
             # Make predictions for each adsorbate
             predicted_adsorption_energy[ads] = (
@@ -407,7 +407,7 @@ class volcanoDebugger:
 
         predicted_adsorption_free_energy = (
             self.__calculate_adsorption_energy_from_scaling_relation(
-                scaling_relation.fitting_paras
+                scaling_relation.regress_paras
             )
         )
 

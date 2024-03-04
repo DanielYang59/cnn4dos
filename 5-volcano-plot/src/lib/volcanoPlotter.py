@@ -676,7 +676,7 @@ if __name__ == "__main__":
     from .reactionCalculator import reactionCalculator
 
     reaction_calculator = reactionCalculator(
-        adsorption_energy_scaling_relation=calculator.fitting_paras,
+        adsorption_energy_scaling_relation=calculator.regress_paras,
         adsorbate_energy_file=Path("../../data/energy_adsorbate.csv"),
         reaction_pathway_file=Path("../../data/reaction_pathway.json"),
         external_potential=0.17,
