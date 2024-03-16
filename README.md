@@ -3,11 +3,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876) [![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
 
 > [!NOTE]
-> The development of the general purpose Python package has been relocated.\
-Please kindly step forward to: \
-[ml4dos](https://github.com/DanielYang59/ml4dos): for machine learning for electronic density of states (eDOS)\
-OR \
-[scaling](https://github.com/DanielYang59/scaling): for working with catalysts scaling relations
+> The development of the general purpose Python package has been relocated to:\
+> [cat-scaling](https://github.com/DanielYang59/cat-scaling): Build Scaling Relations for Catalysts
 
 ## Overview
 
@@ -58,7 +55,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ## Contact and Data Access
 
-If you have any questions regarding this project, feel free to open a discussion, raise an issue, or contact me directly at [yanghaoyu97@outlook.com](yanghaoyu97@outlook.com).
+If you have any questions regarding this project, feel free to open a discussion or raise an issue.
 
 I have provided as much resource data (VASP structures, eDOSs) as possible in this repo. However if you need access to the original dataset including VASP input/output files, please reach out to my supervisor [Prof. Ting Liao](https://www.qut.edu.au/about/our-people/academic-profiles/t3.liao) at QUT, as the original data is too large (in Terabytes) and has been stored/archived in the QUT Remote Data Storage System (RDSS) as per [QUT policy](https://airs.library.qut.edu.au/modules/8/3/), to which I no longer have access after graduation.
 
