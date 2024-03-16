@@ -2,8 +2,8 @@
 
 path:
   cnn_model_path: "../1-model-and-training/2-best-model/model"
-  adsorbate_dos_array_path: "../0-dataset/feature_DOS/adsorbate-DOS/3-CO/dos_up_adsorbate.npy"
-  fermi_level_source: "../0-dataset/supporting-info/fermi_level"
+  adsorbate_dos_array_path: "../dataset/feature_DOS/adsorbate-DOS/3-CO/dos_up_adsorbate.npy"
+  fermi_level_source: "../dataset/supporting-info/fermi_level"
 
 occlusion:
   dos_array_name: "dos_up.npy"

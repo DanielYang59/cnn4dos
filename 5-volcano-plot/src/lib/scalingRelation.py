@@ -48,7 +48,7 @@ class scalingRelation:
         )
         self.adsorbates = list(self._stacked_adsorption_energy_df.columns.values)
 
-        # Automatic mixing ratio fitting
+        # Automatic mixing ratio regression
         if mixing_ratios == "AUTO":
             # Test mixing ratio
             mixing_ratio_test_result = {}
@@ -67,15 +67,15 @@ class scalingRelation:
                 mixing_ratio_test_result
             )
 
-        # Constant mixing ratio fitting
+        # Constant mixing ratio regression
         else:
             self.best_mixing_ratios = {ads: mixing_ratios[0] for ads in self.adsorbates}
 
-        # Perform linear fitting with the best ratios
+        # Perform linear regression with the best ratios
         self.__fit_with_best_ratios()
 
         # Translate results into parameters
-        self.__fitting_results_to_para()
+        self.__regress_results_to_para()
 
     def __find_best_mixing_ratio(self, mixing_ratio_test_result):
         """Find best mixing ratios for each adsorbate.
@@ -128,13 +128,13 @@ class scalingRelation:
         return best_ratios
 
     def __fit_all_adsorbates_with_given_ratio(self, ratios):
-        """Perform linear fitting for ALL adsorbates with: selected two descriptors and given mixing ratios.
+        """Perform linear regression for ALL adsorbates with: selected two descriptors and given mixing ratios.
 
         Args:
             ratios (list): [x_descriptor_ratio, y_descriptor_ratio]
 
         Returns:
-            dict: descriptor fitting results, key is adsorbate name, value is linear fitting results
+            dict: descriptor regression results, key is adsorbate name, value is linear regression results
 
         """
         # Check args
@@ -148,7 +148,7 @@ class scalingRelation:
             + self._stacked_adsorption_energy_df[self.descriptors[1]] * ratios[1]
         ) * 0.01
 
-        # Perform linear fitting for each adsorbate
+        # Perform linear regression for each adsorbate
         return {
             ads: stats.linregress(
                 hybrid_descriptor, self._stacked_adsorption_energy_df[ads]
@@ -159,10 +159,10 @@ class scalingRelation:
     def __fit_with_best_ratios(
         self,
     ):
-        """Do linear fitting for all adsorbates with best ratios found.
+        """Do linear regression for all adsorbates with best ratios found.
 
         Attrib:
-            linear_fitting_results (dict): best fitting results, key is adsorbate name, value is linear fitting results
+            linear_regress_results (dict): best regression results, key is adsorbate name, value is linear regression results
 
         """
         # Loop through all adsorbates
@@ -182,23 +182,23 @@ class scalingRelation:
                 descriptor_x * ratio + descriptor_y * (100 - ratio)
             ) * 0.01
 
-            # Perform linear fitting with hybrid descriptor
+            # Perform linear regression with hybrid descriptor
             results[ads] = stats.linregress(
                 hybrid_descriptor_array,
                 np.array(self._stacked_adsorption_energy_df[ads]),
             )
 
-        self.linear_fitting_results = results
+        self.linear_regress_results = results
 
-    def __fitting_results_to_para(self):
-        """Translate linear fitting results to parameter arrays.
+    def __regress_results_to_para(self):
+        """Translate linear regression results to parameter arrays.
 
         Attrib:
-            fitting_paras (dict): key is adsorbate name, value is [para_descriptor_x, para_descriptor_y, c]
+            regress_paras (dict): key is adsorbate name, value is [para_descriptor_x, para_descriptor_y, c]
 
         """
-        self.fitting_paras = {}
-        for ads, result in self.linear_fitting_results.items():
+        self.regress_paras = {}
+        for ads, result in self.linear_regress_results.items():
             # Compile three parameters
             a = result.slope * self.best_mixing_ratios[ads] * 0.01
             b = result.slope * (100 - self.best_mixing_ratios[ads]) * 0.01
@@ -209,19 +209,19 @@ class scalingRelation:
                 ads = ads.split("-")[
                     -1
                 ]  # remove "X-" from naming of adsorbates "X-CO2"
-            self.fitting_paras[ads] = np.array([a, b, c])
+            self.regress_paras[ads] = np.array([a, b, c])
 
             # Warn user if R2 score is too low
             if result.rvalue < 0.75:
                 warnings.warn(
-                    f"R2 fitting of adsorbate {ads} is too low at {result.rvalue}."
+                    f"R2 regression of adsorbate {ads} is too low at {result.rvalue}."
                 )
 
 
 # Test area
 if __name__ == "__main__":
     # Set args
-    path = "../../../0-dataset/label_adsorption_energy"
+    path = "../../../dataset/label_adsorption_energy"
     substrates = [
         "g-C3N4_is",
         "nitrogen-graphene_is",
@@ -249,4 +249,4 @@ if __name__ == "__main__":
         mixing_ratios="AUTO",
         verbose=True,
     )
-    print(calculator.fitting_paras)
+    print(calculator.regress_paras)
