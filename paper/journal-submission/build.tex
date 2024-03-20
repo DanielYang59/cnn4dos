@@ -1,0 +1,60 @@
+% Main Build Recipe File
+\documentclass[a4paper, 12pt]{article}
+
+
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[affil-it]{authblk}
+\usepackage[english]{babel}
+\usepackage{bookmark}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{cleveref}
+\usepackage{datetime2}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{multirow}
+\usepackage[numbers]{natbib}
+\usepackage{nicematrix}
+\usepackage{rerunfilecheck}
+\usepackage{tablefootnote}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\usepackage{siunitx}
+
+
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{Equation}{Equations}
+\captionsetup{labelfont=bf}
+\captionsetup[table]{justification=justified, singlelinecheck=false}
+\DeclareSIUnit\angstrom{\text {Å}}
+
+
+\begin{document}
+\pdfoutput=1
+
+% Main Text
+\input{main.tex}
+
+
+% Supplementary Information
+\newpage
+\setcounter{page}{1} % Reset page counter
+\setcounter{section}{0}
+
+\renewcommand{\thesection}{\Roman{section}}
+\input{supplement.tex}
+
+
+% Bibliography
+\newpage
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
+% End of Recipe File

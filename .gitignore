@@ -52,7 +52,7 @@ z-cluster-visualize
 *.nlo
 *.nls
 *.out
-*.pdf
+# *.pdf
 *.pyg
 *.run.xml
 *.snm
