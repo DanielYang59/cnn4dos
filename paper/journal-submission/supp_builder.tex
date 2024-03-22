@@ -1,0 +1,56 @@
+% Build Recipe File for Supporting Information
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage[affil-it]{authblk}
+\usepackage[english]{babel}
+\usepackage{bookmark}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{cleveref}
+\usepackage{datetime2}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{multirow}
+\usepackage[numbers]{natbib}
+\usepackage{nicematrix}
+\usepackage{rerunfilecheck}
+\usepackage{siunitx}
+\usepackage{tablefootnote}
+\usepackage{tabularx}
+\usepackage{textcomp}
+\usepackage{xr}
+
+\externaldocument{main}
+
+% Define references style
+\bibliographystyle{plain}
+
+% Define headers for Figure/Table/Equation
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\crefname{equation}{Equation}{Equations}
+
+% Define caption style
+\captionsetup{labelfont=bf}
+\captionsetup[table]{justification=justified, singlelinecheck=false}
+
+% Define unit for Angstrom
+\DeclareSIUnit\angstrom{\text {Å}}
+
+\begin{document}
+\pdfoutput=1
+
+% Supplementary Information
+\input{supplement.tex}
+
+% Bibliography
+\newpage
+\bibliography{references}
+
+\end{document}
+% End of Recipe File for Supporting Information

@@ -1,0 +1,472 @@
+\relax 
+\providecommand\babel@aux[2]{}
+\@nameuse{bbl@beforestart}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\providecommand\BKM@entry[2]{}
+\nicematrix@redefine@check@rerun 
+\babel@aux{english}{}
+\BKM@entry{id=1,dest={73656374696F6E2E31},srcline={64}}{5C3337365C3337375C303030495C3030306E5C303030745C303030725C3030306F5C303030645C303030755C303030635C303030745C303030695C3030306F5C3030306E}
+\citation{dinh2018co2}
+\citation{osella2023co2}
+\citation{chen2019identifying,liu2021co2}
+\citation{wang2018heterogeneous,yang2018atomically}
+\citation{cai2021insights,ju2017understanding,ren2019isolated}
+\citation{zhao2021revisiting}
+\citation{feaster2017understanding,carter2008challenges}
+\citation{jinnouchi2017predicting,cuenya2015nanocatalysis,goldsmith2018machine}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{3}{section.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Catalyst performance analysis pipeline integrating volcano plots and CNN.} The figure demonstrates the integrated usage of volcano plots for predictive assessment of existing catalysts, and the utility of CNNs to predict and modulate adsorption energies \(E_{\text  {ads}}\) using eDOS as input. eDOS occlusion and shifting experiments are conducted to extract chemical information from CNN model.}}{3}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{main_fig1:pipeline}{{1}{3}{\textbf {Catalyst performance analysis pipeline integrating volcano plots and CNN.} The figure demonstrates the integrated usage of volcano plots for predictive assessment of existing catalysts, and the utility of CNNs to predict and modulate adsorption energies \(E_{\text {ads}}\) using eDOS as input. eDOS occlusion and shifting experiments are conducted to extract chemical information from CNN model}{figure.caption.1}{}}
+\newlabel{main_fig1:pipeline@cref}{{[figure][1][]1}{[1][3][]3}}
+\citation{hammer1995electronic}
+\citation{kajita2017universal}
+\citation{han2021single,thirumalai2018investigating}
+\citation{tran2015learning,socher2012convolutional,NIPS2012_c399862d}
+\citation{kirklin2015open,lejaeghere2016reproducibility,wellendorff2015benchmark}
+\citation{peterson2012activity}
+\citation{norskov2011density,bera2017density,kusada2019emergence}
+\BKM@entry{id=2,dest={73656374696F6E2E32},srcline={159}}{5C3337365C3337375C303030525C303030655C303030735C303030755C3030306C5C303030745C30303073}
+\BKM@entry{id=3,dest={73756273656374696F6E2E322E31},srcline={162}}{5C3337365C3337375C303030415C303030645C303030735C3030306F5C303030725C303030705C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030655C3030306E5C303030655C303030725C303030675C303030795C3030305C3034305C303030705C303030725C303030655C303030645C303030695C303030635C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030665C303030725C3030306F5C3030306D5C3030305C3034305C303030655C3030306C5C303030655C303030635C303030745C303030725C3030306F5C3030306E5C303030695C303030635C3030305C3034305C303030645C303030655C3030306E5C303030735C303030695C303030745C303030795C3030305C3034305C3030306F5C303030665C3030305C3034305C303030735C303030745C303030615C303030745C303030655C303030735C3030305C3034305C303030775C303030695C303030745C303030685C3030305C3034305C303030635C3030306F5C3030306E5C303030765C3030306F5C3030306C5C303030755C303030745C303030695C3030306F5C3030306E5C303030615C3030306C5C3030305C3034305C3030306E5C303030655C303030755C303030725C303030615C3030306C5C3030305C3034305C3030306E5C303030655C303030745C303030775C3030306F5C303030725C3030306B}
+\citation{hammer2000theoretical}
+\citation{kendall1938new}
+\citation{norskov2011density,takigawa2016machine}
+\citation{sun2022going,fung2020descriptors,di2022universal,yuan2020descriptor,huang2020rational}
+\citation{wellendorff2015benchmark,kirklin2015open,lejaeghere2016reproducibility}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Results}{6}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Adsorption energy prediction from electronic density of states with convolutional neural network}{6}{subsection.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {CNN for electronic density of states.} \textbf  {a}. Kendall rank correlation coefficient map illustrating the correlation between adsorption energy and other electronic and elementary descriptors. Definitions of the notations are provided in Supplementary \cref  {supp_table15:descriptor_notations}. \textbf  {b}-\textbf  {c}. Architectural of (\textbf  {b}) the root and (\textbf  {c}) each branch of the CNN model. The architecture stays consistent across individual branches. \textbf  {d}-\textbf  {m}. Parity plots demonstrating the performance of the CNN model across nine adsorbates: (\textbf  {d}) all adsorbates, (\textbf  {e}) CO\textsubscript  {2}, (\textbf  {f}) COOH, (\textbf  {g}) CO, (\textbf  {h}) CHO, (\textbf  {i}) CH\textsubscript  {2}O, (\textbf  {j}) OCH\textsubscript  {3}, (\textbf  {k}) O, (\textbf  {l}) OH, and (\textbf  {m}) H. The augmentation data are not displayed in these plots, nor included in MAE evaluations. Kernel density estimate results are shown along the top and right sides of the main plot, representing DFT calculations and CNN model prediction distributions, respectively.}}{7}{figure.caption.2}\protected@file@percent }
+\newlabel{main_fig2:cnn_for_eads}{{2}{7}{\textbf {CNN for electronic density of states.} \textbf {a}. Kendall rank correlation coefficient map illustrating the correlation between adsorption energy and other electronic and elementary descriptors. Definitions of the notations are provided in Supplementary \cref {supp_table15:descriptor_notations}. \textbf {b}-\textbf {c}. Architectural of (\textbf {b}) the root and (\textbf {c}) each branch of the CNN model. The architecture stays consistent across individual branches. \textbf {d}-\textbf {m}. Parity plots demonstrating the performance of the CNN model across nine adsorbates: (\textbf {d}) all adsorbates, (\textbf {e}) CO\textsubscript {2}, (\textbf {f}) COOH, (\textbf {g}) CO, (\textbf {h}) CHO, (\textbf {i}) CH\textsubscript {2}O, (\textbf {j}) OCH\textsubscript {3}, (\textbf {k}) O, (\textbf {l}) OH, and (\textbf {m}) H. The augmentation data are not displayed in these plots, nor included in MAE evaluations. Kernel density estimate results are shown along the top and right sides of the main plot, representing DFT calculations and CNN model prediction distributions, respectively}{figure.caption.2}{}}
+\newlabel{main_fig2:cnn_for_eads@cref}{{[figure][2][]2}{[1][6][]7}}
+\citation{chandrasekaran2019solving}
+\citation{fung2021machine}
+\BKM@entry{id=4,dest={73756273656374696F6E2E322E32},srcline={225}}{5C3337365C3337375C303030485C303030795C303030625C303030725C303030695C303030645C3030305C3034305C303030645C303030655C303030735C303030635C303030725C303030695C303030705C303030745C3030306F5C303030725C303030735C3030305C3034305C303030655C3030306E5C303030615C303030625C3030306C5C303030655C303030645C3030305C3034305C303030765C3030306F5C3030306C5C303030635C303030615C3030306E5C3030306F5C3030305C3034305C303030705C3030306C5C3030306F5C303030745C3030305C3034305C303030665C3030306F5C303030725C3030305C3034305C303030635C303030615C303030745C303030615C3030306C5C303030795C303030735C303030745C3030305C3034305C303030615C3030306E5C303030615C3030306C5C303030795C303030735C303030695C30303073}
+\citation{peterson2012activity}
+\citation{balandin1969modern,deutschmann2000heterogeneous}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Hybrid descriptors enabled volcano plot for catalyst analysis}{8}{subsection.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Limiting potential volcano plot and periodic table.} \textbf  {a}. Limiting potential volcano plot computed from hybrid-descriptor-based linear scaling relations at potential of -0.17 V vs SHE. In the plot, the circle, triangle, square, diamond, plus, and star symbols represent metals supported on g-C\textsubscript  {3}N\textsubscript  {4}, nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, BN, and C\textsubscript  {2}N, respectively. Dotted purple lines delineate regions representing rate-determining steps, with roman numerals denoting the respective RDS for each region. The reaction steps are defined in \cref  {main_eq1:co2rr1} to \cref  {main_eq8:co2rr8}. \textbf  {b}. Limiting potential periodic table illustrating the theoretical activity of single metal atom catalysts supported on g-C\textsubscript  {3}N\textsubscript  {4}.}}{9}{figure.caption.3}\protected@file@percent }
+\newlabel{main_fig3:volcano}{{3}{9}{\textbf {Limiting potential volcano plot and periodic table.} \textbf {a}. Limiting potential volcano plot computed from hybrid-descriptor-based linear scaling relations at potential of -0.17 V vs SHE. In the plot, the circle, triangle, square, diamond, plus, and star symbols represent metals supported on g-C\textsubscript {3}N\textsubscript {4}, nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, BN, and C\textsubscript {2}N, respectively. Dotted purple lines delineate regions representing rate-determining steps, with roman numerals denoting the respective RDS for each region. The reaction steps are defined in \cref {main_eq1:co2rr1} to \cref {main_eq8:co2rr8}. \textbf {b}. Limiting potential periodic table illustrating the theoretical activity of single metal atom catalysts supported on g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.3}{}}
+\newlabel{main_fig3:volcano@cref}{{[figure][3][]3}{[1][8][]9}}
+\citation{goyal2020competition}
+\citation{peterson2012activity}
+\citation{peterson2010copper}
+\BKM@entry{id=5,dest={73756273656374696F6E2E322E33},srcline={283}}{5C3337365C3337375C303030565C303030615C3030306C5C303030695C303030645C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C3030306F5C303030665C3030305C3034305C303030435C3030304E5C3030304E5C3030305C3034305C303030705C303030725C303030655C303030645C303030695C303030635C303030745C303030695C3030306F5C3030306E5C30303073}
+\citation{zhang2018interpretable,zhang2018visual,savage2022breaking}
+\citation{zeiler2014visualizing,kortylewski2020combining,wang2020robust}
+\citation{fung2021machine}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Validation of CNN predictions}{11}{subsection.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Validation of CNN predictions.} \textbf  {a}-\textbf  {c}, The eDOS occlusion experiment results for (\textbf  {a}) Cr of Cr@g-C\textsubscript  {3}N\textsubscript  {4}, (\textbf  {b}) Co of Co@g-C\textsubscript  {3}N\textsubscript  {4} and (\textbf  {c}) Cu of Cu@g-C\textsubscript  {3}N\textsubscript  {4}. eDOS occlusion experiments were conducted on the initial states of CO adsorption process. \textbf  {d}-\textbf  {f}, Real-space wavefunction visualization for (\textbf  {d}) Cr $d_{x^2-y^2}$ orbital of Cr@g-C\textsubscript  {3}N\textsubscript  {4}, (\textbf  {e}) Co $d_{xy}$ orbital of Co@g-C\textsubscript  {3}N\textsubscript  {4} and (\textbf  {f}) Cu $d_{xy}$ orbital of Cu@g-C\textsubscript  {3}N\textsubscript  {4}. Wavefunction visualizations were performed on the final states of CO adsorption process. The yellow and aqua colors represent areas of positive and negative Kohn-Sham orbital coefficients, respectively. \textbf  {g}-\textbf  {j}, Occlusion experiment results for (\textbf  {g}) $d_{xy}$ orbital and (\textbf  {h}) $d_{xz}$ orbital for Co of Co@g-C\textsubscript  {3}N\textsubscript  {4}. COHP analysis for (\textbf  {i}) $d_{xy}$ orbital and (\textbf  {j}) $d_{xz}$ orbital for Co of Co@g-C\textsubscript  {3}N\textsubscript  {4}, performed between Co and all adsorbate atoms in the final states of CO adsorption process.}}{12}{figure.caption.4}\protected@file@percent }
+\newlabel{main_fig4:validation}{{4}{12}{\textbf {Validation of CNN predictions.} \textbf {a}-\textbf {c}, The eDOS occlusion experiment results for (\textbf {a}) Cr of Cr@g-C\textsubscript {3}N\textsubscript {4}, (\textbf {b}) Co of Co@g-C\textsubscript {3}N\textsubscript {4} and (\textbf {c}) Cu of Cu@g-C\textsubscript {3}N\textsubscript {4}. eDOS occlusion experiments were conducted on the initial states of CO adsorption process. \textbf {d}-\textbf {f}, Real-space wavefunction visualization for (\textbf {d}) Cr $d_{x^2-y^2}$ orbital of Cr@g-C\textsubscript {3}N\textsubscript {4}, (\textbf {e}) Co $d_{xy}$ orbital of Co@g-C\textsubscript {3}N\textsubscript {4} and (\textbf {f}) Cu $d_{xy}$ orbital of Cu@g-C\textsubscript {3}N\textsubscript {4}. Wavefunction visualizations were performed on the final states of CO adsorption process. The yellow and aqua colors represent areas of positive and negative Kohn-Sham orbital coefficients, respectively. \textbf {g}-\textbf {j}, Occlusion experiment results for (\textbf {g}) $d_{xy}$ orbital and (\textbf {h}) $d_{xz}$ orbital for Co of Co@g-C\textsubscript {3}N\textsubscript {4}. COHP analysis for (\textbf {i}) $d_{xy}$ orbital and (\textbf {j}) $d_{xz}$ orbital for Co of Co@g-C\textsubscript {3}N\textsubscript {4}, performed between Co and all adsorbate atoms in the final states of CO adsorption process}{figure.caption.4}{}}
+\newlabel{main_fig4:validation@cref}{{[figure][4][]4}{[1][11][]12}}
+\citation{deringer2011crystal}
+\BKM@entry{id=6,dest={73756273656374696F6E2E322E34},srcline={341}}{5C3337365C3337375C303030655C303030445C3030304F5C303030535C3030305C3034305C303030735C303030685C303030695C303030665C303030745C303030695C3030306E5C303030675C3030305C3034305C303030655C303030785C303030705C303030655C303030725C303030695C3030306D5C303030655C3030306E5C303030745C303030735C3030305C3034305C303030665C3030306F5C303030725C3030305C3034305C303030705C303030725C303030655C303030645C303030695C303030635C303030745C303030695C3030306F5C3030306E5C3030305C3034305C3030306F5C303030665C3030305C3034305C303030625C303030655C303030745C303030745C303030655C303030725C3030305C3034305C303030635C303030615C303030745C303030615C3030306C5C303030795C303030735C303030745C30303073}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}eDOS shifting experiments for prediction of better catalysts}{13}{subsection.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {eDOS shifting experiments.} Impact of orbitalwise eDOS shifting on CO adsorption energy, as predicted by the CNN model, for single metal atom catalysts supported on g-C\textsubscript  {3}N\textsubscript  {4}. The disturbances caused by shifting of (\textbf  {a}) entire $d$, (\textbf  {b}) $d_{xy}$, (\textbf  {c}) $d_{yz}$, (\textbf  {d}) $d_{z^2}$, (\textbf  {e}) $d_{xz}$ and (\textbf  {f}) $d_{x^2-y^2}$ orbitals are illustrated. The shifting step size corresponds to the energy resolution of the eDOS, and is 0.005 eV in this study. A positive eDOS shift indicates a shift towards higher energy levels, and vice versa.}}{14}{figure.caption.5}\protected@file@percent }
+\newlabel{main_fig5:shifting}{{5}{14}{\textbf {eDOS shifting experiments.} Impact of orbitalwise eDOS shifting on CO adsorption energy, as predicted by the CNN model, for single metal atom catalysts supported on g-C\textsubscript {3}N\textsubscript {4}. The disturbances caused by shifting of (\textbf {a}) entire $d$, (\textbf {b}) $d_{xy}$, (\textbf {c}) $d_{yz}$, (\textbf {d}) $d_{z^2}$, (\textbf {e}) $d_{xz}$ and (\textbf {f}) $d_{x^2-y^2}$ orbitals are illustrated. The shifting step size corresponds to the energy resolution of the eDOS, and is 0.005 eV in this study. A positive eDOS shift indicates a shift towards higher energy levels, and vice versa}{figure.caption.5}{}}
+\newlabel{main_fig5:shifting@cref}{{[figure][5][]5}{[1][13][]14}}
+\citation{fung2021machine}
+\BKM@entry{id=7,dest={73656374696F6E2E33},srcline={411}}{5C3337365C3337375C3030304D5C303030655C303030745C303030685C3030306F5C303030645C30303073}
+\BKM@entry{id=8,dest={73756273656374696F6E2E332E31},srcline={413}}{5C3337365C3337375C303030445C303030465C303030545C3030305C3034305C303030635C303030615C3030306C5C303030635C303030755C3030306C5C303030615C303030745C303030695C3030306F5C3030306E5C30303073}
+\citation{kresse1996efficient,kresse1996efficiency,kresse1993ab}
+\citation{kresse1996efficient}
+\citation{perdew1996generalized}
+\BKM@entry{id=9,dest={73756273656374696F6E2E332E32},srcline={427}}{5C3337365C3337375C303030435C303030615C303030745C303030615C3030306C5C303030795C303030735C303030745C3030305C3034305C3030306D5C3030306F5C303030645C303030655C3030306C5C30303073}
+\BKM@entry{id=10,dest={73756273656374696F6E2E332E33},srcline={434}}{5C3337365C3337375C303030435C3030304F5C303030325C303030525C303030525C3030305C3034305C303030705C303030615C303030745C303030685C303030775C303030615C30303079}
+\citation{peterson2010copper}
+\citation{jiao2017molecular}
+\BKM@entry{id=11,dest={73756273656374696F6E2E332E34},srcline={452}}{5C3337365C3337375C303030465C303030725C303030655C303030655C3030305C3034305C303030655C3030306E5C303030655C303030725C303030675C303030795C3030305C3034305C303030635C303030615C3030306C5C303030635C303030755C3030306C5C303030615C303030745C303030695C3030306F5C3030306E5C30303073}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{16}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}DFT calculations}{16}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Catalyst models}{16}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}CO\textsubscript  {2}RR pathway}{16}{subsection.3.3}\protected@file@percent }
+\newlabel{main_eq1:co2rr1}{{1}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.1}{}}
+\newlabel{main_eq1:co2rr1@cref}{{[equation][1][]1}{[1][16][]16}}
+\newlabel{main_eq3:co2rr3}{{2}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.2}{}}
+\newlabel{main_eq3:co2rr3@cref}{{[equation][2][]2}{[1][16][]16}}
+\newlabel{main_eq2:co2rr2}{{3}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.3}{}}
+\newlabel{main_eq2:co2rr2@cref}{{[equation][3][]3}{[1][16][]16}}
+\newlabel{main_eq4:co2rr4}{{4}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.4}{}}
+\newlabel{main_eq4:co2rr4@cref}{{[equation][4][]4}{[1][16][]16}}
+\newlabel{main_eq5:co2rr5}{{5}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.5}{}}
+\newlabel{main_eq5:co2rr5@cref}{{[equation][5][]5}{[1][16][]16}}
+\newlabel{main_eq6:co2rr6}{{6}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.6}{}}
+\newlabel{main_eq6:co2rr6@cref}{{[equation][6][]6}{[1][16][]16}}
+\newlabel{main_eq7:co2rr7}{{7}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.7}{}}
+\newlabel{main_eq7:co2rr7@cref}{{[equation][7][]7}{[1][16][]16}}
+\newlabel{main_eq8:co2rr8}{{8}{16}{CO\texorpdfstring {\textsubscript {2}}{2}RR pathway}{equation.3.8}{}}
+\newlabel{main_eq8:co2rr8@cref}{{[equation][8][]8}{[1][16][]16}}
+\citation{peterson2010copper,norskov2004origin}
+\BKM@entry{id=12,dest={73756273656374696F6E2E332E35},srcline={485}}{5C3337365C3337375C303030485C303030795C303030625C303030725C303030695C303030645C3030305C3034305C303030645C303030655C303030735C303030635C303030725C303030695C303030705C303030745C3030306F5C303030725C3030305C3034305C303030665C3030306F5C303030725C3030305C3034305C303030765C3030306F5C3030306C5C303030635C303030615C3030306E5C3030306F5C3030305C3034305C303030705C3030306C5C3030306F5C303030745C30303073}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Free energy calculations}{17}{subsection.3.4}\protected@file@percent }
+\newlabel{main_eq9:free_energy}{{9}{17}{Free energy calculations}{equation.3.9}{}}
+\newlabel{main_eq9:free_energy@cref}{{[equation][9][]9}{[1][17][]17}}
+\newlabel{main_eq10:che}{{10}{17}{Free energy calculations}{equation.3.10}{}}
+\newlabel{main_eq10:che@cref}{{[equation][10][]10}{[1][17][]17}}
+\newlabel{main_eq11:che_potential}{{11}{17}{Free energy calculations}{equation.3.11}{}}
+\newlabel{main_eq11:che_potential@cref}{{[equation][11][]11}{[1][17][]17}}
+\newlabel{main_eq12:ext_potential_che}{{12}{17}{Free energy calculations}{equation.3.12}{}}
+\newlabel{main_eq12:ext_potential_che@cref}{{[equation][12][]12}{[1][17][]17}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Hybrid descriptor for volcano plots}{17}{subsection.3.5}\protected@file@percent }
+\newlabel{main_eq13:scaling_relation}{{13}{17}{Hybrid descriptor for volcano plots}{equation.3.13}{}}
+\newlabel{main_eq13:scaling_relation@cref}{{[equation][13][]13}{[1][17][]17}}
+\BKM@entry{id=13,dest={73756273656374696F6E2E332E36},srcline={523}}{5C3337365C3337375C303030435C3030304E5C3030304E5C3030305C3034305C303030615C303030725C303030635C303030685C303030695C303030745C303030655C303030635C303030745C303030755C303030725C303030655C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030685C303030795C303030705C303030655C303030725C303030705C303030615C303030725C303030615C3030306D5C303030655C303030745C303030655C303030725C3030305C3034305C303030745C303030755C3030306E5C303030695C3030306E5C30303067}
+\citation{weimann2021transfer}
+\citation{li2018hyperband}
+\BKM@entry{id=14,dest={73756273656374696F6E2E332E37},srcline={537}}{5C3337365C3337375C303030445C303030615C303030745C303030615C3030305C3034305C303030615C303030755C303030675C3030306D5C303030655C3030306E5C303030745C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030435C3030304E5C3030304E5C3030305C3034305C3030306D5C3030306F5C303030645C303030655C3030306C5C3030305C3034305C303030745C303030725C303030615C303030695C3030306E5C303030695C3030306E5C30303067}
+\citation{DBLP:journals/corr/abs-2112-12542}
+\citation{blochl1994improved}
+\newlabel{main_eq14:general_scaling_relation}{{14}{18}{Hybrid descriptor for volcano plots}{equation.3.14}{}}
+\newlabel{main_eq14:general_scaling_relation@cref}{{[equation][14][]14}{[1][17][]18}}
+\newlabel{main_eq15:limiting_potential}{{15}{18}{Hybrid descriptor for volcano plots}{equation.3.15}{}}
+\newlabel{main_eq15:limiting_potential@cref}{{[equation][15][]15}{[1][18][]18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}CNN architecture and hyperparameter tuning}{18}{subsection.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Data augmentation and CNN model training}{18}{subsection.3.7}\protected@file@percent }
+\BKM@entry{id=15,dest={73756273656374696F6E2E332E38},srcline={558}}{5C3337365C3337375C303030655C303030445C3030304F5C303030535C3030305C3034305C3030306F5C303030635C303030635C3030306C5C303030755C303030735C303030695C3030306F5C3030306E5C3030305C3034305C303030655C303030785C303030705C303030655C303030725C303030695C3030306D5C303030655C3030306E5C303030745C30303073}
+\BKM@entry{id=16,dest={73756273656374696F6E2E332E39},srcline={570}}{5C3337365C3337375C303030655C303030445C3030304F5C303030535C3030305C3034305C303030735C303030685C303030695C303030665C303030745C303030695C3030306E5C303030675C3030305C3034305C303030655C303030785C303030705C303030655C303030725C303030695C3030306D5C303030655C3030306E5C303030745C30303073}
+\BKM@entry{id=17,dest={73756273656374696F6E2E332E3130},srcline={580}}{5C3337365C3337375C303030435C303030685C303030655C3030306D5C303030695C303030635C303030615C3030306C5C3030305C3034305C303030625C3030306F5C3030306E5C303030645C3030305C3034305C303030615C3030306E5C303030615C3030306C5C303030795C303030735C303030695C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030725C303030655C303030615C3030306C5C3030302D5C303030735C303030705C303030615C303030635C303030655C3030305C3034305C303030775C303030615C303030765C303030655C303030665C303030755C3030306E5C303030635C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030765C303030695C303030735C303030755C303030615C3030306C5C303030695C3030307A5C303030615C303030745C303030695C3030306F5C3030306E}
+\citation{deringer2011crystal,koga1999analytical,nelson2020lobster,maintz2013analytic,dronskowski1993crystal}
+\citation{koga1999analytical,maintz2016lobster}
+\citation{wang2021vaspkit}
+\citation{momma2008vesta}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8}eDOS occlusion experiments}{19}{subsection.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}eDOS shifting experiments}{19}{subsection.3.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.10}Chemical bond analysis and real-space wavefunction visualization}{19}{subsection.3.10}\protected@file@percent }
+\BKM@entry{id=18,dest={73756273656374696F6E2E332E3131},srcline={593}}{5C3337365C3337375C3030304D5C303030615C303030635C303030685C303030695C3030306E5C303030655C3030305C3034305C3030306C5C303030655C303030615C303030725C3030306E5C303030695C3030306E5C303030675C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030645C303030615C303030745C303030615C3030305C3034305C303030615C3030306E5C303030615C3030306C5C303030795C303030735C303030695C303030735C3030305C3034305C303030655C3030306E5C303030765C303030695C303030725C3030306F5C3030306E5C3030306D5C303030655C3030306E5C30303074}
+\citation{abadi2016tensorflow}
+\citation{li2018hyperband}
+\citation{omalley2019kerastuner}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.11}Machine learning and data analysis environment}{20}{subsection.3.11}\protected@file@percent }
+\BKM@entry{id=19,dest={73656374696F6E2E31},srcline={606}}{5C3337365C3337375C303030435C3030306F5C303030645C303030655C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030445C303030615C303030745C303030615C3030305C3034305C303030415C303030765C303030615C303030695C3030306C5C303030615C303030625C303030695C3030306C5C303030695C303030745C30303079}
+\BKM@entry{id=20,dest={73656374696F6E2E32},srcline={615}}{5C3337365C3337375C303030415C303030635C3030306B5C3030306E5C3030306F5C303030775C3030306C5C303030655C303030645C303030675C303030655C3030306D5C303030655C3030306E5C303030745C30303073}
+\BKM@entry{id=21,dest={73656374696F6E2E33},srcline={629}}{5C3337365C3337375C303030415C303030755C303030745C303030685C3030306F5C303030725C3030305C3034305C303030435C3030306F5C3030306E5C303030745C303030725C303030695C303030625C303030755C303030745C303030695C3030306F5C3030306E5C30303073}
+\BKM@entry{id=22,dest={73656374696F6E2E34},srcline={642}}{5C3337365C3337375C303030435C3030306F5C3030306D5C303030705C303030655C303030745C303030695C3030306E5C303030675C3030305C3034305C303030495C3030306E5C303030745C303030655C303030725C303030655C303030735C303030745C30303073}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Code and Data Availability}{21}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Acknowledgements}{21}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Author Contributions}{21}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D}Competing Interests}{22}{section.4}\protected@file@percent }
+\BKM@entry{id=23,dest={73656374696F6E2E31},srcline={12}}{5C3337365C3337375C303030415C303030645C303030645C303030695C303030745C303030695C3030306F5C3030306E5C303030615C3030306C5C3030305C3034305C303030645C303030655C303030745C303030615C303030695C3030306C5C303030735C3030305C3034305C3030306F5C3030306E5C3030305C3034305C303030445C303030465C303030545C3030305C3034305C303030635C303030615C3030306C5C303030635C303030755C3030306C5C303030615C303030745C303030695C3030306F5C3030306E5C30303073}
+\BKM@entry{id=24,dest={73756273656374696F6E2E312E31},srcline={14}}{5C3337365C3337375C303030435C303030615C303030745C303030615C3030306C5C303030795C303030735C303030745C3030305C3034305C3030306D5C3030306F5C303030645C303030655C3030306C5C30303073}
+\BKM@entry{id=25,dest={73756273656374696F6E2E312E32},srcline={100}}{5C3337365C3337375C303030435C3030304F5C303030325C303030525C303030525C3030305C3034305C303030705C303030615C303030745C303030685C303030775C303030615C303030795C30303073}
+\citation{durand2011structure,nie2014reaction,peterson2010copper}
+\citation{durand2011structure,nie2014reaction,peterson2010copper}
+\citation{durand2011structure,nie2014reaction,peterson2010copper}
+\BKM@entry{id=26,dest={73756273656374696F6E2E312E33},srcline={182}}{5C3337365C3337375C303030445C303030465C303030545C3030305C3034305C303030655C3030306E5C303030655C303030725C303030675C303030695C303030655C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030655C3030306E5C303030655C303030725C303030675C303030795C3030305C3034305C303030635C3030306F5C303030725C303030725C303030655C303030635C303030745C303030695C3030306F5C3030306E5C30303073}
+\citation{wang2021vaspkit}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Additional details on DFT calculations}{2}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.1}Catalyst models}{2}{subsection.1.1}\protected@file@percent }
+\newlabel{supp_sec2.1_catalysts}{{I.1}{2}{Catalyst models}{subsection.1.1}{}}
+\newlabel{supp_sec2.1_catalysts@cref}{{[subsection][1][1]I.1}{[1][2][]2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Periodic table of investigated metals.} Periodic table highlighting investigated elements: transition metals in blue, metalloids in purple, and other metals in orange.}}{2}{figure.caption.6}\protected@file@percent }
+\newlabel{supp_fig1:ptable}{{6}{2}{\textbf {Periodic table of investigated metals.} Periodic table highlighting investigated elements: transition metals in blue, metalloids in purple, and other metals in orange}{figure.caption.6}{}}
+\newlabel{supp_fig1:ptable@cref}{{[figure][6][]6}{[1][2][]2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.2}CO2RR pathways}{2}{subsection.1.2}\protected@file@percent }
+\newlabel{supp_sec2.2_co2rr_paths}{{I.2}{2}{CO2RR pathways}{subsection.1.2}{}}
+\newlabel{supp_sec2.2_co2rr_paths@cref}{{[subsection][2][1]I.2}{[1][2][]2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Structure of single germanium atom supported on graphitic nitride.} (\textbf  {a}) View along the z-axis and (\textbf  {b}) view along the x-axis of the Ge@g-C\textsubscript  {3}N\textsubscript  {4} structure. In the illustrations, silver spheres represent N atoms, brown spheres signify C atoms, and purple sphere indicates Ge atom.}}{3}{figure.caption.7}\protected@file@percent }
+\newlabel{supp_fig2:Ge_g-C3N4}{{7}{3}{\textbf {Structure of single germanium atom supported on graphitic nitride.} (\textbf {a}) View along the z-axis and (\textbf {b}) view along the x-axis of the Ge@g-C\textsubscript {3}N\textsubscript {4} structure. In the illustrations, silver spheres represent N atoms, brown spheres signify C atoms, and purple sphere indicates Ge atom}{figure.caption.7}{}}
+\newlabel{supp_fig2:Ge_g-C3N4@cref}{{[figure][7][]7}{[1][2][]3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces \textbf  {Structure of single chromium atom supported on nitrogen-doped graphene.} (\textbf  {a}) View along the z-axis and (\textbf  {b}) view along the x-axis of the Cr@nitrogen-doped-graphene structure. In the illustrations, silver spheres represent N atoms, brown spheres signify C atoms, and indigo sphere indicates Cr atom.}}{3}{figure.caption.8}\protected@file@percent }
+\newlabel{supp_fig3:Cr-n-gra}{{8}{3}{\textbf {Structure of single chromium atom supported on nitrogen-doped graphene.} (\textbf {a}) View along the z-axis and (\textbf {b}) view along the x-axis of the Cr@nitrogen-doped-graphene structure. In the illustrations, silver spheres represent N atoms, brown spheres signify C atoms, and indigo sphere indicates Cr atom}{figure.caption.8}{}}
+\newlabel{supp_fig3:Cr-n-gra@cref}{{[figure][8][]8}{[1][2][]3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces \textbf  {Structure of single osmium atom supported on graphene with dual-vacancy.} (\textbf  {a}) View along the z-axis and (\textbf  {b}) view along the x-axis of the Os@graphene-with-dual-vacancy structure. In the illustrations, brown spheres signify C atoms, and light yellow sphere indicates Os atom.}}{4}{figure.caption.9}\protected@file@percent }
+\newlabel{supp_fig4:Os-gra-vac}{{9}{4}{\textbf {Structure of single osmium atom supported on graphene with dual-vacancy.} (\textbf {a}) View along the z-axis and (\textbf {b}) view along the x-axis of the Os@graphene-with-dual-vacancy structure. In the illustrations, brown spheres signify C atoms, and light yellow sphere indicates Os atom}{figure.caption.9}{}}
+\newlabel{supp_fig4:Os-gra-vac@cref}{{[figure][9][]9}{[1][2][]4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces \textbf  {Structure of single chromium atom supported on black phosphorous.} (\textbf  {a}) View along the z-axis and (\textbf  {b}) view along the x-axis of the Cr@black phosphorous structure. In the illustrations, light purple spheres represent P atoms, and indigo sphere indicates Cr atom.}}{4}{figure.caption.10}\protected@file@percent }
+\newlabel{supp_fig5:Cr-BP}{{10}{4}{\textbf {Structure of single chromium atom supported on black phosphorous.} (\textbf {a}) View along the z-axis and (\textbf {b}) view along the x-axis of the Cr@black phosphorous structure. In the illustrations, light purple spheres represent P atoms, and indigo sphere indicates Cr atom}{figure.caption.10}{}}
+\newlabel{supp_fig5:Cr-BP@cref}{{[figure][10][]10}{[1][2][]4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces \textbf  {Structure of single yttrium atom supported on boron nitride.} (\textbf  {a}) View along the z-axis and (\textbf  {b}) view along the x-axis of the Y@boron-nitride structure. In the illustrations, silver spheres represent N atoms, green spheres signify B atoms, and light green sphere indicates Y atom.}}{5}{figure.caption.11}\protected@file@percent }
+\newlabel{supp_fig6:Y-BN}{{11}{5}{\textbf {Structure of single yttrium atom supported on boron nitride.} (\textbf {a}) View along the z-axis and (\textbf {b}) view along the x-axis of the Y@boron-nitride structure. In the illustrations, silver spheres represent N atoms, green spheres signify B atoms, and light green sphere indicates Y atom}{figure.caption.11}{}}
+\newlabel{supp_fig6:Y-BN@cref}{{[figure][11][]11}{[1][2][]5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces \textbf  {Structure of single aluminum atom supported on C\textsubscript  {2}N.} (\textbf  {a}) View along the z-axis and (\textbf  {b}) view along the x-axis of the Al@C\textsubscript  {2}N structure. In the illustrations, silver spheres represent N atoms, brown spheres signify C atoms, and blue sphere indicates Al atom.}}{5}{figure.caption.12}\protected@file@percent }
+\newlabel{supp_fig7:Al-C2N}{{12}{5}{\textbf {Structure of single aluminum atom supported on C\textsubscript {2}N.} (\textbf {a}) View along the z-axis and (\textbf {b}) view along the x-axis of the Al@C\textsubscript {2}N structure. In the illustrations, silver spheres represent N atoms, brown spheres signify C atoms, and blue sphere indicates Al atom}{figure.caption.12}{}}
+\newlabel{supp_fig7:Al-C2N@cref}{{[figure][12][]12}{[1][2][]5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces \textbf  {Three investigated CO\textsubscript  {2}RR pathways \cite  {durand2011structure, nie2014reaction, peterson2010copper} investigated in this work.}}}{6}{figure.caption.13}\protected@file@percent }
+\newlabel{supp_fig8:co2rr_paths}{{13}{6}{\textbf {Three investigated CO\textsubscript {2}RR pathways \cite {durand2011structure, nie2014reaction, peterson2010copper} investigated in this work.}}{figure.caption.13}{}}
+\newlabel{supp_fig8:co2rr_paths@cref}{{[figure][13][]13}{[1][2][]6}}
+\newlabel{supp_table1:e_3_co2rr_paths}{{\caption@xref {supp_table1:e_3_co2rr_paths}{ on input line 121}}{7}{CO2RR pathways}{table.caption.14}{}}
+\newlabel{supp_table1:e_3_co2rr_paths@cref}{{[subsection][2][1]I.2}{[1][2][]7}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces DFT-calculated energies in eV for protonated *CO intermediate for three investigated CO\textsubscript  {2}RR pathways.}}{7}{table.caption.14}\protected@file@percent }
+\BKM@entry{id=27,dest={73756273656374696F6E2E312E34},srcline={735}}{5C3337365C3337375C303030435C3030306F5C303030725C303030725C303030655C3030306C5C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030615C3030306E5C303030615C3030306C5C303030795C303030735C303030695C303030735C3030305C3034305C3030306F5C303030665C3030305C3034305C303030615C303030645C303030735C3030306F5C303030725C303030705C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030655C3030306E5C303030655C303030725C303030675C303030695C303030655C30303073}
+\BKM@entry{id=28,dest={73756273656374696F6E2E312E35},srcline={748}}{5C3337365C3337375C303030545C303030685C303030655C3030305C3034305C303030735C303030635C303030615C3030306C5C303030695C3030306E5C303030675C3030305C3034305C303030725C303030655C3030306C5C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030735C303030635C303030685C303030655C3030306D5C303030655C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030745C303030685C303030655C3030305C3034305C303030685C303030795C303030625C303030725C303030695C303030645C3030305C3034305C303030735C303030635C303030615C3030306C5C303030695C3030306E5C303030675C3030305C3034305C303030725C303030655C3030306C5C303030615C303030745C303030695C3030306F5C3030306E}
+\citation{abild2007scaling}
+\citation{peterson2012activity}
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.3}DFT energies and energy corrections}{8}{subsection.1.3}\protected@file@percent }
+\newlabel{supp_sec2.3_energies}{{I.3}{8}{DFT energies and energy corrections}{subsection.1.3}{}}
+\newlabel{supp_sec2.3_energies@cref}{{[subsection][3][1]I.3}{[1][2][]8}}
+\newlabel{supp_table2:species_free_energies}{{\caption@xref {supp_table2:species_free_energies}{ on input line 187}}{8}{DFT energies and energy corrections}{table.caption.15}{}}
+\newlabel{supp_table2:species_free_energies@cref}{{[subsection][3][1]I.3}{[1][2][]8}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Free energies at 298.15 K for isolated species.}}{8}{table.caption.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.4}Correlation analysis of adsorption energies}{8}{subsection.1.4}\protected@file@percent }
+\newlabel{supp_sec2.4_corr_analysis}{{I.4}{8}{Correlation analysis of adsorption energies}{subsection.1.4}{}}
+\newlabel{supp_sec2.4_corr_analysis@cref}{{[subsection][4][1]I.4}{[1][8][]8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.5}The scaling relation scheme and the hybrid scaling relation}{8}{subsection.1.5}\protected@file@percent }
+\newlabel{supp_sec2.5_scaling}{{I.5}{8}{The scaling relation scheme and the hybrid scaling relation}{subsection.1.5}{}}
+\newlabel{supp_sec2.5_scaling@cref}{{[subsection][5][1]I.5}{[1][8][]8}}
+\newlabel{supp_table3:ads_e_correction}{{\caption@xref {supp_table3:ads_e_correction}{ on input line 220}}{9}{DFT energies and energy corrections}{table.caption.16}{}}
+\newlabel{supp_table3:ads_e_correction@cref}{{[subsection][3][1]I.3}{[1][8][]9}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Free energy corrections at 298.15 K for adsorbed intermediates.}}{9}{table.caption.16}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces \textbf  {Pearson correlation map for adsorption energies of various adsorbates for all six substrates.}}}{9}{figure.caption.26}\protected@file@percent }
+\newlabel{supp_fig9:corr_eads}{{14}{9}{\textbf {Pearson correlation map for adsorption energies of various adsorbates for all six substrates.}}{figure.caption.26}{}}
+\newlabel{supp_fig9:corr_eads@cref}{{[figure][14][]14}{[1][8][]9}}
+\newlabel{supp_table4:e_g-c3n4}{{\caption@xref {supp_table4:e_g-c3n4}{ on input line 253}}{10}{DFT energies and energy corrections}{table.caption.17}{}}
+\newlabel{supp_table4:e_g-c3n4@cref}{{[subsection][3][1]I.3}{[1][8][]10}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces DFT calculated final state energies in eV for adsorbates supported on g-C\textsubscript  {3}N\textsubscript  {4}.}}{10}{table.caption.17}\protected@file@percent }
+\newlabel{supp_table5:e_n_gra}{{\caption@xref {supp_table5:e_n_gra}{ on input line 307}}{11}{DFT energies and energy corrections}{table.caption.18}{}}
+\newlabel{supp_table5:e_n_gra@cref}{{[subsection][3][1]I.3}{[1][8][]11}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces DFT calculated final state energies in eV for adsorbates supported on nitrogen-doped graphene.}}{11}{table.caption.18}\protected@file@percent }
+\newlabel{supp_table6:e_vac_gra}{{\caption@xref {supp_table6:e_vac_gra}{ on input line 360}}{12}{DFT energies and energy corrections}{table.caption.19}{}}
+\newlabel{supp_table6:e_vac_gra@cref}{{[subsection][3][1]I.3}{[1][8][]12}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces DFT calculated final state energies in eV for adsorbates supported on graphene with dual-vacancy.}}{12}{table.caption.19}\protected@file@percent }
+\newlabel{supp_table7:zpe_g-c3n4}{{\caption@xref {supp_table7:zpe_g-c3n4}{ on input line 413}}{13}{DFT energies and energy corrections}{table.caption.20}{}}
+\newlabel{supp_table7:zpe_g-c3n4@cref}{{[subsection][3][1]I.3}{[1][8][]13}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Zero-point energies in eV for relaxed adsorbates supported on g-C\textsubscript  {3}N\textsubscript  {4} at 298.15 K.}}{13}{table.caption.20}\protected@file@percent }
+\newlabel{supp_table8:s_g-c3n4}{{\caption@xref {supp_table8:s_g-c3n4}{ on input line 467}}{14}{DFT energies and energy corrections}{table.caption.21}{}}
+\newlabel{supp_table8:s_g-c3n4@cref}{{[subsection][3][1]I.3}{[1][8][]14}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on g-C\textsubscript  {3}N\textsubscript  {4} at 298.15 K.}}{14}{table.caption.21}\protected@file@percent }
+\newlabel{supp_table9:zpe_n_gra}{{\caption@xref {supp_table9:zpe_n_gra}{ on input line 521}}{15}{DFT energies and energy corrections}{table.caption.22}{}}
+\newlabel{supp_table9:zpe_n_gra@cref}{{[subsection][3][1]I.3}{[1][8][]15}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Zero-point energies in eV for relaxed adsorbates supported on nitrogen-doped graphene at 298.15 K.}}{15}{table.caption.22}\protected@file@percent }
+\newlabel{supp_table10:s_n_gra}{{\caption@xref {supp_table10:s_n_gra}{ on input line 575}}{16}{DFT energies and energy corrections}{table.caption.23}{}}
+\newlabel{supp_table10:s_n_gra@cref}{{[subsection][3][1]I.3}{[1][8][]16}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on nitrogen-doped graphene at 298.15 K.}}{16}{table.caption.23}\protected@file@percent }
+\newlabel{supp_table11:zpe_vac_gra}{{\caption@xref {supp_table11:zpe_vac_gra}{ on input line 629}}{17}{DFT energies and energy corrections}{table.caption.24}{}}
+\newlabel{supp_table11:zpe_vac_gra@cref}{{[subsection][3][1]I.3}{[1][8][]17}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Zero-point energies in eV for relaxed adsorbates supported on graphene with dual-vacancy at 298.15 K.}}{17}{table.caption.24}\protected@file@percent }
+\newlabel{supp_table12:s_vac_gra}{{\caption@xref {supp_table12:s_vac_gra}{ on input line 683}}{18}{DFT energies and energy corrections}{table.caption.25}{}}
+\newlabel{supp_table12:s_vac_gra@cref}{{[subsection][3][1]I.3}{[1][8][]18}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Entropy corrections ($-T \cdot S$) in eV for relaxed adsorbates supported on graphene with dual-vacancy at 298.15 K.}}{18}{table.caption.25}\protected@file@percent }
+\BKM@entry{id=29,dest={73756273656374696F6E2E312E36},srcline={875}}{5C3337365C3337375C303030565C3030306F5C3030306C5C303030635C303030615C3030306E5C3030306F5C3030305C3034305C303030705C3030306C5C3030306F5C303030745C30303073}
+\newlabel{supp_eq1:scaling_relation_x_co}{{16}{19}{The scaling relation scheme and the hybrid scaling relation}{equation.1.16}{}}
+\newlabel{supp_eq1:scaling_relation_x_co@cref}{{[equation][16][]16}{[1][8][]19}}
+\newlabel{supp_eq2:scaling_relation_y_oh}{{17}{19}{The scaling relation scheme and the hybrid scaling relation}{equation.1.17}{}}
+\newlabel{supp_eq2:scaling_relation_y_oh@cref}{{[equation][17][]17}{[1][8][]19}}
+\newlabel{supp_eq3:generic_reaction}{{18}{19}{The scaling relation scheme and the hybrid scaling relation}{equation.1.18}{}}
+\newlabel{supp_eq3:generic_reaction@cref}{{[equation][18][]18}{[1][19][]19}}
+\newlabel{supp_eq4:free_energy_change}{{19}{19}{The scaling relation scheme and the hybrid scaling relation}{equation.1.19}{}}
+\newlabel{supp_eq4:free_energy_change@cref}{{[equation][19][]19}{[1][19][]19}}
+\newlabel{supp_eq5:exp_reaction}{{22}{19}{The scaling relation scheme and the hybrid scaling relation}{equation.1.22}{}}
+\newlabel{supp_eq5:exp_reaction@cref}{{[equation][22][]22}{[1][19][]19}}
+\newlabel{supp_eq6:eads}{{23}{19}{The scaling relation scheme and the hybrid scaling relation}{equation.1.23}{}}
+\newlabel{supp_eq6:eads@cref}{{[equation][23][]23}{[1][19][]19}}
+\newlabel{supp_eq7:reduced_eads}{{24}{19}{The scaling relation scheme and the hybrid scaling relation}{equation.1.24}{}}
+\newlabel{supp_eq7:reduced_eads@cref}{{[equation][24][]24}{[1][19][]19}}
+\newlabel{supp_table13:scaling_params}{{\caption@xref {supp_table13:scaling_params}{ on input line 809}}{20}{The scaling relation scheme and the hybrid scaling relation}{table.caption.27}{}}
+\newlabel{supp_table13:scaling_params@cref}{{[subsection][5][1]I.5}{[1][19][]20}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Adsorption free energy scaling relation parameters determined by the hybrid descriptor method.}}{20}{table.caption.27}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces \textbf  {$R^2$ improvement from hybrid-descriptor method.} Improvement in the coefficient of determination ($R^2$) with x-axis as CO ratio in CO/OH hybrid descriptors. (\textbf  {a}) averaged $R^2$ and those of (\textbf  {b}) CO\textsubscript  {2}, (\textbf  {c}) COOH, (\textbf  {d}) CHO, (\textbf  {e}) CH\textsubscript  {2}O, (\textbf  {f}) OCH\textsubscript  {3}, (\textbf  {g}) O and (\textbf  {h}) H are shown.}}{20}{figure.caption.28}\protected@file@percent }
+\newlabel{supp_fig10:r2_hyb_des}{{15}{20}{\textbf {$R^2$ improvement from hybrid-descriptor method.} Improvement in the coefficient of determination ($R^2$) with x-axis as CO ratio in CO/OH hybrid descriptors. (\textbf {a}) averaged $R^2$ and those of (\textbf {b}) CO\textsubscript {2}, (\textbf {c}) COOH, (\textbf {d}) CHO, (\textbf {e}) CH\textsubscript {2}O, (\textbf {f}) OCH\textsubscript {3}, (\textbf {g}) O and (\textbf {h}) H are shown}{figure.caption.28}{}}
+\newlabel{supp_fig10:r2_hyb_des@cref}{{[figure][15][]15}{[1][19][]20}}
+\BKM@entry{id=30,dest={73756273656374696F6E2E312E37},srcline={901}}{5C3337365C3337375C303030415C303030635C303030745C303030695C303030765C303030695C303030745C303030795C3030305C3034305C303030705C303030655C303030725C303030695C3030306F5C303030645C303030695C303030635C3030305C3034305C303030745C303030615C303030625C3030306C5C303030655C30303073}
+\newlabel{supp_table14:hybrid_des_perf}{{\caption@xref {supp_table14:hybrid_des_perf}{ on input line 854}}{21}{The scaling relation scheme and the hybrid scaling relation}{table.caption.29}{}}
+\newlabel{supp_table14:hybrid_des_perf@cref}{{[subsection][5][1]I.5}{[1][19][]21}}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Performance comparison of hybrid descriptor and single descriptor for linear scaling relations.}}{21}{table.caption.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.6}Volcano plots}{21}{subsection.1.6}\protected@file@percent }
+\newlabel{supp_sec2.6_volcano}{{I.6}{21}{Volcano plots}{subsection.1.6}{}}
+\newlabel{supp_sec2.6_volcano@cref}{{[subsection][6][1]I.6}{[1][19][]21}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.7}Activity periodic tables}{21}{subsection.1.7}\protected@file@percent }
+\newlabel{supp_sec2.7_ptable}{{I.7}{21}{Activity periodic tables}{subsection.1.7}{}}
+\newlabel{supp_sec2.7_ptable@cref}{{[subsection][7][1]I.7}{[1][21][]21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces \textbf  {CO\textsubscript  {2}RR rate determining step volcano plot.} This graph illustrates the rate-determining step associated with each region within the CO\textsubscript  {2}RR process.}}{22}{figure.caption.30}\protected@file@percent }
+\newlabel{supp_fig11:rds_volcano}{{16}{22}{\textbf {CO\textsubscript {2}RR rate determining step volcano plot.} This graph illustrates the rate-determining step associated with each region within the CO\textsubscript {2}RR process}{figure.caption.30}{}}
+\newlabel{supp_fig11:rds_volcano@cref}{{[figure][16][]16}{[1][19][]22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces \textbf  {CO\textsubscript  {2}RR selectivity volcano plot.} Selectivity volcano plot computed from linear scaling relations. In the plot, the circle, triangle, square, diamond, plus, and star symbols correspond to metals supported on g-C\textsubscript  {3}N\textsubscript  {4}, nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, BN, and C\textsubscript  {2}N, respectively.}}{23}{figure.caption.31}\protected@file@percent }
+\newlabel{supp_fig12:sel_volc}{{17}{23}{\textbf {CO\textsubscript {2}RR selectivity volcano plot.} Selectivity volcano plot computed from linear scaling relations. In the plot, the circle, triangle, square, diamond, plus, and star symbols correspond to metals supported on g-C\textsubscript {3}N\textsubscript {4}, nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, BN, and C\textsubscript {2}N, respectively}{figure.caption.31}{}}
+\newlabel{supp_fig12:sel_volc@cref}{{[figure][17][]17}{[1][21][]23}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces \textbf  {Limiting potential periodic table for nitrogen-doped graphene.}}}{24}{figure.caption.32}\protected@file@percent }
+\newlabel{supp_fig13:n-gra_ptable}{{18}{24}{\textbf {Limiting potential periodic table for nitrogen-doped graphene.}}{figure.caption.32}{}}
+\newlabel{supp_fig13:n-gra_ptable@cref}{{[figure][18][]18}{[1][21][]24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces \textbf  {Limiting potential periodic table for graphene with dual-vacancy.}}}{24}{figure.caption.33}\protected@file@percent }
+\newlabel{supp_fig14:gra-vac_ptable}{{19}{24}{\textbf {Limiting potential periodic table for graphene with dual-vacancy.}}{figure.caption.33}{}}
+\newlabel{supp_fig14:gra-vac_ptable@cref}{{[figure][19][]19}{[1][21][]24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces \textbf  {Limiting potential periodic table for black phosphorus.}}}{25}{figure.caption.34}\protected@file@percent }
+\newlabel{supp_fig15:BP_ptable}{{20}{25}{\textbf {Limiting potential periodic table for black phosphorus.}}{figure.caption.34}{}}
+\newlabel{supp_fig15:BP_ptable@cref}{{[figure][20][]20}{[1][21][]25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces \textbf  {Limiting potential periodic table for boron nitride.}}}{25}{figure.caption.35}\protected@file@percent }
+\newlabel{supp_fig16:BN_ptable}{{21}{25}{\textbf {Limiting potential periodic table for boron nitride.}}{figure.caption.35}{}}
+\newlabel{supp_fig16:BN_ptable@cref}{{[figure][21][]21}{[1][21][]25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces \textbf  {Limiting potential periodic table for monolayer C\textsubscript  {2}N.}}}{25}{figure.caption.36}\protected@file@percent }
+\newlabel{supp_fig17:C2N_ptable}{{22}{25}{\textbf {Limiting potential periodic table for monolayer C\textsubscript {2}N.}}{figure.caption.36}{}}
+\newlabel{supp_fig17:C2N_ptable@cref}{{[figure][22][]22}{[1][21][]25}}
+\BKM@entry{id=31,dest={73656374696F6E2E32},srcline={947}}{5C3337365C3337375C303030415C303030645C303030645C303030695C303030745C303030695C3030306F5C3030306E5C303030615C3030306C5C3030305C3034305C303030645C303030655C303030745C303030615C303030695C3030306C5C303030735C3030305C3034305C3030306F5C3030306E5C3030305C3034305C3030306D5C303030615C303030635C303030685C303030695C3030306E5C303030655C3030305C3034305C3030306C5C303030655C303030615C303030725C3030306E5C303030695C3030306E5C303030675C3030305C3034305C3030306D5C303030655C303030745C303030685C3030306F5C30303064}
+\BKM@entry{id=32,dest={73756273656374696F6E2E322E31},srcline={949}}{5C3337365C3337375C303030645C3030302D5C303030625C303030615C3030306E5C303030645C3030305C3034305C303030635C303030655C3030306E5C303030745C303030655C303030725C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030615C303030645C303030735C3030306F5C303030725C303030705C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030655C3030306E5C303030655C303030725C303030675C303030795C3030305C3034305C303030725C303030655C3030306C5C303030615C303030745C303030695C3030306F5C3030306E5C30303073}
+\BKM@entry{id=33,dest={73756273656374696F6E2E322E32},srcline={965}}{5C3337365C3337375C303030465C303030655C303030615C303030745C303030755C303030725C303030655C3030305C3034305C303030635C3030306F5C303030725C303030725C303030655C3030306C5C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030615C3030306E5C303030615C3030306C5C303030795C303030735C303030695C30303073}
+\BKM@entry{id=34,dest={73756273656374696F6E2E322E33},srcline={1013}}{5C3337365C3337375C303030495C3030306E5C303030705C303030755C303030745C3030305C3034305C303030705C303030695C303030705C303030655C3030306C5C303030695C3030306E5C303030655C3030305C3034305C303030635C3030306F5C3030306E5C303030735C303030745C303030725C303030755C303030635C303030745C303030695C3030306F5C3030306E}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Additional details on machine learning method}{26}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {II.1}d-band center and adsorption energy relations}{26}{subsection.2.1}\protected@file@percent }
+\newlabel{supp_sec3.1_dband_eads}{{II.1}{26}{d-band center and adsorption energy relations}{subsection.2.1}{}}
+\newlabel{supp_sec3.1_dband_eads@cref}{{[subsection][1][2]II.1}{[1][26][]26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces \textbf  {Scatter plot of d-Band Center and Adsorption Energy Relationships.} This figure delineates the relationship between d-band center and adsorption energies for various species: (\textbf  {a}) CO\textsubscript  {2}, (\textbf  {b}) COOH, (\textbf  {c}) CO, (\textbf  {d}) CHO, (\textbf  {e}) CH\textsubscript  {2}O, (\textbf  {f}) OCH\textsubscript  {3}, (\textbf  {g}) O, and (\textbf  {h}) OH. Data from all six substrates investigated in this study are included.}}{26}{figure.caption.37}\protected@file@percent }
+\newlabel{supp_fig18:dband_vs_eads}{{23}{26}{\textbf {Scatter plot of d-Band Center and Adsorption Energy Relationships.} This figure delineates the relationship between d-band center and adsorption energies for various species: (\textbf {a}) CO\textsubscript {2}, (\textbf {b}) COOH, (\textbf {c}) CO, (\textbf {d}) CHO, (\textbf {e}) CH\textsubscript {2}O, (\textbf {f}) OCH\textsubscript {3}, (\textbf {g}) O, and (\textbf {h}) OH. Data from all six substrates investigated in this study are included}{figure.caption.37}{}}
+\newlabel{supp_fig18:dband_vs_eads@cref}{{[figure][23][]23}{[1][26][]26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II.2}Feature correlation analysis}{26}{subsection.2.2}\protected@file@percent }
+\newlabel{supp_sec3.2_feature_corr}{{II.2}{26}{Feature correlation analysis}{subsection.2.2}{}}
+\newlabel{supp_sec3.2_feature_corr@cref}{{[subsection][2][2]II.2}{[1][26][]26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II.3}Input pipeline construction}{26}{subsection.2.3}\protected@file@percent }
+\newlabel{supp_sec3.3_input_pipeline}{{II.3}{26}{Input pipeline construction}{subsection.2.3}{}}
+\newlabel{supp_sec3.3_input_pipeline@cref}{{[subsection][3][2]II.3}{[1][26][]26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces \textbf  {Pairwise Plot of Adsorption Energy and Key Descriptors.} This chart displays the pairwise relationships between CO adsorption energy and its four most correlated descriptors: d-band center (spin-up) $\delta \epsilon _{\text  {d}}\uparrow $, lattice parameter $\gamma $, vacuum level $E_\text  {vac}$, and electronegativity on the Allen scale $\chi _\text  {Allen}$, identified by Kendall rank correlation analysis. Data from all six substrates investigated in this study are included.}}{27}{figure.caption.38}\protected@file@percent }
+\newlabel{supp_fig19:pairwise_eads_des}{{24}{27}{\textbf {Pairwise Plot of Adsorption Energy and Key Descriptors.} This chart displays the pairwise relationships between CO adsorption energy and its four most correlated descriptors: d-band center (spin-up) $\delta \epsilon _{\text {d}}\uparrow $, lattice parameter $\gamma $, vacuum level $E_\text {vac}$, and electronegativity on the Allen scale $\chi _\text {Allen}$, identified by Kendall rank correlation analysis. Data from all six substrates investigated in this study are included}{figure.caption.38}{}}
+\newlabel{supp_fig19:pairwise_eads_des@cref}{{[figure][24][]24}{[1][26][]27}}
+\newlabel{supp_table15:descriptor_notations}{{\caption@xref {supp_table15:descriptor_notations}{ on input line 989}}{28}{Feature correlation analysis}{table.caption.39}{}}
+\newlabel{supp_table15:descriptor_notations@cref}{{[subsection][2][2]II.2}{[1][26][]28}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Notations for elementary descriptors and electronic descriptors.}}{28}{table.caption.39}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces \textbf  {Schematic representation of the input eDOS data structure.}}}{28}{figure.caption.40}\protected@file@percent }
+\newlabel{supp_fig20:input_dos}{{25}{28}{\textbf {Schematic representation of the input eDOS data structure.}}{figure.caption.40}{}}
+\newlabel{supp_fig20:input_dos@cref}{{[figure][25][]25}{[1][26][]28}}
+\BKM@entry{id=35,dest={73756273656374696F6E2E322E34},srcline={1043}}{5C3337365C3337375C303030485C303030795C303030705C303030655C303030725C303030705C303030615C303030725C303030615C3030306D5C303030655C303030745C303030655C303030725C3030305C3034305C303030745C303030755C3030306E5C303030695C3030306E5C303030675C3030305C3034305C303030665C3030306F5C303030725C3030305C3034305C303030435C3030304E5C3030304E}
+\citation{kingma2017adam}
+\citation{kingma2017adam}
+\BKM@entry{id=36,dest={73756273656374696F6E2E322E35},srcline={1134}}{5C3337365C3337375C3030304F5C303030635C303030635C3030306C5C303030755C303030735C303030695C3030306F5C3030306E5C3030305C3034305C303030655C303030785C303030705C303030655C303030725C303030695C3030306D5C303030655C3030306E5C30303074}
+\BKM@entry{id=37,dest={73756273656374696F6E2E322E36},srcline={1228}}{5C3337365C3337375C303030535C303030685C303030695C303030665C303030745C303030695C3030306E5C303030675C3030305C3034305C303030655C303030785C303030705C303030655C303030725C303030695C3030306D5C303030655C3030306E5C30303074}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II.4}Hyperparameter tuning for CNN}{29}{subsection.2.4}\protected@file@percent }
+\newlabel{supp_sec3.4_hyperparam}{{II.4}{29}{Hyperparameter tuning for CNN}{subsection.2.4}{}}
+\newlabel{supp_sec3.4_hyperparam@cref}{{[subsection][4][2]II.4}{[1][29][]29}}
+\newlabel{supp_table16:hyperparam_space}{{\caption@xref {supp_table16:hyperparam_space}{ on input line 1048}}{29}{Hyperparameter tuning for CNN}{table.caption.41}{}}
+\newlabel{supp_table16:hyperparam_space@cref}{{[subsection][4][2]II.4}{[1][29][]29}}
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces The hyperparameter search space.}}{29}{table.caption.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {II.5}Occlusion experiment}{29}{subsection.2.5}\protected@file@percent }
+\newlabel{supp_sec3.5_occlusion}{{II.5}{29}{Occlusion experiment}{subsection.2.5}{}}
+\newlabel{supp_sec3.5_occlusion@cref}{{[subsection][5][2]II.5}{[1][29][]29}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {II.6}Shifting experiment}{29}{subsection.2.6}\protected@file@percent }
+\newlabel{supp_sec3.6_shifting}{{II.6}{29}{Shifting experiment}{subsection.2.6}{}}
+\newlabel{supp_sec3.6_shifting@cref}{{[subsection][6][2]II.6}{[1][29][]29}}
+\newlabel{supp_table17:opt_hyperparam}{{\caption@xref {supp_table17:opt_hyperparam}{ on input line 1074}}{30}{Hyperparameter tuning for CNN}{table.caption.42}{}}
+\newlabel{supp_table17:opt_hyperparam@cref}{{[subsection][4][2]II.4}{[1][29][]30}}
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces Optimal hyperparameters identified with Hyperband algorithm.}}{30}{table.caption.42}\protected@file@percent }
+\newlabel{supp_table18:cnn_mae}{{\caption@xref {supp_table18:cnn_mae}{ on input line 1100}}{30}{Hyperparameter tuning for CNN}{table.caption.43}{}}
+\newlabel{supp_table18:cnn_mae@cref}{{[subsection][4][2]II.4}{[1][29][]30}}
+\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces Prediction mean absolute errors of the CNN model.}}{30}{table.caption.43}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces \textbf  {Illustration of the eDOS occlusion experiment.} This figure demonstrates the step-by-step process of the occlusion experiment. The input eDOS array first undergoes zero-padded, and then a masker of width ``width'' is applied, resulting in an occlusion array that preserves the shape of the input array.}}{31}{figure.caption.44}\protected@file@percent }
+\newlabel{supp_fig21:occlusion}{{26}{31}{\textbf {Illustration of the eDOS occlusion experiment.} This figure demonstrates the step-by-step process of the occlusion experiment. The input eDOS array first undergoes zero-padded, and then a masker of width ``width'' is applied, resulting in an occlusion array that preserves the shape of the input array}{figure.caption.44}{}}
+\newlabel{supp_fig21:occlusion@cref}{{[figure][26][]26}{[1][29][]31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``1''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{32}{figure.caption.45}\protected@file@percent }
+\newlabel{supp_fig22:occl_wid1}{{27}{32}{\textbf {Occlusion Experiment with a masker width of ``1''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.45}{}}
+\newlabel{supp_fig22:occl_wid1@cref}{{[figure][27][]27}{[1][29][]32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``3''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{33}{figure.caption.46}\protected@file@percent }
+\newlabel{supp_fig23:occl_wid3}{{28}{33}{\textbf {Occlusion Experiment with a masker width of ``3''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.46}{}}
+\newlabel{supp_fig23:occl_wid3@cref}{{[figure][28][]28}{[1][29][]33}}
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``5''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{34}{figure.caption.47}\protected@file@percent }
+\newlabel{supp_fig24:occl_wid5}{{29}{34}{\textbf {Occlusion Experiment with a masker width of ``5''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.47}{}}
+\newlabel{supp_fig24:occl_wid5@cref}{{[figure][29][]29}{[1][29][]34}}
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``11''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{35}{figure.caption.48}\protected@file@percent }
+\newlabel{supp_fig25:occl_wid11}{{30}{35}{\textbf {Occlusion Experiment with a masker width of ``11''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.48}{}}
+\newlabel{supp_fig25:occl_wid11@cref}{{[figure][30][]30}{[1][29][]35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``21''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{36}{figure.caption.49}\protected@file@percent }
+\newlabel{supp_fig26:occl_wid21}{{31}{36}{\textbf {Occlusion Experiment with a masker width of ``21''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.49}{}}
+\newlabel{supp_fig26:occl_wid21@cref}{{[figure][31][]31}{[1][29][]36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``31''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{37}{figure.caption.50}\protected@file@percent }
+\newlabel{supp_fig27:occl_wid31}{{32}{37}{\textbf {Occlusion Experiment with a masker width of ``31''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.50}{}}
+\newlabel{supp_fig27:occl_wid31@cref}{{[figure][32][]32}{[1][29][]37}}
+\@writefile{lof}{\contentsline {figure}{\numberline {33}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``41''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{38}{figure.caption.51}\protected@file@percent }
+\newlabel{supp_fig28:occl_wid41}{{33}{38}{\textbf {Occlusion Experiment with a masker width of ``41''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.51}{}}
+\newlabel{supp_fig28:occl_wid41@cref}{{[figure][33][]33}{[1][29][]38}}
+\@writefile{lof}{\contentsline {figure}{\numberline {34}{\ignorespaces \textbf  {Occlusion Experiment with a masker width of ``51''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript  {3}N\textsubscript  {4}.}}{39}{figure.caption.52}\protected@file@percent }
+\newlabel{supp_fig29:occl_wid51}{{34}{39}{\textbf {Occlusion Experiment with a masker width of ``51''.} This figure shows an occlusion experiment on the Ge atom in the initial state of CO adsorption on Ge@g-C\textsubscript {3}N\textsubscript {4}}{figure.caption.52}{}}
+\newlabel{supp_fig29:occl_wid51@cref}{{[figure][34][]34}{[1][29][]39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {35}{\ignorespaces \textbf  {Illustration of the eDOS shifting experiment.} This figure illustrates the sequential stages of the shifting experiment. Initially, the input eDOS array is shifted along the Energy axis. Subsequently, it undergoes zero-padding and cropping, ensuring a consistent shape based on the shifting direction, to match the input eDOS array. The resulting shifted array is then processed by the CNN model to assess the disturbance in adsorption energy caused by the shifting operation.}}{40}{figure.caption.53}\protected@file@percent }
+\newlabel{supp_fig30:shifting}{{35}{40}{\textbf {Illustration of the eDOS shifting experiment.} This figure illustrates the sequential stages of the shifting experiment. Initially, the input eDOS array is shifted along the Energy axis. Subsequently, it undergoes zero-padding and cropping, ensuring a consistent shape based on the shifting direction, to match the input eDOS array. The resulting shifted array is then processed by the CNN model to assess the disturbance in adsorption energy caused by the shifting operation}{figure.caption.53}{}}
+\newlabel{supp_fig30:shifting@cref}{{[figure][35][]35}{[1][29][]40}}
+\@writefile{lof}{\contentsline {figure}{\numberline {36}{\ignorespaces \textbf  {Shifting experiment on p orbital.} Effect of orbital shifting on CO adsorption energy, predicted by the CNN model, for single metal atom catalysts supported on g-C\textsubscript  {3}N\textsubscript  {4}. The perturbations caused by shifting of entire p orbital are presented. The shifting step size corresponds to the energy resolution of the eDOS, set at 0.005 eV in this study. A positive eDOS shift indicates a shift towards higher energy levels, and vice versa.}}{41}{figure.caption.54}\protected@file@percent }
+\newlabel{supp_fig31:p_shifting}{{36}{41}{\textbf {Shifting experiment on p orbital.} Effect of orbital shifting on CO adsorption energy, predicted by the CNN model, for single metal atom catalysts supported on g-C\textsubscript {3}N\textsubscript {4}. The perturbations caused by shifting of entire p orbital are presented. The shifting step size corresponds to the energy resolution of the eDOS, set at 0.005 eV in this study. A positive eDOS shift indicates a shift towards higher energy levels, and vice versa}{figure.caption.54}{}}
+\newlabel{supp_fig31:p_shifting@cref}{{[figure][36][]36}{[1][29][]41}}
+\BKM@entry{id=38,dest={73656374696F6E2E33},srcline={1262}}{5C3337365C3337375C3030304F5C303030745C303030685C303030655C303030725C3030305C3034305C303030615C303030645C303030645C303030695C303030745C303030695C3030306F5C3030306E5C303030615C3030306C5C3030305C3034305C303030695C3030306E5C303030665C3030306F5C303030725C3030306D5C303030615C303030745C303030695C3030306F5C3030306E}
+\BKM@entry{id=39,dest={73756273656374696F6E2E332E31},srcline={1265}}{5C3337365C3337375C303030415C303030645C303030645C303030695C303030745C303030695C3030306F5C3030306E5C303030615C3030306C5C3030305C3034305C303030695C3030306E5C303030665C3030306F5C303030725C3030306D5C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C3030306F5C3030306E5C3030305C3034305C3030306D5C303030615C303030635C303030685C303030695C3030306E5C303030655C3030305C3034305C3030306C5C303030655C303030615C303030725C3030306E5C303030695C3030306E5C303030675C3030305C3034305C303030655C3030306E5C303030765C303030695C303030725C3030306F5C3030306E5C3030306D5C303030655C3030306E5C30303074}
+\citation{li2018hyperband}
+\citation{omalley2019kerastuner}
+\BKM@entry{id=40,dest={73756273656374696F6E2E332E32},srcline={1318}}{5C3337365C3337375C303030415C303030645C303030645C303030695C303030745C303030695C3030306F5C3030306E5C303030615C3030306C5C3030305C3034305C303030695C3030306E5C303030665C3030306F5C303030725C3030306D5C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C3030306F5C3030306E5C3030305C3034305C303030645C303030615C303030745C303030615C3030305C3034305C303030615C3030306E5C303030615C3030306C5C303030795C303030735C303030695C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030765C303030695C303030735C303030755C303030615C3030306C5C303030695C3030307A5C303030615C303030745C303030695C3030306F5C3030306E5C3030305C3034305C303030655C3030306E5C303030765C303030695C303030725C3030306F5C3030306E5C3030306D5C303030655C3030306E5C30303074}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Other additional information}{42}{section.3}\protected@file@percent }
+\newlabel{supp_sec4_env}{{III}{42}{Other additional information}{section.3}{}}
+\newlabel{supp_sec4_env@cref}{{[section][3][]III}{[1][42][]42}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.1}Additional information on machine learning environment}{42}{subsection.3.1}\protected@file@percent }
+\newlabel{supp_sec4.1_ml_env}{{III.1}{42}{Additional information on machine learning environment}{subsection.3.1}{}}
+\newlabel{supp_sec4.1_ml_env@cref}{{[subsection][1][3]III.1}{[1][42][]42}}
+\newlabel{supp_table19:pack_dl_env}{{\caption@xref {supp_table19:pack_dl_env}{ on input line 1275}}{42}{Additional information on machine learning environment}{table.caption.55}{}}
+\newlabel{supp_table19:pack_dl_env@cref}{{[subsection][1][3]III.1}{[1][42][]42}}
+\@writefile{lot}{\contentsline {table}{\numberline {19}{\ignorespaces Core packages in the deep learning environment.}}{42}{table.caption.55}\protected@file@percent }
+\citation{Saravia_ML_Visuals_2021}
+\@writefile{toc}{\contentsline {subsection}{\numberline {III.2}Additional information on data analysis and visualization environment}{43}{subsection.3.2}\protected@file@percent }
+\newlabel{supp_sec4.2_vis_env}{{III.2}{43}{Additional information on data analysis and visualization environment}{subsection.3.2}{}}
+\newlabel{supp_sec4.2_vis_env@cref}{{[subsection][2][3]III.2}{[1][42][]43}}
+\newlabel{supp_table20:pack_vis_env}{{\caption@xref {supp_table20:pack_vis_env}{ on input line 1333}}{43}{Additional information on data analysis and visualization environment}{table.caption.56}{}}
+\newlabel{supp_table20:pack_vis_env@cref}{{[subsection][2][3]III.2}{[1][43][]43}}
+\@writefile{lot}{\contentsline {table}{\numberline {20}{\ignorespaces Core packages in data analysis and visualization environment.}}{43}{table.caption.56}\protected@file@percent }
+\bibstyle{plain}
+\bibdata{references}
+\bibcite{abadi2016tensorflow}{{1}{}{{}}{{}}}
+\bibcite{abild2007scaling}{{2}{}{{}}{{}}}
+\bibcite{balandin1969modern}{{3}{}{{}}{{}}}
+\bibcite{bera2017density}{{4}{}{{}}{{}}}
+\bibcite{blochl1994improved}{{5}{}{{}}{{}}}
+\bibcite{cai2021insights}{{6}{}{{}}{{}}}
+\bibcite{carter2008challenges}{{7}{}{{}}{{}}}
+\bibcite{chandrasekaran2019solving}{{8}{}{{}}{{}}}
+\bibcite{chen2019identifying}{{9}{}{{}}{{}}}
+\bibcite{cuenya2015nanocatalysis}{{10}{}{{}}{{}}}
+\bibcite{deringer2011crystal}{{11}{}{{}}{{}}}
+\bibcite{deutschmann2000heterogeneous}{{12}{}{{}}{{}}}
+\bibcite{di2022universal}{{13}{}{{}}{{}}}
+\bibcite{dinh2018co2}{{14}{}{{}}{{}}}
+\bibcite{dronskowski1993crystal}{{15}{}{{}}{{}}}
+\bibcite{durand2011structure}{{16}{}{{}}{{}}}
+\bibcite{feaster2017understanding}{{17}{}{{}}{{}}}
+\bibcite{fung2021machine}{{18}{}{{}}{{}}}
+\bibcite{fung2020descriptors}{{19}{}{{}}{{}}}
+\bibcite{goldsmith2018machine}{{20}{}{{}}{{}}}
+\bibcite{goyal2020competition}{{21}{}{{}}{{}}}
+\bibcite{hammer1995electronic}{{22}{}{{}}{{}}}
+\bibcite{hammer2000theoretical}{{23}{}{{}}{{}}}
+\bibcite{han2021single}{{24}{}{{}}{{}}}
+\bibcite{huang2020rational}{{25}{}{{}}{{}}}
+\bibcite{jiao2017molecular}{{26}{}{{}}{{}}}
+\bibcite{jinnouchi2017predicting}{{27}{}{{}}{{}}}
+\bibcite{ju2017understanding}{{28}{}{{}}{{}}}
+\bibcite{kajita2017universal}{{29}{}{{}}{{}}}
+\bibcite{kendall1938new}{{30}{}{{}}{{}}}
+\bibcite{kingma2017adam}{{31}{}{{}}{{}}}
+\bibcite{kirklin2015open}{{32}{}{{}}{{}}}
+\bibcite{koga1999analytical}{{33}{}{{}}{{}}}
+\bibcite{kortylewski2020combining}{{34}{}{{}}{{}}}
+\bibcite{kresse1996efficiency}{{35}{}{{}}{{}}}
+\bibcite{kresse1996efficient}{{36}{}{{}}{{}}}
+\bibcite{kresse1993ab}{{37}{}{{}}{{}}}
+\bibcite{NIPS2012_c399862d}{{38}{}{{}}{{}}}
+\bibcite{kusada2019emergence}{{39}{}{{}}{{}}}
+\bibcite{lejaeghere2016reproducibility}{{40}{}{{}}{{}}}
+\bibcite{li2018hyperband}{{41}{}{{}}{{}}}
+\bibcite{liu2021co2}{{42}{}{{}}{{}}}
+\bibcite{maintz2013analytic}{{43}{}{{}}{{}}}
+\bibcite{maintz2016lobster}{{44}{}{{}}{{}}}
+\bibcite{momma2008vesta}{{45}{}{{}}{{}}}
+\bibcite{nelson2020lobster}{{46}{}{{}}{{}}}
+\bibcite{nie2014reaction}{{47}{}{{}}{{}}}
+\bibcite{norskov2011density}{{48}{}{{}}{{}}}
+\bibcite{norskov2004origin}{{49}{}{{}}{{}}}
+\bibcite{omalley2019kerastuner}{{50}{}{{}}{{}}}
+\bibcite{osella2023co2}{{51}{}{{}}{{}}}
+\bibcite{perdew1996generalized}{{52}{}{{}}{{}}}
+\bibcite{peterson2010copper}{{53}{}{{}}{{}}}
+\bibcite{peterson2012activity}{{54}{}{{}}{{}}}
+\bibcite{ren2019isolated}{{55}{}{{}}{{}}}
+\bibcite{Saravia_ML_Visuals_2021}{{56}{}{{}}{{}}}
+\bibcite{savage2022breaking}{{57}{}{{}}{{}}}
+\bibcite{socher2012convolutional}{{58}{}{{}}{{}}}
+\bibcite{sun2022going}{{59}{}{{}}{{}}}
+\bibcite{takigawa2016machine}{{60}{}{{}}{{}}}
+\bibcite{thirumalai2018investigating}{{61}{}{{}}{{}}}
+\bibcite{tran2015learning}{{62}{}{{}}{{}}}
+\bibcite{wang2018heterogeneous}{{63}{}{{}}{{}}}
+\bibcite{wang2020robust}{{64}{}{{}}{{}}}
+\bibcite{wang2021vaspkit}{{65}{}{{}}{{}}}
+\bibcite{weimann2021transfer}{{66}{}{{}}{{}}}
+\bibcite{wellendorff2015benchmark}{{67}{}{{}}{{}}}
+\bibcite{DBLP:journals/corr/abs-2112-12542}{{68}{}{{}}{{}}}
+\bibcite{yang2018atomically}{{69}{}{{}}{{}}}
+\bibcite{yuan2020descriptor}{{70}{}{{}}{{}}}
+\bibcite{zeiler2014visualizing}{{71}{}{{}}{{}}}
+\bibcite{zhang2018visual}{{72}{}{{}}{{}}}
+\bibcite{zhang2018interpretable}{{73}{}{{}}{{}}}
+\bibcite{zhao2021revisiting}{{74}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\gdef \@abspage@last{73}
