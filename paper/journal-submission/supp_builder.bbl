@@ -1,18 +1,13 @@
 \begin{thebibliography}{10}
 
 \bibitem{abild2007scaling}
-Frank Abild-Pedersen, Jeff Greeley, Felix Studt, Jan Rossmeisl, Ture~R Munter,
-  Poul~Georg Moses, Egill Skulason, Thomas Bligaard, and Jens~Kehlet
-  N{\o}rskov.
-\newblock Scaling properties of adsorption energies for hydrogen-containing
-  molecules on transition-metal surfaces.
+Frank Abild-Pedersen, Jeff Greeley, Felix Studt, Jan Rossmeisl, Ture~R Munter, Poul~Georg Moses, Egill Skulason, Thomas Bligaard, and Jens~Kehlet N{\o}rskov.
+\newblock Scaling properties of adsorption energies for hydrogen-containing molecules on transition-metal surfaces.
 \newblock {\em Physical review letters}, 99(1):016105, 2007.
 
 \bibitem{durand2011structure}
-William~J Durand, Andrew~A Peterson, Felix Studt, Frank Abild-Pedersen, and
-  Jens~K N{\o}rskov.
-\newblock Structure effects on the energetics of the electrochemical reduction
-  of co2 by copper surfaces.
+William~J Durand, Andrew~A Peterson, Felix Studt, Frank Abild-Pedersen, and Jens~K N{\o}rskov.
+\newblock Structure effects on the energetics of the electrochemical reduction of co2 by copper surfaces.
 \newblock {\em Surface Science}, 605(15-16):1354--1359, 2011.
 
 \bibitem{kingma2017adam}
@@ -20,35 +15,28 @@ Diederik~P. Kingma and Jimmy Ba.
 \newblock Adam: A method for stochastic optimization, 2017.
 
 \bibitem{li2018hyperband}
-Lisha Li, Kevin Jamieson, Giulia DeSalvo, Afshin Rostamizadeh, and Ameet
-  Talwalkar.
-\newblock Hyperband: A novel bandit-based approach to hyperparameter
-  optimization.
+Lisha Li, Kevin Jamieson, Giulia DeSalvo, Afshin Rostamizadeh, and Ameet Talwalkar.
+\newblock Hyperband: A novel bandit-based approach to hyperparameter optimization.
 \newblock {\em Journal of Machine Learning Research}, 18(185):1--52, 2018.
 
 \bibitem{nie2014reaction}
 Xiaowa Nie, Wenjia Luo, Michael~J Janik, and Aravind Asthagiri.
-\newblock Reaction mechanisms of co2 electrochemical reduction on cu (1 1 1)
-  determined with density functional theory.
+\newblock Reaction mechanisms of co2 electrochemical reduction on cu (1 1 1) determined with density functional theory.
 \newblock {\em Journal of catalysis}, 312:108--122, 2014.
 
 \bibitem{omalley2019kerastuner}
-Tom O'Malley, Elie Bursztein, James Long, Fran\c{c}ois Chollet, Haifeng Jin,
-  Luca Invernizzi, et~al.
+Tom O'Malley, Elie Bursztein, James Long, Fran\c{c}ois Chollet, Haifeng Jin, Luca Invernizzi, et~al.
 \newblock Kerastuner.
 \newblock \url{https://github.com/keras-team/keras-tuner}, 2019.
 
 \bibitem{peterson2010copper}
-Andrew~A Peterson, Frank Abild-Pedersen, Felix Studt, Jan Rossmeisl, and Jens~K
-  N{\o}rskov.
-\newblock How copper catalyzes the electroreduction of carbon dioxide into
-  hydrocarbon fuels.
+Andrew~A Peterson, Frank Abild-Pedersen, Felix Studt, Jan Rossmeisl, and Jens~K N{\o}rskov.
+\newblock How copper catalyzes the electroreduction of carbon dioxide into hydrocarbon fuels.
 \newblock {\em Energy \& Environmental Science}, 3(9):1311--1315, 2010.
 
 \bibitem{peterson2012activity}
 Andrew~A Peterson and Jens~K N{\o}rskov.
-\newblock Activity descriptors for co2 electroreduction to methane on
-  transition-metal catalysts.
+\newblock Activity descriptors for co2 electroreduction to methane on transition-metal catalysts.
 \newblock {\em The Journal of Physical Chemistry Letters}, 3(2):251--258, 2012.
 
 \bibitem{Saravia_ML_Visuals_2021}
@@ -58,8 +46,7 @@ Elvis Saravia.
 
 \bibitem{wang2021vaspkit}
 Vei Wang, Nan Xu, Jin-Cheng Liu, Gang Tang, and Wen-Tong Geng.
-\newblock Vaspkit: A user-friendly interface facilitating high-throughput
-  computing and analysis using vasp code.
+\newblock Vaspkit: A user-friendly interface facilitating high-throughput computing and analysis using vasp code.
 \newblock {\em Computer Physics Communications}, 267:108033, 2021.
 
 \end{thebibliography}
