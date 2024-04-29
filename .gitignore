@@ -5,20 +5,15 @@ p4vasp.log
 .vscode/
 .idea/
 
+# Dataset
+dataset/*/
 
 # Temperarily cached labels and features numpy array for model training
 labels.npy
 features.npy
 
-
 # Occlusion and perturbation images
 perturbation_line.png
-
-
-# Unfinished
-z-cluster-visualize
-0-utils/collect-energy.py
-
 
 # Latex
 *.acn
