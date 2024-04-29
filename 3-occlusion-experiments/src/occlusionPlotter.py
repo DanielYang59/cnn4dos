@@ -138,7 +138,7 @@ class OcclusionPlotter:
         # Create figure and axis
         subplot_vspacing = 0.2  # vertical spacing between subplots
         fig, axs = plt.subplots(
-            array.shape[1], sharex=False, figsize=(10, 6 + (5 * subplot_vspacing))
+            array.shape[1], sharex=False, figsize=(14, 8 + (5 * subplot_vspacing))
         )
 
         # Get min/max values of occlusion array (for a symmetric colorbar)
@@ -180,21 +180,15 @@ class OcclusionPlotter:
                 axis="both", which="major", labelsize=20, width=2.5, length=5
             )
 
-            # Add orbital names to the right
-            ax.yaxis.set_label_position("right")
+            # Add orbital names to the left
+            ax.yaxis.set_label_position("left")
             ax.set_ylabel(
-                names[index], rotation=0, fontsize=36, loc="center", labelpad=48
+                names[index], rotation=0, fontsize=36, loc="center", labelpad=50
             )
 
             # Set border thickness to 2
             for spine in ax.spines.values():
                 spine.set_linewidth(2)
-
-        # Adjust vertical spacing between subplots
-        plt.subplots_adjust(
-            hspace=0.2,
-            left=0.08,  # move y label closer to the main plot
-        )
 
         # Hide ticks for x axes
         for i in range(4):
@@ -207,16 +201,15 @@ class OcclusionPlotter:
         # Set x/y axis labels
         # TODO: increase fontsize further would lead to overlap
         mpl.rcParams["mathtext.default"] = "regular"  # non-Italic
-        fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=36, x=0.35)
-        fig.supylabel("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=36)
+        fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=36, x=0.45)
         fig.subplots_adjust(bottom=0.12)  # adjust x-axis title position
 
         # Add colorbar
         cb = fig.colorbar(
             im,
             ax=axs.ravel().tolist(),
-            pad=0.16,  # spacing between colorbar and main plot
         )
+        cb.set_label("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=36)
         cb.outline.set_visible(False)  # hide border
         cb.ax.tick_params(labelsize=24, width=2.5)  # set tick style
         cb.locator = ticker.MaxNLocator(5)  # set number of ticks
