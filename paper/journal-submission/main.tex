@@ -255,7 +255,7 @@ George Street, Brisbane, QLD 4000, Australia}
     as it involves only a set of linear regressions to identify the optimal mixing ratio, as elaborated in the Methods section.
 
     Expanding upon the revised scaling relations, we introduce an activity volcano plot and a rate-determining step (RDS) volcano plot for the CO\textsubscript{2}RR process, shown in \cref{main_fig3:volcano}a and Supplementary \cref{supp_fig17:rds_volcano}.
-    Given that HER is a key competing reaction with CO\textsubscript{2}RR \cite{goyal2020competition}, we also incorporated a selectivity volcano plot, calculated as the difference between the limiting potentials of CO\textsubscript{2}RR and HER reactions, presented in Supplementary \cref{supp_fig18:sel_volc}, to offer a comprehensive analysis of catalyst candidates.
+    Given that HER is a key competing reaction with CO\textsubscript{2}RR \cite{goyal2020competition}, we also incorporated a selectivity volcano plot, presented in Supplementary \cref{supp_fig18:sel_volc}, to offer a comprehensive analysis of catalyst candidates.
     In adherence to Peterson and Nørskov's original framework \cite{peterson2012activity}, our choice of x and y axes descriptors aligned with $\textit{G}_{\text{ads} \ast \text{CO}}$ and $\textit{G}_{\text{ads} \ast \text{OH}}$.
     Further elaboration on how the limiting potentials were evaluated across the volcano plot can be found in the Methods section.
     Among the candidatures explored, Ge@g-C\textsubscript{3}N\textsubscript{4} emerged as the most promising catalyst, demonstrating theoretical activity at a limiting potential of -1.2126 eV.
@@ -508,6 +508,11 @@ George Street, Brisbane, QLD 4000, Australia}
     U_L = -\frac{\max\{ \Delta G_i \}}{e}  \label{main_eq15:limiting_potential}
     \end{align}
     Where $\Delta G_{i}$ represents the free energy change of reaction step i.
+
+    And we also defined the CO\textsubscript{2}RR vs HER selectivity as:
+    \begin{align}
+    U_{sel} = U_{L_{CO_{2}RR}} - U_{L_{HER}}  \label{main_eq16:selectivity}
+    \end{align}
 
     This approach simplifies the theoretical performance assessment of any catalyst
     within the scope of our research to only two descriptors:
