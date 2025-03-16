@@ -196,6 +196,9 @@ George Street, Brisbane, QLD 4000, Australia}
 
     In our study, we employ CNN, a renowned deep learning method proficient in capturing spatial hierarchy from matrix-like data, such as the eDOS.
     Notably, CNN's autonomy from prior knowledge and human intervention during feature extraction renders it more efficient than traditional machine-learning methods.
+    Specifically, CNNs can automatically identify spatial patterns and complex features from raw data, which reduces the need for manual feature engineering.
+    This ability to model nonlinear relationships, critical in electrochemical processes, sets CNNs apart from traditional machine learning models like support vector machines or random forests.
+    These strengths are especially important in optimizing CO2 reduction reactions, where atomic arrangements, electron densities, and surface morphology play significant roles.
     Our approach harnesses the entire 2D eDOS with a multi-branch CNN model.
     \cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c delineate the model and its branches.
     The workflow involves processing the entire 2D eDOS as input, segregating orbitals into branches, and directing the concatenated outputs through another convolutional block, which generates the adsorption energy prediction.
@@ -218,7 +221,8 @@ George Street, Brisbane, QLD 4000, Australia}
     This revision eliminated the necessity for a complete set of substrate and adsorbate eDOS and significantly reduced computational cost.
     We foresee the potential in the applicability of our method to diverse species and electrocatalytic reactions, given the availability of comprehensive datasets.
     The strength of our CNN model lies in its freedom from element- or adsorbate-specific parameters, relying solely on eDOS as input.
-    This adaptability opens up the possibility for its utilization in a wide array of electrocatalytic studies.
+    This makes our model flexible and adaptable to other material systems beyond 2D materials, with the proper fine-tuning of hyperparameters.
+    Given the high-dimensional nature of eDOS, we believe our model holds promise for broader applications, though this would need to be validated with additional datasets representing other material classes.
 
 
 % Results Part Two: Hybrid descriptors enabled volcano plot for catalyst analysis
@@ -242,11 +246,12 @@ George Street, Brisbane, QLD 4000, Australia}
         \label{main_fig3:volcano}
     \end{figure}
 
-    Catalyst activity volcano plots, built upon the scaling relations proposed by Peterson and Nørskov's \cite{peterson2012activity},
-    goes beyond assessment of candidatures' energetics only but to provide informative guidance on discovering catalysts candidates with superior performance \cite{balandin1969modern, deutschmann2000heterogeneous}.
+    Catalyst activity volcano plots, built upon the scaling relations proposed by Peterson and Nørskov's \cite{peterson2012activity}, goes beyond assessment of candidatures' energetics only but to provide informative guidance on discovering catalysts candidates with superior performance \cite{balandin1969modern, deutschmann2000heterogeneous}.
     Our endeavor to improve the accuracy of volcano plots leads to the development of the hybrid-descriptor,
     which encompasses both C- and O- bonding types of CO\textsubscript{2}RR intermediates within the scaling relations.
     This adaptation arose from the intuition that most CO\textsubscript{2}RR intermediates are featured with both bonding types rather than any single one in dominance.
+    CO is a critical intermediate in CO\textsubscript{2} reduction, especially for reactions leading to multi-carbon products, while OH intermediates are involved in competing pathways that influence selectivity and reaction kinetics.
+    These descriptors allow us to gain mechanistic insights into both the reaction environment and the catalysts' electronic interactions with intermediates.
     By integrating both bonding featured descriptors into the hybrid approach, we found the $R^2$ was increased by 0.1387.
     Detailed information about the scaling parameters and performance enhancements are provided in Supplementary \cref{supp_table13:scaling_params} and Supplementary \cref{supp_fig16:r2_hyb_des}.
     This improvement to some extent underscored our premise that CO\textsubscript{2}RR intermediates typically exhibit chemical similarities encompassing both O- and C-type descriptors.
@@ -395,6 +400,9 @@ George Street, Brisbane, QLD 4000, Australia}
     in actual theoretical or experimental scenarios may not be easily accessible.
     Skillful manipulation of the electronic structure of catalyst candidates would be required,
     presenting a practical challenge.
+    At present direct control over the electronic density of states in actual catalytic materials remains an open area of research.
+    But emerging approaches, such as defect engineering, doping, and strain modulation, offer potential pathways for indirectly influencing eDOS in real materials.
+    These methods have been used to adjust the electronic structure and, consequently, the catalytic activity of materials. While these methods do not enable direct eDOS shifting, but the development of advanced techniques such as in situ spectroscopic methods (e.g., X-ray absorption spectroscopy and electron energy loss spectroscopy) could provide valuable insights into how the eDOS can be tuned, particularly in the context of SACs, where the localized electronic environment around single metal atoms can be finely controlled.
     In contrast to prior studies on bulk metals \cite{fung2021machine},
     wherein the adsorption energy exhibits a continuous shift with eDOS variations,
     the response of SACs is notably discrete.
@@ -402,6 +410,14 @@ George Street, Brisbane, QLD 4000, Australia}
     attributed to the distinctive structure of SACs.
     Despite this challenge, having a tool that can predict the potential impact of
     eDOS shifting is advantageous for the theoretical design of SACs.
+
+    The CNN model used in our study operates in a forward direction—mapping eDOS to predicted catalytic activity (i.e., binding energies).
+    However, this approach does not provide a direct pathway to reverse-engineer material structures that possess the desired eDOS characteristics.
+    Although a material recommendation model is not explicitly developed here, we acknowledge that generative models such as Variational Autoencoders (VAEs) and Generative Adversarial Networks (GANs) have shown promising results in the domain of materials discovery.
+    These models can be trained to generate candidate structures that optimize certain target properties, including electronic characteristics like eDOS.
+    For instance, GANs have been successfully employed to propose novel materials for various applications by learning from existing data and extrapolating structures that satisfy specific criteria.
+    In the case of eDOS-guided catalyst design, a reverse design model could be built by training generative networks on materials datasets with known eDOS properties.
+    Such a model could then suggest new materials that achieve desirable eDOS profiles for catalytic activity in CO\textsubscript{2} reduction, oxygen evolution reaction (OER), and other reactions.
 
 
 % Methods
