@@ -68,91 +68,47 @@ George Street, Brisbane, QLD 4000, Australia}
         \centering
         \includegraphics[width=\textwidth]{main_fig1_pipeline.pdf}
         \caption{\textbf{Catalyst performance analysis pipeline integrating volcano plots and CNN.}
-        The figure demonstrates the integrated usage of volcano plots for
-        predictive assessment of existing catalysts, and the utility of CNNs
-        to predict and modulate adsorption energies \(E_{\text{ads}}\) using eDOS as input.
+        The figure demonstrates the integrated usage of volcano plots for predictive assessment of existing catalysts, and the utility of CNNs to predict and modulate adsorption energies \(E_{\text{ads}}\) using eDOS as input.
         eDOS occlusion and shifting experiments are conducted to extract chemical information from CNN model.}
         \label{main_fig1:pipeline}
     \end{figure}
 
-    Electrochemical CO\textsubscript{2}RR stands as a promising avenue for long-term
-    seasonal energy storage \cite{dinh2018co2} and mitigating excess CO\textsubscript{2} in the atmosphere.
+    Electrochemical CO\textsubscript{2}RR stands as a promising avenue for long-term seasonal energy storage \cite{dinh2018co2} and mitigating excess CO\textsubscript{2} in the atmosphere.
 
-    Despite decades of research, metallic copper remains a leading CO\textsubscript{2}RR electrocatalyst
-    for hydrocarbon production \cite{osella2023co2}, albeit burdened by substantial overpotential
-    and low faradic efficiency and poor operational stability \cite{chen2019identifying, liu2021co2}.
-    In this regard, supported SACs have displayed remarkable activity and selectivity
-    across various catalytic reactions \cite{wang2018heterogeneous, yang2018atomically},
-    leveraging their unique electronic properties and coordination environment.
-    To date, experimental studies have primarily focused on two-electron reduction products
-    due to the facile release of gaseous CO \cite{cai2021insights, ju2017understanding, ren2019isolated}.
-    Consequently, there is a pressing need to modulate the electronic structure of single-atom sites
-    to enable hydrocarbon production at reduced overpotential.
+    Despite decades of research, metallic copper remains a leading CO\textsubscript{2}RR electrocatalyst for hydrocarbon production \cite{osella2023co2}, albeit burdened by substantial overpotential and low faradic efficiency and poor operational stability \cite{chen2019identifying, liu2021co2}.
+    In this regard, supported SACs have displayed remarkable activity and selectivity across various catalytic reactions \cite{wang2018heterogeneous, yang2018atomically}, leveraging their unique electronic properties and coordination environment.
+    To date, experimental studies have primarily focused on two-electron reduction products due to the facile release of gaseous CO \cite{cai2021insights, ju2017understanding, ren2019isolated}.
+    Consequently, there is a pressing need to modulate the electronic structure of single-atom sites to enable hydrocarbon production at reduced overpotential.
 
     The challenge towards effective catalysts design lies in understanding the reaction mechanisms.
-    Experimental determination of these mechanisms remains challenging due to
-    the complexity of in situ spectroscopic detection of reaction intermediates \cite{zhao2021revisiting}.
-    Computational modeling, particularly methods based on quantum mechanics (QM) such as density functional theory (DFT),
-    allows for the profiling the energetics of intermediates and unveils structure-activity relationships
-    for identified active sites \cite{feaster2017understanding, carter2008challenges},
-    contributing to understanding of reaction mechanisms.
-    However, the high computational cost of QM methods restricts the
-    accessible catalyst space \cite{jinnouchi2017predicting, cuenya2015nanocatalysis, goldsmith2018machine}.
+    Experimental determination of these mechanisms remains challenging due to the complexity of in situ spectroscopic detection of reaction intermediates \cite{zhao2021revisiting}.
+    Computational modeling, particularly methods based on quantum mechanics (QM) such as density functional theory (DFT), allows for the profiling the energetics of intermediates and unveils structure-activity relationships for identified active sites \cite{feaster2017understanding, carter2008challenges}, contributing to understanding of reaction mechanisms.
+    However, the high computational cost of QM methods restricts the accessible catalyst space \cite{jinnouchi2017predicting, cuenya2015nanocatalysis, goldsmith2018machine}.
 
-    In this context, researchers have explored descriptor-based methods
-    to circumvent QM calculations and establish direct correlations
-    between target properties and electronic factors, commonly referred to as descriptors or features.
-    Traditional methods of crafting descriptors, as seen in the d-band model of Hammer and Nørskov \cite{hammer1995electronic},
-    necessitate meticulous selection of chemical properties based on chemical knowledge
-    and are inherently case-dependent \cite{kajita2017universal}.
-    Particularly in the case of SACs, the relationship is intricate,
-    rendering manual crafting inadequate \cite{han2021single, thirumalai2018investigating}.
-    To streamline this featurization process, we employed CNNs,
-    which autonomously derive a hierarchical representation directly from the eDOS
-    \cite{tran2015learning, socher2012convolutional, NIPS2012_c399862d}.
-    This approach accurately maps to the activity space, negating the need for manual crafting of descriptors
-    and providing a more efficient method to understand and
-    establish the structure-mechanism-activity relationship for electrochemical reactions.
+    In this context, researchers have explored descriptor-based methods to circumvent QM calculations and establish direct correlations between target properties and electronic factors, commonly referred to as descriptors or features.
+    Traditional methods of crafting descriptors, as seen in the d-band model of Hammer and Nørskov \cite{hammer1995electronic}, necessitate meticulous selection of chemical properties based on chemical knowledge and are inherently case-dependent \cite{kajita2017universal}.
+    Particularly in the case of SACs, the relationship is intricate, rendering manual crafting inadequate \cite{han2021single, thirumalai2018investigating}.
+    To streamline this featurization process, we employed CNNs, which autonomously derive a hierarchical representation directly from the eDOS \cite{tran2015learning, socher2012convolutional, NIPS2012_c399862d}.
+    This approach accurately maps to the activity space, negating the need for manual crafting of descriptors and providing a more efficient method to understand and establish the structure-mechanism-activity relationship for electrochemical reactions.
 
-    In this study, we introduced a catalyst performance analysis pipeline (\cref{main_fig1:pipeline})
-    integrating a customized CNN model and volcano plots.
-    Our CNN model accurately estimated the adsorption energies, the activity descriptor,
-    from the eDOS of 2D materials supported single metal catalysts.
-    Evaluations on the adsorption energies of nine intermediates along CO\textsubscript{2}RR
-    and competing hydrogen evolution reaction (HER) as well
-    yielded prediction mean absolute errors (MAEs) at the level of 0.1 eV,
-    which is well aligned with the precision of conventional DFT calculations
-    \cite{kirklin2015open, lejaeghere2016reproducibility, wellendorff2015benchmark}.
+    In this study, we introduced a catalyst performance analysis pipeline (\cref{main_fig1:pipeline}) integrating a customized CNN model and volcano plots.
+    Our CNN model accurately estimated the adsorption energies, the activity descriptor, from the eDOS of 2D materials supported single metal catalysts.
+    Evaluations on the adsorption energies of nine intermediates along CO\textsubscript{2}RR and competing hydrogen evolution reaction (HER) as well yielded prediction mean absolute errors (MAEs) at the level of 0.1 eV, which is well aligned with the precision of conventional DFT calculations \cite{kirklin2015open, lejaeghere2016reproducibility, wellendorff2015benchmark}.
     This result validated the capability of current CNN model to accurately capture intricate spatial information from eDOS.
-    Building on this, we introduced an orbital-wise eDOS occlusion experiment,
-    inspired by the occlusion technique commonly used in computer vision and pattern recognition.
-    Systematic eDOS experiment was performed to elucidate orbitalwise contributions to
-    the adsorption energies at different energy levels,
-    which produced consistent outcome from Crystal Orbital Hamilton Population (COHP) analysis
-    and real-space wavefunction visualization.
-    All these results justified the proficiency of CNN model on identifying
-    the dominant orbitals for adsorbate-substrate interactions.
-    Furthermore, orbital-wise eDOS shifting experiment, exploring the impact of orbital-wise eDOS shifting
-    on the adsorption behavior of studied catalysts were performed.
+    Building on this, we introduced an orbital-wise eDOS occlusion experiment, inspired by the occlusion technique commonly used in computer vision and pattern recognition.
+    Systematic eDOS experiment was performed to elucidate orbitalwise contributions to the adsorption energies at different energy levels, which produced consistent outcome from Crystal Orbital Hamilton Population (COHP) analysis and real-space wavefunction visualization.
+    All these results justified the proficiency of CNN model on identifying the dominant orbitals for adsorbate-substrate interactions.
+    Furthermore, orbital-wise eDOS shifting experiment, exploring the impact of orbital-wise eDOS shifting on the adsorption behavior of studied catalysts were performed.
 
     Simultaneously, we incorporated the volcano plots into the catalysis performance analysis pipeline.
-    Besides offering intuitive analysis of catalyst activities (represented by the elevation of volcanoes),
-    volcano plots points to the directions on how effort can be exerted to identify promising catalyst candidates.
-    Built upon scaling relations \cite{peterson2012activity}, we introduced a hybrid-descriptor scheme
-    incorporating both C- and O-centered species.
-    The scaling coefficient of determination ($R^2$) was increased by 0.1387 using hybrid descriptor,
-    which demonstrate an improved prediction accuracy compared to the well documented single descriptor based method.
+    Besides offering intuitive analysis of catalyst activities (represented by the elevation of volcanoes), volcano plots points to the directions on how effort can be exerted to identify promising catalyst candidates.
+    Built upon scaling relations \cite{peterson2012activity}, we introduced a hybrid-descriptor scheme incorporating both C- and O-centered species.
+    The scaling coefficient of determination ($R^2$) was increased by 0.1387 using hybrid descriptor, which demonstrate an improved prediction accuracy compared to the well documented single descriptor based method.
 
-    In summary, we introduced a catalyst performance analysis pipeline by
-    integrating CNN and volcano plot analysis, using CO\textsubscript{2}RR as an example proof of concept.
+    In summary, we introduced a catalyst performance analysis pipeline by integrating CNN and volcano plot analysis, using CO\textsubscript{2}RR as an example proof of concept.
     The CNN, which correlates eDOS with activity descriptors, establishes a robust electronic structure-activity relationship.
-    Notably, it is capable to predict the influence of eDOS disturbances,
-    caused by either alloying, strain, or defects \cite{norskov2011density, bera2017density, kusada2019emergence},
-    to modulate the catalytic activity of materials,
-    which will offer insights into the intrinsic mechanism for rationalized catalyst optimization strategies.
-    Advancing the current volcano plot method,
-    the involvement of CNN models in catalyst performance analysis pipeline holds enormous promise
-    for advanced exploration of catalysts with superior performance.
+    Notably, it is capable to predict the influence of eDOS disturbances, caused by either alloying, strain, or defects \cite{norskov2011density, bera2017density, kusada2019emergence}, to modulate the catalytic activity of materials, which will offer insights into the intrinsic mechanism for rationalized catalyst optimization strategies.
+    Advancing the current volcano plot method, the involvement of CNN models in catalyst performance analysis pipeline holds enormous promise for advanced exploration of catalysts with superior performance.
 
 
 \newpage
@@ -166,21 +122,16 @@ George Street, Brisbane, QLD 4000, Australia}
         \centering
         \includegraphics[width=\textwidth]{main_fig2_cnn.pdf}
         \caption{\textbf{CNN for electronic density of states.}
-        \textbf{a}. Kendall rank correlation coefficient map illustrating the correlation
-        between adsorption energy and other electronic and elementary descriptors.
-        Definitions of the notations are provided in
-        Supplementary \cref{supp_table15:descriptor_notations}.
-        \textbf{b}-\textbf{c}. Architectural of (\textbf{b}) the root and
-        (\textbf{c}) each branch of the CNN model.
+        \textbf{a}. Kendall rank correlation coefficient map illustrating the correlation between adsorption energy and other electronic and elementary descriptors.
+        Definitions of the notations are provided in Supplementary \cref{supp_table15:descriptor_notations}.
+        \textbf{b}-\textbf{c}. Architectural of (\textbf{b}) the root and (\textbf{c}) each branch of the CNN model.
         The architecture stays consistent across individual branches.
-        \textbf{d}-\textbf{m}. Parity plots demonstrating the performance of the
-        CNN model across nine adsorbates:
+        \textbf{d}-\textbf{m}. Parity plots demonstrating the performance of the CNN model across nine adsorbates:
         (\textbf{d}) all adsorbates, (\textbf{e}) CO\textsubscript{2}, (\textbf{f}) COOH,
         (\textbf{g}) CO, (\textbf{h}) CHO, (\textbf{i}) CH\textsubscript{2}O,
         (\textbf{j}) OCH\textsubscript{3}, (\textbf{k}) O, (\textbf{l}) OH, and (\textbf{m}) H.
         The augmentation data are not displayed in these plots, nor included in MAE evaluations.
-        Kernel density estimate results are shown along the top and right sides of the main plot,
-        representing DFT calculations and CNN model prediction distributions, respectively.}
+        Kernel density estimate results are shown along the top and right sides of the main plot, representing DFT calculations and CNN model prediction distributions, respectively.}
         \label{main_fig2:cnn_for_eads}
     \end{figure}
 
@@ -348,68 +299,40 @@ George Street, Brisbane, QLD 4000, Australia}
         \centering
         \includegraphics[width=\textwidth]{main_fig5_shifting.pdf}
         \caption{\textbf{eDOS shifting experiments.}
-        Impact of orbitalwise eDOS shifting on CO adsorption energy, as predicted by the CNN model,
-        for single metal atom catalysts supported on g-C\textsubscript{3}N\textsubscript{4}.
-        The disturbances caused by shifting of (\textbf{a}) entire d, (\textbf{b}) $d_{xy}$,
-        (\textbf{c}) $d_{yz}$, (\textbf{d}) $d_{z^2}$, (\textbf{e}) $d_{xz}$ and
-        (\textbf{f}) $d_{x^2-y^2}$ orbitals are illustrated.
-        The shifting step size corresponds to the energy resolution of the eDOS,
-        and is 0.005 eV in this study.
+        Impact of orbitalwise eDOS shifting on CO adsorption energy, as predicted by the CNN model, for single metal atom catalysts supported on g-C\textsubscript{3}N\textsubscript{4}.
+        The disturbances caused by shifting of (\textbf{a}) entire d, (\textbf{b}) $d_{xy}$, (\textbf{c}) $d_{yz}$, (\textbf{d}) $d_{z^2}$, (\textbf{e}) $d_{xz}$ and (\textbf{f}) $d_{x^2-y^2}$ orbitals are illustrated.
+        The shifting step size corresponds to the energy resolution of the eDOS, and is 0.005 eV in this study.
         A positive eDOS shift indicates a shift towards higher energy levels, and vice versa.}
         \label{main_fig5:shifting}
     \end{figure}
 
-    While CNN models excel in prediction of the activity of catalyst candidates directly from eDOS,
-    volcano plots point out directions leading to better catalysts.
-    Exploring potential disturbances to adsorption energies and aiming to shift existing catalyst
-    candidates closer to the peak of the activity volcano plot presents an intriguing avenue of investigation.
-    In this work, we introduce an orbitalwise shifting experiment to explore
-    the impact of orbitalwise eDOS shifting on adsorption behavior.
-    The experiment involved shifting eDOS along the energy axis,
-    and the CNN model was deployed to predict the resultant disturbance
-    in adsorption energy for each shifting operation.
+    While CNN models excel in prediction of the activity of catalyst candidates directly from eDOS, volcano plots point out directions leading to better catalysts.
+    Exploring potential disturbances to adsorption energies and aiming to shift existing catalyst candidates closer to the peak of the activity volcano plot presents an intriguing avenue of investigation.
+    In this work, we introduce an orbitalwise shifting experiment to explore the impact of orbitalwise eDOS shifting on adsorption behavior.
+    The experiment involved shifting eDOS along the energy axis, and the CNN model was deployed to predict the resultant disturbance in adsorption energy for each shifting operation.
     Focusing on all Period 4 metal elements examined in this study, we analyzed the effects of eDOS shifting.
-    To induce a moderate disturbance, we selected the energy range of -1 to 1 eV,
-    and a shifting resolution of 0.005 eV/step was chosen to align with the eDOS calculation resolution.
+    To induce a moderate disturbance, we selected the energy range of -1 to 1 eV, and a shifting resolution of 0.005 eV/step was chosen to align with the eDOS calculation resolution.
 
-    \cref{main_fig5:shifting} illustrates that supported Ga and Ge, the sole p-block metals in our study,
-    exhibited no response to d orbital shifting.
-    This observation is consistent with their lack of d-electrons in their valence shells,
-    reinforcing the reliability of our shifting experiments.
-    We also investigated potential disturbance from p orbital shifting,
-    as shown in Supplementary \cref{supp_fig37:p_shifting} and found no significant response.
-    This implies that Ge@g-C\textsubscript{3}N\textsubscript{4} holds promise as a CO\textsubscript{2}RR electrocatalyst,
-    given its high activity and resilience to electronic structure disturbances.
+    \cref{main_fig5:shifting} illustrates that supported Ga and Ge, the sole p-block metals in our study, exhibited no response to d orbital shifting.
+    This observation is consistent with their lack of d-electrons in their valence shells, reinforcing the reliability of our shifting experiments.
+    We also investigated potential disturbance from p orbital shifting, as shown in Supplementary \cref{supp_fig37:p_shifting} and found no significant response.
+    This implies that Ge@g-C\textsubscript{3}N\textsubscript{4} holds promise as a CO\textsubscript{2}RR electrocatalyst, given its high activity and resilience to electronic structure disturbances.
     Nevertheless, fine-tuning its performance through eDOS modulation might pose a challenge.
     In contrast, supported Fe, Cu and Zn display strong sensitivity to eDOS shifting.
-    Interestingly, the adsorption energy consistently shifted towards more positive values,
-    indicating a weakening of the catalyst-adsorbate interaction,
-    regardless of the shifting direction within the investigated energy range.
-    This underscores the intricate interplay between the supported metal atom and the substrate,
-    emphasizing the necessity of a tool like the CNN model to predict such disturbances.
-    Supported Cr exhibited a contrary response to eDOS shifting, strengthening the
-    interaction with the CO adsorbate regardless of the shifting direction.
-    Supported Ti, V, Co and Ni showed weak response to eDOS shifting,
-    suggesting the need for alternative methods beyond manipulating their eDOS
-    to regulate their interactions with CO adsorbate.
+    Interestingly, the adsorption energy consistently shifted towards more positive values, indicating a weakening of the catalyst-adsorbate interaction, regardless of the shifting direction within the investigated energy range.
+    This underscores the intricate interplay between the supported metal atom and the substrate, emphasizing the necessity of a tool like the CNN model to predict such disturbances.
+    Supported Cr exhibited a contrary response to eDOS shifting, strengthening the interaction with the CO adsorbate regardless of the shifting direction.
+    Supported Ti, V, Co and Ni showed weak response to eDOS shifting, suggesting the need for alternative methods beyond manipulating their eDOS to regulate their interactions with CO adsorbate.
 
-    In summary, shifting experiments offer a valuable means to predict the potential
-    disturbances in adsorption behavior resulting from eDOS shifting,
-    a task that is challenging to accomplish directly within the DFT framework.
-    However, it's important to note that achieving the predicted shifting
-    in actual theoretical or experimental scenarios may not be easily accessible.
-    Skillful manipulation of the electronic structure of catalyst candidates would be required,
-    presenting a practical challenge.
+    In summary, shifting experiments offer a valuable means to predict the potential disturbances in adsorption behavior resulting from eDOS shifting, a task that is challenging to accomplish directly within the DFT framework.
+    However, it's important to note that achieving the predicted shifting in actual theoretical or experimental scenarios may not be easily accessible.
+    Skillful manipulation of the electronic structure of catalyst candidates would be required, presenting a practical challenge.
     At present direct control over the electronic density of states in actual catalytic materials remains an open area of research.
     But emerging approaches, such as defect engineering, doping, and strain modulation, offer potential pathways for indirectly influencing eDOS in real materials.
     These methods have been used to adjust the electronic structure and, consequently, the catalytic activity of materials. While these methods do not enable direct eDOS shifting, but the development of advanced techniques such as in situ spectroscopic methods (e.g., X-ray absorption spectroscopy and electron energy loss spectroscopy) could provide valuable insights into how the eDOS can be tuned, particularly in the context of SACs, where the localized electronic environment around single metal atoms can be finely controlled.
-    In contrast to prior studies on bulk metals \cite{fung2021machine},
-    wherein the adsorption energy exhibits a continuous shift with eDOS variations,
-    the response of SACs is notably discrete.
-    These responses manifest as isolated peaks throughout the shifting range,
-    attributed to the distinctive structure of SACs.
-    Despite this challenge, having a tool that can predict the potential impact of
-    eDOS shifting is advantageous for the theoretical design of SACs.
+    In contrast to prior studies on bulk metals \cite{fung2021machine}, wherein the adsorption energy exhibits a continuous shift with eDOS variations, the response of SACs is notably discrete.
+    These responses manifest as isolated peaks throughout the shifting range, attributed to the distinctive structure of SACs.
+    Despite this challenge, having a tool that can predict the potential impact of eDOS shifting is advantageous for the theoretical design of SACs.
 
     The CNN model used in our study operates in a forward direction—mapping eDOS to predicted catalytic activity (i.e., binding energies).
     However, this approach does not provide a direct pathway to reverse-engineer material structures that possess the desired eDOS characteristics.
@@ -425,29 +348,20 @@ George Street, Brisbane, QLD 4000, Australia}
 \section{Methods}
 
     \subsection{DFT calculations}
-    Spin-polarized density functional theory calculations were performed using
-    the Vienna Ab initio Simulation Package (VASP) version 5.4.4 \cite{kresse1996efficient, kresse1996efficiency, kresse1993ab}
-    to optimize geometries and determine the electronic structure.
-    The Perdew-Burke-Ernzerhof (PBE) functional \cite{kresse1996efficient} within
-    the generalized gradient approximation (GGA) \cite{perdew1996generalized}
-    was utilized to describe the electron-ion interactions and electronic exchange correlations.
+    Spin-polarized density functional theory calculations were performed using the Vienna Ab initio Simulation Package (VASP) version 5.4.4 \cite{kresse1996efficient, kresse1996efficiency, kresse1993ab} to optimize geometries and determine the electronic structure.
+    The Perdew-Burke-Ernzerhof (PBE) functional \cite{kresse1996efficient} within the generalized gradient approximation (GGA) \cite{perdew1996generalized} was utilized to describe the electron-ion interactions and electronic exchange correlations.
     Kohn-Shan equations were approached employing a plane-wave basis set with a cut-off energy of 440 eV.
-    Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of ($2\times2\times1$)
-    until the force on each atom fell below \SI{0.02}{\electronvolt\per\angstrom}.
-    Electronic structure calculations utilized denser K-point meshes of ($3\times3\times1$)
-    and employed self-consistent field (SCF) methods.
+    Geometry optimizations were performed using $\Gamma$-Centered K-point meshes of ($2\times2\times1$) until the force on each atom fell below \SI{0.02}{\electronvolt\per\angstrom}.
+    Electronic structure calculations utilized denser K-point meshes of ($3\times3\times1$) and employed self-consistent field (SCF) methods.
 
 
     \subsection{Catalyst models}
-    Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates,
-    including g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene,
-    graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C\textsubscript{2}N.
+    Supported SACs were modelled by anchoring individual metal atoms onto various 2D substrates, including g-C\textsubscript{3}N\textsubscript{4}, nitrogen-doped graphene, graphene with dual-vacancy, black phosphorous, boron nitride, and monolayer C\textsubscript{2}N.
     The specific single metal atoms studied are outlined in Supplementary \cref{supp_fig1:ptable}.
     To prevent interactions between adjacent images along the z-axis, vacuum layers of 15 \text{\AA} were introduced.
 
     \subsection{CO\texorpdfstring{\textsubscript{2}}{2}RR pathway}
-    The C1 production CO\textsubscript{2}RR pathway, as initially described by Peterson et al. \cite{peterson2010copper}
-    and later confirmed by Jiao et al. \cite{jiao2017molecular} for
+    The C1 production CO\textsubscript{2}RR pathway, as initially described by Peterson et al. \cite{peterson2010copper} and later confirmed by Jiao et al. \cite{jiao2017molecular} for
     g-C\textsubscript{3}N\textsubscript{4} based SACs, involves the following elementary steps.
     Asterisks (*) indicate species adsorbed on the SAC surfaces:
 
@@ -464,20 +378,16 @@ George Street, Brisbane, QLD 4000, Australia}
 
 
     \subsection{Free energy calculations}
-    Free energies were computed from electronic energies by considering thermal corrections,
-    incorporating normal mode analysis of all degrees of freedom of adsorbates.
+    Free energies were computed from electronic energies by considering thermal corrections, incorporating normal mode analysis of all degrees of freedom of adsorbates.
     The free energy $\textit{G}$ was calculated using the formula:
     \begin{align}
     G = E + E_{\text{ZPE}} - TS  \label{main_eq9:free_energy}
     \end{align}
 
-    where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy,
-    $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin,
-    and $\textit{S}$ stands for entropy.
+    where $\textit{G}$ represents the free energy, $\textit{E}$ denotes electronic energy, $\textit{E}_{\text{ZPE}}$ is the zero-point energy, $\textit{T}$ represents temperature in Kevin, and $\textit{S}$ stands for entropy.
     Detailed information regarding these corrections can be found in Supplementary \cref{supp_sec2.3_energies}.
 
-    The computational hydrogen electrode (CHE) model \cite{peterson2010copper, norskov2004origin}
-    was employed to introduce potential dependence.
+    The computational hydrogen electrode (CHE) model \cite{peterson2010copper, norskov2004origin} was employed to introduce potential dependence.
     At the reference electrode surface, the reaction
     \begin{align}
     \ce{1/2H2_{(g)}  <-> H+ + e-}  \label{main_eq10:che}
@@ -486,30 +396,23 @@ George Street, Brisbane, QLD 4000, Australia}
     \begin{align}
     \mu(\mathrm{H}^+) + \mu(e^-) = \frac{1}{2}\mu(\mathrm{H}_{2(\mathrm{g})}) - eU  \label{main_eq11:che_potential}
     \end{align}
-    For the external potential $\textit{U}$ applied, the change in free energy ($\Delta \textit{G}$)
-    was determined using the equation:
+    For the external potential $\textit{U}$ applied, the change in free energy ($\Delta \textit{G}$) was determined using the equation:
     \begin{align}
     \Delta G_n(U) = \Delta G_n(U=0) + neU  \label{main_eq12:ext_potential_che}
     \end{align}
-    Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external potential applied,
-    $\textit{n}$ represents the number of proton-electron pairs transferred,
-    and $\textit{e}$ denotes the elementary charge.
+    Here, $\mu$ represents chemical potential, $\textit{U}$ signifies the external potential applied, $\textit{n}$ represents the number of proton-electron pairs transferred, and $\textit{e}$ denotes the elementary charge.
 
 
     \subsection{Hybrid descriptor for volcano plots}
-    Hybrid descriptors incorporate both descriptors within a single equation,
-    enhancing the accuracy of scaling relationship with minimal computational overhead,
-    as demonstrated in Supplementary \cref{supp_fig16:r2_hyb_des} and Supplementary \cref{supp_table13:scaling_params}.
+    Hybrid descriptors incorporate both descriptors within a single equation, enhancing the accuracy of scaling relationship with minimal computational overhead, as demonstrated in Supplementary \cref{supp_fig16:r2_hyb_des} and Supplementary \cref{supp_table13:scaling_params}.
     Comprehensive analyses are presented Supplementary \cref{supp_sec2.5_scaling}.
     This leads to the formulation of the scaling relation:
     \begin{align}
     G_{\text{ads}} Z =
     k[\theta^* G_{\text{ads}} \ce{CO} + (1-\theta^*) G_{\text{ads}} \ce{OH}] + c_Z  \label{main_eq13:scaling_relation}
     \end{align}
-    Here, $\theta$ represents the mixing ratio of the CO descriptor, $\textit{Z}$ denotes any adsorbate,
-    and $\textit{k}$ and $\textit{c}_{Z}$ are adsorbate-specific scaling parameters.
-    The optimal mixing ratio $\theta$ is determined through iterative exploration across the range,
-    utilizing a step length of 0.01.
+    Here, $\theta$ represents the mixing ratio of the CO descriptor, $\textit{Z}$ denotes any adsorbate, and $\textit{k}$ and $\textit{c}_{Z}$ are adsorbate-specific scaling parameters.
+    The optimal mixing ratio $\theta$ is determined through iterative exploration across the range, utilizing a step length of 0.01.
 
     \ref{main_eq13:scaling_relation} could be simplified to a more general form:
     \begin{align}
@@ -518,8 +421,7 @@ George Street, Brisbane, QLD 4000, Australia}
     \end{align}
     Here, $a_Z$, $b_Z$, $c_Z$ are adsorbate-specific parameters.
 
-    Consequently, the limiting potential $\textit{U}_{L}$ is entirely determined
-    by two descriptors through the following equation:
+    Consequently, the limiting potential $\textit{U}_{L}$ is entirely determined by two descriptors through the following equation:
     \begin{align}
     U_L = -\frac{\max\{ \Delta G_i \}}{e}  \label{main_eq15:limiting_potential}
     \end{align}
@@ -530,60 +432,41 @@ George Street, Brisbane, QLD 4000, Australia}
     U_{sel} = U_{L_{CO_{2}RR}} - U_{L_{HER}}  \label{main_eq16:selectivity}
     \end{align}
 
-    This approach simplifies the theoretical performance assessment of any catalyst
-    within the scope of our research to only two descriptors:
+    This approach simplifies the theoretical performance assessment of any catalyst within the scope of our research to only two descriptors:
     $G_{\textit{ads} \, \textit{CO}}$ and $G_{\textit{ads} \, \textit{OH}}$.
     This method offers a visual representation of the high-dimensional optimization challenge.
-    To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of
-    limiting potentials across the descriptor value ranges.
+    To aid visualization, a 2D mesh grid is established, enabling vectorized assessments of limiting potentials across the descriptor value ranges.
     At each grid point, the limiting potential is computed using \cref{main_eq15:limiting_potential}.
 
 
     \subsection{CNN architecture and hyperparameter tuning}
-    We designed our CNN architecture drawing inspiration from its successful implementation in
-    tasks involving electrocardiogram signal classification \cite{weimann2021transfer},
-    as illustrated in \cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c.
-    This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals
-    while ensuring a reduced memory footprint.
+    We designed our CNN architecture drawing inspiration from its successful implementation in tasks involving electrocardiogram signal classification \cite{weimann2021transfer}, as illustrated in \cref{main_fig2:cnn_for_eads}b and \cref{main_fig2:cnn_for_eads}c.
+    This multi-branched CNN comprises nine branches tailored to handle eDOS orbitals while ensuring a reduced memory footprint.
 
     The effectiveness of neural network models is intricately tied to the choice of hyperparameters.
-    To identify the optimal set of hyperparameters, we employed Hyperband \cite{li2018hyperband},
-    a modern and parallelizable bandit-based optimization algorithm.
-    The search space for hyperparameters is detailed in Supplementary \cref{supp_table16:hyperparam_space},
-    and the resulting optimal hyperparameters are presented in Supplementary \cref{supp_table17:opt_hyperparam}.
+    To identify the optimal set of hyperparameters, we employed Hyperband \cite{li2018hyperband}, a modern and parallelizable bandit-based optimization algorithm.
+    The search space for hyperparameters is detailed in Supplementary \cref{supp_table16:hyperparam_space}, and the resulting optimal hyperparameters are presented in Supplementary \cref{supp_table17:opt_hyperparam}.
 
 
     \subsection{Data augmentation and CNN model training}
-    To enhance the generalizability and robustness of the our CNN model,
-    and achieve comprehensive coverage of the chemical space \cite{DBLP:journals/corr/abs-2112-12542},
-    we applied data augmentation techniques to the initial dataset using the following procedures:
-        - In addition to the designated ``initial state'' of the adsorption process,
-        where the adsorbate positioned 6.5 \text{\AA} above the supported single metal atom,
-        five intermediate images were interpolated.
-        These images were distributed between the initial and final states at a spacing of 0.5 \text{\AA},
-        starting from the initial state side.
-        - A diverse set of smearing techniques was employed to determine of partial occupancies $f_{nk}$,
-        including the tetrahedron method \cite{blochl1994improved} and the Gaussian method.
+    To enhance the generalizability and robustness of the our CNN model, and achieve comprehensive coverage of the chemical space \cite{DBLP:journals/corr/abs-2112-12542}, we applied data augmentation techniques to the initial dataset using the following procedures:
+        - In addition to the designated ``initial state'' of the adsorption process, where the adsorbate positioned 6.5 \text{\AA} above the supported single metal atom, five intermediate images were interpolated.
+        These images were distributed between the initial and final states at a spacing of 0.5 \text{\AA}, starting from the initial state side.
+        - A diverse set of smearing techniques was employed to determine of partial occupancies $f_{nk}$, including the tetrahedron method \cite{blochl1994improved} and the Gaussian method.
         For the Gaussian method, the smearing width was varied within the range of 0.01 eV to 0.1 eV.
-        This careful selection of methods was made to guarantee reliable and consistent predictions
-        of adsorption energies from the model, regardless of the smearing technique used.
+        This careful selection of methods was made to guarantee reliable and consistent predictions of adsorption energies from the model, regardless of the smearing technique used.
 
-    The augmented dataset comprises 12,312 samples, with adsorption energies having
-    a standard deviation of 1.8117 eV and a variance of 3.2821 eV\textsubscript{2}.
+    The augmented dataset comprises 12,312 samples, with adsorption energies having a standard deviation of 1.8117 eV and a variance of 3.2821 eV\textsubscript{2}.
     Twenty percent of these samples were allocated to the validation set.
     Throughout the training process, a batch size of 64 was employed to ensure a balanced learning dynamic.
 
 
     \subsection{eDOS occlusion experiments}
-    Supplementary \cref{supp_fig27:occlusion} visually illustrates the eDOS occlusion
-    experiment methodology. To maintain consistent shapes, zero-padding was applied to the
-    input eDOS arrays. Focusing on understanding the influence of metals on
-    adsorption behavior, a masker with dimensions [width, 1, 1] was employed along
-    the metal channel to eliminate cross-orbital interactions.
-    Here, ``width'' denotes the masker width, and detailed explanations for determining the width
-    are provided in Supplementary \cref{supp_sec3.5_occlusion}.
-    Through recursive application of these maskers, variations in predicted
-    adsorption energies from the CNN model were recorded, generating an occlusion array.
+    Supplementary \cref{supp_fig27:occlusion} visually illustrates the eDOS occlusion experiment methodology.
+    To maintain consistent shapes, zero-padding was applied to the input eDOS arrays.
+    Focusing on understanding the influence of metals on adsorption behavior, a masker with dimensions [width, 1, 1] was employed along the metal channel to eliminate cross-orbital interactions.
+    Here, ``width'' denotes the masker width, and detailed explanations for determining the width are provided in Supplementary \cref{supp_sec3.5_occlusion}.
+    Through recursive application of these maskers, variations in predicted adsorption energies from the CNN model were recorded, generating an occlusion array.
 
 
     \subsection{eDOS shifting experiments}
@@ -591,30 +474,19 @@ George Street, Brisbane, QLD 4000, Australia}
     In this study, the initial electronic density of states underwent controlled shifting along the energy axis.
     This protocol ranges from -1 eV to 1 eV, with a step length of 0.005 eV per image.
     To maintain a uniform energy window, each image underwent cropping and padding procedures.
-    The resulted output arrays took the form of [400, 1] arrays for simultaneous orbital shifting
-    and [400, 9] arrays for individual orbital shifting.
+    The resulted output arrays took the form of [400, 1] arrays for simultaneous orbital shifting and [400, 9] arrays for individual orbital shifting.
     The energy range for shifting was chosen to induce a moderate disturbance to adsorption energy.
 
 
     \subsection{Chemical bond analysis and real-space wavefunction visualization}
-    COHP analysis was performed using the Local-Orbital Basis Suite Towards
-    Electronic-Structure Reconstruction (LOBSTER) package
-    \cite{deringer2011crystal, koga1999analytical, nelson2020lobster, maintz2013analytic, dronskowski1993crystal} version 4.1.0,
-    with the GGA-PBE wavefunctions fitted by S. Maintz \cite{koga1999analytical, maintz2016lobster}.
+    COHP analysis was performed using the Local-Orbital Basis Suite Towards Electronic-Structure Reconstruction (LOBSTER) package \cite{deringer2011crystal, koga1999analytical, nelson2020lobster, maintz2013analytic, dronskowski1993crystal} version 4.1.0, with the GGA-PBE wavefunctions fitted by S. Maintz \cite{koga1999analytical, maintz2016lobster}.
     A Gaussian smearing for energy integration was employed with a broadening width of 0.05 eV.
-    The quantification of bonding strength between the single metal atom and the substrate
-    was achieved through the summation of interactions with neighboring atoms
-    within a range of 0.5 \text{\AA} to 5.0 \text{\AA} from the single metal atom.
-    Orbitals of interest were confirmed through band-structure analysis,
-    and real-space wavefunctions were subsequently visualized using VASPKIT \cite{wang2021vaspkit}
-    and VESTA \cite{momma2008vesta}.
+    The quantification of bonding strength between the single metal atom and the substrate was achieved through the summation of interactions with neighboring atoms within a range of 0.5 \text{\AA} to 5.0 \text{\AA} from the single metal atom.
+    Orbitals of interest were confirmed through band-structure analysis, and real-space wavefunctions were subsequently visualized using VASPKIT \cite{wang2021vaspkit} and VESTA \cite{momma2008vesta}.
 
     \subsection{Machine learning and data analysis environment}
-    The CNN model was implemented using TensorFlow \cite{abadi2016tensorflow},
-    and hyperparameter optimization was conducted using the Hyperband \cite{li2018hyperband} algorithm
-    via KerasTuner \cite{omalley2019kerastuner}.
-    For a more detailed overview of our machine learning setup and data analysis environment,
-    please refer to Supplementary \cref{supp_sec4_env}.
+    The CNN model was implemented using TensorFlow \cite{abadi2016tensorflow}, and hyperparameter optimization was conducted using the Hyperband \cite{li2018hyperband} algorithm via KerasTuner \cite{omalley2019kerastuner}.
+    For a more detailed overview of our machine learning setup and data analysis environment, please refer to Supplementary \cref{supp_sec4_env}.
 
 
 % Code/Data Availability, Acknowledgements, Author Contributions and Competing Interests
@@ -623,41 +495,28 @@ George Street, Brisbane, QLD 4000, Australia}
 
 \newpage
     \section{Code and Data Availability}
-    Essential source code and data required to replicate the study's results-including VASP input files,
-    structure files of SACs, eDOS arrays and the pretrained CNN model-are available on GitHub repository
-    at \url{https://github.com/DanielYang59/cnn4dos}, and can be provided by the corresponding authors upon request.
-    Due to their substantial size in terabytes, the complete source data (complete VASP output files and such)
-    is not currently hosted on publicly available repositories,
-    but can be obtained from the corresponding authors upon request.
+    Essential source code and data required to replicate the study's results-including VASP input files, structure files of SACs, eDOS arrays and the pretrained CNN model-are available on GitHub repository at \url{https://github.com/DanielYang59/cnn4dos}, and can be provided by the corresponding authors upon request.
+    Due to their substantial size in terabytes, the complete source data (complete VASP output files and such) is not currently hosted on publicly available repositories, but can be obtained from the corresponding authors upon request.
 
 
     \section{Acknowledgements}
-    We acknowledge funding support from the Australian Research Council
-    (FT160100281, FT180100387, DP200103568, DP230101625).
+    We acknowledge funding support from the Australian Research Council (FT160100281, FT180100387, DP200103568, DP230101625).
     The QUT eResearch Office provided computational resources and services used in this work.
-    This research was undertaken with the assistance of resources and services from
-    the National Computational Infrastructure (NCI), supported by the Australian Government.
-    It was also supported by resources provided by the Pawsey Supercomputing Research Centre
-    with funding from the Australian Government and the Government of Western Australia.
-    Insights into deep learning methodologies were contributed by Mr. Yanwei Guan
-    from Chongqing University and Mr. Zhipeng He from Assoc. Prof. Chun Ouyang's team at QUT.
-    The machine learning and data analysis implementation benefited from
-    resources provided by the GitHub, TensorFlow and Stack Overflow communities.
-    Dr. Ryky Nelson from RWTH Aachen University offered valuable guidance on
-    Crystal Orbital Hamilton Population analysis.
+    This research was undertaken with the assistance of resources and services from the National Computational Infrastructure (NCI), supported by the Australian Government.
+    It was also supported by resources provided by the Pawsey Supercomputing Research Centre with funding from the Australian Government and the Government of Western Australia.
+    Insights into deep learning methodologies were contributed by Mr. Yanwei Guan from Chongqing University and Mr. Zhipeng He from Assoc. Prof. Chun Ouyang's team at QUT.
+    The machine learning and data analysis implementation benefited from resources provided by the GitHub, TensorFlow and Stack Overflow communities.
+    Dr. Ryky Nelson from RWTH Aachen University offered valuable guidance on Crystal Orbital Hamilton Population (COHP) analysis.
 
 
     \section{Author Contributions}
-    H.Y. performed DFT calculations, implemented Python code for
-    machine learning methodologies and data analysis,
-    and drafted and refined the manuscript.
+    H.Y. performed DFT calculations, implemented Python code for machine learning methodologies and data analysis, and drafted and refined the manuscript.
     J.Z. engaged in valuable discussions on DFT calculations.
     Q.W. provided advice on the computer code revisions.
     B.L. provided guidance on DFT calculations and offered research supervision.
     W.L. facilitated resource acquisition and offered research supervision.
     Z.S. initiated the research concept, contributed to manuscript revisions, and supervised the overall research.
-    T.L. guided DFT calculations and data analysis, offering continuous supervision
-    throughout the research and manuscript drafting.
+    T.L. guided DFT calculations and data analysis, offering continuous supervision throughout the research and manuscript drafting.
 
 
     \section{Competing Interests}
