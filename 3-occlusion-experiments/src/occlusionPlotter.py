@@ -177,7 +177,7 @@ class OcclusionPlotter:
             ax.set_xlim(self.config["plotting"]["plot_energy_range"])
             ax.set_xticks(np.arange(-10, 5 + 2.5, 2.5))
             ax.tick_params(
-                axis="both", which="major", labelsize=20, width=2.5, length=5
+                axis="both", which="major", labelsize=28, width=2.5, length=5
             )
 
             # Add orbital names to the left
@@ -201,7 +201,7 @@ class OcclusionPlotter:
         # Set x/y axis labels
         # TODO: increase fontsize further would lead to overlap
         mpl.rcParams["mathtext.default"] = "regular"  # non-Italic
-        fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=36, x=0.45)
+        fig.supxlabel("$\mathit{E}-\mathit{E}_f$ (eV)", fontsize=38, x=0.45)
         fig.subplots_adjust(bottom=0.12)  # adjust x-axis title position
 
         # Add colorbar
@@ -209,9 +209,9 @@ class OcclusionPlotter:
             im,
             ax=axs.ravel().tolist(),
         )
-        cb.set_label("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=36)
+        cb.set_label("$\Delta\mathit{E}_{ads}$ (eV)", fontsize=40)
         cb.outline.set_visible(False)  # hide border
-        cb.ax.tick_params(labelsize=24, width=2.5)  # set tick style
+        cb.ax.tick_params(labelsize=28, width=2.5)  # set tick style
         cb.locator = ticker.MaxNLocator(5)  # set number of ticks
         cb.update_ticks()
 

@@ -48,6 +48,7 @@ def get_fermi_level(working_dir: str, fermi_level_source: str) -> float:
     fermi_level_source = Path(fermi_level_source)
 
     substrate, adsorbate, state, metal = get_properties_from_path(working_dir)
+    adsorbate = adsorbate.split("-")[-1]  # extract adsorbate "CO" from "3-CO"
 
     csv_file = fermi_level_source / f"{substrate}-{state}.csv"
     if not csv_file.exists():
