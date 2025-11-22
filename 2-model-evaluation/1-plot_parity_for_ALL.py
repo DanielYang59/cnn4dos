@@ -183,7 +183,7 @@ if __name__ == "__main__":
     # Set x/y major ticks and font size
     g.ax_joint.set_xticks([-10, -5, 0])
     g.ax_joint.set_yticks([-10, -5, 0])
-    g.ax_joint.tick_params(axis="both", labelsize=25, width=2.5, size=5)
+    g.ax_joint.tick_params(axis="both", labelsize=28, width=2.5, size=5)
 
     # Hide side plot ticks
     g.ax_marg_x.xaxis.set_ticks_position("none")
@@ -191,7 +191,7 @@ if __name__ == "__main__":
 
     # Add MAE text
     mae = np.absolute(np.subtract(labels, predictions)).mean()
-    g.ax_joint.text(-8.5, -10, f"MAE = {'%.2f' % mae} eV", fontsize=28)
+    g.ax_joint.text(-8.5, -10, f"MAE = {'%.2f' % mae} eV", fontsize=30)
     print(f"MAE is {mae} eV.")
 
     # Calculate R2 score and print
