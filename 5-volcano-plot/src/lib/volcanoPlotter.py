@@ -350,7 +350,7 @@ class volcanoPlotter:
 
         return limiting_potential_mesh, rds_mesh
 
-    def __set_figure_style(self, plt, fig=None) -> Tuple[plt, Optional[Figure]]:
+    def __set_figure_style(self, plt, fig=None) -> tuple:
         """Set figure-wide styles.
 
         Args:

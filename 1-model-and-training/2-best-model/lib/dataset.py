@@ -173,7 +173,7 @@ class Dataset:
         self.numFeature = len(feature_data)
         self.featureKeySep = keysep
 
-    def scale_feature(self, mode) - None:
+    def scale_feature(self, mode) -> None:
         """Scale feature arrays.
 
         Args:
