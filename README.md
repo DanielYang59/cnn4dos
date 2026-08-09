@@ -1,6 +1,6 @@
 # MPhil Research Project at QUT: Convolutional Neural Networks and Volcano Plots: Screening and Prediction of Two-Dimensional Single-Atom Catalysts
 
-[![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876) [![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
+[![Cell Reports Physical Science](https://img.shields.io/badge/Cell_Reports_Physical_Science-2026-3f51b5.svg)](https://www.cell.com/cell-reports-physical-science/fulltext/S2666-3864(25)00659-9) [![arXiv](https://img.shields.io/badge/arXiv-2402.03876-b31b1b.svg)](https://arxiv.org/abs/2402.03876) [![MPhil Thesis](https://img.shields.io/badge/MPhil_Thesis-241290-b31b1b.svg)](https://eprints.qut.edu.au/241290/)
 
 ## Overview
 
@@ -20,9 +20,21 @@ This project investigated the CO<sub>2</sub> reduction to CH<sub>4</sub> reactio
 
 ## Citation
 
-If you find this work beneficial, kindly consider citing the [arXiv preprint](https://arxiv.org/abs/2402.03876) or [MPhil Thesis](https://eprints.qut.edu.au/241290/) (and a Journal Paper is in progress with my supervisory team).
+If you find this work beneficial, kindly consider citing the published paper:
+
+> Yang H, Zhao J, Wang Q, Liu B, Luo W, Sun Z, Liao T. Convolutional neural networks and volcano plots for screening and predicting two-dimensional single-atom catalysts in CO2 reduction. *Cell Reports Physical Science*, 2026; 7. https://www.cell.com/cell-reports-physical-science/fulltext/S2666-3864(25)00659-9
+
+You may also cite the [arXiv preprint](https://arxiv.org/abs/2402.03876) or [MPhil Thesis](https://eprints.qut.edu.au/241290/) as follows:
 
 ```
+@article{yang2026convolutional,
+      title={Convolutional neural networks and volcano plots for screening and predicting two-dimensional single-atom catalysts in CO2 reduction},
+      author={Yang, Haoyu and Zhao, Juanli and Wang, Qiankun and Liu, Bin and Luo, Wei and Sun, Ziqi and Liao, Ting},
+      journal={Cell Reports Physical Science},
+      year={2026},
+      volume={7}
+}
+
 @misc{yang2024convolutional,
       title={Convolutional Neural Networks and Volcano Plots: Screening and Prediction of Two-Dimensional Single-Atom Catalysts},
       author={Haoyu Yang and Juanli Zhao and Qiankun Wang and Bin Liu and Wei Luo and Ziqi Sun and Ting Liao},
@@ -57,6 +69,7 @@ I have provided as much resource data (VASP structures, eDOSs) as possible in th
 
 ## References
 
+- [The Cell Reports Physical Science paper](https://www.cell.com/cell-reports-physical-science/fulltext/S2666-3864(25)00659-9)
 - [My MPhil Thesis](https://eprints.qut.edu.au/241290/)
 - [The arXiv Preprint](https://arxiv.org/abs/2402.03876)
 - [Victor\'s Inspiring work on bimetallic surfaces](https://www.nature.com/articles/s41467-020-20342-6)
